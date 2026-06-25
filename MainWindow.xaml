@@ -48,9 +48,19 @@
 
             <!-- Top Tab Bar - macOS pill style -->
             <Border Grid.Row="1" Background="{StaticResource BgDarkestBrush}" Padding="10,6,10,6" BorderThickness="0,0,0,1" BorderBrush="#222">
-                <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled" PanningMode="HorizontalOnly">
-                    <StackPanel x:Name="TabContainer" Orientation="Horizontal">
-                        <Button Content="Abogado" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="Abogado"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Button Grid.Column="0" Content="&lt;" Style="{StaticResource TabButton}" Padding="8,0" Margin="0,0,5,0" Click="ScrollLeft_Click" ToolTip="Scroll Left"/>
+                    
+                    <ScrollViewer x:Name="TabScrollViewer" Grid.Column="1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled" PanningMode="HorizontalOnly" PreviewMouseWheel="TabScrollViewer_PreviewMouseWheel">
+                        <StackPanel x:Name="TabContainer" Orientation="Horizontal">
+                        <Button Content="Abogado (Script)" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="AbogadoSdk"/>
+                        <Button Content="Abogado (Graphics)" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="AbogadoKg"/>
                         <Button Content="Buriko" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="BGI"/>
                         <Button Content="CodeXR" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="CodeXR"/>
                         <Button Content="Fuzz Inc." Style="{StaticResource TabButton}" Click="Nav_Click" Tag="FSN"/>
@@ -65,7 +75,10 @@
                         <Button Content="TYPE-MOON" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="MeltyBlood"/>
                         <Button Content="YOX" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="Musicus"/>
                     </StackPanel>
-                </ScrollViewer>
+                    </ScrollViewer>
+                    
+                    <Button Grid.Column="2" Content="&gt;" Style="{StaticResource TabButton}" Padding="8,0" Margin="5,0,0,0" Click="ScrollRight_Click" ToolTip="Scroll Right"/>
+                </Grid>
             </Border>
 
             <!-- Main Content Area -->

@@ -52,6 +52,26 @@ namespace NicheStudioWeirdo
                 this.WindowState = WindowState.Normal;
         }
 
+        // Horizontal Tab Scrolling
+        private void TabScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+                TabScrollViewer.LineLeft();
+            else
+                TabScrollViewer.LineRight();
+            e.Handled = true;
+        }
+
+        private void ScrollLeft_Click(object sender, RoutedEventArgs e)
+        {
+            TabScrollViewer.PageLeft();
+        }
+
+        private void ScrollRight_Click(object sender, RoutedEventArgs e)
+        {
+            TabScrollViewer.PageRight();
+        }
+
         // Guide Toggle
         private void GuideToggle_Click(object sender, RoutedEventArgs e)
         {
@@ -66,7 +86,8 @@ namespace NicheStudioWeirdo
                 "WagaHime" => "WagaHime (ACV1) Guide:\n1. Target .dat Archive: Browse to the original .dat file you wish to unpack.\n2. Click Unpack to extract its contents.\n3. Extracted Folder: Browse to the folder containing your modified files.\n4. Click Repack. WARNING: Repacking requires the ORIGINAL .dat file to be selected in the first field as a reference to generate the new .dat.",
                 "FSN" => "FSN Remastered Guide:\n1. Decompile: Select a .bin script file. It will be decompiled to a .json file for editing.\n2. Compile: Select your modified .json file. It will be compiled back into a .bin script.\n3. Do not modify the JSON structure, only edit the translation strings.",
                 "WA2" => "WA2 Arch Guide:\n1. Select a .pak archive.\n2. Click Unpack to extract all contents to a folder.\n3. Edit the necessary files inside the extracted folder.\n4. To Repack, select the extracted folder and click Repack.",
-                "Abogado" => "Abogado Engine Guide:\n1. Unpack .kg archives using the Archive Tool.\n2. Repack the folder back into .kg once finished.\n3. Use the SDK converters if you need to manipulate specific image or script formats.",
+                "AbogadoSdk" => "Abogado Script (SDK) Guide:\nAlur kerja: Parse → Edit JSON → Inject.\n1. Parse SCF -> JSON: Pilih file .SCF, klik Parse. Hasilnya berupa .json berisi semua dialog.\n2. Edit JSON: Buka file .json dengan text editor, terjemahkan / edit teks. Jangan ubah struktur key JSON.\n3. Inject Translation: Pilih .json hasil terjemahan (Translation JSON) dan .SCF aslinya, lalu klik Inject.\n4. Verify Integrity: Jalankan setelah inject untuk memastikan file .SCF tidak rusak.",
+                "AbogadoKg" => "Abogado Graphics (KG) Guide:\nAlur kerja: Extract via GARbro → Edit PNG → Pack KG → Patch DSK.\n1. PNG Source Folder: Arahkan ke folder yang berisi file .png hasil ekstrak (dari GARbro atau tool serupa).\n2. PNG -> KG Convert: Konversi file .png di folder tersebut kembali ke format .KG. Hasil tersimpan di subfolder packed_kg/ secara otomatis. Pastikan kg_metadata.json ada di folder agar BPP (8/24/32bpp) akurat.\n3. Target DSK + PFT: Pilih file arsip .DSK dan file index .PFT pasangannya (keduanya wajib untuk patch/rebuild).\n4. Patch DSK In-place: Suntik hanya file .KG yang dimodifikasi ke dalam arsip tanpa rebuild penuh. Ukuran file TIDAK boleh melebihi slot asli di .PFT.\n5. Rebuild Full DSK: Bangun ulang arsip .DSK dari nol. Gunakan ini jika menambahkan file baru.",
                 "HuneX" => "HuneX (TsukiRe) Guide:\n1. MRG Tool: Unpack .mrg archives to folders and repack them.\n2. TXT/CSV Tool: Convert script .txt files to .csv for translation, and repack .csv back to .txt.\n3. Graphics Tool: Convert .dtx / .txa images to .png. To encode back, you MUST select the original .dtx/.txa file as a reference alongside your edited .png.",
                 "HuneXMahoyo" => "HuneX (Mahoyo) Guide:\n1. HFA Tool: Unpack .hfa archives to a folder, and repack the folder to a new .hfa.\n2. Single Files (.ctd, .cbg, .mzp): Use Decode/Decompress to extract script (.txt) or images (.png).\n3. Encode/Compress: Select your modified .txt/.png AND the original .ctd/.cbg/.mzp file. The original is strictly required as a reference to rebuild the file.",
                 "BGI" => "BGI Translator Guide:\n1. Decompile: Select BGI script files to convert them to human-readable TXT.\n2. Compile: Rebuild the translated TXT back into BGI bytecode.",
@@ -102,7 +123,8 @@ namespace NicheStudioWeirdo
                     "WagaHime"  => new WagaHimeView(),
                     "FSN"       => new FSNRemasteredView(),
                     "WA2"       => new WA2ArchView(),
-                    "Abogado"   => new AbogadoView(),
+                    "AbogadoSdk"=> new AbogadoSdkView(),
+                    "AbogadoKg" => new AbogadoKgView(),
                     "HuneX"     => new HuneXView(),
                     "HuneXMahoyo" => new HuneXMahoyoView(),
                     "BGI"       => new BGIView(),
