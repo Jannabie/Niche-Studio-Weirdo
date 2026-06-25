@@ -68,7 +68,7 @@ namespace NicheStudioWeirdo.Views
             _ = ToolRunner.RunAsync(WorkspaceTxt.Text, ExkizpakTxt.Text, arguments, main);
         }
 
-        private void Repack_Click(object sender, RoutedEventArgs e)
+        private async void Repack_Click(object sender, RoutedEventArgs e)
         {
             var main = (MainWindow)Window.GetWindow(this);
 
@@ -78,27 +78,10 @@ namespace NicheStudioWeirdo.Views
                 return;
             }
 
-            // For repacking, we use kcap_repack.py from the WA2-Arch repo.
-            // Command: python kcap_repack.py <extracted_folder> <output.pak>
-            string repoDir = Path.Combine(SettingsManager.Config.ReposPath, "WA2-Arch", "WA2-Arch-main");
-            string py = SettingsManager.Config.PythonPath;
-
-            if (string.IsNullOrWhiteSpace(py) || !File.Exists(py))
-            {
-                main.LogToConsole("[ERROR] Python not found. Please set Python path in Settings.");
-                return;
-            }
-
-            string kcapScript = Path.Combine(repoDir, "kcap_repack.py");
-            if (!File.Exists(kcapScript))
-            {
-                main.LogToConsole($"[ERROR] kcap_repack.py not found at: {kcapScript}");
-                main.LogToConsole("Please make sure the WA2-Arch repo is inside your repos folder.");
-                return;
-            }
-
-            // The workspace folder should contain only the extracted subfolder (e.g. "script/").
-            // Output .pak will be placed next to the workspace.
+            // Find the extracted folder inside the workspace.
+            // When unpacking `en.pak`, the files are either dropped directly into the Workspace
+            // or put into a subfolder. Let's repack whatever is inside the workspace.
+            
             string pakName = Path.GetFileName(PakFileTxt.Text);
             if (string.IsNullOrWhiteSpace(pakName)) pakName = "output.pak";
 
@@ -106,12 +89,13 @@ namespace NicheStudioWeirdo.Views
                 Path.GetDirectoryName(WorkspaceTxt.Text) ?? WorkspaceTxt.Text,
                 "repacked_" + pakName);
 
-            main.LogToConsole($"WA2: Repacking {WorkspaceTxt.Text} -> {outPak}");
-            main.LogToConsole($"> python kcap_repack.py \"{WorkspaceTxt.Text}\" \"{outPak}\"");
-
-            // python kcap_repack.py <folder> <output.pak>
-            string args = $"kcap_repack.py \"{WorkspaceTxt.Text}\" \"{outPak}\"";
-            _ = ToolRunner.RunAsync(repoDir, py, args, main);
+            main.LogToConsole($"WA2: Native Repacking {WorkspaceTxt.Text} -> {outPak}");
+            
+            // Run native C# KCAP repacker (no Python required!)
+            await Utils.KcapRepacker.RepackAsync(WorkspaceTxt.Text, outPak, (msg) => 
+            {
+                main.Dispatcher.Invoke(() => main.LogToConsole(msg));
+            });
         }
     }
 }
