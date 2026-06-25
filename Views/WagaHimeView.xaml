@@ -1,0 +1,80 @@
+﻿<UserControl x:Class="NicheStudioWeirdo.Views.WagaHimeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Minato (New)" Style="{StaticResource HeaderStyle}"/>
+        <TextBlock Grid.Row="1" Text="Extract and Repack ACV1 (.dat) archives and parse scripts to JSON/CSV." Style="{StaticResource SubheaderStyle}"/>
+
+        <Border Grid.Row="2" Background="{StaticResource BgDarkestBrush}" CornerRadius="0" Padding="20" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}">
+            <StackPanel>
+                <Grid Margin="0,0,0,15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="10"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Master Hex Key" Style="{StaticResource LabelStyle}"/>
+                        <TextBox x:Name="MasterKeyTxt" Text="0x8B6A4E5F" Style="{StaticResource TextBoxStyle}"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="Script Hex Key" Style="{StaticResource LabelStyle}"/>
+                        <TextBox x:Name="ScriptKeyTxt" Text="0x3793B711" Style="{StaticResource TextBoxStyle}"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Margin="0,0,0,15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                        <TextBlock Text="Zlib Compression Level (0-9)" Style="{StaticResource LabelStyle}"/>
+                        <Slider x:Name="ZlibSlider" Minimum="0" Maximum="9" Value="9" TickFrequency="1" IsSnapToTickEnabled="True" Margin="0,10,20,0"/>
+                    </StackPanel>
+                    <TextBlock Grid.Column="1" Text="{Binding ElementName=ZlibSlider, Path=Value}" Foreground="{StaticResource AccentBlueBrush}" FontSize="24" FontWeight="Bold" VerticalAlignment="Center"/>
+                </Grid>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                    <CheckBox x:Name="SkipRawChk" Content="Skip raw" Foreground="{StaticResource TextLightBrush}" Margin="0,0,20,0"/>
+                    <CheckBox x:Name="SkipTextChk" Content="Skip text" Foreground="{StaticResource TextLightBrush}"/>
+                </StackPanel>
+
+                <!-- Unpack/Repack Target .dat -->
+                <TextBlock Text="Target .dat Archive (Used for Unpack &amp; Repack)" Style="{StaticResource LabelStyle}"/>
+                <Grid Margin="0,0,0,15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="DatFileTxt" Style="{StaticResource TextBoxStyle}"/>
+                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseDat_Click"/>
+                </Grid>
+
+                <!-- Extracted Folder Target -->
+                <TextBlock Text="Extracted Folder (Used for Repack)" Style="{StaticResource LabelStyle}"/>
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="ExtractedDirTxt" Style="{StaticResource TextBoxStyle}"/>
+                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseDir_Click"/>
+                </Grid>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="Unpack .dat" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="Unpack_Click"/>
+                    <Button Content="Repack .dat" Style="{StaticResource ActionButtonGreen}" Click="Repack_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

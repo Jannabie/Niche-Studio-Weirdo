@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="NicheStudioWeirdo.Views.MalieKitView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Malie" Style="{StaticResource HeaderStyle}"/>
+        <TextBlock Grid.Row="1" Text="Decrypt .dat/.lib, convert MGF graphics, export/inject Names and Dialog separately." Style="{StaticResource SubheaderStyle}"/>
+
+        <StackPanel Grid.Row="2">
+            <!-- Tab Buttons -->
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="TabArchive" Content="Archive (.dat / .lib)" Style="{StaticResource BrowseButton}" Click="SwitchTab_Click" Tag="ARCHIVE" Margin="0,0,4,0"/>
+                <Button x:Name="TabScript" Content="Script Translation" Style="{StaticResource BrowseButton}" Click="SwitchTab_Click" Tag="SCRIPT" Margin="0,0,4,0"/>
+                <Button x:Name="TabGfx" Content="Graphics (MGF)" Style="{StaticResource BrowseButton}" Click="SwitchTab_Click" Tag="GFX"/>
+            </StackPanel>
+
+            <!-- Archive Panel -->
+            <Border x:Name="PanelArchive" Background="{StaticResource BgDarkestBrush}" CornerRadius="0" Padding="20" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}">
+                <StackPanel>
+                    <TextBlock Text="ARCHIVE FILE (.DAT OR .LIB)" Style="{StaticResource LabelStyle}"/>
+                    <Grid Margin="0,0,0,20">
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                        <TextBox x:Name="ArchiveTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                        <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseArchive_Click"/>
+                    </Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Decrypt Archive" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="Decrypt_Click"/>
+                        <Button Content="Re-encrypt Archive" Style="{StaticResource ActionButtonGreen}" Click="Encrypt_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Script Panel (hidden) -->
+            <Border x:Name="PanelScript" Background="{StaticResource BgDarkestBrush}" CornerRadius="0" Padding="20" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}" Visibility="Collapsed">
+                <StackPanel>
+                    <Border Background="#0F1E2E" CornerRadius="0" Padding="12" Margin="0,0,0,16" BorderThickness="1" BorderBrush="#1E3A5A">
+                        <TextBlock Text="Character Names and Dialog must be patched in separate passes. Export Names FIRST before exporting Dialog." 
+                                   Foreground="#4A7099" FontSize="12" TextWrapping="Wrap"/>
+                    </Border>
+                    <TextBlock Text="SCRIPT DIRECTORY" Style="{StaticResource LabelStyle}"/>
+                    <Grid Margin="0,0,0,20">
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                        <TextBox x:Name="ScriptDirTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                        <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseScriptDir_Click"/>
+                    </Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="Export Names" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="ExportNames_Click"/>
+                        <Button Content="Export Dialog" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="ExportDialog_Click"/>
+                        <Button Content="Patch Names" Style="{StaticResource ActionButtonGreen}" Margin="0,0,8,0" Click="PatchNames_Click"/>
+                        <Button Content="Patch Dialog" Style="{StaticResource ActionButtonGreen}" Click="PatchDialog_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Graphics Panel (hidden) -->
+            <Border x:Name="PanelGfx" Background="{StaticResource BgDarkestBrush}" CornerRadius="0" Padding="20" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}" Visibility="Collapsed">
+                <StackPanel>
+                    <TextBlock Text="IMAGE FOLDER" Style="{StaticResource LabelStyle}"/>
+                    <Grid Margin="0,0,0,20">
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                        <TextBox x:Name="ImageFolderTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                        <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseImageFolder_Click"/>
+                    </Grid>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="MGF -> PNG" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="MgfToPng_Click"/>
+                        <Button Content="PNG -> MGF" Style="{StaticResource ActionButtonGreen}" Click="PngToMgf_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </Grid>
+</UserControl>

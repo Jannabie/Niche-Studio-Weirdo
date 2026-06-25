@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="NicheStudioWeirdo.Views.MinoriView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Minori" Style="{StaticResource HeaderStyle}"/>
+        <TextBlock Grid.Row="1" Text="Unpack .paz archives and repack folders using fuckpaz.exe. Select game index from the list." Style="{StaticResource SubheaderStyle}"/>
+
+        <Border Grid.Row="2" Background="{StaticResource BgDarkestBrush}" CornerRadius="0" Padding="20" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}">
+            <StackPanel>
+                <!-- Game Index -->
+                <TextBlock Text="GAME INDEX" Style="{StaticResource LabelStyle}"/>
+                <ComboBox x:Name="GameIndexCombo" Margin="0,0,0,20" Padding="8,6" FontSize="12" SelectedIndex="0"
+                          Background="{StaticResource BgDarkestBrush}" Foreground="{StaticResource TextLightBrush}" BorderBrush="{StaticResource BorderBrush2}">
+                    <ComboBoxItem Content="0  Eef - the first tale (jp)"/>
+                    <ComboBoxItem Content="1  Eef - the first tale (en)"/>
+                    <ComboBoxItem Content="2  Eef - the first tale (en steam)"/>
+                    <ComboBoxItem Content="3  Eef - the latter tale (jp)"/>
+                    <ComboBoxItem Content="4  Eef - the latter tale (en NNL)"/>
+                    <ComboBoxItem Content="5  Eef - the latter tale (en)"/>
+                    <ComboBoxItem Content="6  Eef - the latter tale (en steam)"/>
+                    <ComboBoxItem Content="7  Eeden* (jp)"/>
+                    <ComboBoxItem Content="8  Eeden* (en steam)"/>
+                    <ComboBoxItem Content="9  Eeden* PLUS+MOSAIC (en steam)"/>
+                    <ComboBoxItem Content="10  EMashiro Iro Symphony (jp)"/>
+                    <ComboBoxItem Content="11  ERiddle Garden (jp)"/>
+                    <ComboBoxItem Content="12  ESteal My Heart ~Rhapsody of Moonlight~ (jp)"/>
+                    <ComboBoxItem Content="13  ETenshi no Nichiyoubi (ef a fairy tale of the two.)"/>
+                    <ComboBoxItem Content="14  ESupipara Story #01 - Spring Has Come! (jp)"/>
+                    <ComboBoxItem Content="15  ENatsuzora no Perseus (jp)"/>
+                    <ComboBoxItem Content="16  E12 no Tsuki no Eve (jp)"/>
+                    <ComboBoxItem Content="17  ESoreyori no Prologue (jp)"/>
+                    <ComboBoxItem Content="18  ESoreyori no Prologue Append H (jp)"/>
+                    <ComboBoxItem Content="19  ETsumi no Hikari Rendezvous (jp)"/>
+                    <ComboBoxItem Content="20  ETsumi no Hikari Rendezvous Mikan Blossom (jp)"/>
+                    <ComboBoxItem Content="21  ETrinoline (jp)"/>
+                    <ComboBoxItem Content="22  ETrinoline (en steam)"/>
+                    <ComboBoxItem Content="23  ETrinoline: Genesis (jp)"/>
+                    <ComboBoxItem Content="24  ETrinoline: Genesis steam (en)"/>
+                    <ComboBoxItem Content="25  ESono Hi no Kemono ni wa, (jp)"/>
+                </ComboBox>
+
+                <!-- PAZ File (for Unpack) -->
+                <TextBlock Text="TARGET .PAZ FILE (UNPACK)" Style="{StaticResource LabelStyle}"/>
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <TextBox x:Name="PazFileTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowsePaz_Click"/>
+                </Grid>
+
+                <!-- Output Folder -->
+                <TextBlock Text="OUTPUT FOLDER" Style="{StaticResource LabelStyle}"/>
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <TextBox x:Name="FolderTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseFolder_Click"/>
+                </Grid>
+
+                <!-- Output PAZ (for Repack) -->
+                <TextBlock Text="OUTPUT .PAZ NAME (REPACK)" Style="{StaticResource LabelStyle}"/>
+                <TextBox x:Name="OutputPazTxt" Style="{StaticResource TextBoxStyle}" Margin="0,0,0,24" Text="scr_patched.paz"/>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="Unpack PAZ" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="Unpack_Click"/>
+                    <Button Content="Repack PAZ" Style="{StaticResource ActionButtonGreen}" Click="Repack_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

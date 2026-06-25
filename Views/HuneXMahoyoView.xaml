@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="NicheStudioWeirdo.Views.HuneXMahoyoView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="HuneX (Mahoyo)" Style="{StaticResource HeaderStyle}"/>
+        <TextBlock Grid.Row="1" Text="Tools for Witch on the Holy Night Remastered (.hfa, .ctd, .cbg, .mzp)" Style="{StaticResource SubheaderStyle}"/>
+
+        <Border Grid.Row="2" Background="{StaticResource BgDarkestBrush}" CornerRadius="0" Padding="20" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}">
+            <StackPanel>
+                
+                <!-- HFA Tool -->
+                <TextBlock Text="HFA Archive Tool" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,10"/>
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <TextBox x:Name="HfaFileTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select .hfa file..."/>
+                    <Button Grid.Column="1" Content="Browse .hfa" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseHfa_Click"/>
+                </Grid>
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <TextBox x:Name="HfaFolderTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select folder (for repack)..."/>
+                    <Button Grid.Column="1" Content="Browse Dir" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseHfaFolder_Click"/>
+                </Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,20">
+                    <Button Content="Unpack HFA" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="UnpackHfa_Click"/>
+                    <Button Content="Repack HFA" Style="{StaticResource ActionButtonGreen}" Click="RepackHfa_Click"/>
+                </StackPanel>
+
+                <!-- Single File Tools (CTD, CBG, MZP) -->
+                <TextBlock Text="CTD / CBG / MZP File Tools" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,10"/>
+                
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <TextBox x:Name="OriginalFileTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select original .ctd/.cbg/.mzp file..."/>
+                    <Button Grid.Column="1" Content="Browse Orig" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseOrig_Click"/>
+                </Grid>
+                
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <TextBox x:Name="ModdedFileTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select modded .txt/.png (for encode/compress)..."/>
+                    <Button Grid.Column="1" Content="Browse Mod" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseMod_Click"/>
+                </Grid>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="Decompress / Decode" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="Decode_Click"/>
+                    <Button Content="Compress / Encode" Style="{StaticResource ActionButtonGreen}" Click="Encode_Click"/>
+                </StackPanel>
+
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

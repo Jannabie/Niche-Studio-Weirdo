@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="NicheStudioWeirdo.Views.MusicusView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="YOX" Style="{StaticResource HeaderStyle}"/>
+        <TextBlock Grid.Row="1" Text="Follow the 4-step workflow carefully - manifest.json must be preserved across steps." Style="{StaticResource SubheaderStyle}"/>
+        <Border Grid.Row="2" Background="{StaticResource BgDarkestBrush}" CornerRadius="0" Padding="20" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}">
+            <StackPanel>
+                <Border Background="#0F1E2E" CornerRadius="0" Padding="12" Margin="0,0,0,20" BorderThickness="1" BorderBrush="#1E3A5A">
+                    <TextBlock Text="This engine uses a two-stage pipeline: .dat to .dec to JSON (for editing) to .dec to .dat. Complete each step in order or the manifest.json will lose its context and repacking will fail." Foreground="#5B8DB8" FontSize="12" TextWrapping="Wrap"/>
+                </Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" Background="{StaticResource BgDarkerBrush}" CornerRadius="0" Padding="15" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}">
+                        <StackPanel>
+                            <TextBlock Text="STEP 1" Foreground="{StaticResource AccentBlueBrush}" FontSize="11" FontWeight="Bold"/>
+                            <TextBlock Text="Unpack DAT" Foreground="{StaticResource TextLightBrush}" FontSize="14" FontWeight="SemiBold" Margin="0,5,0,10"/>
+                            <TextBlock Text=".dat to .dec" Foreground="{StaticResource TextMutedBrush}" FontSize="12" Margin="0,0,0,15"/>
+                            <Button Content="Browse .dat" Style="{StaticResource BrowseButton}" Padding="10,8" Click="BrowseDat_Click" Margin="0,0,0,5"/>
+                            <TextBox x:Name="DatFileTxt" Style="{StaticResource TextBoxStyle}" FontSize="11" Margin="0,0,0,10"/>
+                            <Button Content="Unpack DAT" Style="{StaticResource ActionButton}" Padding="10,8" Click="UnpackDat_Click"/>
+                        </StackPanel>
+                    </Border>
+                    <TextBlock Grid.Column="1" Text=">" Foreground="{StaticResource AccentBlueBrush}" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Border Grid.Column="2" Background="{StaticResource BgDarkerBrush}" CornerRadius="0" Padding="15" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}">
+                        <StackPanel>
+                            <TextBlock Text="STEP 2" Foreground="{StaticResource AccentBlueBrush}" FontSize="11" FontWeight="Bold"/>
+                            <TextBlock Text="Extract to JSON" Foreground="{StaticResource TextLightBrush}" FontSize="14" FontWeight="SemiBold" Margin="0,5,0,10"/>
+                            <TextBlock Text=".dec to JSON DB" Foreground="{StaticResource TextMutedBrush}" FontSize="12" Margin="0,0,0,15"/>
+                            <Button Content="Browse .dec" Style="{StaticResource BrowseButton}" Padding="10,8" Click="BrowseDec_Click" Margin="0,0,0,5"/>
+                            <TextBox x:Name="DecFileTxt" Style="{StaticResource TextBoxStyle}" FontSize="11" Margin="0,0,0,10"/>
+                            <Button Content="Extract JSON" Style="{StaticResource ActionButton}" Padding="10,8" Click="ExtractJson_Click"/>
+                        </StackPanel>
+                    </Border>
+                    <TextBlock Grid.Column="3" Text=">" Foreground="{StaticResource AccentBlueBrush}" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Border Grid.Column="4" Background="{StaticResource BgDarkerBrush}" CornerRadius="0" Padding="15" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}">
+                        <StackPanel>
+                            <TextBlock Text="STEP 3" Foreground="{StaticResource AccentBlueBrush}" FontSize="11" FontWeight="Bold"/>
+                            <TextBlock Text="Repack DEC" Foreground="{StaticResource TextLightBrush}" FontSize="14" FontWeight="SemiBold" Margin="0,5,0,10"/>
+                            <TextBlock Text="JSON to .dec" Foreground="{StaticResource TextMutedBrush}" FontSize="12" Margin="0,0,0,15"/>
+                            <Button Content="Browse JSON" Style="{StaticResource BrowseButton}" Padding="10,8" Click="BrowseJson_Click" Margin="0,0,0,5"/>
+                            <TextBox x:Name="JsonTxt" Style="{StaticResource TextBoxStyle}" FontSize="11" Margin="0,0,0,10"/>
+                            <Button Content="Repack DEC" Style="{StaticResource ActionButton}" Padding="10,8" Click="RepackDec_Click"/>
+                        </StackPanel>
+                    </Border>
+                    <TextBlock Grid.Column="5" Text=">" Foreground="{StaticResource AccentBlueBrush}" FontSize="18" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Border Grid.Column="6" Background="{StaticResource BgDarkerBrush}" CornerRadius="0" Padding="15" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}">
+                        <StackPanel>
+                            <TextBlock Text="STEP 4" Foreground="#10B981" FontSize="11" FontWeight="Bold"/>
+                            <TextBlock Text="Rebuild DAT" Foreground="{StaticResource TextLightBrush}" FontSize="14" FontWeight="SemiBold" Margin="0,5,0,10"/>
+                            <TextBlock Text=".dec to .dat" Foreground="{StaticResource TextMutedBrush}" FontSize="12" Margin="0,0,0,15"/>
+                            <Button Content="Browse .dec" Style="{StaticResource BrowseButton}" Padding="10,8" Click="BrowseDecFinal_Click" Margin="0,0,0,5"/>
+                            <TextBox x:Name="DecFinalTxt" Style="{StaticResource TextBoxStyle}" FontSize="11" Margin="0,0,0,10"/>
+                            <Button Content="Rebuild DAT" Style="{StaticResource ActionButtonGreen}" Padding="10,8" Click="RebuildDat_Click"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

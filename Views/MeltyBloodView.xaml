@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="NicheStudioWeirdo.Views.MeltyBloodView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="TYPE-MOON" Style="{StaticResource HeaderStyle}"/>
+        <TextBlock Grid.Row="1" Text="Unpack/repack .p archives and edit .TXT scripts with Fullwidth (Zenkaku) constraint." Style="{StaticResource SubheaderStyle}"/>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" Background="#1A0808" CornerRadius="0" Padding="12" Margin="0,0,0,15" BorderThickness="1" BorderBrush="#3A1515">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="!" Foreground="#C87171" FontSize="14" FontWeight="Bold" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                    <TextBlock Text="CRITICAL: Latin alphabets MUST be typed in Fullwidth (Zenkaku) form. Using half-width ASCII will CORRUPT game text. Use the converter below." Foreground="#8B5050" FontSize="12" TextWrapping="Wrap"/>
+                </StackPanel>
+            </Border>
+            <Border Grid.Row="1" Background="{StaticResource BgDarkestBrush}" CornerRadius="0" Padding="20" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}">
+                <StackPanel>
+                    <TextBlock Text="Unpack (.p to Folder)" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,10"/>
+                    <TextBlock Text="Target .p Archive" Style="{StaticResource LabelStyle}"/>
+                    <Grid Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                        <TextBox x:Name="ArchiveTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                        <Button Grid.Column="1" Content="Browse File" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseArchive_Click"/>
+                    </Grid>
+                    <Button Content="Unpack .p" Style="{StaticResource BrowseButton}" HorizontalAlignment="Left" Margin="0,0,0,20" Click="Unpack_Click"/>
+                    <TextBlock Text="Repack (Folder to .p)" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,10"/>
+                    <TextBlock Text="Target Folder to Repack" Style="{StaticResource LabelStyle}"/>
+                    <Grid Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                        <TextBox x:Name="FolderTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                        <Button Grid.Column="1" Content="Browse Folder" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseFolder_Click"/>
+                    </Grid>
+                    <Button Content="Repack .p" Style="{StaticResource ActionButtonGreen}" HorizontalAlignment="Left" Margin="0,0,0,25" Click="Repack_Click"/>
+                    <TextBlock Text="Fullwidth (Zenkaku) Text Converter" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,10"/>
+                    <TextBlock Text="Input (half-width Latin)" Style="{StaticResource LabelStyle}"/>
+                    <TextBox x:Name="HalfWidthInput" Style="{StaticResource TextBoxStyle}" Margin="0,0,0,10" TextChanged="HalfWidthInput_TextChanged"/>
+                    <TextBlock Text="Output (Fullwidth Zenkaku - safe to paste into script)" Style="{StaticResource LabelStyle}"/>
+                    <TextBox x:Name="FullWidthOutput" Style="{StaticResource TextBoxStyle}" IsReadOnly="True" Background="#0F172A" Margin="0,0,0,10"/>
+                    <Button Content="Copy Fullwidth Text" Style="{StaticResource BrowseButton}" HorizontalAlignment="Left" Padding="15,8" Click="CopyFullWidth_Click"/>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

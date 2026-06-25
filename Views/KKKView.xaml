@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="NicheStudioWeirdo.Views.KKKView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Malie Kajiri" Style="{StaticResource HeaderStyle}"/>
+        <TextBlock Grid.Row="1" Text="Exclusive toolkit for KKK. Compile scripts, pack data, and patch message frames." Style="{StaticResource SubheaderStyle}"/>
+
+        <Border Grid.Row="2" Background="{StaticResource BgDarkestBrush}" CornerRadius="0" Padding="20" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}">
+            <StackPanel>
+                
+                <TextBlock Text="Translation Layout Patch" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,10"/>
+                <TextBlock Text="Target Game Directory" Style="{StaticResource LabelStyle}"/>
+                <Grid Margin="0,0,0,15">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <TextBox x:Name="GameDirTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select game folder..."/>
+                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseGame_Click"/>
+                </Grid>
+                
+                <TextBlock Text="Layout Mode" Style="{StaticResource LabelStyle}"/>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                    <RadioButton x:Name="RadioHoriz" Content="Horizontal ADV" Foreground="{StaticResource TextLightBrush}" IsChecked="True" Margin="0,0,20,0"/>
+                    <RadioButton x:Name="RadioVert" Content="Vertical ADV" Foreground="{StaticResource TextLightBrush}"/>
+                    <Button Content="Install Base Patch" Style="{StaticResource ActionButtonPurple}" Margin="20,-5,0,0" Click="InstallPatch_Click"/>
+                </StackPanel>
+
+                <TextBlock Text="Build Translation" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,20,0,10"/>
+                
+                <Grid Margin="0,0,0,15">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Step 1: Wordwrap (Optional)" Style="{StaticResource LabelStyle}"/>
+                        <TextBlock Text="Runs wordwrap.py from dependencies/" Foreground="{StaticResource TextMutedBrush}" FontSize="11" Margin="0,0,0,10"/>
+                        <Button Content="Run Wordwrap" Style="{StaticResource ActionButton}" HorizontalAlignment="Left" Click="Wordwrap_Click"/>
+                    </StackPanel>
+                </Grid>
+                
+                <Grid Margin="0,0,0,15">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Step 2: Compile Script" Style="{StaticResource LabelStyle}"/>
+                        <TextBlock Text="Runs Malie_Script_Tool.exe to output exec.dat" Foreground="{StaticResource TextMutedBrush}" FontSize="11" Margin="0,0,0,10"/>
+                        <Button Content="Compile Script" Style="{StaticResource ActionButton}" HorizontalAlignment="Left" Click="Compile_Click"/>
+                    </StackPanel>
+                </Grid>
+
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Step 3: Pack data6.dat" Style="{StaticResource LabelStyle}"/>
+                        <TextBlock Text="Runs dat_pack.py and targets the local data folder" Foreground="{StaticResource TextMutedBrush}" FontSize="11" Margin="0,0,0,10"/>
+                        <Button Content="Pack data6.dat" Style="{StaticResource ActionButtonGreen}" HorizontalAlignment="Left" Click="Pack_Click"/>
+                    </StackPanel>
+                </Grid>
+
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

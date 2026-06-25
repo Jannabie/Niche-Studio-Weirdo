@@ -1,0 +1,17 @@
+# Visual Studio
+.vs/
+bin/
+obj/
+
+# Publish Directories
+publish/
+publish_fdd/
+publish_final/
+
+# Executables
+*.exe
+*.dll
+*.pdb
+
+# PowerShell Scripts (temporary)
+fix_corners.ps1

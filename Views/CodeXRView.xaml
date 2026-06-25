@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="NicheStudioWeirdo.Views.CodeXRView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="CodeXR" Style="{StaticResource HeaderStyle}"/>
+        <TextBlock Grid.Row="1" Text="Export and import bytecode .gsc scripts to/from JSON with roundtrip validation." Style="{StaticResource SubheaderStyle}"/>
+
+        <Border Grid.Row="2" Background="{StaticResource BgDarkestBrush}" CornerRadius="0" Padding="20" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}">
+            <StackPanel>
+                <!-- Encoding & Mode -->
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="10"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Encoding" Style="{StaticResource LabelStyle}"/>
+                        <ComboBox x:Name="EncodingCombo" Padding="5" FontSize="14" SelectedIndex="0">
+                            <ComboBoxItem Content="Shift-JIS (Default)"/>
+                            <ComboBoxItem Content="UTF-8"/>
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="Operation Mode" Style="{StaticResource LabelStyle}"/>
+                        <ComboBox x:Name="ModeCombo" Padding="5" FontSize="14" SelectedIndex="0">
+                            <ComboBoxItem Content="Single File (.gsc)"/>
+                            <ComboBoxItem Content="Batch Folder"/>
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Target picker changes label based on mode -->
+                <TextBlock Text="Target File / Folder" Style="{StaticResource LabelStyle}"/>
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <TextBox x:Name="TargetTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                    <Button Grid.Column="1" Content="File" Style="{StaticResource BrowseButton}" Margin="8,0,5,0" Click="BrowseFile_Click"/>
+                    <Button Grid.Column="2" Content="Folder" Style="{StaticResource BrowseButton}" Margin="0,0,0,0" Click="BrowseFolder_Click"/>
+                </Grid>
+
+                <!-- Actions -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="Export GSC -> JSON" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="Export_Click"/>
+                    <Button Content="Import JSON -> GSC" Style="{StaticResource ActionButtonGreen}" Margin="0,0,8,0" Click="Import_Click"/>
+                    <Button Content="Verify Roundtrip" Style="{StaticResource ActionButtonPurple}" Click="Verify_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

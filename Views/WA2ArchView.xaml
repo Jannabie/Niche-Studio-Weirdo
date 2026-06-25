@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="NicheStudioWeirdo.Views.WA2ArchView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Leaf" Style="{StaticResource HeaderStyle}"/>
+        <TextBlock Grid.Row="1" Text="Unpack and Repack .pak KCAP archives with Shift-JIS filename preservation." Style="{StaticResource SubheaderStyle}"/>
+
+        <Border Grid.Row="2" Background="{StaticResource BgDarkestBrush}" CornerRadius="0" Padding="20" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}">
+            <StackPanel>
+                <!-- Warning Banner -->
+                <Border Background="#1A0808" CornerRadius="0" Padding="12" Margin="0,0,0,20" BorderThickness="1" BorderBrush="#3A1515">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="!" Foreground="#C87171" FontSize="14" FontWeight="Bold" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="WARNING: The workspace directory must only contain files from the .pak archive. Repacking foreign binaries (e.g. tools) causes game crashes." 
+                                   Foreground="#8B5050" FontSize="12" TextWrapping="Wrap"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- External Dependency -->
+                <TextBlock Text="External Tool" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,10"/>
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="exkizpak_v2.exe" Style="{StaticResource LabelStyle}" VerticalAlignment="Center" Width="130"/>
+                    <TextBox x:Name="ExkizpakTxt" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Margin="10,0,0,0"/>
+                    <Button Grid.Column="2" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,0" Click="BrowseExe_Click"/>
+                </Grid>
+
+                <!-- Isolated Workspace -->
+                <TextBlock Text="Isolated Workspace Directory" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,10"/>
+                <Border Background="#0F1E2E" CornerRadius="0" Padding="12" Margin="0,0,0,10" BorderThickness="1" BorderBrush="#1E3A5A">
+                    <TextBlock Text="Select a dedicated, EMPTY folder to extract into. Do NOT reuse an existing folder with other tools or executables." 
+                               Foreground="#4A7099" FontSize="12" TextWrapping="Wrap"/>
+                </Border>
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="WorkspaceTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseWorkspace_Click"/>
+                </Grid>
+
+                <!-- Target .pak file -->
+                <TextBlock Text="Target .pak File" Style="{StaticResource LabelStyle}"/>
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="PakFileTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowsePak_Click"/>
+                </Grid>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="Unpack .pak" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="Unpack_Click"/>
+                    <Button Content="Repack to .pak" Style="{StaticResource ActionButtonGreen}" Click="Repack_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>
