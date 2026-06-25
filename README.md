@@ -20,6 +20,9 @@ The user interface is designed to emulate a clean macOS terminal environment:
 - Solid dark mode colors with a minimalist layout
 - Tab-based navigation imitating standard top-bar menus
 - Perfectly rounded corners matching the macOS window frame (`CornerRadius=12`)
+
+![Tools Interface](Tools%20Interface/image.png)
+
 - **Important**: To fully experience the UI, ensure you have the `SF Mono Medium` font installed (located in the `Font/` directory).
 - Interface layout references are included in the `Tools Interface/` directory.
 
