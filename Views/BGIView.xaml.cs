@@ -13,6 +13,44 @@ namespace NicheStudioWeirdo.Views
         public BGIView() { InitializeComponent(); }
         private MainWindow GetMain() => (MainWindow)Window.GetWindow(this);
 
+        private void BrowseArc_Click(object sender, RoutedEventArgs e)
+        {
+            var d = new OpenFileDialog { Filter = "BGI Archives (*.arc)|*.arc|All Files (*.*)|*.*" };
+            if (d.ShowDialog() == true) ArcFileTxt.Text = d.FileName;
+        }
+
+        private void BrowseArcFolder_Click(object sender, RoutedEventArgs e)
+        {
+            var d = new OpenFolderDialog();
+            if (d.ShowDialog() == true) ArcFolderTxt.Text = d.FolderName;
+        }
+
+        private async void ExtractArc_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(ArcFileTxt.Text) || ArcFileTxt.Text.StartsWith("Select ") ||
+                string.IsNullOrWhiteSpace(ArcFolderTxt.Text) || ArcFolderTxt.Text.StartsWith("Select "))
+            {
+                GetMain().LogToConsole("BGI [Error]: Select both the .arc file and the output folder.");
+                return;
+            }
+            string scriptPath = Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Buriko", "bgiarc.py");
+            string cmd = $"\"{scriptPath}\" extract \"{ArcFileTxt.Text}\" \"{ArcFolderTxt.Text}\"";
+            await ToolRunner.RunAsync(Path.GetDirectoryName(scriptPath), "python", cmd, GetMain());
+        }
+
+        private async void RepackArc_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(ArcFileTxt.Text) || ArcFileTxt.Text.StartsWith("Select ") ||
+                string.IsNullOrWhiteSpace(ArcFolderTxt.Text) || ArcFolderTxt.Text.StartsWith("Select "))
+            {
+                GetMain().LogToConsole("BGI [Error]: Select both the target folder and the output .arc file.");
+                return;
+            }
+            string scriptPath = Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Buriko", "bgiarc.py");
+            string cmd = $"\"{scriptPath}\" repack \"{ArcFolderTxt.Text}\" \"{ArcFileTxt.Text}\"";
+            await ToolRunner.RunAsync(Path.GetDirectoryName(scriptPath), "python", cmd, GetMain());
+        }
+
         private void BrowseScript_Click(object sender, RoutedEventArgs e)
         {
             var d = new OpenFileDialog { Filter = "All Files (*.*)|*.*" };

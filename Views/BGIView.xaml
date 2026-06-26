@@ -5,13 +5,37 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Text="Buriko (BGI)" Style="{StaticResource HeaderStyle}"/>
         <TextBlock Grid.Row="1" Text="Parse, translate, and rebuild Ethornell .sc script files." Style="{StaticResource SubheaderStyle}"/>
 
-        <Border Grid.Row="2" Background="{StaticResource BgDarkestBrush}" CornerRadius="0" Padding="20" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}">
+        <Border Grid.Row="2" Background="{StaticResource BgDarkestBrush}" CornerRadius="0" Padding="20" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}" Margin="0,0,0,10">
+            <StackPanel>
+                <TextBlock Text="Archive Tools (BGI .arc)" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,10"/>
+                
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <TextBox x:Name="ArcFileTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select target .arc file OR folder..."/>
+                    <Button Grid.Column="1" Content="Browse Arc" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseArc_Click"/>
+                </Grid>
+
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <TextBox x:Name="ArcFolderTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select target folder for extract/repack..."/>
+                    <Button Grid.Column="1" Content="Browse Dir" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseArcFolder_Click"/>
+                </Grid>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="Extract .arc -> Folder" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="ExtractArc_Click"/>
+                    <Button Content="Repack Folder -> .arc" Style="{StaticResource ActionButtonGreen}" Click="RepackArc_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="3" Background="{StaticResource BgDarkestBrush}" CornerRadius="0" Padding="20" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}">
             <StackPanel>
                 
                 <TextBlock Text="Script Translation Tools" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,10"/>
