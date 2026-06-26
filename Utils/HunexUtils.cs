@@ -1,0 +1,59 @@
+using System;
+using System.IO;
+using System.Threading.Tasks;
+
+namespace NicheStudioWeirdo.Utils
+{
+    public static class HunexUtils
+    {
+        private static string GetRepoDir()
+        {
+            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ExternalTools", "HuneX-Scripting");
+        }
+
+        private static string GetPython()
+        {
+            return SettingsManager.Config.PythonPath;
+        }
+
+        public static async Task UnpackHfaAsync(string hfaPath, MainWindow main)
+        {
+            await ToolRunner.RunAsync(GetRepoDir(), GetPython(), $"hfa_tool.py unpack \"{hfaPath}\"", main);
+        }
+
+        public static async Task RepackHfaAsync(string folderPath, string outputHfa, MainWindow main)
+        {
+            await ToolRunner.RunAsync(GetRepoDir(), GetPython(), $"hfa_tool.py repack \"{folderPath}\" \"{outputHfa}\"", main);
+        }
+
+        public static async Task DecompressCtdAsync(string ctdPath, MainWindow main)
+        {
+            await ToolRunner.RunAsync(GetRepoDir(), GetPython(), $"ctd_tool.py decompress \"{ctdPath}\"", main);
+        }
+
+        public static async Task CompressCtdAsync(string txtPath, string originalCtd, MainWindow main)
+        {
+            await ToolRunner.RunAsync(GetRepoDir(), GetPython(), $"ctd_tool.py compress \"{txtPath}\" \"{originalCtd}\"", main);
+        }
+
+        public static async Task DecodeCbgAsync(string cbgPath, MainWindow main)
+        {
+            await ToolRunner.RunAsync(GetRepoDir(), GetPython(), $"cbg_tool.py decode \"{cbgPath}\"", main);
+        }
+
+        public static async Task EncodeCbgAsync(string pngPath, string originalCbg, MainWindow main)
+        {
+            await ToolRunner.RunAsync(GetRepoDir(), GetPython(), $"cbg_tool.py encode \"{pngPath}\" \"{originalCbg}\"", main);
+        }
+
+        public static async Task DecodeMzpAsync(string mzpPath, MainWindow main)
+        {
+            await ToolRunner.RunAsync(GetRepoDir(), GetPython(), $"mzp_tool.py decode \"{mzpPath}\"", main);
+        }
+
+        public static async Task EncodeMzpAsync(string pngPath, string originalMzp, MainWindow main)
+        {
+            await ToolRunner.RunAsync(GetRepoDir(), GetPython(), $"mzp_tool.py encode \"{pngPath}\" \"{originalMzp}\"", main);
+        }
+    }
+}

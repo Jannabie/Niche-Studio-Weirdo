@@ -28,7 +28,7 @@ namespace NicheStudioWeirdo.Views
         private async void UnpackPac_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(PacFileTxt.Text) || string.IsNullOrWhiteSpace(PacOutTxt.Text)) return;
-            string repoDir = System.IO.Path.Combine(SettingsManager.Config.ReposPath, "Majikoi-JAST-tools");
+            string repoDir = System.IO.Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "Majikoi-JAST-tools");
             string py = SettingsManager.Config.PythonPath;
             await ToolRunner.RunAsync(repoDir, py, $"minatosoft_pac.py unpack \"{PacFileTxt.Text}\" \"{PacOutTxt.Text}\"", GetMain());
         }
@@ -36,7 +36,7 @@ namespace NicheStudioWeirdo.Views
         private async void RepackPac_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(PacFileTxt.Text) || string.IsNullOrWhiteSpace(PacOutTxt.Text)) return;
-            string repoDir = System.IO.Path.Combine(SettingsManager.Config.ReposPath, "Majikoi-JAST-tools");
+            string repoDir = System.IO.Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "Majikoi-JAST-tools");
             string py = SettingsManager.Config.PythonPath;
             string newPac = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(PacFileTxt.Text) ?? "", "Update_" + System.IO.Path.GetFileName(PacFileTxt.Text));
             await ToolRunner.RunAsync(repoDir, py, $"minatosoft_pac.py repack \"{PacOutTxt.Text}\" \"{newPac}\"", GetMain());
@@ -45,7 +45,7 @@ namespace NicheStudioWeirdo.Views
         private async void ExtractBin_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(BinFileTxt.Text)) return;
-            string repoDir = System.IO.Path.Combine(SettingsManager.Config.ReposPath, "Majikoi-JAST-tools");
+            string repoDir = System.IO.Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "Majikoi-JAST-tools");
             string py = SettingsManager.Config.PythonPath;
             string outDir = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(BinFileTxt.Text) ?? "", System.IO.Path.GetFileNameWithoutExtension(BinFileTxt.Text) + "_ext");
             await ToolRunner.RunAsync(repoDir, py, $"majikoi_bin_tool.py extract \"{BinFileTxt.Text}\" \"{outDir}\"", GetMain());
@@ -54,7 +54,7 @@ namespace NicheStudioWeirdo.Views
         private async void RepackBin_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(BinFileTxt.Text)) return;
-            string repoDir = System.IO.Path.Combine(SettingsManager.Config.ReposPath, "Majikoi-JAST-tools");
+            string repoDir = System.IO.Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "Majikoi-JAST-tools");
             string py = SettingsManager.Config.PythonPath;
             var mode = ((ComboBoxItem)RepackModeCombo.SelectedItem).Content.ToString().Contains("Preserve") ? "preserve" : "rebuild";
             string inDir = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(BinFileTxt.Text) ?? "", System.IO.Path.GetFileNameWithoutExtension(BinFileTxt.Text) + "_ext");

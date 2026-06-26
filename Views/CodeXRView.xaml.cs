@@ -23,7 +23,7 @@ namespace NicheStudioWeirdo.Views
 
         private string GetEncoding() => ((ComboBoxItem)EncodingCombo.SelectedItem).Content.ToString().Contains("UTF") ? "utf-8" : "shift-jis";
 
-        private string GetScriptPath() => Path.Combine(SettingsManager.Config.ReposPath, "codeX-RScript-tools", "gsc_tool.py");
+        private string GetScriptPath() => Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "codeX-RScript-tools", "gsc_tool.py");
 
         private bool IsBatchMode()
         {
@@ -49,7 +49,7 @@ namespace NicheStudioWeirdo.Views
                 args = $"\"{GetScriptPath()}\" export \"{TargetTxt.Text}\" -o \"{jsonFile}\"";
             }
 
-            main.LogToConsole($"CodeX: Exporting GSC → JSON [{GetEncoding()}]...");
+            main.LogToConsole($"CodeX: Exporting GSC ↁEJSON [{GetEncoding()}]...");
             _ = ToolRunner.RunAsync(Path.GetDirectoryName(GetScriptPath()) ?? "", SettingsManager.Config.PythonPath, args, main);
         }
 
@@ -72,7 +72,7 @@ namespace NicheStudioWeirdo.Views
                 args = $"\"{GetScriptPath()}\" import \"{TargetTxt.Text}\" \"{jsonFile}\" -o \"{repackedFile}\" --encoding {GetEncoding()}";
             }
 
-            main.LogToConsole($"CodeX: Importing JSON → GSC [{GetEncoding()}]...");
+            main.LogToConsole($"CodeX: Importing JSON ↁEGSC [{GetEncoding()}]...");
             _ = ToolRunner.RunAsync(Path.GetDirectoryName(GetScriptPath()) ?? "", SettingsManager.Config.PythonPath, args, main);
         }
 

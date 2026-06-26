@@ -61,7 +61,7 @@ namespace NicheStudioWeirdo.Views
             main.LogToConsole($"> Executing: {ExkizpakTxt.Text} \"{PakFileTxt.Text}\"");
             main.LogToConsole($"NOTE: After extraction, move '{pakName}' and 'exkizpak_v2.exe' OUT of the workspace before repacking.");
 
-            // exkizpak_v2.exe takes the .pak file as a direct argument — no flags needed.
+            // exkizpak_v2.exe takes the .pak file as a direct argument  Eno flags needed.
             // It will extract into a subfolder inside the workspace.
             // We run it from the workspace directory so output lands there.
             string arguments = $"\"{PakFileTxt.Text}\"";

@@ -33,9 +33,9 @@ namespace NicheStudioWeirdo.Views
         private async void UnpackDat_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(DatFileTxt.Text)) return;
-            string repoDir = System.IO.Path.Combine(SettingsManager.Config.ReposPath, "MUSICUS-Tools");
+            string repoDir = System.IO.Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "MUSICUS-Tools");
             string py = SettingsManager.Config.PythonPath;
-            // Output folder name = dat filename without extension (e.g. script_en.dat → script_en/)
+            // Output folder name = dat filename without extension (e.g. script_en.dat ↁEscript_en/)
             string outDir = System.IO.Path.Combine(
                 System.IO.Path.GetDirectoryName(DatFileTxt.Text) ?? repoDir,
                 System.IO.Path.GetFileNameWithoutExtension(DatFileTxt.Text));
@@ -45,7 +45,7 @@ namespace NicheStudioWeirdo.Views
         private async void ExtractJson_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(DecFileTxt.Text)) return;
-            string repoDir = System.IO.Path.Combine(SettingsManager.Config.ReposPath, "MUSICUS-Tools");
+            string repoDir = System.IO.Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "MUSICUS-Tools");
             string py = SettingsManager.Config.PythonPath;
             // json_folder is a sibling of the dec folder
             string jsonDir = System.IO.Path.Combine(
@@ -56,7 +56,7 @@ namespace NicheStudioWeirdo.Views
         private async void RepackDec_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(DecFileTxt.Text) || string.IsNullOrWhiteSpace(JsonTxt.Text)) return;
-            string repoDir = System.IO.Path.Combine(SettingsManager.Config.ReposPath, "MUSICUS-Tools");
+            string repoDir = System.IO.Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "MUSICUS-Tools");
             string py = SettingsManager.Config.PythonPath;
             // CRITICAL: output MUST be same as dec folder so manifest.json is preserved!
             // yox_tool.py pack_all <dec_folder> <json_folder> <output_dec_folder>
@@ -66,7 +66,7 @@ namespace NicheStudioWeirdo.Views
         private async void RebuildDat_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(DecFinalTxt.Text)) return;
-            string repoDir = System.IO.Path.Combine(SettingsManager.Config.ReposPath, "MUSICUS-Tools");
+            string repoDir = System.IO.Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "MUSICUS-Tools");
             string py = SettingsManager.Config.PythonPath;
             string outDat = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(DecFinalTxt.Text) ?? "", "patched.dat");
             await ToolRunner.RunAsync(repoDir, py, $"musicus_tool.py repack \"{DecFinalTxt.Text}\" \"{outDat}\"", GetMain());

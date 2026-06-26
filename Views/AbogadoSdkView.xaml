@@ -8,67 +8,136 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Abogado Script (SDK)" Style="{StaticResource HeaderStyle}"/>
-        <TextBlock Grid.Row="1" Text="Unpack/Repack scene.DSK, extract Shift-JIS from .SCF to JSON, and inject translations." Style="{StaticResource SubheaderStyle}"/>
+        <TextBlock Grid.Row="0" Text="Abogado DSK — Archive Tools" Style="{StaticResource HeaderStyle}"/>
+        <TextBlock Grid.Row="1" Text="Unpack .DSK archive → extract .SCF files.  Repack folder .SCF → .DSK archive." Style="{StaticResource SubheaderStyle}"/>
 
-        <Border Grid.Row="2" Background="{StaticResource BgDarkestBrush}" CornerRadius="0" Padding="20" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}" Margin="0,0,0,0">
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
             <StackPanel>
-                
-                <!-- Step 1: DSK Tools -->
-                <TextBlock Text="TAHAP 1 &amp; 4 — UNPACK / REPACK .DSK" Style="{StaticResource LabelStyle}"/>
-                <Grid Margin="0,0,0,12">
-                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                    <TextBox x:Name="SdkPftTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" ToolTip="File index .PFT (misal: scene.pft)"/>
-                    <Button Grid.Column="1" Content="Browse .PFT" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseSdkPft_Click"/>
-                </Grid>
-                <Grid Margin="0,0,0,12">
-                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                    <TextBox x:Name="SdkDskTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" ToolTip="File arsip .DSK (misal: scene.dsk)"/>
-                    <Button Grid.Column="1" Content="Browse .DSK" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseSdkDsk_Click"/>
-                </Grid>
-                <Grid Margin="0,0,0,16">
-                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                    <TextBox x:Name="SdkFolderTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" ToolTip="Folder target untuk Unpack / source folder untuk Repack"/>
-                    <Button Grid.Column="1" Content="Browse Folder" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseSdkFolder_Click"/>
-                </Grid>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,24">
-                    <Button Content="Unpack DSK" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="UnpackDsk_Click" ToolTip="Runs sdk_tools.py unpack"/>
-                    <Button Content="Repack DSK" Style="{StaticResource ActionButtonGreen}" Margin="0,0,8,0" Click="RepackDsk_Click" ToolTip="Runs sdk_tools.py repack"/>
-                    <Button Content="Verify Integrity" Style="{StaticResource ActionButtonPurple}" Click="VerifyIntegrity_Click" ToolTip="Runs sdk_verify.py verify"/>
-                </StackPanel>
+                <!-- ══════════════════════════════════════════════════════════ -->
+                <!-- SECTION A: DSK ARCHIVE                                    -->
+                <!-- ══════════════════════════════════════════════════════════ -->
+                <Border Background="{StaticResource BgDarkestBrush}" CornerRadius="0"
+                        Padding="20" Margin="0,0,0,0"
+                        BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}">
+                    <StackPanel>
 
-                <!-- Divider -->
-                <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,20"/>
+                        <!-- Header banner -->
+                        <Border Background="#0A1A0A" CornerRadius="0" Padding="14,10" Margin="0,0,0,20"
+                                BorderThickness="1" BorderBrush="#1E3A1E">
+                            <StackPanel>
+                                <TextBlock Foreground="#60C060" FontWeight="Bold" FontSize="12"
+                                           Text="📦  DSK ARCHIVE (.DSK + .PFT)"/>
+                                <TextBlock Foreground="#7A9A7A" FontSize="11" Margin="0,4,0,0" TextWrapping="Wrap"
+                                           Text="File .DSK adalah container/arsip yang menyimpan semua file .SCF (script) maupun .KG (gambar).  File .PFT adalah index-nya — keduanya selalu berpasangan."/>
+                            </StackPanel>
+                        </Border>
 
-                <!-- Step 2: Parse -->
-                <TextBlock Text="TAHAP 2 — PARSE .SCF FILE" Style="{StaticResource LabelStyle}"/>
-                <Grid Margin="0,0,0,16">
-                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                    <TextBox x:Name="ScfFileTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
-                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseScf_Click"/>
-                </Grid>
+                        <!-- PFT -->
+                        <TextBlock Text="FILE .PFT  (index / tabel isi arsip)" Style="{StaticResource LabelStyle}"/>
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                            <TextBox x:Name="SdkPftTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"
+                                     ToolTip="Contoh: scene.pft  atau  graphic.pft"/>
+                            <Button Grid.Column="1" Content="Browse .PFT" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseSdkPft_Click"/>
+                        </Grid>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,24">
-                    <Button Content="Parse SCF -> JSON" Style="{StaticResource BrowseButton}" Click="ParseScf_Click" ToolTip="Runs parser_scf.py — outputs [filename]_parsed.json"/>
-                </StackPanel>
+                        <!-- DSK -->
+                        <TextBlock Text="FILE .DSK  (file arsip utama)" Style="{StaticResource LabelStyle}"/>
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                            <TextBox x:Name="SdkDskTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"
+                                     ToolTip="Contoh: scene.dsk  atau  graphic.dsk"/>
+                            <Button Grid.Column="1" Content="Browse .DSK" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseSdkDsk_Click"/>
+                        </Grid>
 
-                <!-- Divider -->
-                <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,20"/>
+                        <!-- Folder -->
+                        <TextBlock Text="OUTPUT / SOURCE FOLDER" Style="{StaticResource LabelStyle}"/>
+                        <TextBlock Text="Saat Unpack: folder tempat file hasil extract disimpan.   Saat Repack: folder berisi file .SCF yang mau dikemas."
+                                   Foreground="#666" FontSize="11" Margin="0,0,0,6" TextWrapping="Wrap"/>
+                        <Grid Margin="0,0,0,20">
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                            <TextBox x:Name="SdkFolderTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                            <Button Grid.Column="1" Content="Browse Folder" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseSdkFolder_Click"/>
+                        </Grid>
 
-                <!-- Step 3: Inject -->
-                <TextBlock Text="TAHAP 3 — INJECT TRANSLATION" Style="{StaticResource LabelStyle}"/>
-                <Grid Margin="0,0,0,16">
-                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                    <TextBox x:Name="TranslationJsonTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" ToolTip="File JSON terjemahan"/>
-                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseJson_Click"/>
-                </Grid>
+                        <!-- Action buttons -->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Button x:Name="BtnUnpack" Content="⬇  Unpack DSK" Style="{StaticResource BrowseButton}" Margin="0,0,8,0"
+                                    Click="UnpackDsk_Click"
+                                    ToolTip="Extract semua file .SCF / .KG dari archive ke Output Folder"/>
+                            <Button x:Name="BtnRepack" Content="⬆  Repack DSK" Style="{StaticResource ActionButtonGreen}" Margin="0,0,8,0"
+                                    Click="RepackDsk_Click"
+                                    ToolTip="Kemas ulang semua file di Source Folder menjadi .DSK + .PFT baru"/>
+                            <Button x:Name="BtnVerify" Content="✔  Verify" Style="{StaticResource ActionButtonPurple}"
+                                    Click="VerifyIntegrity_Click"
+                                    ToolTip="Cek apakah semua entry di PFT valid dan tidak out-of-bounds"/>
+                        </StackPanel>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                    <Button Content="Inject Translation" Style="{StaticResource ActionButton}" Click="InjectTranslation_Click" ToolTip="Runs injector_scf.py — outputs [filename]_injected.SCF"/>
-                </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- ══════════════════════════════════════════════════════════ -->
+                <!-- SECTION B: SCF SCRIPT TOOLS                               -->
+                <!-- ══════════════════════════════════════════════════════════ -->
+                <Border Background="{StaticResource BgDarkestBrush}" CornerRadius="0"
+                        Padding="20" Margin="0,2,0,0"
+                        BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}">
+                    <StackPanel>
+
+                        <!-- Header banner -->
+                        <Border Background="#0A0D1A" CornerRadius="0" Padding="14,10" Margin="0,0,0,20"
+                                BorderThickness="1" BorderBrush="#1E253A">
+                            <StackPanel>
+                                <TextBlock Foreground="#6090C0" FontWeight="Bold" FontSize="12"
+                                           Text="📄  SCF SCRIPT TOOLS"/>
+                                <TextBlock Foreground="#7A8A9A" FontSize="11" Margin="0,4,0,0" TextWrapping="Wrap"
+                                           Text="Setelah Unpack, kamu akan mendapat file .SCF (script). Gunakan tools ini untuk extract teks Jepang ke TXT/JSON, terjemahkan, lalu inject kembali."/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Step 1: Parse -->
+                        <TextBlock Text="LANGKAH 1 — PILIH FILE .SCF &amp; EXTRACT TEKS" Style="{StaticResource LabelStyle}"/>
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                            <TextBox x:Name="ScfFileTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"
+                                     ToolTip="Pilih file .SCF hasil unpack DSK"/>
+                            <Button Grid.Column="1" Content="Browse .SCF" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseScf_Click"/>
+                        </Grid>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,24">
+                            <Button x:Name="BtnParseScf" Content="Extract → JSON + TXT" Style="{StaticResource BrowseButton}"
+                                    Click="ParseScf_Click"
+                                    ToolTip="Baca file .SCF dan keluarkan teks Jepang ke dua file: .json (struktur) dan .txt (teks bersih untuk diterjemah)"/>
+                        </StackPanel>
+
+                        <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,20"/>
+
+                        <!-- Step 2: Inject -->
+                        <TextBlock Text="LANGKAH 2 — INJECT TERJEMAHAN → REBUILD SCF" Style="{StaticResource LabelStyle}"/>
+                        <TextBlock Text="Pilih .json hasil extract (wajib) dan .txt hasil terjemahan (opsional, untuk inject teks baru)."
+                                   Foreground="#666" FontSize="11" Margin="0,0,0,10" TextWrapping="Wrap"/>
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                            <TextBox x:Name="TranslationJsonTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"
+                                     ToolTip="File .json hasil Extract (Wajib)"/>
+                            <Button Grid.Column="1" Content="Browse JSON" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseJson_Click"/>
+                        </Grid>
+                        <Grid Margin="0,0,0,16">
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                            <TextBox x:Name="TranslationTxtTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"
+                                     ToolTip="File .txt terjemahan kamu (Opsional — kosongkan jika rebuild tanpa perubahan teks)"/>
+                            <Button Grid.Column="1" Content="Browse TXT" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseTxt_Click"/>
+                        </Grid>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Button x:Name="BtnRebuildScf" Content="Rebuild SCF" Style="{StaticResource ActionButton}"
+                                    Click="InjectTranslation_Click"
+                                    ToolTip="Buat file .SCF baru dengan teks dari TXT yang sudah diterjemah"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                </Border>
 
             </StackPanel>
-        </Border>
+        </ScrollViewer>
     </Grid>
 </UserControl>

@@ -25,7 +25,7 @@ namespace NicheStudioWeirdo.Views
         private async void Unpack_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(ArchiveTxt.Text)) return;
-            string repoDir = System.IO.Path.Combine(SettingsManager.Config.ReposPath, "MeltyBlood2002-tools");
+            string repoDir = System.IO.Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "MeltyBlood2002-tools");
             string py = SettingsManager.Config.PythonPath;
             string outDir = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(ArchiveTxt.Text) ?? "", "extracted_" + System.IO.Path.GetFileNameWithoutExtension(ArchiveTxt.Text));
             await ToolRunner.RunAsync(repoDir, py, $"mb_core.py unpack \"{ArchiveTxt.Text}\" \"{outDir}\"", GetMain());
@@ -34,7 +34,7 @@ namespace NicheStudioWeirdo.Views
         private async void Repack_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(FolderTxt.Text)) return;
-            string repoDir = System.IO.Path.Combine(SettingsManager.Config.ReposPath, "MeltyBlood2002-tools");
+            string repoDir = System.IO.Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "MeltyBlood2002-tools");
             string py = SettingsManager.Config.PythonPath;
             string inDir = FolderTxt.Text;
             string outP = inDir + "_repacked.p";

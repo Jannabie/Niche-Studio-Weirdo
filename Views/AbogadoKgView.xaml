@@ -8,72 +8,106 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Abogado Graphics (KG)" Style="{StaticResource HeaderStyle}"/>
-        <TextBlock Grid.Row="1" Text="Unpack/Repack .DSK archives · Handle format .KG (8bpp/24bpp/32bpp) · Untuk Shuumatsu no Sugoshikata." Style="{StaticResource SubheaderStyle}"/>
+        <TextBlock Grid.Row="0" Text="Abogado KG — Image Tools" Style="{StaticResource HeaderStyle}"/>
+        <TextBlock Grid.Row="1" Text="Decode .KG images → PNG.  Encode PNG → .KG.  Format gambar khusus Shuumatsu no Sugoshikata." Style="{StaticResource SubheaderStyle}"/>
 
-        <Border Grid.Row="2" Background="{StaticResource BgDarkestBrush}" CornerRadius="0" Padding="20" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}" Margin="0,0,0,0">
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
             <StackPanel>
 
-                <!-- ── DSK Archive ── -->
-                <TextBlock Text="TARGET .DSK ARCHIVE" Style="{StaticResource LabelStyle}"/>
-                <Grid Margin="0,0,0,16">
-                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                    <TextBox x:Name="DskFileTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" ToolTip="File arsip .DSK yang berisi semua gambar .KG"/>
-                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseDsk_Click"/>
-                </Grid>
-
-                <!-- ── PFT Index ── -->
-                <TextBlock Text="INDEX .PFT FILE (wajib untuk semua operasi)" Style="{StaticResource LabelStyle}"/>
-                <Grid Margin="0,0,0,16">
-                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                    <TextBox x:Name="PftFileTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" ToolTip="File index .PFT pasangan dari .DSK"/>
-                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowsePft_Click"/>
-                </Grid>
-
-                <!-- ── Working Folder ── -->
-                <TextBlock Text="WORKING FOLDER (output unpack .KG · input PNG→KG · input patch)" Style="{StaticResource LabelStyle}"/>
-                <Grid Margin="0,0,0,24">
-                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                    <TextBox x:Name="WorkFolderTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"
-                             ToolTip="Output saat Unpack DSK (file .KG). Juga digunakan sebagai folder PNG saat PNG→KG Convert, dan folder .KG saat Patch/Rebuild."/>
-                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseWorkFolder_Click"/>
-                </Grid>
-
-                <!-- Workflow Banner -->
-                <Border Background="#0D1A0D" CornerRadius="0" Padding="12" Margin="0,0,0,20" BorderThickness="1" BorderBrush="#2A4030">
+                <!-- ══════════════════════════════════════════════════════════ -->
+                <!-- SECTION A: KG → PNG (Decode)                              -->
+                <!-- ══════════════════════════════════════════════════════════ -->
+                <Border Background="{StaticResource BgDarkestBrush}" CornerRadius="0"
+                        Padding="20" Margin="0,0,0,0"
+                        BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}">
                     <StackPanel>
-                        <TextBlock Foreground="#70C080" FontSize="11" FontWeight="Bold" Text="WORKFLOW:" Margin="0,0,0,4"/>
-                        <TextBlock Foreground="#90B898" FontSize="11" TextWrapping="Wrap"
-                                   Text="① Unpack DSK (otomatis extract .KG & decode ke .PNG) ATAU Decode Folder mentah   ②  Edit .PNG   ③  PNG→KG Convert   ④  Patch In-place atau Rebuild DSK"/>
+
+                        <Border Background="#0A0D1A" CornerRadius="0" Padding="14,10" Margin="0,0,0,20"
+                                BorderThickness="1" BorderBrush="#1E253A">
+                            <StackPanel>
+                                <TextBlock Foreground="#6090FF" FontWeight="Bold" FontSize="12"
+                                           Text="🖼  DECODE  .KG → PNG"/>
+                                <TextBlock Foreground="#7A8AAA" FontSize="11" Margin="0,4,0,0" TextWrapping="Wrap"
+                                           Text="Pilih sebuah folder yang berisi file .KG (raw, bukan dari dalam DSK).  Semua file .KG di folder tersebut akan di-decode dan disimpan sebagai .PNG di folder yang sama."/>
+                            </StackPanel>
+                        </Border>
+
+                        <TextBlock Text="FOLDER BERISI FILE .KG" Style="{StaticResource LabelStyle}"/>
+                        <Grid Margin="0,0,0,16">
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                            <TextBox x:Name="DecodeFolderTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"
+                                     ToolTip="Pilih folder yang berisi file .KG / .SCF mentah yang mau di-decode ke PNG"/>
+                            <Button Grid.Column="1" Content="Browse Folder" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseDecodeFolder_Click"/>
+                        </Grid>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Button x:Name="BtnDecodeKg" Content="Decode KG → PNG" Style="{StaticResource ActionButton}"
+                                    Click="DecodeFolder_Click"
+                                    ToolTip="Baca semua file .KG di folder, decode, simpan sebagai .PNG di folder yang sama"/>
+                        </StackPanel>
+
                     </StackPanel>
                 </Border>
 
-                <!-- Note Banner -->
-                <Border Background="#1A1508" CornerRadius="0" Padding="12" Margin="0,0,0,20" BorderThickness="1" BorderBrush="#3A3015">
-                    <TextBlock Foreground="#B09040" FontSize="11" TextWrapping="Wrap"
-                               Text="Note: Pastikan kg_metadata.json ada di folder PNG (berisi info BPP asli tiap gambar) sebelum PNG→KG Convert. Patch In-place akan membaca dari subfolder packed_kg/ jika ada."/>
+                <!-- ══════════════════════════════════════════════════════════ -->
+                <!-- SECTION B: PNG → KG (Encode)                              -->
+                <!-- ══════════════════════════════════════════════════════════ -->
+                <Border Background="{StaticResource BgDarkestBrush}" CornerRadius="0"
+                        Padding="20" Margin="0,2,0,0"
+                        BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}">
+                    <StackPanel>
+
+                        <Border Background="#0D0A1A" CornerRadius="0" Padding="14,10" Margin="0,0,0,20"
+                                BorderThickness="1" BorderBrush="#2A1E3A">
+                            <StackPanel>
+                                <TextBlock Foreground="#A060FF" FontWeight="Bold" FontSize="12"
+                                           Text="🎨  ENCODE  PNG → .KG"/>
+                                <TextBlock Foreground="#8A7AAA" FontSize="11" Margin="0,4,0,0" TextWrapping="Wrap"
+                                           Text="Pilih folder yang berisi file .PNG hasil edit kamu.  Semua .PNG akan dikonversi ke format .KG dan disimpan di subfolder packed_kg/ di dalam folder yang sama."/>
+                                <TextBlock Foreground="#7A6888" FontSize="11" Margin="0,6,0,0" TextWrapping="Wrap"
+                                           Text="Tips: Jika ada file kg_metadata.json di folder (dibuat otomatis saat decode), BPP (8bpp/24bpp) tiap gambar akan dibaca otomatis dari sana."/>
+                            </StackPanel>
+                        </Border>
+
+                        <TextBlock Text="FOLDER BERISI FILE .PNG (hasil edit)" Style="{StaticResource LabelStyle}"/>
+                        <Grid Margin="0,0,0,16">
+                            <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                            <TextBox x:Name="EncodeFolderTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"
+                                     ToolTip="Pilih folder berisi file .PNG yang sudah kamu edit"/>
+                            <Button Grid.Column="1" Content="Browse Folder" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseEncodeFolder_Click"/>
+                        </Grid>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                            <Button x:Name="BtnEncodePng" Content="Encode PNG → KG" Style="{StaticResource ActionButtonGreen}"
+                                    Click="ConvertPngKg_Click"
+                                    ToolTip="Konversi semua .PNG ke .KG — output masuk ke packed_kg/ di dalam folder yang sama"/>
+                        </StackPanel>
+
+                    </StackPanel>
                 </Border>
 
-                <!-- Buttons Row -->
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Content="Unpack DSK" Style="{StaticResource BrowseButton}" Margin="0,0,8,0"
-                            Click="UnpackDsk_Click"
-                            ToolTip="[ArcUNPACK.py Mode 1] Ekstrak semua .KG dari archive .DSK ke Working Folder & otomatis decode jadi PNG"/>
-                    <Button Content="Decode Folder" Style="{StaticResource BrowseButton}" Margin="0,0,8,0"
-                            Click="DecodeFolder_Click"
-                            ToolTip="[ArcUNPACK.py Mode 2] Decode semua file raw .KG/.SCF di Working Folder menjadi .PNG"/>
-                    <Button Content="PNG → KG Convert" Style="{StaticResource BrowseButton}" Margin="0,0,8,0"
-                            Click="ConvertPngKg_Click"
-                            ToolTip="[ArcKGPACK.py] Konversi file .PNG di Working Folder ke format .KG (output ke packed_kg/)"/>
-                    <Button Content="Patch DSK In-place" Style="{StaticResource ActionButtonAmber}" Margin="0,0,8,0"
-                            Click="PatchDsk_Click"
-                            ToolTip="[ArcPATCH.py] Suntik file .KG dari packed_kg/ ke dalam .DSK tanpa rebuild ulang"/>
-                    <Button Content="Rebuild Full DSK" Style="{StaticResource ActionButtonGreen}"
-                            Click="RebuildDsk_Click"
-                            ToolTip="[ArcPACK.py] Bangun archive .DSK + .PFT baru dari semua file .KG di Working Folder"/>
-                </StackPanel>
+                <!-- ══════════════════════════════════════════════════════════ -->
+                <!-- INFO: Full Workflow Reminder                               -->
+                <!-- ══════════════════════════════════════════════════════════ -->
+                <Border Background="#080808" CornerRadius="0"
+                        Padding="16,12" Margin="0,2,0,0"
+                        BorderThickness="1" BorderBrush="#222">
+                    <StackPanel>
+                        <TextBlock Foreground="#555" FontWeight="Bold" FontSize="11" Text="WORKFLOW LENGKAP (dari DSK sampai selesai):"/>
+                        <TextBlock Foreground="#444" FontSize="11" Margin="0,6,0,0" TextWrapping="Wrap"
+                                   Text="① Tab DSK → Unpack DSK  →  dapat folder berisi file mentah (.KG untuk gambar)"/>
+                        <TextBlock Foreground="#444" FontSize="11" Margin="0,2,0,0" TextWrapping="Wrap"
+                                   Text="② Tab KG  → Decode KG → PNG  →  dapat .PNG siap diedit"/>
+                        <TextBlock Foreground="#444" FontSize="11" Margin="0,2,0,0" TextWrapping="Wrap"
+                                   Text="③ Edit .PNG dengan editor favorit kamu (Photoshop, GIMP, dll)"/>
+                        <TextBlock Foreground="#444" FontSize="11" Margin="0,2,0,0" TextWrapping="Wrap"
+                                   Text="④ Tab KG  → Encode PNG → KG  →  dapat packed_kg/*.KG"/>
+                        <TextBlock Foreground="#444" FontSize="11" Margin="0,2,0,0" TextWrapping="Wrap"
+                                   Text="⑤ Tab DSK → Repack DSK  →  pilih folder packed_kg, dapat .DSK baru siap pakai"/>
+                    </StackPanel>
+                </Border>
 
             </StackPanel>
-        </Border>
+        </ScrollViewer>
     </Grid>
 </UserControl>
