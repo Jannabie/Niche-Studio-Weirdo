@@ -11,10 +11,10 @@ namespace NicheStudioWeirdo.Views
             InitializeComponent();
         }
 
-        private void BrowsePngFolder_Click(object sender, RoutedEventArgs e)
+        private void BrowseWorkFolder_Click(object sender, RoutedEventArgs e)
         {
             var d = new OpenFolderDialog();
-            if (d.ShowDialog() == true) PngFolderTxt.Text = d.FolderName;
+            if (d.ShowDialog() == true) WorkFolderTxt.Text = d.FolderName;
         }
 
         private void BrowseDsk_Click(object sender, RoutedEventArgs e)
@@ -31,83 +31,93 @@ namespace NicheStudioWeirdo.Views
 
         private MainWindow GetMain() => (MainWindow)Window.GetWindow(this);
 
-        // ─── UNPACK DSK → KG → PNG + kg_metadata.json ───────────────────────
+        // ─── UNPACK DSK → .KG files ──────────────────────────────────────────
+        // Workflow step 1: DSK → extract raw .KG files ke Working Folder
+        // Setelah ini, buka .KG di GARbro untuk decode ke PNG, edit, lalu lanjut
         private async void UnpackDsk_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(DskFileTxt.Text) || string.IsNullOrWhiteSpace(PftFileTxt.Text))
             {
-                GetMain().LogToConsole("[ERROR] Isi DSK dan PFT sebelum Unpack.");
+                GetMain().LogToConsole("[ERROR] Pilih file .DSK dan .PFT terlebih dulu sebelum Unpack.");
                 return;
             }
-            // Output ke folder yang dipilih, atau buat subfolder di sebelah DSK
-            string outDir = PngFolderTxt.Text;
-            if (string.IsNullOrWhiteSpace(outDir))
+
+            // Auto-isi Working Folder jika kosong: buat subfolder di sebelah DSK
+            string workDir = WorkFolderTxt.Text;
+            if (string.IsNullOrWhiteSpace(workDir))
             {
-                outDir = System.IO.Path.Combine(
+                workDir = System.IO.Path.Combine(
                     System.IO.Path.GetDirectoryName(DskFileTxt.Text)!,
                     System.IO.Path.GetFileNameWithoutExtension(DskFileTxt.Text) + "_extracted");
-                PngFolderTxt.Text = outDir;
+                WorkFolderTxt.Text = workDir;
             }
+
             string repoDir = System.IO.Path.Combine(SettingsManager.Config.ReposPath, "Abogado-Arch-KG");
             string py = SettingsManager.Config.PythonPath;
             // python ArcUNPACK.py <file.dsk> <file.pft> <output_folder>
             await ToolRunner.RunAsync(repoDir, py,
-                $"ArcUNPACK.py \"{DskFileTxt.Text}\" \"{PftFileTxt.Text}\" \"{outDir}\"",
+                $"ArcUNPACK.py \"{DskFileTxt.Text}\" \"{PftFileTxt.Text}\" \"{workDir}\"",
                 GetMain());
         }
 
-        // ─── PNG → KG (ArcKGPACK.py) ────────────────────────────────────────
+        // ─── PNG → KG Convert (ArcKGPACK.py) ────────────────────────────────
+        // Workflow step 3: PNG di Working Folder → .KG di packed_kg/
+        // (Sebelumnya: decode .KG → PNG pakai GARbro, lalu edit PNG)
         private async void ConvertPngKg_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(PngFolderTxt.Text))
+            if (string.IsNullOrWhiteSpace(WorkFolderTxt.Text))
             {
-                GetMain().LogToConsole("[ERROR] Pilih PNG folder terlebih dulu.");
+                GetMain().LogToConsole("[ERROR] Pilih Working Folder (folder berisi file .PNG yang sudah diedit).");
                 return;
             }
             string repoDir = System.IO.Path.Combine(SettingsManager.Config.ReposPath, "Abogado-Arch-KG");
             string py = SettingsManager.Config.PythonPath;
-            // python ArcKGPACK.py folder_gambar/
-            await ToolRunner.RunAsync(repoDir, py, $"ArcKGPACK.py \"{PngFolderTxt.Text}\"", GetMain());
+            // python ArcKGPACK.py <folder_png>
+            await ToolRunner.RunAsync(repoDir, py,
+                $"ArcKGPACK.py \"{WorkFolderTxt.Text}\"",
+                GetMain());
         }
 
         // ─── PATCH DSK in-place (ArcPATCH.py) ──────────────────────────────
+        // Workflow step 4a: Suntik .KG hasil pack ke .DSK tanpa rebuild penuh
         private async void PatchDsk_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(DskFileTxt.Text) || string.IsNullOrWhiteSpace(PftFileTxt.Text) || string.IsNullOrWhiteSpace(PngFolderTxt.Text))
+            if (string.IsNullOrWhiteSpace(DskFileTxt.Text) || string.IsNullOrWhiteSpace(PftFileTxt.Text) || string.IsNullOrWhiteSpace(WorkFolderTxt.Text))
             {
-                GetMain().LogToConsole("[ERROR] Isi DSK, PFT, dan Folder sebelum Patch.");
+                GetMain().LogToConsole("[ERROR] Isi .DSK, .PFT, dan Working Folder sebelum Patch.");
                 return;
             }
             string repoDir = System.IO.Path.Combine(SettingsManager.Config.ReposPath, "Abogado-Arch-KG");
             string py = SettingsManager.Config.PythonPath;
-            
-            // ArcPATCH.py mengambil folder yang berisi file .KG
-            // Jika ada subfolder packed_kg, gunakan itu; jika tidak, gunakan folder yang dipilih
-            string kgFolder = System.IO.Path.Combine(PngFolderTxt.Text, "packed_kg");
-            if (!System.IO.Directory.Exists(kgFolder)) kgFolder = PngFolderTxt.Text;
 
-            // python ArcPATCH.py GRAPHIC.dsk GRAPHIC.pft folder_packed_kg/
+            // ArcKGPACK.py menyimpan hasil ke packed_kg/ — gunakan itu kalau ada
+            string kgFolder = System.IO.Path.Combine(WorkFolderTxt.Text, "packed_kg");
+            if (!System.IO.Directory.Exists(kgFolder)) kgFolder = WorkFolderTxt.Text;
+
+            // python ArcPATCH.py <file.dsk> <file.pft> <folder_kg>
             await ToolRunner.RunAsync(repoDir, py,
                 $"ArcPATCH.py \"{DskFileTxt.Text}\" \"{PftFileTxt.Text}\" \"{kgFolder}\"",
                 GetMain());
         }
 
         // ─── REBUILD FULL DSK (ArcPACK.py) ──────────────────────────────────
+        // Workflow step 4b: Bangun archive .DSK + .PFT baru dari nol
         private async void RebuildDsk_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(DskFileTxt.Text) || string.IsNullOrWhiteSpace(PftFileTxt.Text) || string.IsNullOrWhiteSpace(PngFolderTxt.Text))
+            if (string.IsNullOrWhiteSpace(DskFileTxt.Text) || string.IsNullOrWhiteSpace(PftFileTxt.Text) || string.IsNullOrWhiteSpace(WorkFolderTxt.Text))
             {
-                GetMain().LogToConsole("[ERROR] Isi DSK, PFT, dan Folder sebelum Rebuild.");
+                GetMain().LogToConsole("[ERROR] Isi .DSK, .PFT, dan Working Folder sebelum Rebuild.");
                 return;
             }
             string repoDir = System.IO.Path.Combine(SettingsManager.Config.ReposPath, "Abogado-Arch-KG");
             string py = SettingsManager.Config.PythonPath;
 
-            string kgFolder = System.IO.Path.Combine(PngFolderTxt.Text, "packed_kg");
-            if (!System.IO.Directory.Exists(kgFolder)) kgFolder = PngFolderTxt.Text;
+            // ArcPACK.py: <PFT_ASLI> <FOLDER_DATA> <NAMA_OUTPUT>
+            // Cari folder packed_kg dulu; fallback ke WorkFolder
+            string kgFolder = System.IO.Path.Combine(WorkFolderTxt.Text, "packed_kg");
+            if (!System.IO.Directory.Exists(kgFolder)) kgFolder = WorkFolderTxt.Text;
 
-            // ArcPACK.py <PFT_ASLI> <FOLDER_DATA> <NAMA_OUTPUT>
-            // Output base = nama DSK tanpa ekstensi (sebagai output baru)
+            // Output = nama DSK original + "_new" (jangan overwrite langsung)
             string outBase = System.IO.Path.Combine(
                 System.IO.Path.GetDirectoryName(DskFileTxt.Text)!,
                 System.IO.Path.GetFileNameWithoutExtension(DskFileTxt.Text) + "_new");
