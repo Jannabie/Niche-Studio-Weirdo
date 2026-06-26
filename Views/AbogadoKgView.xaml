@@ -9,41 +9,52 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Text="Abogado Graphics (KG)" Style="{StaticResource HeaderStyle}"/>
-        <TextBlock Grid.Row="1" Text="Convert PNG to KG (8bpp/24bpp/32bpp) and pack/patch .DSK archives." Style="{StaticResource SubheaderStyle}"/>
+        <TextBlock Grid.Row="1" Text="Unpack/Repack .DSK archives · Convert PNG ↔ KG (8bpp/24bpp/32bpp) · Patch in-place." Style="{StaticResource SubheaderStyle}"/>
 
         <Border Grid.Row="2" Background="{StaticResource BgDarkestBrush}" CornerRadius="0" Padding="20" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}" Margin="0,0,0,0">
             <StackPanel>
-                <TextBlock Text="PNG SOURCE FOLDER (Tahap 1)" Style="{StaticResource LabelStyle}"/>
-                <Grid Margin="0,0,0,16">
-                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                    <TextBox x:Name="PngFolderTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
-                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowsePngFolder_Click"/>
-                </Grid>
 
-                <TextBlock Text="TARGET .DSK ARCHIVE (Tahap 2)" Style="{StaticResource LabelStyle}"/>
+                <!-- ── DSK Archive ── -->
+                <TextBlock Text="TARGET .DSK ARCHIVE" Style="{StaticResource LabelStyle}"/>
                 <Grid Margin="0,0,0,16">
                     <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
                     <TextBox x:Name="DskFileTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
                     <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseDsk_Click"/>
                 </Grid>
 
-                <TextBlock Text="INDEX .PFT FILE (Wajib untuk Patch/Rebuild)" Style="{StaticResource LabelStyle}"/>
-                <Grid Margin="0,0,0,24">
+                <!-- ── PFT Index ── -->
+                <TextBlock Text="INDEX .PFT FILE (Wajib untuk semua operasi DSK)" Style="{StaticResource LabelStyle}"/>
+                <Grid Margin="0,0,0,16">
                     <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
                     <TextBox x:Name="PftFileTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
                     <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowsePft_Click"/>
                 </Grid>
 
+                <!-- ── PNG / KG Folder ── -->
+                <TextBlock Text="PNG / KG FOLDER (output unpack · input pack/patch)" Style="{StaticResource LabelStyle}"/>
+                <Grid Margin="0,0,0,24">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <TextBox x:Name="PngFolderTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowsePngFolder_Click"/>
+                </Grid>
+
                 <!-- Warning Banner -->
                 <Border Background="#1A1508" CornerRadius="0" Padding="12" Margin="0,0,0,20" BorderThickness="1" BorderBrush="#3A3015">
-                    <TextBlock Text="Note: Ensure kg_metadata.json is present in your PNG folder if packing 8bpp images." Foreground="#B09040" FontSize="12" TextWrapping="Wrap"/>
+                    <TextBlock Text="Workflow: Unpack DSK → edit PNG → PNG→KG Convert → Patch DSK (atau Rebuild Full DSK). File kg_metadata.json otomatis dibuat saat Unpack." Foreground="#B09040" FontSize="12" TextWrapping="Wrap"/>
                 </Border>
 
+                <!-- Buttons Row -->
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Content="PNG -> KG Convert" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="ConvertPngKg_Click" ToolTip="Runs ArcKGPACK.py"/>
-                    <Button Content="Patch DSK In-place" Style="{StaticResource ActionButtonAmber}" Margin="0,0,8,0" Click="PatchDsk_Click" ToolTip="Runs ArcPATCH.py"/>
-                    <Button Content="Rebuild Full DSK" Style="{StaticResource ActionButtonGreen}" Click="RebuildDsk_Click" ToolTip="Runs ArcPACK.py"/>
+                    <Button Content="Unpack DSK" Style="{StaticResource BrowseButton}" Margin="0,0,8,0"
+                            Click="UnpackDsk_Click" ToolTip="Runs ArcUNPACK.py — ekstrak .KG → .PNG + kg_metadata.json"/>
+                    <Button Content="PNG → KG Convert" Style="{StaticResource BrowseButton}" Margin="0,0,8,0"
+                            Click="ConvertPngKg_Click" ToolTip="Runs ArcKGPACK.py — konversi PNG ke .KG"/>
+                    <Button Content="Patch DSK In-place" Style="{StaticResource ActionButtonAmber}" Margin="0,0,8,0"
+                            Click="PatchDsk_Click" ToolTip="Runs ArcPATCH.py — patch file .KG ke DSK tanpa rebuild penuh"/>
+                    <Button Content="Rebuild Full DSK" Style="{StaticResource ActionButtonGreen}"
+                            Click="RebuildDsk_Click" ToolTip="Runs ArcPACK.py — rebuild archive DSK+PFT baru dari semua .KG"/>
                 </StackPanel>
+
             </StackPanel>
         </Border>
     </Grid>

@@ -19,50 +19,85 @@ namespace NicheStudioWeirdo.Views
 
         private void BrowseDsk_Click(object sender, RoutedEventArgs e)
         {
-            var d = new OpenFileDialog { Filter = "DSK Archives (*.dsk)|*.dsk|All Files (*.*)|*.*" };
+            var d = new OpenFileDialog { Filter = "DSK Archives (*.dsk;*.DSK)|*.dsk;*.DSK|All Files (*.*)|*.*" };
             if (d.ShowDialog() == true) DskFileTxt.Text = d.FileName;
         }
 
         private void BrowsePft_Click(object sender, RoutedEventArgs e)
         {
-            var d = new OpenFileDialog { Filter = "PFT Indexes (*.pft)|*.pft|All Files (*.*)|*.*" };
+            var d = new OpenFileDialog { Filter = "PFT Indexes (*.pft;*.PFT)|*.pft;*.PFT|All Files (*.*)|*.*" };
             if (d.ShowDialog() == true) PftFileTxt.Text = d.FileName;
         }
 
         private MainWindow GetMain() => (MainWindow)Window.GetWindow(this);
 
+        // ─── UNPACK DSK → KG → PNG + kg_metadata.json ───────────────────────
+        private async void UnpackDsk_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(DskFileTxt.Text) || string.IsNullOrWhiteSpace(PftFileTxt.Text))
+            {
+                GetMain().LogToConsole("[ERROR] Isi DSK dan PFT sebelum Unpack.");
+                return;
+            }
+            // Output ke folder yang dipilih, atau buat subfolder di sebelah DSK
+            string outDir = PngFolderTxt.Text;
+            if (string.IsNullOrWhiteSpace(outDir))
+            {
+                outDir = System.IO.Path.Combine(
+                    System.IO.Path.GetDirectoryName(DskFileTxt.Text)!,
+                    System.IO.Path.GetFileNameWithoutExtension(DskFileTxt.Text) + "_extracted");
+                PngFolderTxt.Text = outDir;
+            }
+            string repoDir = System.IO.Path.Combine(SettingsManager.Config.ReposPath, "Abogado-Arch-KG");
+            string py = SettingsManager.Config.PythonPath;
+            // python ArcUNPACK.py <file.dsk> <file.pft> <output_folder>
+            await ToolRunner.RunAsync(repoDir, py,
+                $"ArcUNPACK.py \"{DskFileTxt.Text}\" \"{PftFileTxt.Text}\" \"{outDir}\"",
+                GetMain());
+        }
+
+        // ─── PNG → KG (ArcKGPACK.py) ────────────────────────────────────────
         private async void ConvertPngKg_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(PngFolderTxt.Text)) return;
+            if (string.IsNullOrWhiteSpace(PngFolderTxt.Text))
+            {
+                GetMain().LogToConsole("[ERROR] Pilih PNG folder terlebih dulu.");
+                return;
+            }
             string repoDir = System.IO.Path.Combine(SettingsManager.Config.ReposPath, "Abogado-Arch-KG");
             string py = SettingsManager.Config.PythonPath;
             // python ArcKGPACK.py folder_gambar/
             await ToolRunner.RunAsync(repoDir, py, $"ArcKGPACK.py \"{PngFolderTxt.Text}\"", GetMain());
         }
 
+        // ─── PATCH DSK in-place (ArcPATCH.py) ──────────────────────────────
         private async void PatchDsk_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(DskFileTxt.Text) || string.IsNullOrWhiteSpace(PftFileTxt.Text) || string.IsNullOrWhiteSpace(PngFolderTxt.Text))
             {
-                GetMain().LogToConsole("[ERROR] Please specify DSK, PFT, and the PNG/KG folder before patching.");
+                GetMain().LogToConsole("[ERROR] Isi DSK, PFT, dan Folder sebelum Patch.");
                 return;
             }
             string repoDir = System.IO.Path.Combine(SettingsManager.Config.ReposPath, "Abogado-Arch-KG");
             string py = SettingsManager.Config.PythonPath;
             
-            // Assume packed KGs are in a "packed_kg" subfolder if it exists, otherwise use the selected folder directly
+            // ArcPATCH.py mengambil folder yang berisi file .KG
+            // Jika ada subfolder packed_kg, gunakan itu; jika tidak, gunakan folder yang dipilih
             string kgFolder = System.IO.Path.Combine(PngFolderTxt.Text, "packed_kg");
             if (!System.IO.Directory.Exists(kgFolder)) kgFolder = PngFolderTxt.Text;
 
             // python ArcPATCH.py GRAPHIC.dsk GRAPHIC.pft folder_packed_kg/
-            await ToolRunner.RunAsync(repoDir, py, $"ArcPATCH.py \"{DskFileTxt.Text}\" \"{PftFileTxt.Text}\" \"{kgFolder}\"", GetMain());
+            await ToolRunner.RunAsync(repoDir, py,
+                $"ArcPATCH.py \"{DskFileTxt.Text}\" \"{PftFileTxt.Text}\" \"{kgFolder}\"",
+                GetMain());
         }
 
+        // ─── REBUILD FULL DSK (ArcPACK.py) ──────────────────────────────────
         private async void RebuildDsk_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(DskFileTxt.Text) || string.IsNullOrWhiteSpace(PftFileTxt.Text) || string.IsNullOrWhiteSpace(PngFolderTxt.Text))
             {
-                GetMain().LogToConsole("[ERROR] Please specify DSK, PFT, and the PNG/KG folder before rebuilding.");
+                GetMain().LogToConsole("[ERROR] Isi DSK, PFT, dan Folder sebelum Rebuild.");
                 return;
             }
             string repoDir = System.IO.Path.Combine(SettingsManager.Config.ReposPath, "Abogado-Arch-KG");
@@ -71,8 +106,15 @@ namespace NicheStudioWeirdo.Views
             string kgFolder = System.IO.Path.Combine(PngFolderTxt.Text, "packed_kg");
             if (!System.IO.Directory.Exists(kgFolder)) kgFolder = PngFolderTxt.Text;
 
-            // python ArcPACK.py GRAPHIC.dsk GRAPHIC.pft folder_packed_kg/
-            await ToolRunner.RunAsync(repoDir, py, $"ArcPACK.py \"{DskFileTxt.Text}\" \"{PftFileTxt.Text}\" \"{kgFolder}\"", GetMain());
+            // ArcPACK.py <PFT_ASLI> <FOLDER_DATA> <NAMA_OUTPUT>
+            // Output base = nama DSK tanpa ekstensi (sebagai output baru)
+            string outBase = System.IO.Path.Combine(
+                System.IO.Path.GetDirectoryName(DskFileTxt.Text)!,
+                System.IO.Path.GetFileNameWithoutExtension(DskFileTxt.Text) + "_new");
+
+            await ToolRunner.RunAsync(repoDir, py,
+                $"ArcPACK.py \"{PftFileTxt.Text}\" \"{kgFolder}\" \"{outBase}\"",
+                GetMain());
         }
     }
 }
