@@ -322,12 +322,12 @@ def mzp_encode(img: Image.Image, orig_data: bytes) -> bytes:
 
             if bt == 0x01:
                 bpp = 4 if bd in (0x00,0x10) else 8
-                # Map to palette indices
-                flat = tile.reshape(-1,4)
-                idx = np.zeros(len(flat), dtype=np.uint8)
-                for i,px in enumerate(flat):
-                    dists = np.sum((pal_fixed.astype(np.int32)-px.astype(np.int32))**2, axis=1)
-                    idx[i] = np.argmin(dists)
+                # Map to palette indices (Vectorized)
+                flat = tile.reshape(-1,4).astype(np.int32)
+                pal_i32 = pal_fixed.astype(np.int32)
+                # flat is (N, 4), pal_i32 is (P, 4). Broadcast to (N, P, 4)
+                dists = np.sum((flat[:, np.newaxis, :] - pal_i32)**2, axis=2)
+                idx = np.argmin(dists, axis=1).astype(np.uint8)
                 tile_bytes = idx.tobytes()
                 # transparency
                 a_vals = pal_fixed[idx,3]
