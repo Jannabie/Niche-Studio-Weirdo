@@ -8,7 +8,7 @@ namespace NicheStudioWeirdo.Utils
     {
         private static string GetRepoDir()
         {
-            return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ExternalTools", "HuneX-Scripting");
+            return UtilityResolver.GetToolPath("Hunex Mahoyo");
         }
 
         private static string GetPython()
