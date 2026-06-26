@@ -208,10 +208,11 @@ def _hep_build(pixels_rgba: np.ndarray, tw: int, th: int,
     pal_arr = np.array(palette_colors[:256], dtype=np.uint8)
     # Map each pixel to nearest palette entry
     pal_fixed = pal_arr.copy(); pal_fixed[:,3] = _np_ufa(pal_arr[:,3])
-    indices = np.zeros(len(flat), dtype=np.uint8)
-    for i,px in enumerate(flat):
-        dists = np.sum((pal_arr.astype(np.int32)-px.astype(np.int32))**2, axis=1)
-        indices[i] = np.argmin(dists)
+    
+    # Use fast vectorized matcher instead of pure-python loop
+    matcher = _build_palette_matcher(pal_arr)
+    indices = matcher(flat)
+    
     nb_px = tw * th
     fsz = HEP_HDR_SZ + nb_px + HEP_PAL_SZ
     hdr = struct.pack('<IIIIIIII',
