@@ -7,7 +7,7 @@ Niche Studio Weirdo is a comprehensive, centralized toolset for reverse-engineer
 - **Buriko (BGI)**: Extract, decompile, translate, and repack BGI scripts and archives.
 - **CodeXR**: Extract `.bin`, export `.gsc` to JSON, and repack.
 - **Fuzz Inc. (FSN)**: File extraction and `.pck` packaging.
-- **HuneX & HuneX (Mahoyo)**: Parse `script.bin`, insert translations, extract archives, and rebuild them.
+- **HuneX & HuneX (Mahoyo)**: Parse `script.bin`, insert translations, extract/repack `.hfa` archives. Includes specialized tools for Mahoyo `.mzp` (images), `.cbg`, and `.ctd` scripts with heavily optimized KDTree palette matching and custom MZX RLE compression.
 - **Leaf (WA2)**: File extraction, text translation, and script compiling.
 - **Malie & Malie Kajiri**: Decrypt `.dat`, convert graphics (`PNG ↔ MGF`), and parse script files.
 - **Minato (New & Old)**: Manage `Majikoi` and `WagaHime` formats, extract bins, and reconstruct archives.
