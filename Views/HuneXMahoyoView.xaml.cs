@@ -80,10 +80,12 @@ namespace NicheStudioWeirdo.Views
         {
             if (string.IsNullOrWhiteSpace(OriginalFileTxt.Text) || OriginalFileTxt.Text.Contains("Select")) return;
             string ext = Path.GetExtension(OriginalFileTxt.Text).ToLower();
-
-            if (ext == ".ctd") await Utils.HunexUtils.DecompressCtdAsync(OriginalFileTxt.Text, GetMain());
-            else if (ext == ".cbg") await Utils.HunexUtils.DecodeCbgAsync(OriginalFileTxt.Text, GetMain());
-            else if (ext == ".mzp") await Utils.HunexUtils.DecodeMzpAsync(OriginalFileTxt.Text, GetMain());
+            
+            string basePath = OriginalFileTxt.Text.Substring(0, OriginalFileTxt.Text.Length - ext.Length);
+            
+            if (ext == ".ctd") await Utils.HunexUtils.DecompressCtdAsync(OriginalFileTxt.Text, basePath + "_new.txt", GetMain());
+            else if (ext == ".cbg") await Utils.HunexUtils.DecodeCbgAsync(OriginalFileTxt.Text, basePath + "_new.png", GetMain());
+            else if (ext == ".mzp") await Utils.HunexUtils.DecodeMzpAsync(OriginalFileTxt.Text, basePath + "_new.png", GetMain());
         }
 
         private async void Encode_Click(object sender, RoutedEventArgs e)
@@ -92,10 +94,12 @@ namespace NicheStudioWeirdo.Views
             if (string.IsNullOrWhiteSpace(ModdedFileTxt.Text) || ModdedFileTxt.Text.Contains("Select")) return;
 
             string ext = Path.GetExtension(OriginalFileTxt.Text).ToLower();
+            
+            string basePath = OriginalFileTxt.Text.Substring(0, OriginalFileTxt.Text.Length - ext.Length);
 
-            if (ext == ".ctd") await Utils.HunexUtils.CompressCtdAsync(ModdedFileTxt.Text, OriginalFileTxt.Text, GetMain());
-            else if (ext == ".cbg") await Utils.HunexUtils.EncodeCbgAsync(ModdedFileTxt.Text, OriginalFileTxt.Text, GetMain());
-            else if (ext == ".mzp") await Utils.HunexUtils.EncodeMzpAsync(ModdedFileTxt.Text, OriginalFileTxt.Text, GetMain());
+            if (ext == ".ctd") await Utils.HunexUtils.CompressCtdAsync(ModdedFileTxt.Text, basePath + "_new.ctd", GetMain());
+            else if (ext == ".cbg") await Utils.HunexUtils.EncodeCbgAsync(ModdedFileTxt.Text, basePath + "_new.cbg", GetMain());
+            else if (ext == ".mzp") await Utils.HunexUtils.EncodeMzpAsync(ModdedFileTxt.Text, basePath + "_new.mzp", GetMain());
         }
     }
 }
