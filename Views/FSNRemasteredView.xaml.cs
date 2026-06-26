@@ -43,7 +43,7 @@ namespace NicheStudioWeirdo.Views
         {
             if (string.IsNullOrWhiteSpace(TargetDirTxt.Text)) return;
             var main = (MainWindow)Window.GetWindow(this);
-            string repoDir = System.IO.Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "FSN-Remastered-Decompiler");
+            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Fuzz Inc");
             string py = SettingsManager.Config.PythonPath;
 
             string outDir = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(TargetDirTxt.Text) ?? "", "patch_build");
@@ -55,7 +55,7 @@ namespace NicheStudioWeirdo.Views
         {
             if (string.IsNullOrWhiteSpace(TargetDirTxt.Text)) return;
             var main = (MainWindow)Window.GetWindow(this);
-            string repoDir = System.IO.Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "FSN-Remastered-Decompiler");
+            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Fuzz Inc");
             string py = SettingsManager.Config.PythonPath;
 
             string outDir = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(TargetDirTxt.Text) ?? "", "patch_build");
@@ -67,7 +67,7 @@ namespace NicheStudioWeirdo.Views
         {
             if (string.IsNullOrWhiteSpace(TargetDirTxt.Text)) return;
             var main = (MainWindow)Window.GetWindow(this);
-            string repoDir = System.IO.Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "FSN-Remastered-Decompiler");
+            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Fuzz Inc");
             string py = SettingsManager.Config.PythonPath;
 
             string outDir = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(TargetDirTxt.Text) ?? "", "patch_build");

@@ -36,7 +36,7 @@ namespace NicheStudioWeirdo.Views
         private async void ExtractScripts_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(ArchiveTxt.Text) || string.IsNullOrWhiteSpace(ScriptFolderTxt.Text)) return;
-            string repoDir = System.IO.Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "BGI-Translator");
+            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Buriko");
             await ToolRunner.RunAsync(repoDir, CSystemArcTxt.Text, $"extract \"{ArchiveTxt.Text}\" \"{ScriptFolderTxt.Text}\\\"", GetMain());
         }
 
@@ -44,7 +44,7 @@ namespace NicheStudioWeirdo.Views
         {
             // Using BgiDisassembler.exe to repack or process if needed, or we just map Repack
             if (string.IsNullOrWhiteSpace(ArchiveTxt.Text) || string.IsNullOrWhiteSpace(ScriptFolderTxt.Text)) return;
-            string repoDir = System.IO.Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "BGI-Translator");
+            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Buriko");
             string outArc = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(ArchiveTxt.Text) ?? "", "patched.arc");
             await ToolRunner.RunAsync(repoDir, CSystemArcTxt.Text, $"pack \"{ScriptFolderTxt.Text}\\\" \"{outArc}\"", GetMain());
         }

@@ -32,7 +32,7 @@ namespace NicheStudioWeirdo.Views
 
             int idx = GameIndexCombo.SelectedIndex; // 0-25, maps directly
 
-            string repoDir = Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "MinoEngine-Arch");
+            string repoDir = Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Minori");
             string exe = Path.Combine(repoDir, "tools", "fuckpaz.exe");
 
             // fuckpaz.exe u "<file.paz>" <idx> "<output_folder>"
@@ -45,7 +45,7 @@ namespace NicheStudioWeirdo.Views
 
             int idx = GameIndexCombo.SelectedIndex; // 0-25, maps directly
 
-            string repoDir = Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "MinoEngine-Arch");
+            string repoDir = Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Minori");
             string exe = Path.Combine(repoDir, "tools", "fuckpaz.exe");
 
             // fuckpaz.exe p "<folder>" <idx> "<output.paz>"

@@ -24,7 +24,7 @@ namespace NicheStudioWeirdo.Views
         private async void InstallPatch_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(GameDirTxt.Text) || GameDirTxt.Text.Contains("Select")) return;
-            string repoDir = Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "KKK");
+            string repoDir = Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Malie Kajiri");
             string gameDir = GameDirTxt.Text;
             var main = GetMain();
 
@@ -73,7 +73,7 @@ namespace NicheStudioWeirdo.Views
 
         private async void Wordwrap_Click(object sender, RoutedEventArgs e)
         {
-            string repoDir = Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "KKK");
+            string repoDir = Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Malie Kajiri");
             string depsDir = Path.Combine(repoDir, "dependencies");
             string py = SettingsManager.Config.PythonPath;
             await ToolRunner.RunAsync(depsDir, py, "wordwrap.py", GetMain());
@@ -81,7 +81,7 @@ namespace NicheStudioWeirdo.Views
 
         private async void Compile_Click(object sender, RoutedEventArgs e)
         {
-            string repoDir = Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "KKK");
+            string repoDir = Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Malie Kajiri");
             string exeDir = Path.Combine(repoDir, "dependencies", "malie tools", "compilar", "Malie_Script_Tool-main", "bin", "Debug");
             
             // Auto create .data\system to prevent DirectoryNotFoundException
@@ -93,7 +93,7 @@ namespace NicheStudioWeirdo.Views
 
         private async void Pack_Click(object sender, RoutedEventArgs e)
         {
-            string repoDir = Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "KKK");
+            string repoDir = Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Malie Kajiri");
             string depsDir = Path.Combine(repoDir, "dependencies");
             string py = SettingsManager.Config.PythonPath;
             string dataDir = Path.Combine(repoDir, "data");

@@ -43,7 +43,7 @@ namespace NicheStudioWeirdo.Views
 
             if (string.IsNullOrWhiteSpace(DecodeFolderTxt.Text))
             {
-                GetMain().LogToConsole("[ERROR] Pilih folder yang berisi file .KG terlebih dulu.");
+                GetMain().LogToConsole("[ERROR] Select a folder containing .KG files first.");
                 TrySetBusy(false);
                 return;
             }
@@ -72,7 +72,7 @@ namespace NicheStudioWeirdo.Views
 
             if (string.IsNullOrWhiteSpace(EncodeFolderTxt.Text))
             {
-                GetMain().LogToConsole("[ERROR] Pilih folder yang berisi file .PNG yang mau dikonversi.");
+                GetMain().LogToConsole("[ERROR] Select a folder containing .PNG files to convert.");
                 TrySetBusy(false);
                 return;
             }

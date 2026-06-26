@@ -23,7 +23,7 @@ namespace NicheStudioWeirdo.Views
 
         private string GetEncoding() => ((ComboBoxItem)EncodingCombo.SelectedItem).Content.ToString().Contains("UTF") ? "utf-8" : "shift-jis";
 
-        private string GetScriptPath() => Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "codeX-RScript-tools", "gsc_tool.py");
+        private string GetScriptPath() => Path.Combine(Utils.UtilityResolver.GetToolPath(""), "CodeXR", "gsc_tool.py");
 
         private bool IsBatchMode()
         {

@@ -34,7 +34,7 @@ namespace NicheStudioWeirdo.Views
             if (string.IsNullOrWhiteSpace(DatFileTxt.Text)) return;
             var main = (MainWindow)Window.GetWindow(this);
             // Scripts are in the WagaHime-Arc subfolder
-            string repoDir = System.IO.Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "WagaHime-Tools", "WagaHime-Arc");
+            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Minato New", "WagaHime-Arc");
             string py = SettingsManager.Config.PythonPath;
             
             // acv1_extractor.py <file.dat> [options]  Eoutput auto goes to <name>_extracted/
@@ -50,7 +50,7 @@ namespace NicheStudioWeirdo.Views
             if (string.IsNullOrWhiteSpace(DatFileTxt.Text) || string.IsNullOrWhiteSpace(ExtractedDirTxt.Text)) return;
             var main = (MainWindow)Window.GetWindow(this);
             // Scripts are in the WagaHime-Arc subfolder
-            string repoDir = System.IO.Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "WagaHime-Tools", "WagaHime-Arc");
+            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Minato New", "WagaHime-Arc");
             string py = SettingsManager.Config.PythonPath;
 
             string datFile = DatFileTxt.Text;

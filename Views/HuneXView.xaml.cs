@@ -46,7 +46,7 @@ namespace NicheStudioWeirdo.Views
         private async void BuildDb_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(AllscrTxt.Text)) return;
-            string repoDir = System.IO.Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "TsukiRe-mrg-txt");
+            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Hunex Tsukire");
             string py = SettingsManager.Config.PythonPath;
             string outDir = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(AllscrTxt.Text) ?? "", "extracted_mrg");
             await ToolRunner.RunAsync(repoDir, py, $"mrg_tool.py extract \"{AllscrTxt.Text}\" \"{outDir}\"", GetMain());
@@ -55,7 +55,7 @@ namespace NicheStudioWeirdo.Views
         private async void PatchMrg_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(ScriptTextTxt.Text) || string.IsNullOrWhiteSpace(AllscrTxt.Text)) return;
-            string repoDir = System.IO.Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "TsukiRe-mrg-txt");
+            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Hunex Tsukire");
             string py = SettingsManager.Config.PythonPath;
             string inDir = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(AllscrTxt.Text) ?? "", "extracted_mrg");
             await ToolRunner.RunAsync(repoDir, py, $"mrg_tool.py repack \"{inDir}\" \"{ScriptTextTxt.Text}\"", GetMain());

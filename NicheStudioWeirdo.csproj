@@ -14,8 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="ExternalTools\**\*.cs" />
-    <None Include="ExternalTools\**\*">
+    <Compile Remove="Utility\**\*.cs" />
+    <Compile Remove="publish_final\**\*.cs" />
+    <None Include="Utility\**\*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

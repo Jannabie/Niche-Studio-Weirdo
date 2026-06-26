@@ -173,7 +173,7 @@ namespace NicheStudioWeirdo.Views
 
             if (string.IsNullOrWhiteSpace(ScfFileTxt.Text))
             {
-                GetMain().LogToConsole("[ERROR] Pilih file .SCF terlebih dulu.");
+                GetMain().LogToConsole("[ERROR] Select a .SCF file first.");
                 TrySetBusy(false);
                 return;
             }
@@ -206,7 +206,7 @@ namespace NicheStudioWeirdo.Views
 
             if (string.IsNullOrWhiteSpace(TranslationJsonTxt.Text))
             {
-                GetMain().LogToConsole("[ERROR] Pilih file .JSON hasil extract terlebih dahulu (Wajib).");
+                GetMain().LogToConsole("[ERROR] Select the extracted .JSON file first (Required).");
                 TrySetBusy(false);
                 return;
             }

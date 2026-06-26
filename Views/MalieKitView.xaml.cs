@@ -48,7 +48,7 @@ namespace NicheStudioWeirdo.Views
         private async void Decrypt_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(ArchiveTxt.Text)) return;
-            string repoDir = System.IO.Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "MalieKit");
+            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Malie");
             string py = SettingsManager.Config.PythonPath;
             await ToolRunner.RunAsync(repoDir, py, $"LauncherDatSource/execution/unpack.py \"{ArchiveTxt.Text}\"", GetMain());
         }
@@ -58,7 +58,7 @@ namespace NicheStudioWeirdo.Views
         private async void ExportNames_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(ScriptDirTxt.Text)) return;
-            string repoDir = System.IO.Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "MalieKit");
+            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Malie");
             string exe = System.IO.Path.Combine(repoDir, "Malie_Script_Tool.exe");
             string outTxt = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(ScriptDirTxt.Text) ?? "", "exec_strings.txt");
             await ToolRunner.RunAsync(repoDir, exe, $"-a -in \"{ScriptDirTxt.Text}\" -out \"{outTxt}\"", GetMain());
@@ -67,7 +67,7 @@ namespace NicheStudioWeirdo.Views
         private async void ExportDialog_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(ScriptDirTxt.Text)) return;
-            string repoDir = System.IO.Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "MalieKit");
+            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Malie");
             string exe = System.IO.Path.Combine(repoDir, "Malie_Script_Tool.exe");
             string outTxt = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(ScriptDirTxt.Text) ?? "", "exec_dialog.txt");
             await ToolRunner.RunAsync(repoDir, exe, $"-e -in \"{ScriptDirTxt.Text}\" -out \"{outTxt}\"", GetMain());
@@ -76,7 +76,7 @@ namespace NicheStudioWeirdo.Views
         private async void PatchNames_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(ScriptDirTxt.Text)) return;
-            string repoDir = System.IO.Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "MalieKit");
+            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Malie");
             string exe = System.IO.Path.Combine(repoDir, "Malie_Script_Tool.exe");
             string inTxt = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(ScriptDirTxt.Text) ?? "", "exec_strings.txt");
             string outDat = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(ScriptDirTxt.Text) ?? "", "exec_patched.dat");
@@ -86,7 +86,7 @@ namespace NicheStudioWeirdo.Views
         private async void PatchDialog_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(ScriptDirTxt.Text)) return;
-            string repoDir = System.IO.Path.Combine(Utils.ExternalToolsResolver.GetToolPath(""), "MalieKit");
+            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Malie");
             string exe = System.IO.Path.Combine(repoDir, "Malie_Script_Tool.exe");
             string inDat = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(ScriptDirTxt.Text) ?? "", "exec_patched.dat");
             string inTxt = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(ScriptDirTxt.Text) ?? "", "exec_dialog.txt");

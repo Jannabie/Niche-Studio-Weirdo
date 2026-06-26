@@ -10,15 +10,6 @@ namespace NicheStudioWeirdo.Views
         public WA2ArchView()
         {
             InitializeComponent();
-            // Pre-fill from saved settings
-            if (!string.IsNullOrEmpty(SettingsManager.Config.ExkizpakPath))
-                ExkizpakTxt.Text = SettingsManager.Config.ExkizpakPath;
-        }
-
-        private void BrowseExe_Click(object sender, RoutedEventArgs e)
-        {
-            var dialog = new OpenFileDialog { Filter = "Executable (*.exe)|*.exe" };
-            if (dialog.ShowDialog() == true) ExkizpakTxt.Text = dialog.FileName;
         }
 
         private void BrowseWorkspace_Click(object sender, RoutedEventArgs e)
@@ -37,9 +28,10 @@ namespace NicheStudioWeirdo.Views
         {
             var main = (MainWindow)Window.GetWindow(this);
 
-            if (string.IsNullOrWhiteSpace(ExkizpakTxt.Text) || !File.Exists(ExkizpakTxt.Text))
+            string exkizpakPath = Utils.UtilityResolver.GetToolPath("Leaf", "WA2-Arch-main\\exkizpak_v2.exe");
+            if (!File.Exists(exkizpakPath))
             {
-                main.LogToConsole("[ERROR] exkizpak_v2.exe not found. Please locate it first.");
+                main.LogToConsole("[ERROR] exkizpak_v2.exe not found in embedded tools.");
                 return;
             }
             if (string.IsNullOrWhiteSpace(WorkspaceTxt.Text) || !Directory.Exists(WorkspaceTxt.Text))
@@ -53,19 +45,16 @@ namespace NicheStudioWeirdo.Views
                 return;
             }
 
-            SettingsManager.Config.ExkizpakPath = ExkizpakTxt.Text;
-            SettingsManager.Save();
-
             string pakName = Path.GetFileName(PakFileTxt.Text);
             main.LogToConsole($"WA2: Unpacking {pakName} into {WorkspaceTxt.Text}");
-            main.LogToConsole($"> Executing: {ExkizpakTxt.Text} \"{PakFileTxt.Text}\"");
-            main.LogToConsole($"NOTE: After extraction, move '{pakName}' and 'exkizpak_v2.exe' OUT of the workspace before repacking.");
+            main.LogToConsole($"> Executing Embedded WA2-Arch tool on \"{PakFileTxt.Text}\"");
+            main.LogToConsole($"NOTE: After extraction, move '{pakName}' OUT of the workspace before repacking.");
 
-            // exkizpak_v2.exe takes the .pak file as a direct argument  Eno flags needed.
+            // exkizpak_v2.exe takes the .pak file as a direct argument ?Eno flags needed.
             // It will extract into a subfolder inside the workspace.
             // We run it from the workspace directory so output lands there.
             string arguments = $"\"{PakFileTxt.Text}\"";
-            _ = ToolRunner.RunAsync(WorkspaceTxt.Text, ExkizpakTxt.Text, arguments, main);
+            _ = ToolRunner.RunAsync(WorkspaceTxt.Text, exkizpakPath, arguments, main);
         }
 
         private async void Repack_Click(object sender, RoutedEventArgs e)
