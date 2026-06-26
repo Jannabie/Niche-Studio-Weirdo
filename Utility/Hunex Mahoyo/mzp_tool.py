@@ -54,6 +54,34 @@ def _check_deps():
 
 if not _check_deps(): sys.exit(1)
 
+try:
+    from scipy.spatial import KDTree as _KDTree
+    _HAS_SCIPY = True
+except ImportError:
+    _HAS_SCIPY = False
+
+def _build_palette_matcher(pal_fixed):
+    """Build a fast palette matcher. Uses KDTree if scipy is available."""
+    if _HAS_SCIPY:
+        tree = _KDTree(pal_fixed.astype(float))
+        def match(flat):
+            _, idx = tree.query(flat.astype(float))
+            return idx.astype('uint8')
+    else:
+        # Chunked numpy fallback: process CHUNK_SIZE pixels at a time
+        CHUNK = 4096
+        pal_i32 = pal_fixed.astype('int32')
+        def match(flat):
+            flat_i32 = flat.astype('int32')
+            out = []
+            for start in range(0, len(flat_i32), CHUNK):
+                chunk = flat_i32[start:start+CHUNK]
+                dists = ((chunk[:, None, :] - pal_i32[None, :, :]) ** 2).sum(axis=2)
+                out.append(dists.argmin(axis=1).astype('uint8'))
+            import numpy as _np
+            return _np.concatenate(out)
+    return match
+
 import numpy as np
 from PIL import Image
 
@@ -295,6 +323,7 @@ def mzp_encode(img: Image.Image, orig_data: bytes) -> bytes:
     # For 0x01: load original palette
     pal_orig = None
     pal_fixed = None
+    _palette_match = None
     if bt == 0x01:
         pal_sz = 16 if bd in (0x00,0x10) else 256
         pal_raw = np.frombuffer(e0, dtype=np.uint8, offset=16,
@@ -303,6 +332,9 @@ def mzp_encode(img: Image.Image, orig_data: bytes) -> bytes:
         if bd in (0x11,0x91):
             for i in range(0,len(pal_fixed),32):
                 t=pal_fixed[i+8:i+16].copy(); pal_fixed[i+8:i+16]=pal_fixed[i+16:i+24]; pal_fixed[i+16:i+24]=t
+        # Build palette matcher ONCE here, not per-tile
+        print('  Building palette index (KDTree)...' if _HAS_SCIPY else '  Building palette index (chunked)...')
+        _palette_match = _build_palette_matcher(pal_fixed)
 
     # Build new tile data
     new_tiles = []
@@ -322,16 +354,13 @@ def mzp_encode(img: Image.Image, orig_data: bytes) -> bytes:
 
             if bt == 0x01:
                 bpp = 4 if bd in (0x00,0x10) else 8
-                # Map to palette indices (Vectorized)
-                flat = tile.reshape(-1,4).astype(np.int32)
-                pal_i32 = pal_fixed.astype(np.int32)
-                # flat is (N, 4), pal_i32 is (P, 4). Broadcast to (N, P, 4)
-                dists = np.sum((flat[:, np.newaxis, :] - pal_i32)**2, axis=2)
-                idx = np.argmin(dists, axis=1).astype(np.uint8)
+                # Use the pre-built matcher (KDTree or chunked)
+                flat = tile.reshape(-1, 4)
+                idx = _palette_match(flat)
                 tile_bytes = idx.tobytes()
                 # transparency
-                a_vals = pal_fixed[idx,3]
-                mn,mx = a_vals.min(),a_vals.max()
+                a_vals = pal_fixed[idx, 3]
+                mn, mx = a_vals.min(), a_vals.max()
                 trans = 0x00 if (mn==0 and mx==0) else (0x01 if mx<255 or mn<255 else 0x02)
                 tile_trans.append(trans)
 
