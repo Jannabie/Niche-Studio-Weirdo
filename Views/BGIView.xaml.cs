@@ -1,6 +1,10 @@
 using Microsoft.Win32;
+using System;
+using System.IO;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
+using NicheStudioWeirdo.Utils;
 
 namespace NicheStudioWeirdo.Views
 {
@@ -9,47 +13,95 @@ namespace NicheStudioWeirdo.Views
         public BGIView() { InitializeComponent(); }
         private MainWindow GetMain() => (MainWindow)Window.GetWindow(this);
 
-        private void BrowseDep_Click(object sender, RoutedEventArgs e)
+        private void BrowseScript_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button btn)
+            var d = new OpenFileDialog { Filter = "All Files (*.*)|*.*" };
+            if (d.ShowDialog() == true) OriginalScriptTxt.Text = d.FileName;
+        }
+
+        private void BrowseJson_Click(object sender, RoutedEventArgs e)
+        {
+            var d = new SaveFileDialog { Filter = "JSON Files (*.json)|*.json|All Files (*.*)|*.*" };
+            if (d.ShowDialog() == true) JsonFileTxt.Text = d.FileName;
+        }
+
+        private string GetDllPath()
+        {
+            return Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Buriko", "EthornellEditor.dll");
+        }
+
+        private void ParseScript_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(OriginalScriptTxt.Text) || string.IsNullOrWhiteSpace(JsonFileTxt.Text))
             {
-                var d = new OpenFileDialog { Filter = "All Files (*.*)|*.*" };
-                if (d.ShowDialog() == true)
+                GetMain().LogToConsole("BGI [Error]: Select both the original script and the target JSON file.");
+                return;
+            }
+
+            try
+            {
+                var wrapper = new BurikoWrapper();
+                if (!wrapper.Load(GetDllPath()))
                 {
-                    var box = (TextBox)this.FindName(btn.Tag.ToString());
-                    if (box != null) box.Text = d.FileName;
+                    GetMain().LogToConsole($"BGI [Error]: Failed to load EthornellEditor.dll - {wrapper.LastError}");
+                    return;
                 }
+
+                byte[] raw = File.ReadAllBytes(OriginalScriptTxt.Text);
+                string[] originalText = wrapper.Import(raw);
+
+                if (originalText == null)
+                {
+                    GetMain().LogToConsole("BGI [Error]: Script parsed but returned null strings.");
+                    return;
+                }
+
+                File.WriteAllText(JsonFileTxt.Text, JsonSerializer.Serialize(originalText, new JsonSerializerOptions { WriteIndented = true, Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping }));
+                GetMain().LogToConsole($"BGI: Successfully parsed {originalText.Length} strings to {Path.GetFileName(JsonFileTxt.Text)}");
+            }
+            catch (Exception ex)
+            {
+                GetMain().LogToConsole($"BGI [Error]: {ex.Message}");
             }
         }
-        private void BrowseScripts_Click(object sender, RoutedEventArgs e)
-        {
-            var d = new OpenFolderDialog();
-            if (d.ShowDialog() == true) ScriptFolderTxt.Text = d.FolderName;
-        }
 
-        private void BrowseArchive_Click(object sender, RoutedEventArgs e)
+        private void InjectScript_Click(object sender, RoutedEventArgs e)
         {
-            var d = new OpenFileDialog { Filter = "ARC Files (*.arc)|*.arc|All Files (*.*)|*.*" };
-            if (d.ShowDialog() == true) ArchiveTxt.Text = d.FileName;
-        }
+            if (string.IsNullOrWhiteSpace(OriginalScriptTxt.Text) || string.IsNullOrWhiteSpace(JsonFileTxt.Text))
+            {
+                GetMain().LogToConsole("BGI [Error]: Select both the original script and the translated JSON file.");
+                return;
+            }
 
-        private async void ExtractScripts_Click(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(ArchiveTxt.Text) || string.IsNullOrWhiteSpace(ScriptFolderTxt.Text)) return;
-            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Buriko");
-            await ToolRunner.RunAsync(repoDir, CSystemArcTxt.Text, $"extract \"{ArchiveTxt.Text}\" \"{ScriptFolderTxt.Text}\\\"", GetMain());
-        }
+            try
+            {
+                var wrapper = new BurikoWrapper();
+                if (!wrapper.Load(GetDllPath()))
+                {
+                    GetMain().LogToConsole($"BGI [Error]: Failed to load EthornellEditor.dll - {wrapper.LastError}");
+                    return;
+                }
 
-        private async void ExportTsv_Click(object sender, RoutedEventArgs e)
-        {
-            // Using BgiDisassembler.exe to repack or process if needed, or we just map Repack
-            if (string.IsNullOrWhiteSpace(ArchiveTxt.Text) || string.IsNullOrWhiteSpace(ScriptFolderTxt.Text)) return;
-            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Buriko");
-            string outArc = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(ArchiveTxt.Text) ?? "", "patched.arc");
-            await ToolRunner.RunAsync(repoDir, CSystemArcTxt.Text, $"pack \"{ScriptFolderTxt.Text}\\\" \"{outArc}\"", GetMain());
-        }
+                // 1. We must Import the original script to load the internal state
+                byte[] raw = File.ReadAllBytes(OriginalScriptTxt.Text);
+                wrapper.Import(raw);
 
-        private void ImportTsv_Click(object sender, RoutedEventArgs e)        => GetMain().LogToConsole("BGI: Importing TSV and injecting translations (Stubbed)");
-        private void BatchGlossary_Click(object sender, RoutedEventArgs e)    => GetMain().LogToConsole("BGI: Batch glossary substitution running (Stubbed)");
+                // 2. Read the translated strings from JSON
+                string[] translatedText = JsonSerializer.Deserialize<string[]>(File.ReadAllText(JsonFileTxt.Text));
+
+                // 3. Export to a new script byte array
+                byte[] newScript = wrapper.Export(translatedText);
+
+                // 4. Save to _new
+                string outPath = OriginalScriptTxt.Text + "_new";
+                File.WriteAllBytes(outPath, newScript);
+
+                GetMain().LogToConsole($"BGI: Successfully injected translations and saved to {Path.GetFileName(outPath)}");
+            }
+            catch (Exception ex)
+            {
+                GetMain().LogToConsole($"BGI [Error]: {ex.Message}");
+            }
+        }
     }
 }

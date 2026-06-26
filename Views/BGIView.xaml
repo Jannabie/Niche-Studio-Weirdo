@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="NicheStudioWeirdo.Views.BGIView"
+<UserControl x:Class="NicheStudioWeirdo.Views.BGIView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid>
@@ -8,83 +8,32 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Buriko" Style="{StaticResource HeaderStyle}"/>
-        <TextBlock Grid.Row="1" Text="Search, filter, and batch-translate .sc scripts from Ethornell engine games." Style="{StaticResource SubheaderStyle}"/>
+        <TextBlock Grid.Row="0" Text="Buriko (BGI)" Style="{StaticResource HeaderStyle}"/>
+        <TextBlock Grid.Row="1" Text="Parse, translate, and rebuild Ethornell .sc script files." Style="{StaticResource SubheaderStyle}"/>
 
-        <Grid Grid.Row="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+        <Border Grid.Row="2" Background="{StaticResource BgDarkestBrush}" CornerRadius="0" Padding="20" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}">
+            <StackPanel>
+                
+                <TextBlock Text="Script Translation Tools" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,10"/>
+                
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <TextBox x:Name="OriginalScriptTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select original script (e.g. skp001)..."/>
+                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseScript_Click"/>
+                </Grid>
+                
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <TextBox x:Name="JsonFileTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select translation .json file..."/>
+                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseJson_Click"/>
+                </Grid>
 
-            <!-- External Dependencies Setup -->
-            <Border Grid.Row="0" Background="{StaticResource BgDarkestBrush}" CornerRadius="0" Padding="15" Margin="0,0,0,10" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}">
-                <StackPanel>
-                    <TextBlock Text="External Dependencies" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,10"/>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="170"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Grid.Row="0" Grid.Column="0" Text="EthornellEditor.dll" Style="{StaticResource LabelStyle}" VerticalAlignment="Center"/>
-                        <TextBox x:Name="EthornellDllTxt" Grid.Row="0" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Margin="0,0,0,8"/>
-                        <Button Grid.Row="0" Grid.Column="2" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,8" Click="BrowseDep_Click" Tag="EthornellDllTxt"/>
-
-                        <TextBlock Grid.Row="1" Grid.Column="0" Text="CSystemArc.exe" Style="{StaticResource LabelStyle}" VerticalAlignment="Center"/>
-                        <TextBox x:Name="CSystemArcTxt" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBoxStyle}" Margin="0,0,0,8"/>
-                        <Button Grid.Row="1" Grid.Column="2" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,8" Click="BrowseDep_Click" Tag="CSystemArcTxt"/>
-
-                        <TextBlock Grid.Row="2" Grid.Column="0" Text="BgiDisassembler.exe" Style="{StaticResource LabelStyle}" VerticalAlignment="Center"/>
-                        <TextBox x:Name="BgiDisasmTxt" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBoxStyle}"/>
-                        <Button Grid.Row="2" Grid.Column="2" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,0" Click="BrowseDep_Click" Tag="BgiDisasmTxt"/>
-                    </Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="Parse Script -> JSON" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="ParseScript_Click"/>
+                    <Button Content="Inject JSON -> Script" Style="{StaticResource ActionButtonGreen}" Click="InjectScript_Click"/>
                 </StackPanel>
-            </Border>
 
-            <!-- Translation Workspace -->
-            <Border Grid.Row="1" Background="{StaticResource BgDarkestBrush}" CornerRadius="0" Padding="20" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}">
-                <StackPanel>
-                    <Grid Margin="0,0,0,15">
-                        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0" Margin="0,0,10,0">
-                            <TextBlock Text="Target Archive (.arc)" Style="{StaticResource LabelStyle}"/>
-                            <Grid>
-                                <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                                <TextBox x:Name="ArchiveTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
-                                <Button Grid.Column="1" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,0" Click="BrowseArchive_Click"/>
-                            </Grid>
-                        </StackPanel>
-                        <StackPanel Grid.Column="1" Margin="10,0,0,0">
-                            <TextBlock Text="Target Folder" Style="{StaticResource LabelStyle}"/>
-                            <Grid>
-                                <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                                <TextBox x:Name="ScriptFolderTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
-                                <Button Grid.Column="1" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,0" Click="BrowseScripts_Click"/>
-                            </Grid>
-                        </StackPanel>
-                    </Grid>
-
-                    <!-- Filter Options -->
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
-                        <CheckBox x:Name="FilterUntranslatedChk" Content="Filter Untranslated Only" Foreground="{StaticResource TextLightBrush}" VerticalAlignment="Center"/>
-                    </StackPanel>
-
-                    <!-- Action Buttons -->
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button Content="Extract Scripts" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="ExtractScripts_Click"/>
-                        <Button Content="Export TSV" Style="{StaticResource ActionButtonAmber}" Margin="0,0,8,0" Click="ExportTsv_Click"/>
-                        <Button Content="Import TSV" Style="{StaticResource ActionButtonGreen}" Margin="0,0,8,0" Click="ImportTsv_Click"/>
-                        <Button Content="Batch Glossary" Style="{StaticResource ActionButtonPurple}" Click="BatchGlossary_Click"/>
-                    </StackPanel>
-                </StackPanel>
-            </Border>
-        </Grid>
+            </StackPanel>
+        </Border>
     </Grid>
 </UserControl>
