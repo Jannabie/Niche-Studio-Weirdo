@@ -31,24 +31,6 @@ namespace NicheStudioWeirdo.Views
 
         private MainWindow GetMain() => (MainWindow)Window.GetWindow(this);
 
-        private async void UnpackDsk_Click(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(DskFileTxt.Text) || string.IsNullOrWhiteSpace(PftFileTxt.Text))
-            {
-                GetMain().LogToConsole("[ERROR] Please specify both DSK and PFT files to unpack.");
-                return;
-            }
-            if (string.IsNullOrWhiteSpace(PngFolderTxt.Text))
-            {
-                GetMain().LogToConsole("[ERROR] Please specify an output folder (PNG SOURCE FOLDER field) to extract into.");
-                return;
-            }
-            string repoDir = System.IO.Path.Combine(SettingsManager.Config.ReposPath, "Abogado-Arch-KG");
-            string py = SettingsManager.Config.PythonPath;
-            // python ArcUNPACK.py <PFT> <DSK> <OUTPUT_FOLDER>
-            await ToolRunner.RunAsync(repoDir, py, $"ArcUNPACK.py \"{PftFileTxt.Text}\" \"{DskFileTxt.Text}\" \"{PngFolderTxt.Text}\"", GetMain());
-        }
-
         private async void ConvertPngKg_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(PngFolderTxt.Text)) return;
