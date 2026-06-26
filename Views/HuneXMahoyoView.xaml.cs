@@ -29,13 +29,38 @@ namespace NicheStudioWeirdo.Views
         private void BrowseOrig_Click(object sender, RoutedEventArgs e)
         {
             var d = new OpenFileDialog { Filter = "Mahoyo Assets (*.ctd;*.cbg;*.mzp)|*.ctd;*.cbg;*.mzp|All Files (*.*)|*.*" };
-            if (d.ShowDialog() == true) OriginalFileTxt.Text = d.FileName;
+            if (d.ShowDialog() == true) 
+            {
+                OriginalFileTxt.Text = d.FileName;
+                
+                // Smart Auto-fill modded file
+                string ext = Path.GetExtension(d.FileName).ToLower();
+                string basePath = d.FileName.Substring(0, d.FileName.Length - ext.Length);
+                if (ext == ".ctd" && File.Exists(basePath + ".txt"))
+                    ModdedFileTxt.Text = basePath + ".txt";
+                else if ((ext == ".cbg" || ext == ".mzp") && File.Exists(basePath + ".png"))
+                    ModdedFileTxt.Text = basePath + ".png";
+            }
         }
 
         private void BrowseMod_Click(object sender, RoutedEventArgs e)
         {
             var d = new OpenFileDialog { Filter = "Modded Files (*.txt;*.png)|*.txt;*.png|All Files (*.*)|*.*" };
-            if (d.ShowDialog() == true) ModdedFileTxt.Text = d.FileName;
+            if (d.ShowDialog() == true) 
+            {
+                ModdedFileTxt.Text = d.FileName;
+                
+                // Smart Auto-fill original file
+                string ext = Path.GetExtension(d.FileName).ToLower();
+                string basePath = d.FileName.Substring(0, d.FileName.Length - ext.Length);
+                if (ext == ".txt" && File.Exists(basePath + ".ctd"))
+                    OriginalFileTxt.Text = basePath + ".ctd";
+                else if (ext == ".png")
+                {
+                    if (File.Exists(basePath + ".cbg")) OriginalFileTxt.Text = basePath + ".cbg";
+                    else if (File.Exists(basePath + ".mzp")) OriginalFileTxt.Text = basePath + ".mzp";
+                }
+            }
         }
 
         private async void UnpackHfa_Click(object sender, RoutedEventArgs e)
