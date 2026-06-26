@@ -135,17 +135,50 @@ def mzx_decompress(raw: bytes) -> bytes:
     return bytes(out)
 
 def mzx_compress(data: bytes) -> bytes:
-    """Level-0 literal compression."""
-    words=np.frombuffer(data,dtype=np.uint8)
-    if len(words)%2==1: words=np.append(words,0)
-    words=words.view('<u2')
-    out=bytearray(MZX_MAGIC+struct.pack('<I',len(data)))
-    cur=0
-    while cur<len(words):
-        n=min(64,len(words)-cur)
-        out.append(3|((n-1)<<2))
-        out+=words[cur:cur+n].tobytes()
-        cur+=n
+    """RLE-enabled MZX compression."""
+    words = np.frombuffer(data, dtype=np.uint8)
+    if len(words) % 2 == 1: words = np.append(words, 0)
+    words = words.view('<u2')
+    out = bytearray(MZX_MAGIC + struct.pack('<I', len(data)))
+    
+    cur = 0
+    cc = 0
+    while cur < len(words):
+        if cc <= 0:
+            cc = 0x1000
+            
+        if cc == 0x1000:
+            last_word = 0x0000
+        else:
+            last_word = words[cur - 1]
+            
+        max_run = min(64, len(words) - cur, cc)
+        
+        run_len = 0
+        while run_len < max_run and words[cur + run_len] == last_word:
+            run_len += 1
+            
+        if run_len >= 1:
+            out.append(0 | ((run_len - 1) << 2))
+            cur += run_len
+            cc -= run_len
+            continue
+            
+        lit_len = 0
+        while lit_len < max_run:
+            lw = words[cur + lit_len - 1] if lit_len > 0 else last_word
+            r = 0
+            while lit_len + r < max_run and words[cur + lit_len + r] == lw:
+                r += 1
+            if r >= 2:
+                break
+            lit_len += 1
+            
+        out.append(3 | ((lit_len - 1) << 2))
+        out += words[cur:cur + lit_len].tobytes()
+        cur += lit_len
+        cc -= lit_len
+
     return bytes(out)
 
 # ── MZP entry parsing ────────────────────────────────────────
