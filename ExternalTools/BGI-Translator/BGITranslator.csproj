@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <NoWarn>WFO0003</NoWarn>
+    <AssemblyName>BGITranslator</AssemblyName>
+    <RootNamespace>BGITranslator</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Required: .NET 5+ does not include Shift-JIS / non-Unicode encodings by default.
+         EthornellEditor.dll's BGIEncoding class needs Shift-JIS (CP932).
+         This package provides all code page encodings. -->
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.0" />
+  </ItemGroup>
+
+</Project>
