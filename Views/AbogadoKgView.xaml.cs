@@ -60,6 +60,24 @@ namespace NicheStudioWeirdo.Views
                 GetMain());
         }
 
+        // ─── DECODE FOLDER (ArcUNPACK.py Mode 2) ────────────────────────────
+        // Workflow alternatif: User sudah punya folder berisi file .KG atau .SCF mentah
+        // (misalnya ekstrak manual) dan ingin decode semuanya jadi PNG.
+        private async void DecodeFolder_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(WorkFolderTxt.Text))
+            {
+                GetMain().LogToConsole("[ERROR] Pilih Working Folder yang berisi file raw .KG atau .SCF untuk didecode.");
+                return;
+            }
+            string repoDir = System.IO.Path.Combine(SettingsManager.Config.ReposPath, "Abogado-Arch-KG");
+            string py = SettingsManager.Config.PythonPath;
+            
+            await ToolRunner.RunAsync(repoDir, py,
+                $"ArcUNPACK.py \"{WorkFolderTxt.Text}\"",
+                GetMain());
+        }
+
         // ─── PNG → KG Convert (ArcKGPACK.py) ────────────────────────────────
         // Workflow step 3: PNG di Working Folder → .KG di packed_kg/
         // (Sebelumnya: decode .KG → PNG pakai GARbro, lalu edit PNG)

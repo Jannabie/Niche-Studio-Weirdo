@@ -44,7 +44,7 @@
                     <StackPanel>
                         <TextBlock Foreground="#70C080" FontSize="11" FontWeight="Bold" Text="WORKFLOW:" Margin="0,0,0,4"/>
                         <TextBlock Foreground="#90B898" FontSize="11" TextWrapping="Wrap"
-                                   Text="① Unpack DSK → otomatis extract .KG + decode ke .PNG + buat kg_metadata.json   ②  Edit .PNG di image editor   ③  PNG→KG Convert (output ke packed_kg/)   ④  Patch DSK In-place (atau Rebuild Full DSK)"/>
+                                   Text="① Unpack DSK (otomatis extract .KG & decode ke .PNG) ATAU Decode Folder mentah   ②  Edit .PNG   ③  PNG→KG Convert   ④  Patch In-place atau Rebuild DSK"/>
                     </StackPanel>
                 </Border>
 
@@ -58,7 +58,10 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button Content="Unpack DSK" Style="{StaticResource BrowseButton}" Margin="0,0,8,0"
                             Click="UnpackDsk_Click"
-                            ToolTip="[ArcUNPACK.py] Ekstrak semua file .KG dari archive .DSK ke Working Folder"/>
+                            ToolTip="[ArcUNPACK.py Mode 1] Ekstrak semua .KG dari archive .DSK ke Working Folder & otomatis decode jadi PNG"/>
+                    <Button Content="Decode Folder" Style="{StaticResource BrowseButton}" Margin="0,0,8,0"
+                            Click="DecodeFolder_Click"
+                            ToolTip="[ArcUNPACK.py Mode 2] Decode semua file raw .KG/.SCF di Working Folder menjadi .PNG"/>
                     <Button Content="PNG → KG Convert" Style="{StaticResource BrowseButton}" Margin="0,0,8,0"
                             Click="ConvertPngKg_Click"
                             ToolTip="[ArcKGPACK.py] Konversi file .PNG di Working Folder ke format .KG (output ke packed_kg/)"/>
