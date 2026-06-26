@@ -44,7 +44,7 @@
                     <StackPanel>
                         <TextBlock Foreground="#70C080" FontSize="11" FontWeight="Bold" Text="WORKFLOW:" Margin="0,0,0,4"/>
                         <TextBlock Foreground="#90B898" FontSize="11" TextWrapping="Wrap"
-                                   Text="① Unpack DSK → file .KG di Working Folder   ②  Decode .KG → PNG pakai GARbro, edit PNG   ③  PNG→KG Convert (packed_kg/)   ④  Patch DSK In-place (atau Rebuild Full DSK)"/>
+                                   Text="① Unpack DSK → otomatis extract .KG + decode ke .PNG + buat kg_metadata.json   ②  Edit .PNG di image editor   ③  PNG→KG Convert (output ke packed_kg/)   ④  Patch DSK In-place (atau Rebuild Full DSK)"/>
                     </StackPanel>
                 </Border>
 
