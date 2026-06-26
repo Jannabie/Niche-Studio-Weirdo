@@ -9,29 +9,65 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Text="Abogado Script (SDK)" Style="{StaticResource HeaderStyle}"/>
-        <TextBlock Grid.Row="1" Text="Extract Shift-JIS text from .SCF files to JSON and inject translated text back." Style="{StaticResource SubheaderStyle}"/>
+        <TextBlock Grid.Row="1" Text="Unpack/Repack scene.DSK, extract Shift-JIS from .SCF to JSON, and inject translations." Style="{StaticResource SubheaderStyle}"/>
 
         <Border Grid.Row="2" Background="{StaticResource BgDarkestBrush}" CornerRadius="0" Padding="20" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}" Margin="0,0,0,0">
             <StackPanel>
-                <TextBlock Text="SOURCE .SCF FILE" Style="{StaticResource LabelStyle}"/>
+                
+                <!-- Step 1: DSK Tools -->
+                <TextBlock Text="TAHAP 1 &amp; 4 — UNPACK / REPACK .DSK" Style="{StaticResource LabelStyle}"/>
+                <Grid Margin="0,0,0,12">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <TextBox x:Name="SdkPftTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" ToolTip="File index .PFT (misal: scene.pft)"/>
+                    <Button Grid.Column="1" Content="Browse .PFT" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseSdkPft_Click"/>
+                </Grid>
+                <Grid Margin="0,0,0,12">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <TextBox x:Name="SdkDskTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" ToolTip="File arsip .DSK (misal: scene.dsk)"/>
+                    <Button Grid.Column="1" Content="Browse .DSK" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseSdkDsk_Click"/>
+                </Grid>
+                <Grid Margin="0,0,0,16">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <TextBox x:Name="SdkFolderTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" ToolTip="Folder target untuk Unpack / source folder untuk Repack"/>
+                    <Button Grid.Column="1" Content="Browse Folder" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseSdkFolder_Click"/>
+                </Grid>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,24">
+                    <Button Content="Unpack DSK" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="UnpackDsk_Click" ToolTip="Runs sdk_tools.py unpack"/>
+                    <Button Content="Repack DSK" Style="{StaticResource ActionButtonGreen}" Margin="0,0,8,0" Click="RepackDsk_Click" ToolTip="Runs sdk_tools.py repack"/>
+                    <Button Content="Verify Integrity" Style="{StaticResource ActionButtonPurple}" Click="VerifyIntegrity_Click" ToolTip="Runs sdk_verify.py verify"/>
+                </StackPanel>
+
+                <!-- Divider -->
+                <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,20"/>
+
+                <!-- Step 2: Parse -->
+                <TextBlock Text="TAHAP 2 — PARSE .SCF FILE" Style="{StaticResource LabelStyle}"/>
                 <Grid Margin="0,0,0,16">
                     <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
                     <TextBox x:Name="ScfFileTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
                     <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseScf_Click"/>
                 </Grid>
 
-                <TextBlock Text="TRANSLATION JSON FILE" Style="{StaticResource LabelStyle}"/>
-                <Grid Margin="0,0,0,24">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,24">
+                    <Button Content="Parse SCF -> JSON" Style="{StaticResource BrowseButton}" Click="ParseScf_Click" ToolTip="Runs parser_scf.py — outputs [filename]_parsed.json"/>
+                </StackPanel>
+
+                <!-- Divider -->
+                <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,20"/>
+
+                <!-- Step 3: Inject -->
+                <TextBlock Text="TAHAP 3 — INJECT TRANSLATION" Style="{StaticResource LabelStyle}"/>
+                <Grid Margin="0,0,0,16">
                     <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                    <TextBox x:Name="TranslationJsonTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                    <TextBox x:Name="TranslationJsonTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" ToolTip="File JSON terjemahan"/>
                     <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseJson_Click"/>
                 </Grid>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Content="Parse SCF -> JSON" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="ParseScf_Click" ToolTip="Runs parser_scf.py"/>
-                    <Button Content="Inject Translation" Style="{StaticResource ActionButton}" Margin="0,0,8,0" Click="InjectTranslation_Click" ToolTip="Runs injector_scf.py"/>
-                    <Button Content="Verify Integrity" Style="{StaticResource ActionButtonPurple}" Click="VerifyIntegrity_Click" ToolTip="Runs sdk_verify.py"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Button Content="Inject Translation" Style="{StaticResource ActionButton}" Click="InjectTranslation_Click" ToolTip="Runs injector_scf.py — outputs [filename]_injected.SCF"/>
                 </StackPanel>
+
             </StackPanel>
         </Border>
     </Grid>
