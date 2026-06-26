@@ -99,7 +99,7 @@ namespace NicheStudioWeirdo.Views
 
             if (ext == ".ctd") await Utils.HunexUtils.CompressCtdAsync(ModdedFileTxt.Text, basePath + "_new.ctd", GetMain());
             else if (ext == ".cbg") await Utils.HunexUtils.EncodeCbgAsync(ModdedFileTxt.Text, basePath + "_new.cbg", GetMain());
-            else if (ext == ".mzp") await Utils.HunexUtils.EncodeMzpAsync(ModdedFileTxt.Text, basePath + "_new.mzp", GetMain());
+            else if (ext == ".mzp") await Utils.HunexUtils.EncodeMzpAsync(ModdedFileTxt.Text, OriginalFileTxt.Text, basePath + "_new.mzp", GetMain());
         }
     }
 }

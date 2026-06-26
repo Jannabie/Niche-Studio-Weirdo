@@ -51,9 +51,9 @@ namespace NicheStudioWeirdo.Utils
             await ToolRunner.RunAsync(GetRepoDir(), GetPython(), $"mzp_tool.py decode \"{mzpPath}\" \"{outPath}\"", main);
         }
 
-        public static async Task EncodeMzpAsync(string pngPath, string outPath, MainWindow main)
+        public static async Task EncodeMzpAsync(string pngPath, string originalMzpPath, string outPath, MainWindow main)
         {
-            await ToolRunner.RunAsync(GetRepoDir(), GetPython(), $"mzp_tool.py encode \"{pngPath}\" \"{outPath}\"", main);
+            await ToolRunner.RunAsync(GetRepoDir(), GetPython(), $"mzp_tool.py encode \"{pngPath}\" \"{originalMzpPath}\" \"{outPath}\"", main);
         }
     }
 }
