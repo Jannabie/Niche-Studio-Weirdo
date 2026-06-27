@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="NicheStudioWeirdo.Views.HuneXView"
+<UserControl x:Class="NicheStudioWeirdo.Views.HuneXView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid>
@@ -8,67 +8,53 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="HuneX" Style="{StaticResource HeaderStyle}"/>
-        <TextBlock Grid.Row="1" Text="Extract and patch Nintendo Switch script_text.mrg archives (deepLuna)." Style="{StaticResource SubheaderStyle}"/>
+        <TextBlock Grid.Row="0" Text="HuneX (Tsukihime Remake)" Style="{StaticResource HeaderStyle}"/>
+        <TextBlock Grid.Row="1" Text="Extract script_text.mrg to .txt, edit, then repack back to .mrg." Style="{StaticResource SubheaderStyle}"/>
 
         <StackPanel Grid.Row="2">
-            <!-- Tab Buttons -->
-            <StackPanel Orientation="Horizontal">
-                <Button x:Name="TabMrg" Content="MRG Archive" Style="{StaticResource BrowseButton}" Click="SwitchTab_Click" Tag="MRG" Margin="0,0,4,0"/>
-                <Button x:Name="TabEditor" Content="Translation Editor" Style="{StaticResource BrowseButton}" Click="SwitchTab_Click" Tag="EDITOR"/>
-            </StackPanel>
-
-            <!-- MRG Panel -->
-            <Border x:Name="PanelMrg" Background="{StaticResource BgDarkestBrush}" CornerRadius="0" Padding="20" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}">
+            <Border Background="{StaticResource BgDarkestBrush}" Padding="24" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}">
                 <StackPanel>
-                    <Grid Margin="0,0,0,16">
-                        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="10"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
-                        <StackPanel Grid.Column="0">
-                            <TextBlock Text="ALLSCR.MRG" Style="{StaticResource LabelStyle}"/>
-                            <Grid>
-                                <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                                <TextBox x:Name="AllscrTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
-                                <Button Grid.Column="1" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,0" Click="BrowseAllscr_Click"/>
-                            </Grid>
-                        </StackPanel>
-                        <StackPanel Grid.Column="2">
-                            <TextBlock Text="SCRIPT_TEXT.MRG" Style="{StaticResource LabelStyle}"/>
-                            <Grid>
-                                <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                                <TextBox x:Name="ScriptTextTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
-                                <Button Grid.Column="1" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,0" Click="BrowseScriptText_Click"/>
-                            </Grid>
-                        </StackPanel>
-                    </Grid>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button Content="Build DB from MRG" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="BuildDb_Click"/>
-                        <Button Content="Patch MRG" Style="{StaticResource ActionButtonGreen}" Click="PatchMrg_Click"/>
-                    </StackPanel>
-                </StackPanel>
-            </Border>
 
-            <!-- Editor Panel (hidden by default) -->
-            <Border x:Name="PanelEditor" Background="{StaticResource BgDarkestBrush}" CornerRadius="0" Padding="20" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}" Visibility="Collapsed">
-                <StackPanel>
-                    <TextBlock Text="TRANSLATION DATABASE (.JSON)" Style="{StaticResource LabelStyle}"/>
-                    <Grid Margin="0,0,0,16">
+                    <!-- EXTRACT -->
+                    <TextBlock Text="EXTRACT  —  script_text.mrg → .txt" Style="{StaticResource LabelStyle}" Foreground="{StaticResource TextLightBrush}" FontSize="13" Margin="0,0,0,12"/>
+
+                    <TextBlock Text="SCRIPT_TEXT.MRG" Style="{StaticResource LabelStyle}"/>
+                    <Grid Margin="0,0,0,8">
                         <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                        <TextBox x:Name="DbJsonTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
-                        <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseDb_Click"/>
+                        <TextBox x:Name="MrgInputTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                        <Button Grid.Column="1" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,0" Click="BrowseMrgInput_Click"/>
                     </Grid>
 
-                    <TextBlock Text="QUICK TAG INSERT" Style="{StaticResource LabelStyle}"/>
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
-                        <Button Content="%{i} Italic" Style="{StaticResource BrowseButton}" Padding="10,6" Margin="0,0,6,0" Click="InsertTag_Click" Tag="%{i}"/>
-                        <Button Content="%{b} Bold" Style="{StaticResource BrowseButton}" Padding="10,6" Margin="0,0,6,0" Click="InsertTag_Click" Tag="%{b}"/>
-                        <Button Content="&lt;kanji|furigana&gt;" Style="{StaticResource ActionButtonPurple}" Padding="10,6" Click="InsertTag_Click" Tag="&lt;kanji|furigana&gt;"/>
-                    </StackPanel>
+                    <TextBlock Text="OUTPUT .TXT" Style="{StaticResource LabelStyle}"/>
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                        <TextBox x:Name="ExtractOutputTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                        <Button Grid.Column="1" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,0" Click="BrowseExtractOutput_Click"/>
+                    </Grid>
 
-                    <Border Background="#0F1E2E" CornerRadius="0" Padding="12" Margin="0,0,0,16" BorderThickness="1" BorderBrush="#1E3A5A">
-                        <TextBlock Text="Linter checks for critical tag errors that would freeze the engine (e.g., ASCII characters in ruby/furigana fields)." 
-                                   Foreground="#4A7099" FontSize="12" TextWrapping="Wrap"/>
-                    </Border>
-                    <Button Content="Run Linter" Style="{StaticResource ActionButtonAmber}" HorizontalAlignment="Left" Padding="20,8" Click="RunLinter_Click"/>
+                    <Button Content="Extract → .TXT" Style="{StaticResource ActionButtonGreen}" HorizontalAlignment="Right" Padding="20,8" Margin="0,0,0,28" Click="Extract_Click"/>
+
+                    <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,24"/>
+
+                    <!-- REPACK -->
+                    <TextBlock Text="REPACK  —  .txt → script_text_new.mrg" Style="{StaticResource LabelStyle}" Foreground="{StaticResource TextLightBrush}" FontSize="13" Margin="0,0,0,12"/>
+
+                    <TextBlock Text="INPUT .TXT (EDITED)" Style="{StaticResource LabelStyle}"/>
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                        <TextBox x:Name="RepackInputTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                        <Button Grid.Column="1" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,0" Click="BrowseRepackInput_Click"/>
+                    </Grid>
+
+                    <TextBlock Text="OUTPUT .MRG" Style="{StaticResource LabelStyle}"/>
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                        <TextBox x:Name="RepackOutputTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                        <Button Grid.Column="1" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,0" Click="BrowseRepackOutput_Click"/>
+                    </Grid>
+
+                    <Button Content="Repack → .MRG" Style="{StaticResource ActionButtonGreen}" HorizontalAlignment="Right" Padding="20,8" Click="Repack_Click"/>
+
                 </StackPanel>
             </Border>
         </StackPanel>

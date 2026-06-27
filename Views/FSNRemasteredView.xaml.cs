@@ -74,5 +74,69 @@ namespace NicheStudioWeirdo.Views
             string args = $"fsn-tools.py patch launcher \"{outDir}\" --game-exe \"{MainExeTxt.Text}\"";
             await ToolRunner.RunAsync(repoDir, py, args, main);
         }
+        private async void UnpackAuto_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(TargetDirTxt.Text)) return;
+            var main = (MainWindow)Window.GetWindow(this);
+            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Fuzz Inc");
+            string py = SettingsManager.Config.PythonPath;
+
+            string outDir = System.IO.Path.Combine(TargetDirTxt.Text, "extracted");
+            string args = $"fsn-tools.py unpack auto \"{TargetDirTxt.Text}\" --out \"{outDir}\"";
+            
+            // If they provided a decrypt key, use it
+            if (!string.IsNullOrWhiteSpace(DecryptKeyTxt.Text))
+                args += $" --key \"{DecryptKeyTxt.Text}\"";
+
+            await ToolRunner.RunAsync(repoDir, py, args, main);
+        }
+
+        private async void DecryptEpk_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(TargetDirTxt.Text)) return;
+            var main = (MainWindow)Window.GetWindow(this);
+            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Fuzz Inc");
+            string py = SettingsManager.Config.PythonPath;
+
+            var files = System.IO.Directory.GetFiles(TargetDirTxt.Text, "*.epk");
+            if (files.Length == 0)
+            {
+                main.LogToConsole("Fuzz Inc: No .epk files found in the target directory.");
+                return;
+            }
+
+            string outDir = System.IO.Path.Combine(TargetDirTxt.Text, "epk_dec");
+            string fileArgs = string.Join(" ", System.Linq.Enumerable.Select(files, f => $"\"{f}\""));
+            string args = $"fsn-tools.py epk dec --out \"{outDir}\"";
+            
+            if (!string.IsNullOrWhiteSpace(MainExeTxt.Text)) args += $" --main-exe \"{MainExeTxt.Text}\"";
+            if (!string.IsNullOrWhiteSpace(SomeKeyTxt.Text)) args += $" --some-key \"{SomeKeyTxt.Text}\"";
+
+            args += " " + fileArgs;
+
+            await ToolRunner.RunAsync(repoDir, py, args, main);
+        }
+
+        private async void ExportJson_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(TargetDirTxt.Text)) return;
+            var main = (MainWindow)Window.GetWindow(this);
+            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Fuzz Inc");
+            string py = SettingsManager.Config.PythonPath;
+
+            var files = System.IO.Directory.GetFiles(TargetDirTxt.Text, "*.epk_dec", System.IO.SearchOption.AllDirectories);
+            if (files.Length == 0)
+            {
+                main.LogToConsole("Fuzz Inc: No .epk_dec files found in the target directory. Did you decrypt them first?");
+                return;
+            }
+
+            string outFile = System.IO.Path.Combine(TargetDirTxt.Text, "translation_export.json");
+            string fileArgs = string.Join(" ", System.Linq.Enumerable.Select(files, f => $"\"{f}\""));
+            string args = $"fsn-tools.py translate export --out \"{outFile}\" {fileArgs}";
+
+            await ToolRunner.RunAsync(repoDir, py, args, main);
+        }
+
     }
 }

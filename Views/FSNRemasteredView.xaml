@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="NicheStudioWeirdo.Views.FSNRemasteredView"
+<UserControl x:Class="NicheStudioWeirdo.Views.FSNRemasteredView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid>
@@ -74,7 +74,14 @@
                     </StackPanel>
                 </Grid>
 
-                <!-- Deployment Actions -->
+                <!-- Actions -->
+                <TextBlock Text="Extraction &amp; Translation Actions" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,10,0,10"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,20">
+                    <Button Content="Auto Unpack (Pack Folder)" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="UnpackAuto_Click"/>
+                    <Button Content="Decrypt EPK (Locale)" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="DecryptEpk_Click"/>
+                    <Button Content="Export Translation (JSON)" Style="{StaticResource BrowseButton}" Click="ExportJson_Click"/>
+                </StackPanel>
+
                 <TextBlock Text="Deployment Actions" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,10,0,10"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button Content="Build Patch" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="BuildPatch_Click"/>

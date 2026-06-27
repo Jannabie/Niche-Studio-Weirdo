@@ -53,8 +53,27 @@ namespace NicheStudioWeirdo.Views
             await ToolRunner.RunAsync(repoDir, py, $"LauncherDatSource/execution/unpack.py \"{ArchiveTxt.Text}\"", GetMain());
         }
 
-        private void Encrypt_Click(object sender, RoutedEventArgs e)       => GetMain().LogToConsole($"MalieKit: Re-encrypting {ArchiveTxt.Text} (Stubbed)");
+        private async void Encrypt_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(ArchiveTxt.Text)) return;
+            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Malie");
+            string py = SettingsManager.Config.PythonPath;
 
+            string baseName = System.IO.Path.GetFileNameWithoutExtension(ArchiveTxt.Text);
+            string dir = System.IO.Path.GetDirectoryName(ArchiveTxt.Text) ?? "";
+            string inDir = System.IO.Path.Combine(dir, baseName);
+            string outDat = System.IO.Path.Combine(dir, baseName + "_repack.dat");
+            string metaJson = System.IO.Path.Combine(dir, baseName + "_entries.json");
+
+            if (!System.IO.Directory.Exists(inDir) || !System.IO.File.Exists(metaJson))
+            {
+                GetMain().LogToConsole($"MalieKit: Cannot repack. Ensure you have extracted first, and that {inDir} and {metaJson} exist.");
+                return;
+            }
+
+            string script = "LauncherDatSource/execution/repack_plain.py";
+            await ToolRunner.RunAsync(repoDir, py, $"\"{script}\" \"{inDir}\" \"{outDat}\" \"{metaJson}\"", GetMain());
+        }
         private async void ExportNames_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(ScriptDirTxt.Text)) return;
@@ -94,8 +113,48 @@ namespace NicheStudioWeirdo.Views
             await ToolRunner.RunAsync(repoDir, exe, $"-i -in \"{inDat}\" -out \"{outDat}\" -txt \"{inTxt}\"", GetMain());
         }
 
-        private void MgfToPng_Click(object sender, RoutedEventArgs e)      => GetMain().LogToConsole($"MalieKit: Converting MGF ↁEPNG in {ImageFolderTxt.Text} (Stubbed)");
-        private void PngToMgf_Click(object sender, RoutedEventArgs e)      => GetMain().LogToConsole($"MalieKit: Converting PNG ↁEMGF in {ImageFolderTxt.Text} (Stubbed)");
+        private async void MgfToPng_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(ImageFolderTxt.Text)) return;
+            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Malie");
+            string py = SettingsManager.Config.PythonPath;
+            string script = "LauncherDatSource/execution/mgfpng_change.py";
+            
+            var files = System.IO.Directory.GetFiles(ImageFolderTxt.Text, "*.mgf", System.IO.SearchOption.AllDirectories);
+            if (files.Length == 0)
+            {
+                GetMain().LogToConsole("MalieKit: No .mgf files found in the selected folder.");
+                return;
+            }
 
+            GetMain().LogToConsole($"MalieKit: Found {files.Length} .mgf files. Starting conversion...");
+            foreach(var f in files)
+            {
+                await ToolRunner.RunAsync(repoDir, py, $"\"{script}\" \"{f}\" --to-png", GetMain());
+            }
+            GetMain().LogToConsole("MalieKit: MGF to PNG conversion finished.");
+        }
+
+        private async void PngToMgf_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(ImageFolderTxt.Text)) return;
+            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Malie");
+            string py = SettingsManager.Config.PythonPath;
+            string script = "LauncherDatSource/execution/mgfpng_change.py";
+            
+            var files = System.IO.Directory.GetFiles(ImageFolderTxt.Text, "*.png", System.IO.SearchOption.AllDirectories);
+            if (files.Length == 0)
+            {
+                GetMain().LogToConsole("MalieKit: No .png files found in the selected folder.");
+                return;
+            }
+
+            GetMain().LogToConsole($"MalieKit: Found {files.Length} .png files. Starting conversion...");
+            foreach(var f in files)
+            {
+                await ToolRunner.RunAsync(repoDir, py, $"\"{script}\" \"{f}\" --to-mgf", GetMain());
+            }
+            GetMain().LogToConsole("MalieKit: PNG to MGF conversion finished.");
+        }
     }
 }

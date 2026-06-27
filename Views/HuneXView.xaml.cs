@@ -1,4 +1,6 @@
 using Microsoft.Win32;
+using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -6,65 +8,92 @@ namespace NicheStudioWeirdo.Views
 {
     public partial class HuneXView : UserControl
     {
-        public HuneXView() { InitializeComponent(); SetActiveTab("MRG"); }
+        public HuneXView() { InitializeComponent(); }
         private MainWindow GetMain() => (MainWindow)Window.GetWindow(this);
+        private string PythonPath => SettingsManager.Config.PythonPath;
 
-        private void SwitchTab_Click(object sender, RoutedEventArgs e)
+        private string GetToolPath()
         {
-            var btn = sender as System.Windows.Controls.Button;
-            SetActiveTab(btn?.Tag?.ToString() ?? "MRG");
-        }
-        private void SetActiveTab(string tag)
-        {
-            var dark = (System.Windows.Media.SolidColorBrush)FindResource("BgDarkestBrush");
-            var light = (System.Windows.Media.SolidColorBrush)FindResource("BgLighterBrush");
-            var textLight = (System.Windows.Media.SolidColorBrush)FindResource("TextLightBrush");
-            var textMuted = (System.Windows.Media.SolidColorBrush)FindResource("TextMutedBrush");
-            bool mrg = tag == "MRG";
-            PanelMrg.Visibility = mrg ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
-            PanelEditor.Visibility = mrg ? System.Windows.Visibility.Collapsed : System.Windows.Visibility.Visible;
-            TabMrg.Background = mrg ? light : dark; TabMrg.Foreground = mrg ? textLight : textMuted;
-            TabEditor.Background = mrg ? dark : light; TabEditor.Foreground = mrg ? textMuted : textLight;
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            return Path.Combine(baseDir, "Utility", "Hunex Tsukire", "mrg_tool.py");
         }
 
-        private void BrowseAllscr_Click(object sender, RoutedEventArgs e)
+        private string GetToolDir()
         {
-            var d = new OpenFileDialog { Filter = "MRG Files (*.mrg)|*.mrg|All Files (*.*)|*.*" };
-            if (d.ShowDialog() == true) AllscrTxt.Text = d.FileName;
-        }
-        private void BrowseScriptText_Click(object sender, RoutedEventArgs e)
-        {
-            var d = new OpenFileDialog { Filter = "MRG Files (*.mrg)|*.mrg|All Files (*.*)|*.*" };
-            if (d.ShowDialog() == true) ScriptTextTxt.Text = d.FileName;
-        }
-        private void BrowseDb_Click(object sender, RoutedEventArgs e)
-        {
-            var d = new OpenFileDialog { Filter = "JSON Files (*.json)|*.json" };
-            if (d.ShowDialog() == true) DbJsonTxt.Text = d.FileName;
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            return Path.Combine(baseDir, "Utility", "Hunex Tsukire");
         }
 
-        private async void BuildDb_Click(object sender, RoutedEventArgs e)
+        // ── Extract: MRG → TXT ───────────────────────────────────────────────────
+        private void BrowseMrgInput_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(AllscrTxt.Text)) return;
-            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Hunex Tsukire");
-            string py = SettingsManager.Config.PythonPath;
-            string outDir = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(AllscrTxt.Text) ?? "", "extracted_mrg");
-            await ToolRunner.RunAsync(repoDir, py, $"mrg_tool.py extract \"{AllscrTxt.Text}\" \"{outDir}\"", GetMain());
+            var d = new OpenFileDialog { Filter = "MRG Files (*.mrg)|*.mrg|All Files (*.*)|*.*", Title = "Select script_text.mrg" };
+            if (d.ShowDialog() == true) MrgInputTxt.Text = d.FileName;
         }
 
-        private async void PatchMrg_Click(object sender, RoutedEventArgs e)
+        private void BrowseExtractOutput_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(ScriptTextTxt.Text) || string.IsNullOrWhiteSpace(AllscrTxt.Text)) return;
-            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Hunex Tsukire");
-            string py = SettingsManager.Config.PythonPath;
-            string inDir = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(AllscrTxt.Text) ?? "", "extracted_mrg");
-            await ToolRunner.RunAsync(repoDir, py, $"mrg_tool.py repack \"{inDir}\" \"{ScriptTextTxt.Text}\"", GetMain());
+            var d = new SaveFileDialog { Filter = "Text Files (*.txt)|*.txt", DefaultExt = "txt", FileName = "output.txt", Title = "Save extracted .txt as..." };
+            if (d.ShowDialog() == true) ExtractOutputTxt.Text = d.FileName;
         }
 
-        private void InsertTag_Click(object sender, RoutedEventArgs e)
+        private async void Extract_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button btn) GetMain().LogToConsole($"HuneX: Tag '{btn.Tag}' ready to insert into active line.");
+            string mrgPath = MrgInputTxt.Text.Trim();
+            string outTxt = ExtractOutputTxt.Text.Trim();
+
+            if (string.IsNullOrEmpty(mrgPath) || string.IsNullOrEmpty(outTxt))
+            {
+                GetMain().LogToConsole("HuneX: Please fill in all fields before extracting.");
+                return;
+            }
+
+            string toolDir = GetToolDir();
+            string script = GetToolPath();
+
+            if (!File.Exists(script))
+            {
+                GetMain().LogToConsole($"HuneX Error: Tool not found at {script}. Please ensure mrg_tool.py exists in the Utility\\Hunex Tsukire folder.");
+                return;
+            }
+
+            await ToolRunner.RunAsync(toolDir, PythonPath, $"\"{script}\" extract \"{mrgPath}\" \"{outTxt}\"", GetMain());
         }
-        private void RunLinter_Click(object sender, RoutedEventArgs e) => GetMain().LogToConsole("HuneX: Linter running  Echecking for ASCII in ruby fields (Stubbed)...");
+
+        // ── Repack: TXT → MRG ───────────────────────────────────────────────────
+        private void BrowseRepackInput_Click(object sender, RoutedEventArgs e)
+        {
+            var d = new OpenFileDialog { Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*", Title = "Select edited .txt file" };
+            if (d.ShowDialog() == true) RepackInputTxt.Text = d.FileName;
+        }
+
+        private void BrowseRepackOutput_Click(object sender, RoutedEventArgs e)
+        {
+            var d = new SaveFileDialog { Filter = "MRG Files (*.mrg)|*.mrg", DefaultExt = "mrg", FileName = "script_text_new.mrg", Title = "Save repacked .mrg as..." };
+            if (d.ShowDialog() == true) RepackOutputTxt.Text = d.FileName;
+        }
+
+        private async void Repack_Click(object sender, RoutedEventArgs e)
+        {
+            string inTxt = RepackInputTxt.Text.Trim();
+            string outMrg = RepackOutputTxt.Text.Trim();
+
+            if (string.IsNullOrEmpty(inTxt) || string.IsNullOrEmpty(outMrg))
+            {
+                GetMain().LogToConsole("HuneX: Please fill in all fields before repacking.");
+                return;
+            }
+
+            string toolDir = GetToolDir();
+            string script = GetToolPath();
+
+            if (!File.Exists(script))
+            {
+                GetMain().LogToConsole($"HuneX Error: Tool not found at {script}. Please ensure mrg_tool.py exists in the Utility\\Hunex Tsukire folder.");
+                return;
+            }
+
+            await ToolRunner.RunAsync(toolDir, PythonPath, $"\"{script}\" repack \"{inTxt}\" \"{outMrg}\"", GetMain());
+        }
     }
 }
