@@ -91,30 +91,21 @@
                 </StackPanel>
 
                 <!-- How to use note -->
-                <Border Background="#1A3A6B" CornerRadius="6" Padding="12,10" Margin="0,14,0,0"
-                        BorderBrush="#2A5FAD" BorderThickness="1">
+                <Border Background="#080808" CornerRadius="0"
+                        Padding="16,12" Margin="0,14,0,0"
+                        BorderThickness="1" BorderBrush="#222">
                     <StackPanel>
-                        <TextBlock Text="📋  HOW TO USE REPACK" FontSize="10" FontWeight="Bold"
-                                   Foreground="#7EB8FF" Margin="0,0,0,6"/>
-                        <TextBlock TextWrapping="Wrap" FontSize="11" Foreground="#AACCFF" LineHeight="18">
-                            <Run Text="1. "/>
-                            <Run Text="TARGET ORIGINAL .PAZ FILE" FontWeight="Bold"/>
-                            <Run Text=" → pilih file .paz asli dari folder game (e.g. scr.paz)."/>
-                            <LineBreak/>
-                            <Run Text="2. "/>
-                            <Run Text="TARGET FOLDER" FontWeight="Bold"/>
-                            <Run Text=" → pilih folder yang LANGSUNG berisi file-file hasil unpack (e.g. .sc files). Jangan pilih parent foldernya."/>
-                            <LineBreak/>
-                            <Run Text="3. "/>
-                            <Run Text="OUTPUT .PAZ NAME" FontWeight="Bold"/>
-                            <Run Text=" → nama file hasil repack (disimpan di TARGET FOLDER)."/>
-                            <LineBreak/>
-                            <Run Text="4. Pastikan "/>
-                            <Run Text="GAME INDEX" FontWeight="Bold"/>
-                            <Run Text=" sesuai dengan game-mu sebelum repack."/>
-                            <LineBreak/>
-                            <Run Text="5. Salin hasil repack ke folder game untuk menggantikan .paz asli."/>
-                        </TextBlock>
+                        <TextBlock Foreground="#555" FontWeight="Bold" FontSize="11" Text="HOW TO USE REPACK:"/>
+                        <TextBlock Foreground="#444" FontSize="11" Margin="0,6,0,0" TextWrapping="Wrap"
+                                   Text="① TARGET ORIGINAL .PAZ FILE  →  select the original .paz from the game folder (e.g. scr.paz). Used for encryption keys and file table."/>
+                        <TextBlock Foreground="#444" FontSize="11" Margin="0,2,0,0" TextWrapping="Wrap"
+                                   Text="② TARGET FOLDER  →  select the folder that DIRECTLY contains the unpacked files (e.g. the .sc files). Do NOT select a parent folder."/>
+                        <TextBlock Foreground="#444" FontSize="11" Margin="0,2,0,0" TextWrapping="Wrap"
+                                   Text="③ OUTPUT .PAZ NAME  →  filename for the repacked archive (saved inside TARGET FOLDER)."/>
+                        <TextBlock Foreground="#444" FontSize="11" Margin="0,2,0,0" TextWrapping="Wrap"
+                                   Text="④ Make sure GAME INDEX matches your game before repacking."/>
+                        <TextBlock Foreground="#444" FontSize="11" Margin="0,2,0,0" TextWrapping="Wrap"
+                                   Text="⑤ Copy the output .paz to the game folder to replace the original."/>
                     </StackPanel>
                 </Border>
             </StackPanel>
