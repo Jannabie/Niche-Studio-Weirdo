@@ -76,7 +76,7 @@
                     <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseRepackOriginalPaz_Click"/>
                 </Grid>
 
-                <TextBlock Text="BASE FOLDER (Folder that contains the extracted folder)" Style="{StaticResource LabelStyle}"/>
+                <TextBlock Text="TARGET FOLDER (Exact folder containing the unpacked files)" Style="{StaticResource LabelStyle}"/>
                 <Grid Margin="0,0,0,10">
                     <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
                     <TextBox x:Name="RepackFolderTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
