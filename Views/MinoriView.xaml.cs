@@ -47,19 +47,20 @@ namespace NicheStudioWeirdo.Views
         {
             if (string.IsNullOrWhiteSpace(PazFileTxt.Text)) return;
 
-            int idx = GameIndexCombo.SelectedIndex; // 0-25, maps directly
+            int idx = GameIndexCombo.SelectedIndex;
 
             string repoDir = Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Minori");
             string exe = Path.Combine(repoDir, "tools", "fuckpaz.exe");
 
-            // Correct syntax: fuckpaz.exe <input.paz> <game_index>
-            // fuckpaz auto-extracts to a folder named after the .paz in the working directory.
-            // We set the working directory to the OUTPUT FOLDER if specified, otherwise the paz's parent.
+            // fuckpaz extracts files FLAT into the working directory.
+            // Set workDir to the output folder (or paz's parent if not specified).
             string workDir = !string.IsNullOrWhiteSpace(ExtractFolderTxt.Text)
                 ? ExtractFolderTxt.Text
                 : (Path.GetDirectoryName(PazFileTxt.Text) ?? repoDir);
             Directory.CreateDirectory(workDir);
-            await ToolRunner.RunAsync(workDir, exe, $"\"{PazFileTxt.Text}\" {idx}", GetMain());
+
+            // Use ArgumentList to safely handle paths with spaces / em-dashes / special chars.
+            await ToolRunner.RunAsync(workDir, exe, new[] { PazFileTxt.Text, idx.ToString() }, GetMain());
         }
 
         private async void Repack_Click(object sender, RoutedEventArgs e)
@@ -68,16 +69,19 @@ namespace NicheStudioWeirdo.Views
                 string.IsNullOrWhiteSpace(RepackFolderTxt.Text) || 
                 string.IsNullOrWhiteSpace(OutputPazTxt.Text)) return;
 
-            int idx = GameIndexCombo.SelectedIndex; // 0-25, maps directly
+            int idx = GameIndexCombo.SelectedIndex;
 
             string repoDir = Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Minori");
             string exe = Path.Combine(repoDir, "tools", "fuckpaz.exe");
 
-            // Correct syntax: fuckpaz.exe <original.paz> <game_index> <output.paz>
-            // fuckpaz will use the folder (same name as original paz) inside the working directory to fetch files.
+            // fuckpaz syntax: fuckpaz.exe <original.paz> <game_index> <output.paz>
+            // It reads file listing from original.paz TOC, then opens each file by relative name
+            // from the working directory (RepackFolderTxt) which must directly contain those files.
             string workDir = RepackFolderTxt.Text;
             string outPath = Path.Combine(workDir, OutputPazTxt.Text);
-            await ToolRunner.RunAsync(workDir, exe, $"\"{RepackOriginalPazTxt.Text}\" {idx} \"{outPath}\"", GetMain());
+
+            // Use ArgumentList to safely handle paths with spaces / em-dashes / parentheses.
+            await ToolRunner.RunAsync(workDir, exe, new[] { RepackOriginalPazTxt.Text, idx.ToString(), outPath }, GetMain());
         }
     }
 }
