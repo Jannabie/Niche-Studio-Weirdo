@@ -8,7 +8,7 @@ Abogado, Buriko (BGI), CodeXR, Fuzz Inc., HuneX, Leaf (WA2), Malie, Minato (Maji
 
 Each engine tab covers the full pipeline — script extraction, JSON translation, and repacking — plus image and archive tools where applicable.
 
-## Buriko (BGI) — Sakura no Uta ～Haru no Yuki～/ サクラノ詩 ～春ノ雪～ Support
+## Buriko (BGI) — サクラノ詩 ～春ノ雪～ Support
 
 Supports decoding compressed `.SKP` scripts (DSC FORMAT 1.00), extracting Shift-JIS dialogue and character names to JSON, editing, and repacking back into the game.
 
