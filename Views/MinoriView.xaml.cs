@@ -82,27 +82,27 @@ namespace NicheStudioWeirdo.Views
                 string workDir = RepackFolderTxt.Text;
                 string outPath = Path.Combine(workDir, OutputPazTxt.Text);
 
-                // Write to a .tmp file first so we never try to overwrite a locked existing file.
-                // fuckpaz crashes with ACCESS_VIOLATION if the output file exists and is locked.
-                string tmpPath = outPath + ".repack_tmp";
-                try { if (File.Exists(tmpPath)) File.Delete(tmpPath); } catch { }
+                // Use a unique temp path in the SYSTEM TEMP folder (not in workDir).
+                // Files in workDir get scanned/locked by Windows Defender which causes
+                // fuckpaz to crash with ACCESS_VIOLATION when it can't write the output.
+                string tmpPath = Path.Combine(Path.GetTempPath(), $"fuckpaz_{Guid.NewGuid():N}.paz");
 
-                GetMain().LogToConsole($"▶ Repacking to temp: {tmpPath}");
+                GetMain().LogToConsole($"▶ Repacking via temp: {tmpPath}");
 
                 await ToolRunner.RunAsync(workDir, exe,
                     new[] { RepackOriginalPazTxt.Text, idx.ToString(), tmpPath }, GetMain());
 
-                // If fuckpaz succeeded, rename temp → final output
+                // Move temp → final output if fuckpaz succeeded
                 if (File.Exists(tmpPath) && new FileInfo(tmpPath).Length > 0)
                 {
                     try { if (File.Exists(outPath)) File.Delete(outPath); } catch { }
                     File.Move(tmpPath, outPath, overwrite: true);
                     GetMain().LogToConsole($"✔ Output saved to: {outPath}");
                 }
-                else if (File.Exists(tmpPath))
+                else
                 {
-                    File.Delete(tmpPath);
-                    GetMain().LogToConsole("✘ [ERROR] fuckpaz produced an empty output file. Check game index and target folder.");
+                    try { if (File.Exists(tmpPath)) File.Delete(tmpPath); } catch { }
+                    GetMain().LogToConsole("✘ [ERROR] Repack failed — check game index and that TARGET FOLDER directly contains the unpacked files.");
                 }
             }
             catch (Exception ex)
@@ -110,6 +110,7 @@ namespace NicheStudioWeirdo.Views
                 GetMain().LogToConsole($"✘ [ERROR] Repack failed: {ex.Message}");
             }
         }
+
 
     }
 }
