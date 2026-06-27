@@ -17,32 +17,32 @@
                 <TextBlock Text="GAME INDEX" Style="{StaticResource LabelStyle}"/>
                 <ComboBox x:Name="GameIndexCombo" Margin="0,0,0,20" Padding="8,6" FontSize="12" SelectedIndex="0"
                           Background="{StaticResource BgDarkestBrush}" Foreground="{StaticResource TextLightBrush}" BorderBrush="{StaticResource BorderBrush2}">
-                    <ComboBoxItem Content="0  Eef - the first tale (jp)"/>
-                    <ComboBoxItem Content="1  Eef - the first tale (en)"/>
-                    <ComboBoxItem Content="2  Eef - the first tale (en steam)"/>
-                    <ComboBoxItem Content="3  Eef - the latter tale (jp)"/>
-                    <ComboBoxItem Content="4  Eef - the latter tale (en NNL)"/>
-                    <ComboBoxItem Content="5  Eef - the latter tale (en)"/>
-                    <ComboBoxItem Content="6  Eef - the latter tale (en steam)"/>
-                    <ComboBoxItem Content="7  Eeden* (jp)"/>
-                    <ComboBoxItem Content="8  Eeden* (en steam)"/>
-                    <ComboBoxItem Content="9  Eeden* PLUS+MOSAIC (en steam)"/>
-                    <ComboBoxItem Content="10  EMashiro Iro Symphony (jp)"/>
-                    <ComboBoxItem Content="11  ERiddle Garden (jp)"/>
-                    <ComboBoxItem Content="12  ESteal My Heart ~Rhapsody of Moonlight~ (jp)"/>
-                    <ComboBoxItem Content="13  ETenshi no Nichiyoubi (ef a fairy tale of the two.)"/>
-                    <ComboBoxItem Content="14  ESupipara Story #01 - Spring Has Come! (jp)"/>
-                    <ComboBoxItem Content="15  ENatsuzora no Perseus (jp)"/>
-                    <ComboBoxItem Content="16  E12 no Tsuki no Eve (jp)"/>
-                    <ComboBoxItem Content="17  ESoreyori no Prologue (jp)"/>
-                    <ComboBoxItem Content="18  ESoreyori no Prologue Append H (jp)"/>
-                    <ComboBoxItem Content="19  ETsumi no Hikari Rendezvous (jp)"/>
-                    <ComboBoxItem Content="20  ETsumi no Hikari Rendezvous Mikan Blossom (jp)"/>
-                    <ComboBoxItem Content="21  ETrinoline (jp)"/>
-                    <ComboBoxItem Content="22  ETrinoline (en steam)"/>
-                    <ComboBoxItem Content="23  ETrinoline: Genesis (jp)"/>
-                    <ComboBoxItem Content="24  ETrinoline: Genesis steam (en)"/>
-                    <ComboBoxItem Content="25  ESono Hi no Kemono ni wa, (jp)"/>
+                    <ComboBoxItem Content="0   ef &#x2013; the first tale (jp)"/>
+                    <ComboBoxItem Content="1   ef &#x2013; the first tale (en)"/>
+                    <ComboBoxItem Content="2   ef &#x2013; the first tale (en steam)"/>
+                    <ComboBoxItem Content="3   ef &#x2013; the latter tale (jp)"/>
+                    <ComboBoxItem Content="4   ef &#x2013; the latter tale (en NNL)"/>
+                    <ComboBoxItem Content="5   ef &#x2013; the latter tale (en)"/>
+                    <ComboBoxItem Content="6   ef &#x2013; the latter tale (en steam)"/>
+                    <ComboBoxItem Content="7   eden* (jp)"/>
+                    <ComboBoxItem Content="8   eden* (en steam)"/>
+                    <ComboBoxItem Content="9   eden* PLUS+MOSAIC (en steam)"/>
+                    <ComboBoxItem Content="10  Mashiro Iro Symphony (jp)"/>
+                    <ComboBoxItem Content="11  Riddle Garden (jp)"/>
+                    <ComboBoxItem Content="12  Steal My Heart ~Rhapsody of Moonlight~ (jp)"/>
+                    <ComboBoxItem Content="13  Tenshi no Nichiyoubi (ef a fairy tale of the two.)"/>
+                    <ComboBoxItem Content="14  Supipara Story #01 - Spring Has Come! (jp)"/>
+                    <ComboBoxItem Content="15  Natsuzora no Perseus (jp)"/>
+                    <ComboBoxItem Content="16  12 no Tsuki no Eve (jp)"/>
+                    <ComboBoxItem Content="17  Soreyori no Prologue (jp)"/>
+                    <ComboBoxItem Content="18  Soreyori no Prologue Append H (jp)"/>
+                    <ComboBoxItem Content="19  Tsumi no Hikari Rendezvous (jp)"/>
+                    <ComboBoxItem Content="20  Tsumi no Hikari Rendezvous Mikan Blossom (jp)"/>
+                    <ComboBoxItem Content="21  Trinoline (jp)"/>
+                    <ComboBoxItem Content="22  Trinoline (en steam)"/>
+                    <ComboBoxItem Content="23  Trinoline: Genesis (jp)"/>
+                    <ComboBoxItem Content="24  Trinoline: Genesis (en steam)"/>
+                    <ComboBoxItem Content="25  Sono Hi no Kemono ni wa, (jp)"/>
                 </ComboBox>
 
                 <!-- Extraction Settings -->
