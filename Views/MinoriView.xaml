@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="NicheStudioWeirdo.Views.MinoriView"
+<UserControl x:Class="NicheStudioWeirdo.Views.MinoriView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid>
@@ -45,28 +45,41 @@
                     <ComboBoxItem Content="25  ESono Hi no Kemono ni wa, (jp)"/>
                 </ComboBox>
 
-                <!-- PAZ File (for Unpack) -->
-                <TextBlock Text="TARGET .PAZ FILE (UNPACK)" Style="{StaticResource LabelStyle}"/>
-                <Grid Margin="0,0,0,20">
+                <!-- Extraction Settings -->
+                <TextBlock Text="Extraction Settings (Unpack)" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,10"/>
+                
+                <TextBlock Text="TARGET .PAZ FILE" Style="{StaticResource LabelStyle}"/>
+                <Grid Margin="0,0,0,10">
                     <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
                     <TextBox x:Name="PazFileTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
                     <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowsePaz_Click"/>
                 </Grid>
 
-                <!-- Output Folder -->
-                <TextBlock Text="OUTPUT FOLDER" Style="{StaticResource LabelStyle}"/>
-                <Grid Margin="0,0,0,20">
+                <TextBlock Text="OUTPUT FOLDER (Optional - defaults to PAZ directory)" Style="{StaticResource LabelStyle}"/>
+                <Grid Margin="0,0,0,10">
                     <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                    <TextBox x:Name="FolderTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
-                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseFolder_Click"/>
+                    <TextBox x:Name="ExtractFolderTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseExtractFolder_Click"/>
                 </Grid>
 
-                <!-- Output PAZ (for Repack) -->
-                <TextBlock Text="OUTPUT .PAZ NAME (REPACK)" Style="{StaticResource LabelStyle}"/>
-                <TextBox x:Name="OutputPazTxt" Style="{StaticResource TextBoxStyle}" Margin="0,0,0,24" Text="scr_patched.paz"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,20">
+                    <Button Content="Unpack PAZ" Style="{StaticResource BrowseButton}" Click="Unpack_Click"/>
+                </StackPanel>
+
+                <!-- Repack Settings -->
+                <TextBlock Text="Repack Settings" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,10,0,10"/>
+
+                <TextBlock Text="TARGET FOLDER TO REPACK" Style="{StaticResource LabelStyle}"/>
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <TextBox x:Name="RepackFolderTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseRepackFolder_Click"/>
+                </Grid>
+
+                <TextBlock Text="OUTPUT .PAZ NAME (e.g., scr_patched.paz)" Style="{StaticResource LabelStyle}"/>
+                <TextBox x:Name="OutputPazTxt" Style="{StaticResource TextBoxStyle}" Margin="0,0,0,20" Text="scr_patched.paz"/>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Content="Unpack PAZ" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="Unpack_Click"/>
                     <Button Content="Repack PAZ" Style="{StaticResource ActionButtonGreen}" Click="Repack_Click"/>
                 </StackPanel>
             </StackPanel>
