@@ -89,6 +89,34 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Button Content="Repack PAZ" Style="{StaticResource ActionButtonGreen}" Click="Repack_Click"/>
                 </StackPanel>
+
+                <!-- How to use note -->
+                <Border Background="#1A3A6B" CornerRadius="6" Padding="12,10" Margin="0,14,0,0"
+                        BorderBrush="#2A5FAD" BorderThickness="1">
+                    <StackPanel>
+                        <TextBlock Text="📋  HOW TO USE REPACK" FontSize="10" FontWeight="Bold"
+                                   Foreground="#7EB8FF" Margin="0,0,0,6"/>
+                        <TextBlock TextWrapping="Wrap" FontSize="11" Foreground="#AACCFF" LineHeight="18">
+                            <Run Text="1. "/>
+                            <Run Text="TARGET ORIGINAL .PAZ FILE" FontWeight="Bold"/>
+                            <Run Text=" → pilih file .paz asli dari folder game (e.g. scr.paz)."/>
+                            <LineBreak/>
+                            <Run Text="2. "/>
+                            <Run Text="TARGET FOLDER" FontWeight="Bold"/>
+                            <Run Text=" → pilih folder yang LANGSUNG berisi file-file hasil unpack (e.g. .sc files). Jangan pilih parent foldernya."/>
+                            <LineBreak/>
+                            <Run Text="3. "/>
+                            <Run Text="OUTPUT .PAZ NAME" FontWeight="Bold"/>
+                            <Run Text=" → nama file hasil repack (disimpan di TARGET FOLDER)."/>
+                            <LineBreak/>
+                            <Run Text="4. Pastikan "/>
+                            <Run Text="GAME INDEX" FontWeight="Bold"/>
+                            <Run Text=" sesuai dengan game-mu sebelum repack."/>
+                            <LineBreak/>
+                            <Run Text="5. Salin hasil repack ke folder game untuk menggantikan .paz asli."/>
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
             </StackPanel>
         </Border>
     </Grid>
