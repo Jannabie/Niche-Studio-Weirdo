@@ -79,24 +79,37 @@ namespace NicheStudioWeirdo.Views
                 string repoDir = Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Minori");
                 string exe = Path.Combine(repoDir, "tools", "fuckpaz.exe");
 
-                // fuckpaz syntax: fuckpaz.exe <original.paz> <game_index> <output.paz>
-                // It reads file listing from original.paz TOC, then opens each file by relative name
-                // from the working directory (RepackFolderTxt) which must directly contain those files.
                 string workDir = RepackFolderTxt.Text;
                 string outPath = Path.Combine(workDir, OutputPazTxt.Text);
 
-                // fuckpaz crashes if the output file already exists (e.g. from a previous failed run).
-                // Delete it first so it always starts fresh.
-                try { if (File.Exists(outPath)) File.Delete(outPath); }
-                catch { /* ignore if locked — fuckpaz will still overwrite */ }
+                // Write to a .tmp file first so we never try to overwrite a locked existing file.
+                // fuckpaz crashes with ACCESS_VIOLATION if the output file exists and is locked.
+                string tmpPath = outPath + ".repack_tmp";
+                try { if (File.Exists(tmpPath)) File.Delete(tmpPath); } catch { }
 
-                // Use ArgumentList to safely handle paths with spaces / em-dashes / parentheses.
-                await ToolRunner.RunAsync(workDir, exe, new[] { RepackOriginalPazTxt.Text, idx.ToString(), outPath }, GetMain());
+                GetMain().LogToConsole($"▶ Repacking to temp: {tmpPath}");
+
+                await ToolRunner.RunAsync(workDir, exe,
+                    new[] { RepackOriginalPazTxt.Text, idx.ToString(), tmpPath }, GetMain());
+
+                // If fuckpaz succeeded, rename temp → final output
+                if (File.Exists(tmpPath) && new FileInfo(tmpPath).Length > 0)
+                {
+                    try { if (File.Exists(outPath)) File.Delete(outPath); } catch { }
+                    File.Move(tmpPath, outPath, overwrite: true);
+                    GetMain().LogToConsole($"✔ Output saved to: {outPath}");
+                }
+                else if (File.Exists(tmpPath))
+                {
+                    File.Delete(tmpPath);
+                    GetMain().LogToConsole("✘ [ERROR] fuckpaz produced an empty output file. Check game index and target folder.");
+                }
             }
             catch (Exception ex)
             {
                 GetMain().LogToConsole($"✘ [ERROR] Repack failed: {ex.Message}");
             }
         }
+
     }
 }
