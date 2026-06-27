@@ -80,6 +80,11 @@ namespace NicheStudioWeirdo.Views
             string workDir = RepackFolderTxt.Text;
             string outPath = Path.Combine(workDir, OutputPazTxt.Text);
 
+            // fuckpaz crashes if the output file already exists (e.g. from a previous failed run).
+            // Delete it first so it always starts fresh.
+            if (File.Exists(outPath))
+                File.Delete(outPath);
+
             // Use ArgumentList to safely handle paths with spaces / em-dashes / parentheses.
             await ToolRunner.RunAsync(workDir, exe, new[] { RepackOriginalPazTxt.Text, idx.ToString(), outPath }, GetMain());
         }
