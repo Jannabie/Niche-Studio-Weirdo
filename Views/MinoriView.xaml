@@ -69,7 +69,14 @@
                 <!-- Repack Settings -->
                 <TextBlock Text="Repack Settings" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,10,0,10"/>
 
-                <TextBlock Text="TARGET FOLDER TO REPACK" Style="{StaticResource LabelStyle}"/>
+                <TextBlock Text="TARGET ORIGINAL .PAZ FILE (Required for keys &amp; TOC)" Style="{StaticResource LabelStyle}"/>
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <TextBox x:Name="RepackOriginalPazTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseRepackOriginalPaz_Click"/>
+                </Grid>
+
+                <TextBlock Text="BASE FOLDER (Folder that contains the extracted folder)" Style="{StaticResource LabelStyle}"/>
                 <Grid Margin="0,0,0,10">
                     <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
                     <TextBox x:Name="RepackFolderTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>

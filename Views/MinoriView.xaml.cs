@@ -24,6 +24,17 @@ namespace NicheStudioWeirdo.Views
             if (d.ShowDialog() == true) ExtractFolderTxt.Text = d.FolderName;
         }
 
+        private void BrowseRepackOriginalPaz_Click(object sender, RoutedEventArgs e)
+        {
+            var d = new OpenFileDialog { Filter = "PAZ Archives (*.paz)|*.paz|All Files (*.*)|*.*" };
+            if (d.ShowDialog() == true)
+            {
+                RepackOriginalPazTxt.Text = d.FileName;
+                // Auto-fill the base folder to be the parent directory of the PAZ file
+                RepackFolderTxt.Text = Path.GetDirectoryName(d.FileName) ?? "";
+            }
+        }
+
         private void BrowseRepackFolder_Click(object sender, RoutedEventArgs e)
         {
             var d = new OpenFolderDialog();
@@ -53,16 +64,20 @@ namespace NicheStudioWeirdo.Views
 
         private async void Repack_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(RepackFolderTxt.Text) || string.IsNullOrWhiteSpace(OutputPazTxt.Text)) return;
+            if (string.IsNullOrWhiteSpace(RepackOriginalPazTxt.Text) || 
+                string.IsNullOrWhiteSpace(RepackFolderTxt.Text) || 
+                string.IsNullOrWhiteSpace(OutputPazTxt.Text)) return;
 
             int idx = GameIndexCombo.SelectedIndex; // 0-25, maps directly
 
             string repoDir = Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Minori");
             string exe = Path.Combine(repoDir, "tools", "fuckpaz.exe");
 
-            // Correct syntax: fuckpaz.exe <folder> <game_index> <output.paz>
-            string outPath = Path.Combine(Path.GetDirectoryName(RepackFolderTxt.Text) ?? repoDir, OutputPazTxt.Text);
-            await ToolRunner.RunAsync(repoDir, exe, $"\"{RepackFolderTxt.Text}\" {idx} \"{outPath}\"", GetMain());
+            // Correct syntax: fuckpaz.exe <original.paz> <game_index> <output.paz>
+            // fuckpaz will use the folder (same name as original paz) inside the working directory to fetch files.
+            string workDir = RepackFolderTxt.Text;
+            string outPath = Path.Combine(workDir, OutputPazTxt.Text);
+            await ToolRunner.RunAsync(workDir, exe, $"\"{RepackOriginalPazTxt.Text}\" {idx} \"{outPath}\"", GetMain());
         }
     }
 }
