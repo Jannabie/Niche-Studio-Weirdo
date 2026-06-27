@@ -16,6 +16,7 @@
   <ItemGroup>
     <Compile Remove="Utility\**\*.cs" />
     <Compile Remove="publish_final\**\*.cs" />
+    <Compile Remove="NicheStudio\**\*.cs" />
     <None Include="Utility\**\*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

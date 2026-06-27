@@ -70,27 +70,35 @@ namespace NicheStudioWeirdo.Views
 
         private void ParseScript_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(OriginalScriptTxt.Text) || string.IsNullOrWhiteSpace(JsonFileTxt.Text))
+            if (string.IsNullOrWhiteSpace(OriginalScriptTxt.Text) || OriginalScriptTxt.Text.StartsWith("Select "))
             {
-                GetMain().LogToConsole("BGI [Error]: Select both the original script and the target JSON file.");
+                GetMain().LogToConsole("BGI [Error]: Please select the original script file (.bp or .sc).");
                 return;
+            }
+
+            if (string.IsNullOrWhiteSpace(JsonFileTxt.Text) || JsonFileTxt.Text.StartsWith("Select "))
+            {
+                JsonFileTxt.Text = Path.ChangeExtension(OriginalScriptTxt.Text, ".json");
             }
 
             try
             {
-                var wrapper = new BurikoWrapper();
-                if (!wrapper.Load(GetDllPath()))
+                byte[] raw = File.ReadAllBytes(OriginalScriptTxt.Text);
+                if (raw.Length > 16 && System.Text.Encoding.ASCII.GetString(raw, 0, 15) == "DSC FORMAT 1.00")
                 {
-                    GetMain().LogToConsole($"BGI [Error]: Failed to load EthornellEditor.dll - {wrapper.LastError}");
-                    return;
+                    using (var ms = new System.IO.MemoryStream(raw))
+                    {
+                        var decoder = new NicheStudioWeirdo.Utils.BurikoDscDecoder(ms);
+                        raw = decoder.Unpack();
+                        GetMain().LogToConsole("BGI: DSC FORMAT 1.00 decompressed successfully.");
+                    }
                 }
 
-                byte[] raw = File.ReadAllBytes(OriginalScriptTxt.Text);
-                string[] originalText = wrapper.Import(raw);
+                string[] originalText = NicheStudioWeirdo.Utils.BgiUniversalParser.ExtractStrings(raw);
 
-                if (originalText == null)
+                if (originalText == null || originalText.Length == 0)
                 {
-                    GetMain().LogToConsole("BGI [Error]: Script parsed but returned null strings.");
+                    GetMain().LogToConsole("BGI [Error]: Script parsed but returned 0 strings.");
                     return;
                 }
 
@@ -105,30 +113,31 @@ namespace NicheStudioWeirdo.Views
 
         private void InjectScript_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(OriginalScriptTxt.Text) || string.IsNullOrWhiteSpace(JsonFileTxt.Text))
+            if (string.IsNullOrWhiteSpace(OriginalScriptTxt.Text) || OriginalScriptTxt.Text.StartsWith("Select ") ||
+                string.IsNullOrWhiteSpace(JsonFileTxt.Text) || JsonFileTxt.Text.StartsWith("Select "))
             {
-                GetMain().LogToConsole("BGI [Error]: Select both the original script and the translated JSON file.");
+                GetMain().LogToConsole("BGI [Error]: Please select both the original script and the translated JSON file.");
                 return;
             }
 
             try
             {
-                var wrapper = new BurikoWrapper();
-                if (!wrapper.Load(GetDllPath()))
-                {
-                    GetMain().LogToConsole($"BGI [Error]: Failed to load EthornellEditor.dll - {wrapper.LastError}");
-                    return;
-                }
-
-                // 1. We must Import the original script to load the internal state
                 byte[] raw = File.ReadAllBytes(OriginalScriptTxt.Text);
-                wrapper.Import(raw);
+                if (raw.Length > 16 && System.Text.Encoding.ASCII.GetString(raw, 0, 15) == "DSC FORMAT 1.00")
+                {
+                    using (var ms = new System.IO.MemoryStream(raw))
+                    {
+                        var decoder = new NicheStudioWeirdo.Utils.BurikoDscDecoder(ms);
+                        raw = decoder.Unpack();
+                        GetMain().LogToConsole("BGI: DSC FORMAT 1.00 decompressed successfully.");
+                    }
+                }
 
                 // 2. Read the translated strings from JSON
                 string[] translatedText = JsonSerializer.Deserialize<string[]>(File.ReadAllText(JsonFileTxt.Text));
 
-                // 3. Export to a new script byte array
-                byte[] newScript = wrapper.Export(translatedText);
+                // 3. Export to a new script byte array using universal injector
+                byte[] newScript = NicheStudioWeirdo.Utils.BgiUniversalParser.InjectStrings(raw, translatedText);
 
                 // 4. Save to _new
                 string outPath = OriginalScriptTxt.Text + "_new";
