@@ -16,7 +16,7 @@ Supports decoding compressed `.SKP` scripts (DSC FORMAT 1.00), extracting Shift-
 
 Emulates a macOS terminal with dark mode, tab navigation, and `SF Mono Medium` font. Install the font from the `Font/` directory for the best experience.
 
-![Tools Interface](Tools%20Interface/image.png)
+![Tools Interface](https://raw.githubusercontent.com/Jannabie/Niche-Studio-Weirdo/refs/heads/main/Tools%20Interface/image.png)
 
 ## Build
 
