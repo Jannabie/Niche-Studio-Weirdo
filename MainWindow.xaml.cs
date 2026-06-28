@@ -136,15 +136,15 @@ namespace NicheStudioWeirdo
                     "KKK"       => new KKKView(),
                     _           => new MinoriView()
                 };
-                LoadView(view);
+                LoadView(view, btn.Content?.ToString() ?? btn.Tag?.ToString() ?? "");
                 GuideText.Text = GetGuideText(btn.Tag?.ToString() ?? "");
             }
         }
 
-        private void LoadView(UserControl view)
+        private void LoadView(UserControl view, string displayName = "")
         {
             MainContent.Content = view;
-            LogToConsole($"Navigated to {view.GetType().Name}.");
+            LogToConsole($"Navigated to {displayName}.");
         }
 
         public void LogToConsole(string message)
