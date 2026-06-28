@@ -59,13 +59,13 @@
                     
                     <ScrollViewer x:Name="TabScrollViewer" Grid.Column="1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled" PanningMode="HorizontalOnly" PreviewMouseWheel="TabScrollViewer_PreviewMouseWheel">
                         <StackPanel x:Name="TabContainer" Orientation="Horizontal">
-                        <Button Content="Abogado (Script)" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="AbogadoSdk"/>
-                        <Button Content="Abogado (Graphics)" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="AbogadoKg"/>
+                        <Button Content="Abogado (DSK)" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="AbogadoSdk"/>
+                        <Button Content="Abogado (KG)" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="AbogadoKg"/>
                         <Button Content="Buriko" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="BGI"/>
-                        <Button Content="CodeXR" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="CodeXR"/>
+                        <Button Content="codeX RScript" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="CodeXR"/>
                         <Button Content="Fuzz Inc." Style="{StaticResource TabButton}" Click="Nav_Click" Tag="FSN"/>
-                        <Button Content="HuneX" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="HuneX"/>
-                        <Button Content="HuneX (Mahoyo)" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="HuneXMahoyo"/>
+                        <Button Content="HuneX (Tsukihime)" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="HuneX"/>
+                        <Button Content="HuneX (Witch on The Holy Night)" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="HuneXMahoyo"/>
                         <Button Content="Leaf" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="WA2"/>
                         <Button Content="Malie" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="MalieKit"/>
                         <Button Content="Malie Kajiri" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="KKK"/>

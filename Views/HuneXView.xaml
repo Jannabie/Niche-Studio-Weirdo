@@ -8,7 +8,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="HuneX (Tsukihime Remake)" Style="{StaticResource HeaderStyle}"/>
+        <TextBlock Grid.Row="0" Text="HuneX (Tsukihime)" Style="{StaticResource HeaderStyle}"/>
         <TextBlock Grid.Row="1" Text="Extract script_text.mrg to .txt, edit, then repack back to .mrg." Style="{StaticResource SubheaderStyle}"/>
 
         <StackPanel Grid.Row="2">

@@ -8,7 +8,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="HuneX (Mahoyo)" Style="{StaticResource HeaderStyle}"/>
+        <TextBlock Grid.Row="0" Text="HuneX (Witch on The Holy Night)" Style="{StaticResource HeaderStyle}"/>
         <TextBlock Grid.Row="1" Text="Tools for Witch on the Holy Night Remastered (.hfa, .ctd, .cbg, .mzp)" Style="{StaticResource SubheaderStyle}"/>
 
         <Border Grid.Row="2" Background="{StaticResource BgDarkestBrush}" CornerRadius="0" Padding="20" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}">
