@@ -66,7 +66,7 @@ namespace NicheStudioWeirdo.Views
         private async void UnpackHfa_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(HfaFileTxt.Text) || HfaFileTxt.Text.Contains("Select")) return;
-            await Utils.HunexUtils.UnpackHfaAsync(HfaFileTxt.Text, GetMain());
+            await Utils.HunexUtils.UnpackHfaAsync(HfaFileTxt.Text, HfaFolderTxt.Text, GetMain());
         }
 
         private async void RepackHfa_Click(object sender, RoutedEventArgs e)
