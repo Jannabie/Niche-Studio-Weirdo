@@ -1,0 +1,28 @@
+# Visual Studio
+.vs/
+bin/
+obj/
+
+# Publish Directories
+publish/
+publish_fdd/
+publish_final/
+NicheStudioWeirdo/
+
+# Executables & binaries
+*.exe
+*.dll
+*.pdb
+
+# Large files
+*.zip
+*.jpg
+*.jpeg
+*.png
+
+# PowerShell Scripts (temporary)
+fix_corners.ps1
+
+# Misc
+test_dll.exe
+crash.txt
