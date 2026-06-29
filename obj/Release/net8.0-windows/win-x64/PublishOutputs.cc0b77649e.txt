@@ -1,0 +1,5 @@
+C:\Users\user\Downloads\Solving Software Visual Novel\NicheStudioWeirdo\publish_fdd\NicheStudioWeirdo.exe
+C:\Users\user\Downloads\Solving Software Visual Novel\NicheStudioWeirdo\publish_fdd\NicheStudioWeirdo.dll
+C:\Users\user\Downloads\Solving Software Visual Novel\NicheStudioWeirdo\publish_fdd\NicheStudioWeirdo.deps.json
+C:\Users\user\Downloads\Solving Software Visual Novel\NicheStudioWeirdo\publish_fdd\NicheStudioWeirdo.runtimeconfig.json
+C:\Users\user\Downloads\Solving Software Visual Novel\NicheStudioWeirdo\publish_fdd\NicheStudioWeirdo.pdb

@@ -1,0 +1,159 @@
+{
+  "pac_path": "Config.pac",
+  "header_extra": 4,
+  "file_count": 19,
+  "entries": [
+    {
+      "name": "Bgm.dat",
+      "name_bytes_hex": "42676d2e646174",
+      "offset": 12,
+      "size_orig": 1960,
+      "size_comp": 1021,
+      "is_compressed": true
+    },
+    {
+      "name": "Button.dat",
+      "name_bytes_hex": "427574746f6e2e646174",
+      "offset": 1033,
+      "size_orig": 14793,
+      "size_comp": 3394,
+      "is_compressed": true
+    },
+    {
+      "name": "CGMode.dat",
+      "name_bytes_hex": "43474d6f64652e646174",
+      "offset": 4427,
+      "size_orig": 11652,
+      "size_comp": 1949,
+      "is_compressed": true
+    },
+    {
+      "name": "Char.dat",
+      "name_bytes_hex": "436861722e646174",
+      "offset": 6376,
+      "size_orig": 23265,
+      "size_comp": 3540,
+      "is_compressed": true
+    },
+    {
+      "name": "ConfigString.dat",
+      "name_bytes_hex": "436f6e666967537472696e672e646174",
+      "offset": 9916,
+      "size_orig": 236,
+      "size_comp": 105,
+      "is_compressed": true
+    },
+    {
+      "name": "Event.dat",
+      "name_bytes_hex": "4576656e742e646174",
+      "offset": 10021,
+      "size_orig": 15433,
+      "size_comp": 3561,
+      "is_compressed": true
+    },
+    {
+      "name": "EventMode.dat",
+      "name_bytes_hex": "4576656e744d6f64652e646174",
+      "offset": 13582,
+      "size_orig": 632,
+      "size_comp": 401,
+      "is_compressed": true
+    },
+    {
+      "name": "EventType.dat",
+      "name_bytes_hex": "4576656e74547970652e646174",
+      "offset": 13983,
+      "size_orig": 78,
+      "size_comp": 50,
+      "is_compressed": true
+    },
+    {
+      "name": "FontColor.dat",
+      "name_bytes_hex": "466f6e74436f6c6f722e646174",
+      "offset": 14033,
+      "size_orig": 236,
+      "size_comp": 154,
+      "is_compressed": true
+    },
+    {
+      "name": "Mascot.dat",
+      "name_bytes_hex": "4d6173636f742e646174",
+      "offset": 14187,
+      "size_orig": 197,
+      "size_comp": 22,
+      "is_compressed": true
+    },
+    {
+      "name": "MusicMode.dat",
+      "name_bytes_hex": "4d757369634d6f64652e646174",
+      "offset": 14209,
+      "size_orig": 236,
+      "size_comp": 152,
+      "is_compressed": true
+    },
+    {
+      "name": "ReplayMode.dat",
+      "name_bytes_hex": "5265706c61794d6f64652e646174",
+      "offset": 14361,
+      "size_orig": 88,
+      "size_comp": 60,
+      "is_compressed": true
+    },
+    {
+      "name": "Scene.dat",
+      "name_bytes_hex": "5363656e652e646174",
+      "offset": 14421,
+      "size_orig": 2692,
+      "size_comp": 96,
+      "is_compressed": true
+    },
+    {
+      "name": "Stand.dat",
+      "name_bytes_hex": "5374616e642e646174",
+      "offset": 14517,
+      "size_orig": 1445487,
+      "size_comp": 182261,
+      "is_compressed": true
+    },
+    {
+      "name": "StandPos.dat",
+      "name_bytes_hex": "5374616e64506f732e646174",
+      "offset": 196778,
+      "size_orig": 1060,
+      "size_comp": 137,
+      "is_compressed": true
+    },
+    {
+      "name": "System.dat",
+      "name_bytes_hex": "53797374656d2e646174",
+      "offset": 196915,
+      "size_orig": 4622,
+      "size_comp": 1301,
+      "is_compressed": true
+    },
+    {
+      "name": "SystemVoice.dat",
+      "name_bytes_hex": "53797374656d566f6963652e646174",
+      "offset": 198216,
+      "size_orig": 12,
+      "size_comp": 13,
+      "is_compressed": true
+    },
+    {
+      "name": "TDM45.dat",
+      "name_bytes_hex": "54444d34352e646174",
+      "offset": 198229,
+      "size_orig": 6484,
+      "size_comp": 625,
+      "is_compressed": true
+    },
+    {
+      "name": "Visual.dat",
+      "name_bytes_hex": "56697375616c2e646174",
+      "offset": 198854,
+      "size_orig": 58875,
+      "size_comp": 5939,
+      "is_compressed": true
+    }
+  ]
+}

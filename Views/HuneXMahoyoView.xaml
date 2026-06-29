@@ -27,6 +27,7 @@
                     <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseHfaFolder_Click"/>
                 </Grid>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,20">
+                    <Button Content="List HFA" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="ListHfa_Click" ToolTip="Show all files inside the .hfa archive"/>
                     <Button Content="Unpack HFA" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="UnpackHfa_Click"/>
                     <Button Content="Repack HFA" Style="{StaticResource ActionButtonGreen}" Click="RepackHfa_Click"/>
                 </StackPanel>

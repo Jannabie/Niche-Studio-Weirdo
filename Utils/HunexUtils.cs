@@ -16,6 +16,11 @@ namespace NicheStudioWeirdo.Utils
             return SettingsManager.Config.PythonPath;
         }
 
+        public static async Task ListHfaAsync(string hfaPath, MainWindow main)
+        {
+            await ToolRunner.RunAsync(GetRepoDir(), GetPython(), $"hfa_tool.py list \"{hfaPath}\"", main);
+        }
+
         public static async Task UnpackHfaAsync(string hfaPath, string outputFolder, MainWindow main)
         {
             string args = $"hfa_tool.py unpack \"{hfaPath}\"";
