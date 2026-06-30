@@ -1,11 +1,12 @@
 # Minori Engine Modding Archive
 
-Repository ini berisi tools dan daftar kunci enkripsi untuk game berbasis Minori Engine.
+This repository contains tools and a list of encryption keys for games built on the Minori Engine.
 
-## Daftar Game Index (PENTING)
-Gunakan nomor index ini saat melakukan Unpack/Repack:
+## Game Index List (IMPORTANT)
 
-| Index | Nama Game |
+Use this index number when performing Unpack/Repack:
+
+| Index | Game Name |
 |-------|-----------|
 | 0 | ef - the first tale (jp) |
 | 1 | ef - the first tale (en) |
@@ -34,5 +35,6 @@ Gunakan nomor index ini saat melakukan Unpack/Repack:
 | 24 | Trinoline: Genesis steam (en) |
 | 25 | Sono Hi no Kemono ni wa, (jp) |
 
-## Cara Penggunaan
-Cukup jalankan file `.bat` yang tersedia dan ikuti instruksi di layar.
+## How to Use
+
+Simply run the available `.bat` file and follow the on-screen instructions.
