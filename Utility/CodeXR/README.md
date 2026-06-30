@@ -1,50 +1,40 @@
-# GSC Tool — codeX RScript Script Extractor & Repacker
+# codeX RScript Script Extractor & Repacker
 
-Tool untuk baca, edit, dan repack file script `.gsc` dari Visual Novel **Forest** (Liar Soft), engine **codeX RScript**.
+A tool for reading, editing, and repacking `.gsc` script files from the Visual Novel **Forest** (Liar Soft), built on the **codeX RScript** engine.
 
 ---
-
-## Proof of Concept
-
 | Screenshot |
 |:---:|
 | ![Proof](https://i.imgur.com/RtR8Go4.png) |
-| *Terjemahan berjalan in-game* |
+| *Translation running in-game* |
 
 ---
-
-## Struktur File Game
-
-| File | Isi |
+## Game File Structure
+| File | Content |
 |---|---|
-| `scr.xfl` | Archive LB berisi 103 file `.gsc` (semua script game) |
-| `grpo.xfl`, `grpo_bg.xfl`, dst. | Archive LB berisi asset grafis (`.wcg`, `.lwg`) |
-| `grps.xfl` | Archive LB berisi UI, dialogue image, choice image |
+| `scr.xfl` | LB archive containing 103 `.gsc` files (all game scripts) |
+| `grpo.xfl`, `grpo_bg.xfl`, etc. | LB archives containing graphic assets (`.wcg`, `.lwg`) |
+| `grps.xfl` | LB archive containing UI, dialogue images, choice images |
 
-File `.gsc` yang berisi dialog biasanya yang ukurannya besar (±50–400 KB) — kayak `2100.gsc`, `2300.gsc`, `2500.gsc`, `2600.gsc`, dsb. Yang ukurannya kecil (< 5 KB) isinya cuma logic/inisialisasi engine, skip aja.
+`.gsc` files containing dialogue are usually the larger ones (±50–400 KB) — such as `2100.gsc`, `2300.gsc`, `2500.gsc`, `2600.gsc`, etc. Smaller ones (< 5 KB) only contain engine logic/initialization, safe to skip.
 
 ---
-
-## Format .gsc
-
-File `.gsc` adalah **bytecode compiled** dari codeX RScript:
-
+## .gsc Format
+The `.gsc` file is **compiled bytecode** from codeX RScript:
 ```
 [Header 28 bytes]
 [Code / Bytecode]
-[Offset Table]   ← pointer ke tiap string
-[String Table]   ← null-terminated strings (nama variabel & teks dialog)
+[Offset Table]   ← pointer to each string
+[String Table]   ← null-terminated strings (variable names & dialogue text)
 [Section C]
 [Section D]
 [Extra trailing]
 ```
-
 Header: 7 × `uint32` little-endian:
-
 | Offset | Field |
 |---|---|
-| +0x00 | Total size semua seksi |
-| +0x04 | Header size (selalu 28) |
+| +0x00 | Total size of all sections |
+| +0x04 | Header size (always 28) |
 | +0x08 | Code size |
 | +0x0C | Offset table size |
 | +0x10 | String table size |
@@ -52,81 +42,67 @@ Header: 7 × `uint32` little-endian:
 | +0x18 | Section D size |
 
 ---
+## How to Use
 
-## Cara Pakai
-
-### 1. Lihat isi file
-
+### 1. View file contents
 ```bash
 python gsc_tool.py info 2500.gsc
 python gsc_tool.py list *.gsc
 ```
 
-### 2. Export string ke JSON
-
+### 2. Export strings to JSON
 ```bash
 python gsc_tool.py export 2500.gsc -o 2500.json
 ```
 
-### 3. Edit terjemahan
-
-Buka JSON, isi field `"translated"` — jangan ubah yang lain:
-
+### 3. Edit the translation
+Open the JSON, fill in the `"translated"` field — don't change anything else:
 ```json
 {
   "index": 644,
   "offset": 41002,
   "original": "^ckThe time......t-twelve......",
-  "translated": "^ckWaktunya......d-dua belas......"
+  "translated": "^ckIt's time......t-twelve......"
 }
 ```
+>  Do not touch `"original"`, `"index"`, or `"offset"`. Characters like `^ck` are engine **control codes** — they must be copied over as-is.
 
-> ⚠️ Jangan sentuh `"original"`, `"index"`, atau `"offset"`. Karakter kayak `^ck` itu **control code** engine — harus ikut disalin.
-
-### 4. Repack ke .gsc
-
+### 4. Repack into .gsc
 ```bash
 python gsc_tool.py import 2500.gsc 2500.json -o 2500_translated.gsc
 ```
 
-### 5. Batch
-
+### 5. Batch processing
 ```bash
-# Export semua ke folder json/
+# Export all into the json/ folder
 python gsc_tool.py export-all *.gsc -d json/
 
-# Import semua setelah selesai translate
+# Import all once translation is done
 python gsc_tool.py import-all *.gsc -d json/ -o repacked/
 ```
 
-### 6. Verifikasi roundtrip
-
+### 6. Verify roundtrip
 ```bash
 python gsc_tool.py verify *.gsc
 ```
-
-Semua 11 file sample sudah diverifikasi **100% identik** setelah roundtrip.
+All 11 sample files have been verified as **100% identical** after the roundtrip.
 
 ---
-
-## Semua Perintah
-
-| Perintah | Fungsi |
+## All Commands
+| Command | Function |
 |---|---|
-| `info <file>` | Detail info + daftar string |
-| `info -v <file>` | + hex dump bytecode |
-| `list <files...>` | Ringkasan banyak file sekaligus |
-| `export <file> -o out.json` | Export string ke JSON |
+| `info <file>` | Detailed info + string list |
+| `info -v <file>` | + bytecode hex dump |
+| `list <files...>` | Summary of multiple files at once |
+| `export <file> -o out.json` | Export strings to JSON |
 | `import <file> <json> -o out.gsc` | Import JSON → repack .gsc |
-| `repack <file> -o out.gsc` | Rebuild tanpa edit |
-| `verify <files...>` | Cek roundtrip identik |
-| `export-all <files...> -d dir/` | Export semua ke folder |
-| `import-all <files...> -d dir/ -o dir/` | Import & repack semua |
+| `repack <file> -o out.gsc` | Rebuild without editing |
+| `verify <files...>` | Check roundtrip is identical |
+| `export-all <files...> -d dir/` | Export all into a folder |
+| `import-all <files...> -d dir/ -o dir/` | Import & repack all |
 
 ---
-
-## Catatan
-
-- Default encoding: **Shift-JIS**. Kalau terjemahan pakai karakter non-ASCII (misal `é`), tambah flag `--encoding utf-8` saat import — tapi pastiin engine-nya support dulu.
-- String table di file `.gsc` besar nyimpen **nama variabel sekaligus teks dialog** — keduanya ada di tempat yang sama.
-- File `.gsc` kecil (< 5 KB) nggak ada dialognya, aman diabaikan.
+## Notes
+- Default encoding: **Shift-JIS**. If your translation uses non-ASCII characters (e.g. `é`), add the `--encoding utf-8` flag during import — but make sure the engine supports it first.
+- The string table in a large `.gsc` file stores **both variable names and dialogue text** — both exist in the same place.
+- Small `.gsc` files (< 5 KB) contain no dialogue and are safe to ignore.
