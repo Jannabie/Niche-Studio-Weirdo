@@ -4,138 +4,138 @@ A collection of tools for extracting, editing, and repacking resources from game
 
 > Tested on: **Soushuu Senshinkan Gakuen: Hachimyoujin** (相州戦神館學園 八命陣)
 
-> **NOTE: Untuk Kajiri Kamui Kagura (神咒神威神楽 / KKK):** Game ini memiliki toolkit **eksklusif tersendiri** karena perbedaan struktur arsip dan format script-nya yang unik dibanding game Malie lainnya.
-> Gunakan repo khusus berikut: **[MalieKit — KKK Exclusive Toolkit](https://github.com/Jannabie/KKK)**
+> **NOTE: For Kajiri Kamui Kagura (神咒神威神楽 / KKK):** This game has its **own exclusive toolkit** due to differences in its archive structure and unique script format compared to other Malie games.
+> Use the dedicated repo instead: **[MalieKit — KKK Exclusive Toolkit](https://github.com/Jannabie/KKK)**
 
 ---
 
-## Isi Toolkit
+## Toolkit Contents
 
-| Folder | Isi | Keterangan |
+| Folder | Contents | Description |
 |---|---|---|
-| `LauncherDatSource/` | Source Python CLI | UnPacker / RePacker `.dat` / `.lib` |
-| `MalieExScSource/` | Source C# Script Tool | Extract & repack script dialog |
-| `MalieScriptExtractor/` | `Malie_Script_Tool.exe` | Versi prebuilt script tool |
+| `LauncherDatSource/` | Python CLI source | UnPacker / RePacker for `.dat` / `.lib` |
+| `MalieExScSource/` | C# Script Tool source | Extract & repack dialogue scripts |
+| `MalieScriptExtractor/` | `Malie_Script_Tool.exe` | Prebuilt version of the script tool |
 
 ---
 
-## Bagian 1 — Data Archive Tool (`.dat` / `.lib`)
+## Part 1 — Data Archive Tool (`.dat` / `.lib`)
 
-Tool ini untuk membuka dan merepak arsip utama game, seperti `data.dat`, `sound.dat`, dll.
+This tool is used to open and repack the game's main archives, such as `data.dat`, `sound.dat`, etc.
 
 ### Requirements
 
 - Python 3.10+
-- Dependensi: `tqdm`
+- Dependency: `tqdm`
 
 ```bash
 pip install tqdm
 ```
 
-### Menjalankan CLI
+### Running the CLI
 
 ```bash
 cd LauncherDatSource
 python cli_launcher.py
 ```
 
-Atau gunakan versi prebuilt yang bisa didownload di:
+Or use the prebuilt version, downloadable at:
 
 **[Releases v1.0 → Malie_UnRePacker_Tool_CLI.exe](https://github.com/Jannabie/MalieToolKit/releases/tag/v1.0)**
 
-### Menu CLI
+### CLI Menu
 
 ```
-[1] Dekripsi tahap 1 (.dat saja)
-[2] Ekstrak penuh (.lib/.dat)
-[3] Repack plain (.dat saja)
-[4] Konversi MGF ↔ PNG
-[Q] Keluar
+[1] Stage 1 decryption (.dat only)
+[2] Full extraction (.lib/.dat)
+[3] Plain repack (.dat only)
+[4] MGF ↔ PNG conversion
+[Q] Quit
 ```
 
 ---
 
-### Penjelasan Menu
+### Menu Explanation
 
-#### [1] Dekripsi Tahap 1
-Mendekripsi file `.dat` terenkripsi menjadi file `_plain.dat` (belum diekstrak isinya).
-Berguna untuk mengintip isi raw sebelum ekstrak penuh.
+#### [1] Stage 1 Decryption
+Decrypts an encrypted `.dat` file into a `_plain.dat` file (contents not yet extracted).
+Useful for peeking at the raw contents before doing a full extraction.
 
-**Input:** path ke file `.dat`  
-**Output:** `namafile_plain.dat` di lokasi yang sama
+**Input:** path to the `.dat` file
+**Output:** `filename_plain.dat` in the same location
 
 ---
 
-#### [2] Ekstrak Penuh
-Membuka arsip `.dat` atau `.lib` dan mengekstrak seluruh isinya.
-Otomatis membuat file metadata `namafile_entries.json` yang **wajib disimpan** untuk keperluan repack.
+#### [2] Full Extraction
+Opens a `.dat` or `.lib` archive and extracts all of its contents.
+Automatically generates a `filename_entries.json` metadata file, which **must be kept** for repacking purposes.
 
-**Input:** path ke file `.dat` / `.lib`, path folder output  
-**Output:** semua file terekstrak + `namafile_entries.json`
+**Input:** path to the `.dat` / `.lib` file, output folder path
+**Output:** all extracted files + `filename_entries.json`
 
-Format yang didukung:
+Supported formats:
 
-| Format | Keterangan |
+| Format | Description |
 |---|---|
-| `.ogg` | Audio, didekripsi langsung |
-| `.png` / `.pn` | Gambar PNG |
-| `.mgf` | Format gambar khusus Malie, disimpan as-is |
-| `.dzi` | Metadata gambar tiled |
-| `.svg` | Grafis vektor |
-| `.csv` / `.txt` | Teks / data |
+| `.ogg` | Audio, decrypted directly |
+| `.png` / `.pn` | PNG images |
+| `.mgf` | Malie's custom image format, saved as-is |
+| `.dzi` | Tiled image metadata |
+| `.svg` | Vector graphics |
+| `.csv` / `.txt` | Text / data |
 | `.mpg` | Video |
 | `.swf` | Flash |
-| Lainnya | Disimpan as-is (termasuk `exec.dat`, dll.) |
+| Others | Saved as-is (including `exec.dat`, etc.) |
 
 ---
 
-#### [3] Repack Plain
-Merakit ulang file-file yang sudah diedit kembali menjadi `.dat`.
+#### [3] Plain Repack
+Reassembles edited files back into a `.dat` archive.
 
-> CATATAN: Hanya mendukung `.dat` plain (tidak terenkripsi). Repack `.dat` terenkripsi belum didukung.
+> NOTE: Only supports plain (unencrypted) `.dat` files. Repacking encrypted `.dat` files is not yet supported.
 
 **Input:**
-- Folder berisi file-file sumber
-- Nama file `.dat` output
-- Path ke file metadata `.json` (dari hasil ekstrak)
+- Folder containing the source files
+- Output `.dat` filename
+- Path to the metadata `.json` file (from the extraction step)
 
 ---
 
-#### [4] Konversi MGF ↔ PNG
-Mengonversi gambar antara format `.mgf` (format gambar Malie) dan `.png` standar.
+#### [4] MGF ↔ PNG Conversion
+Converts images between Malie's `.mgf` format and standard `.png`.
 
 **MGF → PNG:**
 
 ```bash
-# Lewat CLI interaktif pilih [4], atau langsung:
-python execution/mgfpng_change.py namafile.mgf --to-png
+# Via the interactive CLI, choose [4], or directly:
+python execution/mgfpng_change.py filename.mgf --to-png
 ```
 
 **PNG → MGF:**
 
 ```bash
-python execution/mgfpng_change.py namafile.png --to-mgf
+python execution/mgfpng_change.py filename.png --to-mgf
 ```
 
 ---
 
-## Bagian 2 — Script Tool (Dialog & Strings)
+## Part 2 — Script Tool (Dialogue & Strings)
 
-Tool ini untuk mengekstrak dan mengimpor teks dialog serta nama karakter dari file script game (biasanya `exec.dat` di dalam folder `system/`).
+This tool is used to extract and import dialogue text and character names from the game's script file (typically `exec.dat` inside the `system/` folder).
 
 ### Requirements
 
-- .NET 8 Runtime (untuk menjalankan `.exe`)
-- Atau .NET 8 SDK (untuk build dari source di `MalieExScSource/`)
+- .NET 8 Runtime (to run the `.exe`)
+- Or .NET 8 SDK (to build from source in `MalieExScSource/`)
 
-### Build dari Source
+### Building from Source
 
 ```bash
 cd MalieExScSource
 dotnet build
 ```
 
-Atau jika path dotnet tidak terdeteksi otomatis:
+Or if the dotnet path isn't detected automatically:
 
 ```bash
 "C:\Program Files\dotnet\dotnet.exe" build
@@ -143,103 +143,103 @@ Atau jika path dotnet tidak terdeteksi otomatis:
 
 ---
 
-### Perintah CLI
+### CLI Commands
 
 ```
 Malie_Script_Tool.exe -d  -in [input.dat] -out [output.txt]        → Disassemble script
-Malie_Script_Tool.exe -a  -in [input.dat] -out [output.txt]        → Export semua strings (termasuk nama karakter)
+Malie_Script_Tool.exe -a  -in [input.dat] -out [output.txt]        → Export all strings (including character names)
 Malie_Script_Tool.exe -s  -in [input.dat] -out [output.dat] -txt [input.txt]  → Import strings
-Malie_Script_Tool.exe -e  -in [input.dat] -out [output.txt]        → Export dialog
-Malie_Script_Tool.exe -i  -in [input.dat] -out [output.dat] -txt [input.txt]  → Import dialog
+Malie_Script_Tool.exe -e  -in [input.dat] -out [output.txt]        → Export dialogue
+Malie_Script_Tool.exe -i  -in [input.dat] -out [output.dat] -txt [input.txt]  → Import dialogue
 ```
 
 ---
 
-### Format File Teks
+### Text File Format
 
-Setiap entri memiliki dua baris:
+Each entry has two lines:
 
 ```
-◇00000000◇Teks asli (jangan diubah)
-◆00000000◆Teks terjemahan (edit di sini)
+◇00000000◇Original text (do not change)
+◆00000000◆Translated text (edit here)
 ```
 
 ---
 
-### PENTING: Cara Mengganti Nama Karakter di Malie Engine
+### IMPORTANT: How to Change Character Names in the Malie Engine
 
-Di Malie Engine, **nama karakter TIDAK disimpan di segment dialog biasa**, melainkan di string segment. Jika langsung export dialog (`-e`) lalu edit nama di sana dan import (`-i`), nama karakter di game **tidak akan berubah**.
+In the Malie Engine, character names are **NOT stored in the regular dialogue segment**, but rather in the string segment. If you export dialogue directly (`-e`), edit the names there, and then import (`-i`), the character names **will not change** in-game.
 
-**Urutan yang benar:**
+**Correct order:**
 
 ```
-1. Export strings dulu
+1. Export strings first
    Malie_Script_Tool.exe -a -in exec.dat -out exec_strings.txt
 
-2. Edit nama karakter di exec_strings.txt
-   Cari baris ◆ yang berisi nama asli, ganti dengan nama terjemahan
+2. Edit character names in exec_strings.txt
+   Find the ◆ lines containing the original names, replace with the translated names
 
-3. Import strings (repack nama karakter)
+3. Import strings (repack character names)
    Malie_Script_Tool.exe -s -in exec.dat -out exec_patched.dat -txt exec_strings.txt
 
-4. Gunakan exec_patched.dat sebagai input untuk langkah berikutnya
+4. Use exec_patched.dat as the input for the next step
 
-5. Export dialog dari file yang sudah dipatch
+5. Export dialogue from the already-patched file
    Malie_Script_Tool.exe -e -in exec_patched.dat -out exec_dialog.txt
 
-6. Edit dialog di exec_dialog.txt
+6. Edit dialogue in exec_dialog.txt
 
-7. Import dialog (repack dialog)
+7. Import dialogue (repack dialogue)
    Malie_Script_Tool.exe -i -in exec_patched.dat -out exec_final.dat -txt exec_dialog.txt
 
-8. Ganti exec.dat di folder game dengan exec_final.dat
+8. Replace exec.dat in the game folder with exec_final.dat
 ```
 
 ---
 
-## Alur Kerja Lengkap (End-to-End)
+## Full Workflow (End-to-End)
 
 ```
-[File game asli]
+[Original game files]
        │
        ▼
-[1] Ekstrak data.dat  →  folder berisi exec.dat, gambar, audio, dll.
+[1] Extract data.dat  →  folder containing exec.dat, images, audio, etc.
        │
        ▼
-[2] Patch nama karakter di exec.dat  (-a → edit → -s)
+[2] Patch character names in exec.dat  (-a → edit → -s)
        │
        ▼
-[3] Extract & edit dialog  (-e → edit → -i)
+[3] Extract & edit dialogue  (-e → edit → -i)
        │
        ▼
-[4] Repack folder kembali jadi .dat baru  (menu [3] CLI)
+[4] Repack the folder into a new .dat  (CLI menu [3])
        │
        ▼
-[File game hasil patch]
+[Patched game files]
 ```
 
 ---
 
-## Bukti Pengujian
+## Testing Evidence
 
-Toolkit ini diuji pada:
+This toolkit has been tested on:
 
-**Soushuu Senshinkan Gakuen: Hachimyoujin**  
+**Soushuu Senshinkan Gakuen: Hachimyoujin**
 相州戦神館學園 八命陣
 
 | Item | Detail |
 |---|---|
 | Developer | light |
 | Engine | FreeMalie |
-| Pengujian | Ekstrak arsip, patch nama karakter, patch dialog |
-| Status | Berhasil |
+| Testing | Archive extraction, character name patching, dialogue patching |
+| Status | Successful |
 
 ---
 
-> 🎮 **Kajiri Kamui Kagura (神咒神威神楽 / KKK)** tidak diuji di toolkit ini — KKK memiliki **toolkit eksklusif** di repo terpisah karena keunikan struktur arsip dan script-nya.
+>  **Kajiri Kamui Kagura (神咒神威神楽 / KKK)** has not been tested with this toolkit — KKK has its **own exclusive toolkit** in a separate repo due to the uniqueness of its archive structure and script format.
 > → **[MalieKit — KKK Exclusive Toolkit](https://github.com/Jannabie/KKK)**
 
-**Screenshot hasil terjemahan:**
+**Translation result screenshot:**
 
 | Soushuu Senshinkan Gakuen: Hachimyoujin (相州戦神館學園 八命陣) |
 |:---:|
@@ -247,15 +247,15 @@ Toolkit ini diuji pada:
 
 ---
 
-## Catatan
+## Notes
 
-- Repack `.dat` **terenkripsi** belum didukung — hasil repack plain `.dat` mungkin tidak terbaca oleh game tertentu yang menggunakan enkripsi penuh.
-- File `namafile_entries.json` yang dihasilkan saat ekstrak **harus disimpan** dan digunakan saat repack agar struktur arsip tetap valid.
-- Tool ini merupakan modifikasi dari [Malie_Script_Tool](https://github.com/crskycode/Malie_Script_Tool) oleh crskycode, dengan tambahan dukungan import strings (`-s`) untuk penggantian nama karakter.
+- Repacking **encrypted** `.dat` files is not yet supported — plain `.dat` repack results may not be readable by certain games that use full encryption.
+- The `filename_entries.json` file generated during extraction **must be kept** and used during repacking to ensure the archive structure remains valid.
+- This tool is a modification of [Malie_Script_Tool](https://github.com/crskycode/Malie_Script_Tool) by crskycode, with added support for importing strings (`-s`) for character name replacement.
 
 ---
 
-## Lisensi
+## License
 
-Proyek ini bersifat open-source untuk keperluan preservasi dan fan translation.  
-Credit: crskycode (Malie_Script_Tool original), modifikasi & toolkit oleh kontributor proyek ini.
+This project is open-source for the purposes of preservation and fan translation.
+Credit: crskycode (original Malie_Script_Tool), modifications & toolkit by this project's contributors.
