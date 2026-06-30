@@ -1,10 +1,19 @@
+<div align="center">
+<img src="https://i.imgur.com/Ov7R7nv.png" width="600">
+
+<div align="center">
+
 # Niche Studio Weirdo
 A centralized WPF toolset for reverse-engineering and translating Japanese visual novels, wrapped in a macOS-inspired dark UI. Supports a wide range of VN engines.
 
 ![Tools Interface](https://raw.githubusercontent.com/Jannabie/Niche-Studio-Weirdo/refs/heads/main/Tools%20Interface/image.png)
 
+</div>
+
 ---
 ## Supported Engines
+> **Update:** Alicesoft Engine support added.
+
 | Tab Name | Games | Docs |
 |---|---|---|
 | Abogado (DSK) | Shuumatsu no Sugoshikata | [📖 Guide](docs/engines/abogado-(dsk).md) |
