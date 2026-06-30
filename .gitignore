@@ -1,0 +1,20 @@
+## .NET build outputs
+bin/
+obj/
+publish_fdd/
+
+## Visual Studio
+.vs/
+*.user
+*.suo
+
+## Published output
+NicheStudioWeirdo Properties/
+
+## Logs
+*.log
+crash.txt
+
+## OS
+Thumbs.db
+.DS_Store
