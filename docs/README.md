@@ -4,24 +4,24 @@
 
 ## Supported Engines
 
-| Engine Tab | Games | File Formats |
+| Tab Name | Games | File Formats |
 |---|---|---|
-| [Alicesoft](engines/alicesoft.md) | Rance series, etc. | `.ain`, `.afa`, `.ald`, `.cg`, `.ex` |
-| [Abogado (DSK)](engines/abogado-dsk.md) | Shuumatsu no Sugoshikata series | `.dsk`, `.pft`, `.scf`, `.kg` |
-| [Abogado (KG)](engines/abogado-kg.md) | Shuumatsu no Sugoshikata (images) | `.kg` |
-| [Buriko (BGI)](engines/buriko.md) | Higurashi, Umineko, etc. | `.arc`, `.sc` |
-| [codeX RScript](engines/codex-rscript.md) | Various | `.rs` |
+| [Abogado (DSK)](engines/abogado-(dsk).md) | Shuumatsu no Sugoshikata series | `.dsk`, `.pft`, `.scf` |
+| [Abogado (KG)](engines/abogado-(kg).md) | Shuumatsu no Sugoshikata (images) | `.kg` |
+| [Alicesoft](engines/alicesoft.md) | Rance series, Evenicle | `.ain`, `.afa`, `.ald`, `.cg`, `.ex` |
+| [Buriko](engines/buriko.md) | Higurashi, Umineko, Sakura no Uta | `.arc`, `.sc` |
+| [codeX RScript](engines/codex-rscript.md) | Various | `.gsc` |
 | [Fuzz Inc.](engines/fuzz-inc.md) | Fate/stay night Remastered | `.epk`, `.bin` |
-| [HuneX (Tsukihime)](engines/hunex.md) | Tsukihime Remake | `.mrg` |
-| [HuneX (Witch on the H.)](engines/hunex-mahoyo.md) | Witch on the Holy Night | Custom |
-| [Malie](engines/malie.md) | Sharin no Kuni, G-Senjou, etc. | `.dat`, `.lib`, `.mgf` |
-| [Minori](engines/minori.md) | ef series, eden*, etc. | `.paz` |
-| [Musicus](engines/musicus.md) | Musicus! | Custom |
-| [WA2 Archive](engines/wa2-archive.md) | White Album 2 | Custom |
-| [Waga Hime](engines/waga-hime.md) | Waga Hime | Custom |
-| [Melty Blood](engines/melty-blood.md) | Melty Blood | Custom |
-| [KKK](engines/kkk.md) | Various | Custom |
-| [Majikai](engines/majikai.md) | Various | Custom |
+| [HuneX (Tsukihime)](engines/hunex-(tsukihime).md) | Tsukihime Remake | `.mrg` |
+| [HuneX (Witch on The Holy Night)](engines/hunex-(witch-on-the-holy-night).md) | Mahoyo Remastered | `.hfa`, `.ctd`, `.cbg`, `.mzp` |
+| [Leaf](engines/leaf.md) | White Album 2 | `.pak` (KCAP) |
+| [Malie](engines/malie.md) | Sharin no Kuni, G-Senjou, Kami no Rhapsody | `.dat`, `.lib`, `.mgf` |
+| [Malie Kajiri](engines/malie-kajiri.md) | Kajiri Kamui Kagura, Dies irae | Custom |
+| [Minato (New)](engines/minato-(new).md) | Wagamama High Spec | `.dat` (ACV1) |
+| [Minato (Old)](engines/minato-(old).md) | Majikoi series | `.pac`, `.bin` |
+| [Minori](engines/minori.md) | ef series, eden*, Supipara | `.paz` |
+| [TYPE-MOON](engines/type-moon.md) | Melty Blood: Type Lumina | `.p` |
+| [YOX](engines/yox.md) | Musicus! | Custom |
 
 ## General Workflow
 

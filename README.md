@@ -8,24 +8,24 @@ A centralized WPF toolset for reverse-engineering and translating Japanese visua
 
 ## Supported Engines
 
-| Engine | Games | Docs |
+| Tab Name | Games | Docs |
 |---|---|---|
+| Abogado (DSK) | Shuumatsu no Sugoshikata | [📖 Guide](docs/engines/abogado-(dsk).md) |
+| Abogado (KG) | Shuumatsu no Sugoshikata (images) | [📖 Guide](docs/engines/abogado-(kg).md) |
 | Alicesoft | Rance series, Evenicle | [📖 Guide](docs/engines/alicesoft.md) |
-| Abogado DSK | Shuumatsu no Sugoshikata | [📖 Guide](docs/engines/abogado-dsk.md) |
-| Abogado KG | Shuumatsu no Sugoshikata (images) | [📖 Guide](docs/engines/abogado-kg.md) |
-| Buriko (BGI) | Higurashi, Umineko, Sakura no Uta | [📖 Guide](docs/engines/buriko.md) |
+| Buriko | Higurashi, Umineko, Sakura no Uta | [📖 Guide](docs/engines/buriko.md) |
 | codeX RScript | Various | [📖 Guide](docs/engines/codex-rscript.md) |
 | Fuzz Inc. | Fate/stay night Remastered | [📖 Guide](docs/engines/fuzz-inc.md) |
-| HuneX (Tsukihime) | Tsukihime Remake | [📖 Guide](docs/engines/hunex.md) |
-| HuneX (Mahoyo) | Witch on the Holy Night | [📖 Guide](docs/engines/hunex-mahoyo.md) |
+| HuneX (Tsukihime) | Tsukihime Remake | [📖 Guide](docs/engines/hunex-(tsukihime).md) |
+| HuneX (Witch on The Holy Night) | Mahoyo Remastered | [📖 Guide](docs/engines/hunex-(witch-on-the-holy-night).md) |
+| Leaf | White Album 2 | [📖 Guide](docs/engines/leaf.md) |
 | Malie | Sharin no Kuni, G-Senjou, Kami no Rhapsody | [📖 Guide](docs/engines/malie.md) |
-| Malie Kajiri (KKK) | Kajiri Kamui Kagura, Dies irae | [📖 Guide](docs/engines/kkk.md) |
-| Minato Old (Majikai) | Majikoi series | [📖 Guide](docs/engines/majikai.md) |
-| Minato New (Waga Hime) | Wagamama High Spec | [📖 Guide](docs/engines/waga-hime.md) |
+| Malie Kajiri | Kajiri Kamui Kagura, Dies irae | [📖 Guide](docs/engines/malie-kajiri.md) |
+| Minato (New) | Wagamama High Spec | [📖 Guide](docs/engines/minato-(new).md) |
+| Minato (Old) | Majikoi series | [📖 Guide](docs/engines/minato-(old).md) |
 | Minori | ef series, eden*, Supipara | [📖 Guide](docs/engines/minori.md) |
-| TYPE-MOON (Melty Blood) | Melty Blood: Type Lumina | [📖 Guide](docs/engines/melty-blood.md) |
-| YOX (Musicus!) | Musicus! | [📖 Guide](docs/engines/musicus.md) |
-| Leaf (WA2 Archive) | White Album 2 | [📖 Guide](docs/engines/wa2-archive.md) |
+| TYPE-MOON | Melty Blood: Type Lumina | [📖 Guide](docs/engines/type-moon.md) |
+| YOX | Musicus! | [📖 Guide](docs/engines/yox.md) |
 
 📚 **[Full Documentation Index →](docs/README.md)**
 
