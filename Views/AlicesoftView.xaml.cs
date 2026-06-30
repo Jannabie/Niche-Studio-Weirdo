@@ -92,6 +92,41 @@ namespace NicheStudioWeirdo.Views
             }
         }
 
+        // Database Tools (.ex)
+        private void BrowseEx_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog { Filter = "EX Files (*.ex)|*.ex|All Files|*.*" };
+            if (dlg.ShowDialog() == true) ExFileTxt.Text = dlg.FileName;
+        }
+
+        private void BrowseExTxt_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog { Filter = "Text Files (*.txt)|*.txt|All Files|*.*" };
+            if (dlg.ShowDialog() == true) ExTxtTxt.Text = dlg.FileName;
+        }
+
+        private async void DumpEx_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(ExFileTxt.Text) || ExFileTxt.Text.Contains("Select")) return;
+            var dialog = new SaveFileDialog { Title = "Save Dumped TXT As", Filter = "Text File (*.txt)|*.txt|All Files|*.*" };
+            if (dialog.ShowDialog() == true)
+            {
+                await Utils.AlicesoftUtils.DumpExAsync(ExFileTxt.Text, dialog.FileName, GetMain());
+            }
+        }
+
+        private async void EditEx_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(ExFileTxt.Text) || ExFileTxt.Text.Contains("Select")) return;
+            if (string.IsNullOrWhiteSpace(ExTxtTxt.Text) || ExTxtTxt.Text.Contains("Select")) return;
+            
+            SaveFileDialog dlg = new SaveFileDialog { Filter = "EX Files (*.ex)|*.ex|All Files|*.*" };
+            if (dlg.ShowDialog() == true)
+            {
+                await Utils.AlicesoftUtils.EditExAsync(ExFileTxt.Text, ExTxtTxt.Text, dlg.FileName, GetMain());
+            }
+        }
+
         // Image (CG)
         private void BrowseCg_Click(object sender, RoutedEventArgs e)
         {

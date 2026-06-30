@@ -68,6 +68,21 @@ namespace NicheStudioWeirdo.Utils
             await ToolRunner.RunAsync(GetRepoDir(), GetAliceExe(), args, main);
         }
 
+        // Database Commands (EX)
+        public static async Task DumpExAsync(string exPath, string outFile, MainWindow main)
+        {
+            // Syntax: alice ex dump <ex> -o <outfile>
+            string args = $"ex dump \"{exPath}\" -o \"{outFile}\"";
+            await ToolRunner.RunAsync(GetRepoDir(), GetAliceExe(), args, main);
+        }
+
+        public static async Task EditExAsync(string originalEx, string modifiedTxt, string outputEx, MainWindow main)
+        {
+            // Syntax: alice ex edit <ex> <txt> -o <out>
+            string args = $"ex edit \"{originalEx}\" \"{modifiedTxt}\" -o \"{outputEx}\"";
+            await ToolRunner.RunAsync(GetRepoDir(), GetAliceExe(), args, main);
+        }
+
         // Image Commands (CG)
         public static async Task ConvertCgAsync(string inputCg, string outputImage, MainWindow main)
         {

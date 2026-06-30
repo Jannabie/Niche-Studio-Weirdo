@@ -49,6 +49,23 @@
                     <Button Content="Edit" Style="{StaticResource ActionButtonGreen}" Click="EditAin_Click"/>
                 </StackPanel>
 
+                <!-- Database Tools (.ex) -->
+                <TextBlock Text="Database Tools (.ex)" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,10"/>
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <TextBox x:Name="ExFileTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select original .ex file..."/>
+                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseEx_Click"/>
+                </Grid>
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <TextBox x:Name="ExTxtTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select modified TXT file (for edit)..."/>
+                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseExTxt_Click"/>
+                </Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,20">
+                    <Button Content="Dump" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="DumpEx_Click"/>
+                    <Button Content="Edit" Style="{StaticResource ActionButtonGreen}" Click="EditEx_Click"/>
+                </StackPanel>
+
                 <!-- Image Tools -->
                 <TextBlock Text="Image Tools (.cg)" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,10"/>
                 <Grid Margin="0,0,0,20">
