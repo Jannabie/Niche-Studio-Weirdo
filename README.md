@@ -16,24 +16,24 @@ A centralized WPF toolset for reverse-engineering and translating Japanese visua
 
 | Tab Name | Games | Docs |
 |---|---|---|
-| Abogado (DSK) | Shuumatsu no Sugoshikata | [📖 Guide](docs/engines/abogado-(dsk).md) |
-| Abogado (KG) | Shuumatsu no Sugoshikata (images) | [📖 Guide](docs/engines/abogado-(kg).md) |
-| Alicesoft 🆕 | Rance series, Evenicle, etc | [📖 Guide](docs/engines/alicesoft.md) |
-| Buriko | Higurashi, Umineko, Sakura no Uta, etc | [📖 Guide](docs/engines/buriko.md) |
-| codeX RScript | Various | [📖 Guide](docs/engines/codex-rscript.md) |
-| Fuzz Inc. | Fate/stay night Remastered | [📖 Guide](docs/engines/fuzz-inc.md) |
-| HuneX (Tsukihime) | Tsukihime Remake | [📖 Guide](docs/engines/hunex-(tsukihime).md) |
-| HuneX (Witch on The Holy Night) | Mahoyo Remastered | [📖 Guide](docs/engines/hunex-(witch-on-the-holy-night).md) |
-| Leaf | White Album 2, etc | [📖 Guide](docs/engines/leaf.md) |
-| Malie |  Dies irae, etc | [📖 Guide](docs/engines/malie.md) |
-| Malie Kajiri | Kajiri Kamui Kagura | [📖 Guide](docs/engines/malie-kajiri.md) |
-| Minato (New) | Waga Himegimi ni Eikan o, etc | [📖 Guide](docs/engines/minato-(new).md) |
-| Minato (Old) | Majikoi series, etc | [📖 Guide](docs/engines/minato-(old).md) |
-| Minori | ef series, eden*, etc | [📖 Guide](docs/engines/minori.md) |
-| TYPE-MOON | Melty Blood, etc | [📖 Guide](docs/engines/type-moon.md) |
-| YOX | Musicus!, etc | [📖 Guide](docs/engines/yox.md) |
+| Abogado (DSK) | Shuumatsu no Sugoshikata | [ Guide](docs/engines/abogado-(dsk).md) |
+| Abogado (KG) | Shuumatsu no Sugoshikata (images) | [ Guide](docs/engines/abogado-(kg).md) |
+| Alicesoft 🆕 | Rance series, Evenicle, etc | [ Guide](docs/engines/alicesoft.md) |
+| Buriko | Higurashi, Umineko, Sakura no Uta, etc | [ Guide](docs/engines/buriko.md) |
+| codeX RScript | Various | [ Guide](docs/engines/codex-rscript.md) |
+| Fuzz Inc. | Fate/stay night Remastered | [Guide](docs/engines/fuzz-inc.md) |
+| HuneX (Tsukihime) | Tsukihime Remake | [ Guide](docs/engines/hunex-(tsukihime).md) |
+| HuneX (Witch on The Holy Night) | Mahoyo Remastered | [ Guide](docs/engines/hunex-(witch-on-the-holy-night).md) |
+| Leaf | White Album 2, etc | [ Guide](docs/engines/leaf.md) |
+| Malie |  Dies irae, etc | [Guide](docs/engines/malie.md) |
+| Malie Kajiri | Kajiri Kamui Kagura | [ Guide](docs/engines/malie-kajiri.md) |
+| Minato (New) | Waga Himegimi ni Eikan o, etc | [ Guide](docs/engines/minato-(new).md) |
+| Minato (Old) | Majikoi series, etc | [ Guide](docs/engines/minato-(old).md) |
+| Minori | ef series, eden*, etc | [ Guide](docs/engines/minori.md) |
+| TYPE-MOON | Melty Blood, etc | [ Guide](docs/engines/type-moon.md) |
+| YOX | Musicus!, etc | [ Guide](docs/engines/yox.md) |
 
-📚 **[Full Documentation Index →](docs/README.md)**
+ **[Full Documentation Index →](docs/README.md)**
 
 ---
 ## General Translation Workflow
