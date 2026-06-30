@@ -1,122 +1,122 @@
 # BGI Translator
 
-Aplikasi editor terjemahan untuk visual novel berbasis engine **Ethornell / BGI (Buriko General Interpreter)**.
-Diuji pada: **Sakura no Uta -Haru no Yuki-** (さくらのうた -桜の詩-)
+A translation editor application for visual novels built on the **Ethornell / BGI (Buriko General Interpreter)** engine.
+Tested on: **Sakura no Uta -Haru no Yuki-** (さくらのうた -桜の詩-)
 
 ---
 
-## Apa Ini?
+## What Is This?
 
-BGI Translator adalah aplikasi Windows dengan antarmuka grafis yang memudahkan proses penerjemahan file script (`.sc`) dari game visual novel berbasis engine Ethornell. Aplikasi ini dibangun di atas library `EthornellEditor.dll` karya **arcusmaximus**, dengan tambahan fitur yang tidak ada di EEGUI (editor original dari arcusmaximus) seperti pencarian teks, filter baris, glosarium batch, progress bar, ekspor/impor TSV, dan dark theme.
+BGI Translator is a Windows application with a graphical interface that simplifies the process of translating script files (`.sc`) from visual novel games built on the Ethornell engine. This application is built on top of the `EthornellEditor.dll` library by **arcusmaximus**, with additional features not found in EEGUI (arcusmaximus's original editor) such as text search, line filtering, batch glossary, progress bar, TSV export/import, and a dark theme.
 
-| Fitur | EEGUI | BGI Translator |
+| Feature | EEGUI | BGI Translator |
 |---|---|---|
-| Editor dua kolom JP ↔ ID | ✗ | ✓ |
-| Pencarian teks realtime | ✗ | ✓ |
-| Filter baris belum diterjemahkan | ✗ | ✓ |
-| Deteksi dan sisip tag otomatis | ✗ | ✓ |
+| Two-column JP ↔ ID editor | ✗ | ✓ |
+| Real-time text search | ✗ | ✓ |
+| Untranslated line filter | ✗ | ✓ |
+| Automatic tag detection and insertion | ✗ | ✓ |
 | Progress bar | ✗ | ✓ |
-| Ekspor / Impor TSV | ✗ | ✓ |
-| Glosarium otomatis batch | ✗ | ✓ |
-| Drag & drop file | ✗ | ✓ |
+| TSV export / import | ✗ | ✓ |
+| Automatic batch glossary | ✗ | ✓ |
+| Drag & drop file support | ✗ | ✓ |
 | Dark theme | ✗ | ✓ |
 
 ---
 
-## Cara Pakai (Pengguna Biasa)
+## How to Use (Regular Users)
 
-Jika hanya ingin langsung menggunakan aplikasinya tanpa perlu build dari source, ikuti langkah berikut.
+If you just want to use the application directly without building it from source, follow the steps below.
 
-### Tahap 1 — Download dan Setup
+### Step 1 — Download and Setup
 
-Download **[versi terbaru dari halaman Releases](https://github.com/Jannabie/BGI-Translator/releases)**. Ekstrak hasilnya ke sebuah folder, lalu pastikan isi folder tersebut mengandung file-file berikut sebelum dijalankan:
+Download the **[latest version from the Releases page](https://github.com/Jannabie/BGI-Translator/releases)**. Extract it into a folder, then make sure that folder contains the following files before running it:
 
-| File | Keterangan |
+| File | Description |
 |---|---|
-| `BGITranslator.exe` | Aplikasi utama (hasil download) |
-| `EthornellEditor.dll` | **Wajib** — unduh dari [repo arcusmaximus](https://github.com/arcusmaximus/EthornellTools), letakkan di folder yang sama |
-| `CSystemArc.exe` | Untuk ekstrak dan pack ulang arsip `.arc` (dari repo yang sama) |
-| `BgiDisassembler.exe` | Untuk disassemble file script `.sc` — opsional |
-| `BgiImageEncoder.exe` | Untuk konversi gambar — opsional |
+| `BGITranslator.exe` | Main application (downloaded file) |
+| `EthornellEditor.dll` | **Required** — download from [arcusmaximus's repo](https://github.com/arcusmaximus/EthornellTools), place it in the same folder |
+| `CSystemArc.exe` | For extracting and repacking `.arc` archives (from the same repo) |
+| `BgiDisassembler.exe` | For disassembling `.sc` script files — optional |
+| `BgiImageEncoder.exe` | For image conversion — optional |
 
-`EthornellEditor.dll` **harus berada di folder yang sama** dengan `BGITranslator.exe`. Tanpa file ini, aplikasi tidak bisa membuka file script apapun.
+`EthornellEditor.dll` **must be in the same folder** as `BGITranslator.exe`. Without this file, the application cannot open any script files.
 
-### Tahap 2 — Ekstrak File Script dari Arsip Game
+### Step 2 — Extract Script Files from the Game Archive
 
-File script game tersimpan di dalam arsip berekstensi `.arc`. Ekstrak isinya menggunakan `CSystemArc.exe`:
-
-```bash
-CSystemArc.exe extract namagame.arc folder_output\
-```
-
-Hasilnya adalah folder berisi file-file `.sc` (script dialog) beserta aset-aset lain milik game.
-
-### Tahap 3 — Terjemahkan dengan BGI Translator
-
-Jalankan `BGITranslator.exe`, lalu buka file `.sc` yang ingin diterjemahkan lewat menu **File → Buka Script** atau cukup drag & drop file-nya langsung ke jendela aplikasi.
-
-Teks asli bahasa Jepang akan muncul di kolom kiri, dan kolom kanan adalah tempat mengetik terjemahan. Beberapa fitur yang bisa dimanfaatkan untuk mempercepat pekerjaan:
-
-**Pencarian** — Ketik kata kunci di kotak 🔍 untuk mencari teks, navigasi antar hasil dengan `F3` dan `Shift+F3`.
-
-**Filter** — Pilih mode "Belum diterjemahkan" untuk menampilkan hanya baris yang kolom terjemahannya masih kosong, sehingga tidak perlu scroll manual mencari bagian yang belum selesai.
-
-**Tag otomatis** — Tag-tag khusus seperti `\n` (baris baru) dan `@name` (nama karakter) terdeteksi secara otomatis dan bisa disisipkan dengan satu klik tanpa perlu mengetik manual.
-
-**Glosarium batch** — Buka menu **Tools → Glosarium Otomatis**, masukkan pasangan istilah Jepang–Indonesia, lalu klik Terapkan. Semua kemunculan istilah tersebut di seluruh file akan diganti sekaligus.
-
-**Ekspor/Impor TSV** — Terjemahan bisa diekspor ke file `.tsv` untuk backup atau dikerjakan bersama orang lain, lalu diimpor kembali setelah selesai lewat menu **File → Export/Import TSV**.
-
-Setelah selesai, simpan dengan **File → Simpan**.
-
-### Tahap 4 — Pack Ulang ke Arsip
-
-Setelah semua script selesai diterjemahkan, pack kembali isi folder menjadi arsip `.arc`:
+Game script files are stored inside `.arc` archives. Extract their contents using `CSystemArc.exe`:
 
 ```bash
-CSystemArc.exe pack folder_output\ namagame_patched.arc
+CSystemArc.exe extract gamename.arc output_folder\
 ```
 
-Ganti file `.arc` asli di folder instalasi game dengan file yang sudah dipatch, lalu jalankan game-nya.
+The result is a folder containing `.sc` (dialogue script) files along with the game's other assets.
+
+### Step 3 — Translate with BGI Translator
+
+Run `BGITranslator.exe`, then open the `.sc` file you want to translate via **File → Open Script**, or simply drag & drop the file directly into the application window.
+
+The original Japanese text will appear in the left column, and the right column is where you type the translation. Several features can be used to speed up the work:
+
+**Search** — Type a keyword in the 🔍 box to search the text, navigate between results with `F3` and `Shift+F3`.
+
+**Filter** — Select "Untranslated" mode to show only lines whose translation column is still empty, so you don't have to scroll manually to find unfinished parts.
+
+**Automatic tags** — Special tags such as `\n` (line break) and `@name` (character name) are detected automatically and can be inserted with a single click without typing them manually.
+
+**Batch glossary** — Open the **Tools → Auto Glossary** menu, enter Japanese–English term pairs, then click Apply. All occurrences of those terms throughout the file will be replaced at once.
+
+**TSV export/import** — Translations can be exported to a `.tsv` file for backup or to be worked on collaboratively with others, then imported back once finished via the **File → Export/Import TSV** menu.
+
+Once finished, save with **File → Save**.
+
+### Step 4 — Repack into the Archive
+
+After all scripts have been translated, repack the folder contents back into a `.arc` archive:
+
+```bash
+CSystemArc.exe pack output_folder\ gamename_patched.arc
+```
+
+Replace the original `.arc` file in the game's installation folder with the patched one, then run the game.
 
 ---
 
-## Pintasan Keyboard
+## Keyboard Shortcuts
 
-| Tombol | Aksi |
+| Key | Action |
 |---|---|
-| `Ctrl+O` | Buka file script |
-| `Ctrl+S` | Simpan |
-| `Ctrl+F` | Fokus ke kotak pencarian |
-| `F3` | Lompat ke hasil pencarian berikutnya |
-| `Shift+F3` | Lompat ke hasil pencarian sebelumnya |
-| `Ctrl+G` | Pergi ke nomor baris tertentu |
-| `Enter` | Masuk ke mode edit sel terjemahan |
-| `Tab` | Konfirmasi dan pindah ke baris berikutnya |
-| `Esc` | Bersihkan pencarian |
+| `Ctrl+O` | Open script file |
+| `Ctrl+S` | Save |
+| `Ctrl+F` | Focus the search box |
+| `F3` | Jump to the next search result |
+| `Shift+F3` | Jump to the previous search result |
+| `Ctrl+G` | Go to a specific line number |
+| `Enter` | Enter edit mode for the translation cell |
+| `Tab` | Confirm and move to the next line |
+| `Esc` | Clear search |
 
 ---
 
-## Format File TSV
+## TSV File Format
 
-File TSV yang diekspor menggunakan encoding UTF-8 dengan pemisah tab, dan formatnya seperti ini:
+The exported TSV file uses UTF-8 encoding with tab separators, formatted as follows:
 
 ```
 # BGI Translator Export | 2025-01-01 12:00
-# Index	Original	Terjemahan
-0	桜の森で	Di hutan sakura
-1	世界が鳴った。	Dunia pun berdentang.
+# Index	Original	Translation
+0	桜の森で	In the sakura forest
+1	世界が鳴った。	The world resonated.
 ```
 
-Format ini kompatibel dan bisa dibuka langsung di spreadsheet editor seperti LibreOffice Calc atau Google Sheets untuk dikerjakan bersama tim.
+This format is compatible and can be opened directly in spreadsheet editors such as LibreOffice Calc or Google Sheets for team collaboration.
 
 ---
 
-## Build dari Source (Untuk Developer)
+## Building from Source (For Developers)
 
-Jika ingin mengkompilasi sendiri dari source code, berikut caranya.
+If you want to compile it yourself from the source code, here's how.
 
-**Persyaratan:** Windows 10/11 (64-bit), [.NET 10 SDK](https://dotnet.microsoft.com/download), dan `EthornellEditor.dll` yang diletakkan di folder yang sama dengan file `.csproj`.
+**Requirements:** Windows 10/11 (64-bit), [.NET 10 SDK](https://dotnet.microsoft.com/download), and `EthornellEditor.dll` placed in the same folder as the `.csproj` file.
 
 ```bash
 git clone https://github.com/Jannabie/BGI-Translator.git
@@ -124,16 +124,16 @@ cd BGI-Translator
 dotnet build -c Release
 ```
 
-File hasil build akan berada di `bin\Release\net10.0-windows\BGITranslator.exe`.
+The build output will be located at `bin\Release\net10.0-windows\BGITranslator.exe`.
 
 ---
 
-## Kredit
+## Credits
 
-Seluruh kemampuan membaca dan menulis format script BGI berasal dari library **`EthornellEditor.dll`** karya [arcusmaximus](https://github.com/arcusmaximus). Tool-tool pendukung seperti `CSystemArc.exe`, `BgiDisassembler.exe`, dan `BgiImageEncoder.exe` juga berasal dari repo yang sama. BGI Translator dibangun di atasnya sebagai lapisan antarmuka yang lebih lengkap.
+All capability to read and write the BGI script format comes from the **`EthornellEditor.dll`** library by [arcusmaximus](https://github.com/arcusmaximus). Supporting tools such as `CSystemArc.exe`, `BgiDisassembler.exe`, and `BgiImageEncoder.exe` also come from the same repository. BGI Translator is built on top of these as a more complete interface layer.
 
 ---
 
 ## Disclaimer
 
-Tool ini dibuat untuk keperluan edukasi dan penerjemahan personal. Pengguna bertanggung jawab penuh untuk memastikan penggunaannya sesuai dengan aturan copyright dan Terms of Service dari game yang bersangkutan.
+This tool is created for educational and personal translation purposes. Users are fully responsible for ensuring their use complies with the copyright rules and Terms of Service of the relevant game.
