@@ -1,6 +1,3 @@
-<div align="center">
-<img src="https://i.imgur.com/LLdQa1W.png" width="500">
-
 
 
 # Niche Studio Weirdo
