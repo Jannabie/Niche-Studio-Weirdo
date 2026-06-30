@@ -79,15 +79,16 @@ namespace NicheStudioWeirdo.Utils
         // Database Commands (EX)
         public static async Task DumpExAsync(string exPath, string outFile, MainWindow main)
         {
-            // Syntax: alice ex dump <ex> -o <outfile>
-            string args = $"ex dump \"{exPath}\" -o \"{outFile}\"";
+            // Correct syntax: alice ex dump -o <outfile> <ex>
+            string args = $"ex dump -o \"{outFile}\" \"{exPath}\"";
             await ToolRunner.RunAsync(GetRepoDir(), GetAliceExe(), args, main);
         }
 
         public static async Task EditExAsync(string originalEx, string modifiedTxt, string outputEx, MainWindow main)
         {
-            // Syntax: alice ex edit <ex> <txt> -o <out>
-            string args = $"ex edit \"{originalEx}\" \"{modifiedTxt}\" -o \"{outputEx}\"";
+            // Correct syntax: alice ex build -o <out.ex> <edited.x>
+            // Note: 'originalEx' param is unused here - build only needs the edited text
+            string args = $"ex build -o \"{outputEx}\" \"{modifiedTxt}\"";
             await ToolRunner.RunAsync(GetRepoDir(), GetAliceExe(), args, main);
         }
 
