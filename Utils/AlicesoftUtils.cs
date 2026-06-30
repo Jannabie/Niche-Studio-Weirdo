@@ -15,16 +15,21 @@ namespace NicheStudioWeirdo.Utils
             }
             // First check if it's in the repo directory structure
             string path1 = Path.Combine(repoDir, "NicheStudioWeirdo", "Utility", "Alicesoft", "alice.exe");
-            if (File.Exists(path1)) return $"\"{path1}\"";
+            if (File.Exists(path1)) return path1;
             
             // Fallback for published builds
             string path2 = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Utility", "Alicesoft", "alice.exe");
-            return $"\"{path2}\"";
+            return path2;
         }
 
         private static string GetRepoDir()
         {
-            return SettingsManager.Config.ReposPath;
+            string repoDir = SettingsManager.Config.ReposPath;
+            if (string.IsNullOrWhiteSpace(repoDir) || !Directory.Exists(repoDir))
+            {
+                return AppDomain.CurrentDomain.BaseDirectory;
+            }
+            return repoDir;
         }
 
         // Archive Commands (AFA, ALD, DAT, etc.)
