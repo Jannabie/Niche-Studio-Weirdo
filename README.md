@@ -19,7 +19,7 @@ A centralized WPF toolset for reverse-engineering and translating Japanese visua
 | Abogado (DSK) | Shuumatsu no Sugoshikata | [ Guide](docs/engines/abogado-(dsk).md) |
 | Abogado (KG) | Shuumatsu no Sugoshikata (images) | [ Guide](docs/engines/abogado-(kg).md) |
 | Alicesoft 🆕 | Rance series, Evenicle, etc | [ Guide](docs/engines/alicesoft.md) |
-| Buriko | Sakura no Uta, Subarashiki Hubi, etc | [ Guide](docs/engines/buriko.md) |
+| Buriko | Sakura no Uta, Subarashiki Hibi, etc | [ Guide](docs/engines/buriko.md) |
 | codeX RScript | Various | [ Guide](docs/engines/codex-rscript.md) |
 | Fuzz Inc. | Fate/stay night Remastered | [Guide](docs/engines/fuzz-inc.md) |
 | HuneX (Tsukihime) | Tsukihime Remake | [ Guide](docs/engines/hunex-(tsukihime).md) |
