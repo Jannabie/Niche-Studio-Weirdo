@@ -97,6 +97,7 @@ namespace NicheStudioWeirdo
                 "Musicus" => "MUSICUS! (Yox) Guide:\n1. Unpack: Extract script_en.dat to a folder.\n2. Decrypt: Convert all encrypted game files into editable formats.\n3. Pack All: Converts edited files back. IMPORTANT: The output must go to the SAME folder where you decrypted them, because it relies on the manifest.json located there.\n4. Repack: Rebuild the folder back into a .dat archive.",
                 "MalieKit" => "Malie Engine Guide:\n1. Decrypt/Extract: Unpack .dat or .lib archives to access their contents.\n2. Character Names: Export Names -> Edit -> Patch Names.\n3. Dialog: Export Dialog -> Edit -> Patch Dialog.\nIMPORTANT: Character Names must be patched FIRST before exporting/patching Dialog, as they are stored in separate segments.",
                 "KKK" => "Kajiri Kamui Kagura (KKK) Guide:\n1. Install Base Patch: Select your game folder, pick Horizontal/Vertical layout, and install the required SVG, INI, and initial data6.dat.\n2. Wordwrap: Auto-wrap your translated message.txt.\n3. Compile Script: Compiles message.txt to exec.dat.\n4. Pack data6.dat: Packages the data folder into data6.dat which should then be copied to your game.",
+                "Alicesoft" => "Alicesoft Engine Guide:\n1. Archive Tools (.afa, .ald): Extract archives to a folder or pack them back.\n2. Script Tools (.ain): Dump the AIN to JSON, edit it, and inject it back using the Edit button (requires the original AIN + modified JSON).\n3. Image Tools (.cg): Convert .cg images to .png/.webp or vice versa.",
                 _ => "Select a tool from the top tabs to view its usage guide."
             };
         }
@@ -134,6 +135,7 @@ namespace NicheStudioWeirdo
                     "Musicus"   => new MusicusView(),
                     "MalieKit"  => new MalieKitView(),
                     "KKK"       => new KKKView(),
+                    "Alicesoft" => new AlicesoftView(),
                     _           => new MinoriView()
                 };
                 LoadView(view, btn.Content?.ToString() ?? btn.Tag?.ToString() ?? "");

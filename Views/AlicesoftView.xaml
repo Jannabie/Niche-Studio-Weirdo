@@ -1,0 +1,66 @@
+<UserControl x:Class="NicheStudioWeirdo.Views.AlicesoftView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Alicesoft Engine" Style="{StaticResource HeaderStyle}"/>
+        <TextBlock Grid.Row="1" Text="Tools for Alicesoft games (.afa, .ald, .ain, .cg) using alice-tools" Style="{StaticResource SubheaderStyle}"/>
+
+        <Border Grid.Row="2" Background="{StaticResource BgDarkestBrush}" CornerRadius="0" Padding="20" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}">
+            <StackPanel>
+                
+                <!-- Archive Tools -->
+                <TextBlock Text="Archive Tools (.afa, .ald, .dat)" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,10"/>
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <TextBox x:Name="ArchivePathTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select archive file (.afa, .ald)..."/>
+                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseArchive_Click"/>
+                </Grid>
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <TextBox x:Name="ArchiveDirTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select folder to pack..."/>
+                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseArchiveDir_Click"/>
+                </Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,20">
+                    <Button Content="List" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="ListArchive_Click" ToolTip="List files inside archive"/>
+                    <Button Content="Extract" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="ExtractArchive_Click"/>
+                    <Button Content="Pack" Style="{StaticResource ActionButtonGreen}" Click="PackArchive_Click"/>
+                </StackPanel>
+
+                <!-- Script Tools -->
+                <TextBlock Text="Script Tools (.ain)" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,10"/>
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <TextBox x:Name="AinFileTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select original .ain file..."/>
+                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseAin_Click"/>
+                </Grid>
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <TextBox x:Name="AinJsonTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select modified JSON file (for edit)..."/>
+                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseAinJson_Click"/>
+                </Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,20">
+                    <Button Content="Dump" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="DumpAin_Click"/>
+                    <Button Content="Edit" Style="{StaticResource ActionButtonGreen}" Click="EditAin_Click"/>
+                </StackPanel>
+
+                <!-- Image Tools -->
+                <TextBlock Text="Image Tools (.cg)" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,10"/>
+                <Grid Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <TextBox x:Name="CgFileTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select image file (.cg, .png, .webp)..."/>
+                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseCg_Click"/>
+                </Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="Convert Image" Style="{StaticResource ActionButtonGreen}" Click="ConvertCg_Click" ToolTip="Converts CG to PNG/WebP or vice-versa based on output extension"/>
+                </StackPanel>
+
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

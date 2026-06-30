@@ -61,6 +61,7 @@
                         <StackPanel x:Name="TabContainer" Orientation="Horizontal">
                         <Button Content="Abogado (DSK)" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="AbogadoSdk"/>
                         <Button Content="Abogado (KG)" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="AbogadoKg"/>
+                        <Button Content="Alicesoft" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="Alicesoft"/>
                         <Button Content="Buriko" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="BGI"/>
                         <Button Content="codeX RScript" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="CodeXR"/>
                         <Button Content="Fuzz Inc." Style="{StaticResource TabButton}" Click="Nav_Click" Tag="FSN"/>
