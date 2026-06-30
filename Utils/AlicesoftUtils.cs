@@ -63,9 +63,17 @@ namespace NicheStudioWeirdo.Utils
 
         public static async Task EditAinAsync(string originalAin, string modifiedTxt, string outputAin, MainWindow main)
         {
-            // Syntax: alice ain edit <ain> -t <txt> -o <out>
-            string args = $"ain edit \"{originalAin}\" -t \"{modifiedTxt}\" -o \"{outputAin}\"";
-            await ToolRunner.RunAsync(GetRepoDir(), GetAliceExe(), args, main);
+            string tempTxt = ProcessTxtForEditing(modifiedTxt);
+            try
+            {
+                // Syntax: alice ain edit <ain> -t <txt> -o <out>
+                string args = $"ain edit \"{originalAin}\" -t \"{tempTxt}\" -o \"{outputAin}\"";
+                await ToolRunner.RunAsync(GetRepoDir(), GetAliceExe(), args, main);
+            }
+            finally
+            {
+                if (System.IO.File.Exists(tempTxt)) System.IO.File.Delete(tempTxt);
+            }
         }
 
         // Database Commands (EX)
@@ -78,9 +86,32 @@ namespace NicheStudioWeirdo.Utils
 
         public static async Task EditExAsync(string originalEx, string modifiedTxt, string outputEx, MainWindow main)
         {
-            // Syntax: alice ex edit <ex> <txt> -o <out>
-            string args = $"ex edit \"{originalEx}\" \"{modifiedTxt}\" -o \"{outputEx}\"";
-            await ToolRunner.RunAsync(GetRepoDir(), GetAliceExe(), args, main);
+            string tempTxt = ProcessTxtForEditing(modifiedTxt);
+            try
+            {
+                // Syntax: alice ex edit <ex> <txt> -o <out>
+                string args = $"ex edit \"{originalEx}\" \"{tempTxt}\" -o \"{outputEx}\"";
+                await ToolRunner.RunAsync(GetRepoDir(), GetAliceExe(), args, main);
+            }
+            finally
+            {
+                if (System.IO.File.Exists(tempTxt)) System.IO.File.Delete(tempTxt);
+            }
+        }
+
+        private static string ProcessTxtForEditing(string inputFile)
+        {
+            string tempFile = System.IO.Path.GetTempFileName();
+            var lines = System.IO.File.ReadAllLines(inputFile, System.Text.Encoding.UTF8);
+            for (int i = 0; i < lines.Length; i++)
+            {
+                if (lines[i].StartsWith(";m[") || lines[i].StartsWith(";s[") || lines[i].StartsWith(";\t") || lines[i].StartsWith("; "))
+                {
+                    lines[i] = lines[i].Substring(1); // Remove the leading semicolon
+                }
+            }
+            System.IO.File.WriteAllLines(tempFile, lines, new System.Text.Encoding(System.Text.Encoding.UTF8.CodePage, false)); // UTF-8 without BOM
+            return tempFile;
         }
 
         // Image Commands (CG)
