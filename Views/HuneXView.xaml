@@ -16,7 +16,7 @@
                 <StackPanel>
 
                     <!-- EXTRACT -->
-                    <TextBlock Text="EXTRACT  —  script_text.mrg → .txt" Style="{StaticResource LabelStyle}" Foreground="{StaticResource TextLightBrush}" FontSize="13" Margin="0,0,0,12"/>
+                    <TextBlock Text="EXTRACT  —  script_text.mrg → Folders" Style="{StaticResource LabelStyle}" Foreground="{StaticResource TextLightBrush}" FontSize="13" Margin="0,0,0,12"/>
 
                     <TextBlock Text="SCRIPT_TEXT.MRG" Style="{StaticResource LabelStyle}"/>
                     <Grid Margin="0,0,0,8">
@@ -25,21 +25,21 @@
                         <Button Grid.Column="1" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,0" Click="BrowseMrgInput_Click"/>
                     </Grid>
 
-                    <TextBlock Text="OUTPUT .TXT" Style="{StaticResource LabelStyle}"/>
+                    <TextBlock Text="OUTPUT DIRECTORY" Style="{StaticResource LabelStyle}"/>
                     <Grid Margin="0,0,0,12">
                         <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
                         <TextBox x:Name="ExtractOutputTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
                         <Button Grid.Column="1" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,0" Click="BrowseExtractOutput_Click"/>
                     </Grid>
 
-                    <Button Content="Extract → .TXT" Style="{StaticResource ActionButtonGreen}" HorizontalAlignment="Right" Padding="20,8" Margin="0,0,0,28" Click="Extract_Click"/>
+                    <Button Content="Extract → Folders" Style="{StaticResource ActionButtonGreen}" HorizontalAlignment="Right" Padding="20,8" Margin="0,0,0,28" Click="Extract_Click"/>
 
                     <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,24"/>
 
                     <!-- REPACK -->
-                    <TextBlock Text="REPACK  —  .txt → script_text_new.mrg" Style="{StaticResource LabelStyle}" Foreground="{StaticResource TextLightBrush}" FontSize="13" Margin="0,0,0,12"/>
+                    <TextBlock Text="REPACK  —  Folders → script_text_new.mrg" Style="{StaticResource LabelStyle}" Foreground="{StaticResource TextLightBrush}" FontSize="13" Margin="0,0,0,12"/>
 
-                    <TextBlock Text="INPUT .TXT (EDITED)" Style="{StaticResource LabelStyle}"/>
+                    <TextBlock Text="INPUT DIRECTORY (EDITED FILES)" Style="{StaticResource LabelStyle}"/>
                     <Grid Margin="0,0,0,8">
                         <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
                         <TextBox x:Name="RepackInputTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>

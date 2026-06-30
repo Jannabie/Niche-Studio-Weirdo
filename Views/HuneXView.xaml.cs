@@ -33,8 +33,8 @@ namespace NicheStudioWeirdo.Views
 
         private void BrowseExtractOutput_Click(object sender, RoutedEventArgs e)
         {
-            var d = new SaveFileDialog { Filter = "Text Files (*.txt)|*.txt", DefaultExt = "txt", FileName = "output.txt", Title = "Save extracted .txt as..." };
-            if (d.ShowDialog() == true) ExtractOutputTxt.Text = d.FileName;
+            var d = new OpenFolderDialog { Title = "Select extract output directory..." };
+            if (d.ShowDialog() == true) ExtractOutputTxt.Text = d.FolderName;
         }
 
         private async void Extract_Click(object sender, RoutedEventArgs e)
@@ -63,8 +63,8 @@ namespace NicheStudioWeirdo.Views
         // ── Repack: TXT → MRG ───────────────────────────────────────────────────
         private void BrowseRepackInput_Click(object sender, RoutedEventArgs e)
         {
-            var d = new OpenFileDialog { Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*", Title = "Select edited .txt file" };
-            if (d.ShowDialog() == true) RepackInputTxt.Text = d.FileName;
+            var d = new OpenFolderDialog { Title = "Select input directory containing edited .txt files..." };
+            if (d.ShowDialog() == true) RepackInputTxt.Text = d.FolderName;
         }
 
         private void BrowseRepackOutput_Click(object sender, RoutedEventArgs e)

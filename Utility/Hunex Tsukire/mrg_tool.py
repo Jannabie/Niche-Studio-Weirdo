@@ -154,14 +154,11 @@ def _load_scene_map():
     return offset_to_scene, ordered, scene_offsets
 
 
-def extract_mrg(mrg_path, txt_path, progress_cb=None):
+def extract_mrg(mrg_path, out_path, progress_cb=None):
     """
-    Extract all strings from script_text.mrg into a structured .txt file,
-    organised by Route → Day → Scene (uses scene_map.json if available,
-    otherwise falls back to sequential order).
-
-    [OFFSET:N] markers are preserved for round-trip repacking.
-    All comment lines (# …) are ignored during repack.
+    Extract all strings from script_text.mrg.
+    If out_path ends with .txt, outputs to a single file.
+    Otherwise, treats out_path as a directory and splits by Route/Day/Scene.
     """
     if progress_cb:
         progress_cb(0, "Reading MRG file…")
@@ -175,13 +172,10 @@ def extract_mrg(mrg_path, txt_path, progress_cb=None):
     for i in range(offset_count - 1):
         d_start, = struct.unpack(">I", offsets_raw[i * 4: i * 4 + 4])
         d_end_raw = offsets_raw[(i + 1) * 4: (i + 1) * 4 + 4]
-        if len(d_end_raw) < 4:
-            break
+        if len(d_end_raw) < 4: break
         d_end, = struct.unpack(">I", d_end_raw)
-        if d_start == d_end:
-            break
-        if d_end == 0xFFFFFFFF:
-            break
+        if d_start == d_end: break
+        if d_end == 0xFFFFFFFF: break
         strings[i] = strings_raw[d_start:d_end].decode("utf-8", errors="replace")
         if progress_cb and i % 5000 == 0:
             pct = int(i / offset_count * 60)
@@ -200,67 +194,96 @@ def extract_mrg(mrg_path, txt_path, progress_cb=None):
     source_name = os.path.basename(mrg_path)
     timestamp   = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 
-    with open(txt_path, "w", encoding="utf-8", newline="") as out:
+    is_dir_mode = not out_path.lower().endswith('.txt')
+
+    def write_header(out):
         out.write("# ============================================================\n")
         out.write("# MRG Script Text — Extracted by mrg_tool.py\n")
         out.write(f"# Source   : {source_name}\n")
         out.write(f"# Extracted: {timestamp}\n")
-        out.write(f"# Total    : {total:,} strings\n")
         out.write("# ============================================================\n")
         out.write("# EDITING GUIDE\n")
         out.write("#   • Edit the lines between [OFFSET:N] markers freely\n")
         out.write("#   • Do NOT add/remove/reorder [OFFSET:N] header lines\n")
         out.write("#   • Comment lines starting with # are ignored on repack\n")
         out.write("#   • Keep '#' characters inside strings (game line-break)\n")
-        out.write("#   • \\r\\n = game line break — keep as-is\n")
+        out.write("#   • \r\n = game line break — keep as-is\n")
         out.write("#   • UTF-8, all languages supported\n")
         out.write("# ============================================================\n\n")
 
+    if not is_dir_mode:
+        with open(out_path, "w", encoding="utf-8", newline="") as out:
+            write_header(out)
+            if has_map:
+                ROUTE_ORDER = ["Common", "Arcueid", "Ciel", "QA"]
+                written_offsets = set()
+                for route in ROUTE_ORDER:
+                    if route not in scene_tree: continue
+                    out.write(f"\n# ╔══════════════════════════════════════════════╗\n")
+                    out.write(f"# ║  ROUTE: {route:<38}║\n")
+                    out.write(f"# ╚══════════════════════════════════════════════╝\n")
+                    for day, files in scene_tree[route].items():
+                        if day: out.write(f"\n# ── {route} / {day} {'─'*36}\n")
+                        for fname in files:
+                            sk = (route, day, fname)
+                            offsets = sorted(scene_offsets.get(sk, []))
+                            if not offsets: continue
+                            out.write(f"\n# SCENE: {fname}\n")
+                            for offset in offsets:
+                                if offset not in strings: continue
+                                out.write(f"[OFFSET:{offset}]\n{strings[offset]}\n")
+                                written_offsets.add(offset)
+                unmapped = sorted(set(strings.keys()) - written_offsets)
+                if unmapped:
+                    out.write("\n# ── UNMAPPED OFFSETS ──\n")
+                    for offset in unmapped:
+                        out.write(f"[OFFSET:{offset}]\n{strings[offset]}\n")
+            else:
+                for idx in sorted(strings.keys()):
+                    out.write(f"[OFFSET:{idx}]\n{strings[idx]}\n")
+    else:
+        # Directory mode
+        os.makedirs(out_path, exist_ok=True)
         if has_map:
-            ROUTE_ORDER = ["Common", "Arcueid", "Ciel", "QA"]
             written_offsets = set()
-
+            ROUTE_ORDER = ["Common", "Arcueid", "Ciel", "QA"]
             for route in ROUTE_ORDER:
-                if route not in scene_tree:
-                    continue
-                out.write(f"\n# ╔══════════════════════════════════════════════╗\n")
-                out.write(f"# ║  ROUTE: {route:<38}║\n")
-                out.write(f"# ╚══════════════════════════════════════════════╝\n")
-
+                if route not in scene_tree: continue
                 for day, files in scene_tree[route].items():
-                    if day:
-                        out.write(f"\n# ── {route} / {day} {'─'*36}\n")
                     for fname in files:
                         sk = (route, day, fname)
                         offsets = sorted(scene_offsets.get(sk, []))
-                        if not offsets:
-                            continue
-                        out.write(f"\n# SCENE: {fname}\n")
-                        for offset in offsets:
-                            if offset not in strings:
-                                continue
-                            out.write(f"[OFFSET:{offset}]\n")
-                            out.write(strings[offset])
-                            out.write("\n")
-                            written_offsets.add(offset)
-
-            # Any unmapped offsets at the end
+                        if not offsets: continue
+                        
+                        safe_day = day if day else "Common"
+                        dir_path = os.path.join(out_path, route, safe_day)
+                        os.makedirs(dir_path, exist_ok=True)
+                        file_path = os.path.join(dir_path, f"{fname}.txt")
+                        
+                        with open(file_path, "w", encoding="utf-8", newline="") as out:
+                            write_header(out)
+                            for offset in offsets:
+                                if offset not in strings: continue
+                                out.write(f"[OFFSET:{offset}]\n{strings[offset]}\n")
+                                written_offsets.add(offset)
+            
             unmapped = sorted(set(strings.keys()) - written_offsets)
             if unmapped:
-                out.write("\n# ── UNMAPPED OFFSETS ──\n")
-                for offset in unmapped:
-                    out.write(f"[OFFSET:{offset}]\n")
-                    out.write(strings[offset])
-                    out.write("\n")
+                unmapped_path = os.path.join(out_path, "unmapped.txt")
+                with open(unmapped_path, "w", encoding="utf-8", newline="") as out:
+                    write_header(out)
+                    for offset in unmapped:
+                        out.write(f"[OFFSET:{offset}]\n{strings[offset]}\n")
         else:
-            # Fallback: sequential
-            for idx in sorted(strings.keys()):
-                out.write(f"[OFFSET:{idx}]\n")
-                out.write(strings[idx])
-                out.write("\n")
+            # Fallback if no map
+            file_path = os.path.join(out_path, "script_all.txt")
+            with open(file_path, "w", encoding="utf-8", newline="") as out:
+                write_header(out)
+                for idx in sorted(strings.keys()):
+                    out.write(f"[OFFSET:{idx}]\n{strings[idx]}\n")
 
     if progress_cb:
-        progress_cb(100, f"Done! {total:,} strings → {os.path.basename(txt_path)}")
+        progress_cb(100, f"Done! {total:,} strings → {os.path.basename(out_path)}")
 
     return total
 
@@ -269,51 +292,48 @@ def extract_mrg(mrg_path, txt_path, progress_cb=None):
 # REPACK: TXT → MRG
 # ─────────────────────────────────────────────────────────────────────────────
 
-def repack_mrg(txt_path, mrg_out_path, progress_cb=None):
+def repack_mrg(in_path, mrg_out_path, progress_cb=None):
     """
-    Repack an edited .txt back into a valid script_text.mrg.
-
-    Reads back [OFFSET:N] blocks, rebuilds the MZP with all 10 sections.
-    String length changes are fully supported — offset table is recalculated.
+    Repack edited .txt file(s) back into a valid script_text.mrg.
+    If in_path is a directory, it scans recursively for .txt files.
     """
     if progress_cb:
-        progress_cb(0, "Reading TXT file…")
+        progress_cb(0, "Reading input…")
 
-    # newline="" preserves \r\n as-is (game strings use CRLF)
-    with open(txt_path, "r", encoding="utf-8", newline="") as f:
-        raw_text = f.read()
-
-    # Split on [OFFSET:N] markers; skip comment header
-    pattern = re.compile(r"^\[OFFSET:(\d+)\]\r?\n", re.MULTILINE)
-    parts = pattern.split(raw_text)
-
-    # parts = [preamble, idx, content, idx, content, ...]
     strings = {}
-    i = 1
-    while i + 1 < len(parts):
-        idx = int(parts[i])
-        content = parts[i + 1]
-        # Strip trailing \n added by extractor (one \n after block)
-        if content.endswith("\n"):
-            content = content[:-1]
-        # Peel off trailing comment lines AND blank separator lines in one pass.
-        # They alternate (blank \n then # comment …) in organised-export output.
-        # CRITICAL: a whitespace-only game string like "　\r\n" or " \r\n" must
-        # NOT be removed — only lines where the printable content is "" OR the
-        # line (after stripping \r\n) starts with "#".
-        lines = content.splitlines(keepends=True)
-        while lines:
-            raw = lines[-1].replace("\r", "").replace("\n", "")
-            if raw == "" or lines[-1].lstrip("\r\n").startswith("#"):
-                lines.pop()
-            else:
-                break
-        content = "".join(lines)
-        strings[idx] = content
-        i += 2
+
+    def parse_txt_file(txt_path):
+        with open(txt_path, "r", encoding="utf-8", newline="") as f:
+            raw_text = f.read()
+        pattern = re.compile(r"^\[OFFSET:(\d+)\]\r?\n", re.MULTILINE)
+        parts = pattern.split(raw_text)
+        i = 1
+        while i + 1 < len(parts):
+            idx = int(parts[i])
+            content = parts[i + 1]
+            if content.endswith("\n"): content = content[:-1]
+            lines = content.splitlines(keepends=True)
+            while lines:
+                raw = lines[-1].replace("\r", "").replace("\n", "")
+                if raw == "" or lines[-1].lstrip("\r\n").startswith("#"):
+                    lines.pop()
+                else:
+                    break
+            strings[idx] = "".join(lines)
+            i += 2
+
+    if os.path.isdir(in_path):
+        import glob
+        txt_files = glob.glob(os.path.join(in_path, "**", "*.txt"), recursive=True)
+        for i, tf in enumerate(txt_files):
+            if progress_cb and i % max(1, len(txt_files)//10) == 0:
+                progress_cb(10, f"Reading file {i+1}/{len(txt_files)}…")
+            parse_txt_file(tf)
+    else:
+        parse_txt_file(in_path)
 
     if not strings:
-        raise ValueError("No [OFFSET:N] entries found in the TXT file.")
+        raise ValueError("No [OFFSET:N] entries found in the input.")
 
     total = len(strings)
     max_offset = max(strings.keys())
@@ -321,18 +341,15 @@ def repack_mrg(txt_path, mrg_out_path, progress_cb=None):
     if progress_cb:
         progress_cb(20, f"Rebuilding offset+string tables for {total:,} strings…")
 
-    # ── Build offset table + string table (Big-Endian offsets, UTF-8 data) ──
     offset_table = io.BytesIO()
     string_table = io.BytesIO()
 
     for offset in range(max_offset + 1):
         text = strings.get(offset, "")
-        if not text:
-            continue
+        if not text: continue
         offset_table.write(struct.pack(">I", string_table.tell()))
         string_table.write(text.encode("utf-8"))
 
-    # Terminators: final offset written twice + 0xFFFFFFFF sentinel
     end_pos = string_table.tell()
     offset_table.write(struct.pack(">I", end_pos))
     offset_table.write(struct.pack(">I", end_pos))
@@ -346,7 +363,6 @@ def repack_mrg(txt_path, mrg_out_path, progress_cb=None):
     if progress_cb:
         progress_cb(50, "Rebuilding padding sections…")
 
-    # ── Newline padding section (  \r\n repeated) ──
     nl_off = io.BytesIO()
     nl_str = io.BytesIO()
     for _ in range(entry_count):
@@ -359,7 +375,6 @@ def repack_mrg(txt_path, mrg_out_path, progress_cb=None):
     nl_off_bytes = nl_off.getvalue()
     nl_str_bytes = nl_str.getvalue()
 
-    # ── Space padding section (　\r\n repeated — full-width space) ──
     sp_off = io.BytesIO()
     sp_str = io.BytesIO()
     for _ in range(entry_count):
@@ -375,13 +390,12 @@ def repack_mrg(txt_path, mrg_out_path, progress_cb=None):
     if progress_cb:
         progress_cb(70, "Packing MZP archive…")
 
-    # ── Pack all 10 sections ──
     packed = Mzp.pack([
-        offset_table_bytes, string_table_bytes,     # entries 0 & 1: main data
-        nl_off_bytes,       nl_str_bytes,            # entries 2 & 3
-        sp_off_bytes,       sp_str_bytes,            # entries 4 & 5
-        sp_off_bytes,       sp_str_bytes,            # entries 6 & 7
-        sp_off_bytes,       sp_str_bytes,            # entries 8 & 9
+        offset_table_bytes, string_table_bytes,
+        nl_off_bytes,       nl_str_bytes,
+        sp_off_bytes,       sp_str_bytes,
+        sp_off_bytes,       sp_str_bytes,
+        sp_off_bytes,       sp_str_bytes,
     ])
 
     if progress_cb:
@@ -395,11 +409,9 @@ def repack_mrg(txt_path, mrg_out_path, progress_cb=None):
 
     return total, len(packed)
 
-
 # ─────────────────────────────────────────────────────────────────────────────
 # CLI INTERFACE
 # ─────────────────────────────────────────────────────────────────────────────
-
 def cli_progress(pct, msg):
     bar_len = 30
     filled = int(bar_len * pct / 100)
