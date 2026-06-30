@@ -1,17 +1,17 @@
 # Kajiri Kamui Kagura — ToolKit
 
-Tools untuk menerjemahkan Kajiri Kamui Kagura ke Bahasa Indonesia menggunakan Malie Script Tool.
+Tools for translating Kajiri Kamui Kagura using the Malie Script Tool.
 
 ---
 
-## Status Terjemahan
+## Translation Status
 
-| Komponen | Status |
+| Component | Status |
 |----------|--------|
-| Dialog utama (`exec.msg.txt`) | Editable |
-| Menu & nama (`exec.str.txt`) | Editable |
+| Main dialogue (`exec.msg.txt`) | Editable |
+| Menu & names (`exec.str.txt`) | Editable |
 | Title Screen / UI Frame | Soon |
-| Toolkit Patching |  Selesai |
+| Toolkit Patching | Done |
 
 | Kajiri Kamui Kagura Akebono no Hikari (神咒神威神楽 曙之光 ダウンロード版) |
 |:---:|
@@ -21,7 +21,7 @@ Tools untuk menerjemahkan Kajiri Kamui Kagura ke Bahasa Indonesia menggunakan Ma
 |:---:|
 | ![Horizontal](https://i.imgur.com/9PHxZ8Z.jpeg) |
 
-| Font Rekomendasi | Keterangan |
+| Recommended Font | Notes |
 |------------------|------------|
 | MS ゴシック | Default font |
 | Grisaia Custom SP | — |
@@ -32,32 +32,32 @@ Tools untuk menerjemahkan Kajiri Kamui Kagura ke Bahasa Indonesia menggunakan Ma
 
 ---
 
-## Dua Varian Patch
+## Two Patch Variants
 
-Ada dua folder repo, masing-masing untuk mode teks yang berbeda:
+There are two repo folders, each for a different text mode:
 
-| | Vertikal | Horizontal |
+| | Vertical | Horizontal |
 |--|--|--|
-| Text Window | ADV lurus | ADV menyamping |
-| Folder messageframe | SVG dimodifikasi per tipe | Semua pakai `normal` |
-| Edit nama karakter | `exec.str.txt` | `exec.str.txt` |
-| Edit dialog | `exec.msg.txt` | `exec.msg.txt` |
+| Text Window | Straight ADV | Sideways ADV |
+| messageframe folder | SVG modified per type | All use `normal` |
+| Editing character names | `exec.str.txt` | `exec.str.txt` |
+| Editing dialogue | `exec.msg.txt` | `exec.msg.txt` |
 
-Alur kerjanya identik — perbedaan hanya di folder messageframe yang dicopy ke game.
+The workflow is identical — the only difference is the messageframe folder that gets copied to the game.
 
 ---
 
-## Hal Wajib Sebelum Mulai
+## Required Before You Start
 
-**1. Gunakan `malie.exe` dan `malie.ini` dari repo ini**
+**1. Use `malie.exe` and `malie.ini` from this repo**
 
 ```
 [KT] KKK\
-├── malie.exe     ← jalankan game dari sini (tidak perlu AlphaROMdiE)
-└── malie.ini     ← copy ke folder instalasi game
+├── malie.exe     ← launch the game from here (no need for AlphaROMdiE)
+└── malie.ini     ← copy into the game's installation folder
 ```
 
-**2. Buat folder `.data\system` secara manual** *(hanya untuk repo Vertikal — di Horizontal sudah ada)*
+**2. Manually create the `.data\system` folder** *(only needed for the Vertical repo — already present in Horizontal)*
 
 ```bat
 mkdir "dependencies\malie tools\compilar\Malie_Script_Tool-main\bin\Debug\.data\system"
@@ -65,103 +65,103 @@ mkdir "dependencies\malie tools\compilar\Malie_Script_Tool-main\bin\Debug\.data\
 
 ---
 
-## Kebutuhan
+## Requirements
 
-- **Python** — [python.org](https://python.org), centang **"Add to PATH"** saat install
+- **Python** — [python.org](https://python.org), check **"Add to PATH"** during installation
 - **Notepad++** — [notepad-plus-plus.org](https://notepad-plus-plus.org)
-- Game KKK sudah terinstall
+- KKK game already installed
 
 ---
 
-## Format File
+## File Format
 
-### `exec.msg.txt` — Dialog Utama
+### `exec.msg.txt` — Main Dialogue
 
-Buka dengan Notepad++, pastikan encoding **UTF-8** (bukan UTF-8-BOM).
+Open with Notepad++, make sure the encoding is **UTF-8** (not UTF-8-BOM).
 
 ```
 ◇00000002◇　振り下ろす一閃――[z]
-◆00000002◆　Tebasan yang menghujam――[z]
+◆00000002◆　A slash that comes crashing down――[z]
 ```
 
-| Simbol | Fungsi |
+| Symbol | Function |
 |--------|--------|
-| `◇` | Teks Jepang asli — jangan diubah |
-| `◆` | Baris terjemahan — ini yang diedit |
-| `[z]` | Penanda akhir dialog, wajib ada |
-| `[c]` | Jeda, tunggu klik player |
-| `[n]` | Baris baru manual |
-| `[s]` | Penanda suara/voice |
+| `◇` | Original Japanese text — do not change |
+| `◆` | Translation line — this is what you edit |
+| `[z]` | End-of-dialogue marker, must be present |
+| `[c]` | Pause, waits for player click |
+| `[n]` | Manual line break |
+| `[s]` | Voice/sound marker |
 
-Aturan: hanya edit baris `◆`, jangan hapus penanda `[z]` `[c]` `[n]` `[s]`, jangan ubah nomor ID.
+Rules: only edit `◆` lines, do not remove the `[z]` `[c]` `[n]` `[s]` markers, do not change the ID numbers.
 
 ---
 
-### `exec.str.txt` — Nama Karakter & String UI
+### `exec.str.txt` — Character Names & UI Strings
 
-File ini berisi nama karakter, pilihan menu, dan string antarmuka lainnya. Edit langsung baris `◇` untuk mengganti teks Jepang dengan terjemahan — perubahan akan langsung terlihat di game.
+This file contains character names, menu options, and other interface strings. Edit the `◇` line directly to replace the Japanese text with the translation — the change will show up directly in the game.
 
-Contoh:
+Example:
 
 ```
 ◇00006A3E◇覇吐
 ```
 
-Ubah menjadi:
+Change to:
 
 ```
 ◇00006A3E◇Habaki
 ```
 
-> **Catatan:** Tidak seperti `exec.msg.txt`, file ini tidak menggunakan pasangan `◇`/`◆`. Edit langsung nilai setelah `◇XXXXXXXX◇`.
+> **Note:** Unlike `exec.msg.txt`, this file doesn't use `◇`/`◆` pairs. Edit the value directly after `◇XXXXXXXX◇`.
 
-Setelah diedit, proses compile dan pack sama seperti biasa (lihat bagian di bawah).
+After editing, the compile and pack process is the same as usual (see the section below).
 
 ---
 
-## Alur Kerja
+## Workflow
 
-Pastikan CMD berada di folder `dependencies\`:
+Make sure your CMD is in the `dependencies\` folder:
 
 ```bat
 cd "C:\Users\user\Downloads\KKK exe manipulator\KKK-main\dependencies"
 ```
 
-### Opsi A — Edit Langsung (Tanpa Wordwrap)
+### Option A — Direct Editing (No Wordwrap)
 
-Edit file ini langsung:
+Edit this file directly:
 
 ```
 dependencies\malie tools\compilar\Malie_Script_Tool-main\bin\Debug\data\system\exec.msg.txt
 ```
 
-Usahakan ≤25 karakter per baris. Gunakan `[n]` untuk memotong:
+Try to keep lines ≤25 characters. Use `[n]` to break them:
 
 ```
-◆00000003◆　Serangan itu bukan sekadar[n]tebasan biasa――[z]
+◆00000003◆　That attack wasn't just[n]an ordinary slash――[z]
 ```
 
 ---
 
-### Opsi B — Lewat Folder `script` + Wordwrap Otomatis
+### Option B — Via the `script` Folder + Automatic Wordwrap
 
-Untuk baris panjang yang ingin dipotong otomatis oleh `wordwrap.py`.
+For long lines you want `wordwrap.py` to break automatically.
 
-Setup sekali saja:
+One-time setup:
 
 ```bat
 mkdir "dependencies\script"
 ```
 
-Alur:
+Workflow:
 
-1. Copy `exec.msg.txt` ke `dependencies\script\`, rename jadi `message.txt`
-2. Edit `message.txt` dengan Notepad++
-3. Jalankan wordwrap:
+1. Copy `exec.msg.txt` into `dependencies\script\`, rename it to `message.txt`
+2. Edit `message.txt` with Notepad++
+3. Run wordwrap:
    ```bat
    python wordwrap.py
    ```
-4. Copy hasil ke compile tool:
+4. Copy the result to the compile tool:
    ```bat
    copy "script_done\message.txt" "malie tools\compilar\Malie_Script_Tool-main\bin\Debug\data\system\exec.msg.txt"
    ```
@@ -170,87 +170,87 @@ Alur:
 
 ## Compile & Pack
 
-### Step 1 — Compile skrip
+### Step 1 — Compile the script
 
 ```bat
 "malie tools\compilar\Malie_Script_Tool-main\bin\Debug\Malie_Script_Tool.exe"
 ```
 
-Output: `exec.dat` di `.data\system\exec.dat`
+Output: `exec.dat` in `.data\system\exec.dat`
 
-Jika muncul `DirectoryNotFoundException` → buat dulu folder `.data\system` (lihat **Hal Wajib**).
+If a `DirectoryNotFoundException` appears → create the `.data\system` folder first (see **Required Before You Start**).
 
-### Step 2 — Pack jadi `data6.dat`
+### Step 2 — Pack into `data6.dat`
 
 ```bat
 python dat_pack.py "C:\Users\user\Downloads\KKK exe manipulator\KKK-main\data"
 ```
 
-Selalu sertakan path lengkap folder `data`. File `data6.dat` muncul di folder `dependencies\`.
+Always provide the full path to the `data` folder. The `data6.dat` file appears in the `dependencies\` folder.
 
-### Step 3 — Pasang ke game
+### Step 3 — Install into the game
 
 ```bat
-copy data6.dat "C:\[folder instalasi game]\data6.dat"
+copy data6.dat "C:\[game installation folder]\data6.dat"
 ```
 
 ---
 
-## Instalasi Patch (Sekali Saja)
+## Patch Installation (One-Time)
 
-Selain `data6.dat`, dua hal ini perlu dicopy ke folder game satu kali di awal:
+Besides `data6.dat`, these two things need to be copied into the game folder once at the start:
 
-**`malie.ini`** — copy dari `[KT] KKK\malie.ini` ke root folder game, timpa yang ada.
+**`malie.ini`** — copy from `[KT] KKK\malie.ini` into the game's root folder, overwriting the existing one.
 
-**Folder `messageframe`** — copy seluruh isi dari `data\screen\messageframe\` ke `[folder game]\data\screen\messageframe\`. Timpa semua file SVG.
+**`messageframe` folder** — copy the entire contents from `data\screen\messageframe\` to `[game folder]\data\screen\messageframe\`. Overwrite all SVG files.
 
-> Untuk **Horizontal Patch**, gunakan folder `messageframe` dari repo Horizontal. Semua SVG di dalamnya sudah dikonfigurasi dengan tipe `normal` (teks horizontal).
+> For the **Horizontal Patch**, use the `messageframe` folder from the Horizontal repo. All the SVGs in it are already configured with the `normal` type (horizontal text).
 
 ---
 
 ## Troubleshooting
 
 **`python: can't open file 'dat_pack.py'`**
-CMD di folder yang salah. Pindah ke `dependencies\`.
+CMD is in the wrong folder. Move into `dependencies\`.
 
-**`PermissionError: [WinError 5]` saat `dat_pack.py`**
-Jalankan tanpa path argumen akan membuka dialog dan bisa salah pilih folder. Selalu pakai path eksplisit:
+**`PermissionError: [WinError 5]` when running `dat_pack.py`**
+Running it without a path argument will open a dialog and you might select the wrong folder. Always use an explicit path:
 ```bat
 python dat_pack.py "C:\...\KKK-main\data"
 ```
 
 **`DirectoryNotFoundException: .data\system\exec.dat`**
-Folder `.data\system\` belum ada. Buat dulu:
+The `.data\system\` folder doesn't exist yet. Create it first:
 ```bat
 mkdir "malie tools\compilar\Malie_Script_Tool-main\bin\Debug\.data\system"
 ```
 
-**Teks di game masih Jepang setelah patch**
-Pastikan `data6.dat` dicopy ke folder instalasi game yang benar dan kamu menggunakan `malie.exe` dari `[KT] KKK\`.
+**Text in-game is still Japanese after patching**
+Make sure `data6.dat` was copied to the correct game installation folder and that you're using `malie.exe` from `[KT] KKK\`.
 
 ---
 
-## Struktur Folder
+## Folder Structure
 
 ```
 KKK-main\
 │
 ├── [KT] KKK\
-│   ├── malie.exe              ← jalankan game dari sini
-│   └── malie.ini              ← dicopy ke folder game sekali saja
+│   ├── malie.exe              ← launch the game from here
+│   └── malie.ini               ← copied into the game folder once
 │
 ├── data\
 │   └── screen\
-│       └── messageframe\      ← SVG kotak dialog (dicopy ke game sekali saja)
+│       └── messageframe\      ← dialogue box SVGs (copied into the game once)
 │
 └── dependencies\
     │
-    ├── wordwrap.py            ← potong baris panjang otomatis (opsional)
-    ├── dat_pack.py            ← pack jadi data6.dat
+    ├── wordwrap.py            ← automatically break long lines (optional)
+    ├── dat_pack.py            ← pack into data6.dat
     │
-    ├── script\                ← buat jika memakai Opsi B
+    ├── script\                ← create if using Option B
     │   └── message.txt
-    ├── script_done\           ← hasil wordwrap (Opsi B)
+    ├── script_done\           ← wordwrap output (Option B)
     │
     └── malie tools\
         └── compilar\
@@ -259,14 +259,14 @@ KKK-main\
                 ├── Malie_Script_Tool.exe
                 │
                 ├── data\system\
-                │   ├── exec.msg.txt    ← dialog utama
-                │   ├── exec.str.txt    ← nama karakter & string UI
-                │   └── exec.org.dat    ← skrip original, jangan diubah
+                │   ├── exec.msg.txt    ← main dialogue
+                │   ├── exec.str.txt    ← character names & UI strings
+                │   └── exec.org.dat    ← original script, do not change
                 │
-                └── .data\system\       ← BUAT MANUAL (Vertikal); sudah ada (Horizontal)
-                    └── exec.dat        ← hasil compile
+                └── .data\system\       ← CREATE MANUALLY (Vertical); already exists (Horizontal)
+                    └── exec.dat        ← compile output
 ```
 
 ---
 
-Kredit: Tooling oleh Monaco A. Knox. Referensi: [Dies Irae](https://github.com/Monaco-a-Knox/amantesamentes).
+Credits: Tooling by Monaco A. Knox. Reference: [Dies Irae](https://github.com/Monaco-a-Knox/amantesamentes).
