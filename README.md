@@ -1,7 +1,7 @@
 <div align="center">
 <img src="https://i.imgur.com/LLdQa1W.png" width="500">
 
-<div align="center">
+
 
 # Niche Studio Weirdo
 A centralized WPF toolset for reverse-engineering and translating Japanese visual novels, wrapped in a macOS-inspired dark UI. Supports a wide range of VN engines.
