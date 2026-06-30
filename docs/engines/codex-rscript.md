@@ -1,9 +1,24 @@
-# codeX RScript
+Editing codeX RScript files
+---------------------------
 
-Engine codeX RScript biasanya pakai bytecode `.gsc` buat script gamenya. 
+The codeX RScript engine utilizes `.gsc` bytecode files for its scenarios and scripts.
 
-Proses translate di sini lumayan gampang tapi kamu harus hati-hati. Pertama, kamu bisa pilih mau ngerjain satu file `.gsc` doang atau langsung banyakan sefolder. Terus jangan lupa set encodingnya, biasanya sih Shift-JIS kalau gamenya masih bahasa Jepang asli.
+Exporting .gsc files
+--------------------
 
-Setelah kamu ekstrak `.gsc`-nya, kamu bakal dapet file JSON. Di file JSON ini, kamu cukup ubah teks-teks ceritanya aja. Jangan iseng ngubah struktur atau nama key-nya, nanti gamenya bisa error.
+First, set the target encoding (e.g., Shift-JIS for standard Japanese releases) and choose whether to process a single file or a batch directory.
 
-Tips penting nih: Sebelum kamu mulai translate panjang lebar, biasain buat tes verify roundtrip dulu. Caranya, coba masukin file `.gsc` asli sama file JSON hasil ekstrak (yang belum kamu apa-apain) ke fitur verify. Kalau pass, berarti filenya aman buat ditranslate. Kalau udah yakin, tinggal import lagi JSON terjemahanmu buat dijadiin file `.gsc` yang baru.
+1. Export the `.gsc` bytecode into an editable JSON format.
+2. The output JSON will contain all translatable text strings.
+
+Editing the JSON
+----------------
+
+Modify only the string values within the JSON file. Modifying structural keys or removing entries will result in a corrupted bytecode injection.
+
+Before proceeding with a full translation, it is highly recommended to run the **Verify Roundtrip** check on an unmodified export. This ensures that the engine variant is fully supported and that byte-identical compilation is possible.
+
+Importing and rebuilding
+------------------------
+
+Once you've finished editing the JSON, use the **Import JSON → GSC** function to recompile the translation back into `.gsc` bytecode.

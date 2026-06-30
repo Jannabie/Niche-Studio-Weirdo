@@ -1,7 +1,20 @@
-# Buriko (BGI)
+Editing Buriko (BGI) files
+--------------------------
 
-Buriko atau biasa disebut BGI ini engine yang sering banget dipakai buat VN, contohnya kayak Higurashi, Umineko, sampe Sakura no Uta.
+The Buriko engine (BGI), used in games like Higurashi, Umineko, and Sakura no Uta, relies on `.arc` archives and `.sc` script files.
 
-Biasanya file-file gamenya dikompres di dalem archive `.arc`. Kamu bisa dengan gampang ekstrak semua isinya ke sebuah folder buat diedit, dan nanti bisa di-repack lagi kalau udah selesai.
+Unpacking .arc archives
+-----------------------
 
-Buat file scriptnya sendiri, BGI pake format `.sc`. Di tool ini, kamu bisa langsung parse file script ini jadi JSON biar gampang ditranslate. Setelah JSON-nya kamu translate, tinggal masukin lagi ke tool ini buat di-inject balik jadi file `.sc` yang baru. Tool ini ngebantu banget biar kamu nggak perlu pusing ngurusin offset byte secara manual.
+Game assets are bundled in `.arc` files. Use the ARC tool to extract the archive into a directory. Once you have modified the files, you can pack the directory back into a new `.arc` file.
+
+Editing .sc script files
+------------------------
+
+Dialogue and scenarios are compiled into `.sc` files. To translate these scripts:
+
+1. Use the Script tool to parse the `.sc` file into a standard `.json` file.
+2. Open the `.json` file and translate the dialogue strings.
+3. Once you've finished editing, use the tool to inject the `.json` back into the `.sc` file.
+
+The tool automatically handles byte offsets and pointer recalculations during the injection phase, ensuring the rebuilt script is structurally valid.

@@ -1,9 +1,29 @@
-# HuneX (Witch on the Holy Night)
+Editing Mahoyo Remastered files
+-------------------------------
 
-Tool ini khusus buat ngerjain game Mahoyo (Witch on the Holy Night) Remastered. Game ini nyimpen aset-asetnya di dalem file archive `.hfa`.
+Witch on the Holy Night (Mahoyo) Remastered utilizes `.hfa` archives as its primary data container. 
 
-Langkah pertamanya, kamu harus unpack dulu file `.hfa` ini biar semua isinya keluar. Setelah di-unpack, kamu bakal nemu banyak file dengan format beda-beda. Untuk teks dan script, mereka pakai `.ctd`. Kalau urusan gambar, ada `.cbg` buat background dan `.mzp` buat sprite karakter.
+Unpacking HFA archives
+----------------------
 
-Tool ini nyediain fitur buat ngurus file-file spesifik itu. Kamu bisa ekstrak file `.ctd` jadi teks yang bisa diedit, atau convert `.cbg` dan `.mzp` jadi gambar PNG biasa biar gampang diedit.
+1. Select your `.hfa` archive file.
+2. Select an output directory.
+3. Click **Unpack HFA** to extract the archive contents to your specified folder.
 
-Kalau semua file teks atau gambarnya udah kamu edit dan translate, kamu tinggal inject ulang mereka ke format aslinya (balik jadi `.ctd`, `.cbg`, atau `.mzp`). Setelah itu semua selesai, satukan lagi foldernya jadi file `.hfa` lewat fitur Repack HFA. Semuanya ada di tool ini!
+Editing CTD, CBG, and MZP files
+-------------------------------
+
+Inside the archive, you will find several proprietary file types:
+* `.ctd` files contain text and script data.
+* `.cbg` files are compressed background images.
+* `.mzp` files contain sprite and UI images.
+
+To edit these files:
+1. Select the specific `.ctd`, `.cbg`, or `.mzp` file using the single-file tool.
+2. Click **Extract** to convert the file into an editable format (such as `.txt` for scripts or `.png` for images).
+3. Once you've finished editing the output file, use the **Repack** function to re-encode it back into its original format.
+
+Rebuilding HFA archives
+-----------------------
+
+After replacing the files within your unpacked folder with their modified counterparts, select the directory and click **Repack HFA** to compile a new archive for the game.

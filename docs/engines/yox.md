@@ -1,11 +1,29 @@
-# YOX
+Editing YOX Engine files
+------------------------
 
-Engine YOX ini, yang dipakai di game Musicus!, punya proses terjemahan 4 tahap yang cukup panjang. Sistem mereka super ketat, jadi kamu bener-bener harus ngikutin tahapnya secara berurutan dan jangan lompat-lompat!
+The YOX engine (used in Musicus!) employs a strict four-step translation pipeline. The engine relies heavily on session context stored in a `manifest.json` file. 
 
-Tahap pertama, kamu unpack file `.dat` bawaan game. Hasil dari unpack ini adalah file `.dec` (decrypted) dan yang paling penting, ada file `manifest.json`.
+**WARNING:** You must execute these steps sequentially. Altering the sequence or removing the `manifest.json` file mid-process will destroy the context required for repacking.
 
-Lanjut tahap kedua, pakai file `.dec` tadi buat mengekstrak scriptnya jadi `.json`. Di dalam file JSON ini baru kamu bisa ngetranslate dialog-dialog gamenya.
+Step 1: Unpack DAT
+------------------
 
-Nah, ini bagian bahayanya: selama kamu ngetranslate, jangan pernah pindahin atau nge-rename file `manifest.json` dari foldernya. File ini itu nyimpen konteks sesi kerjaan kamu. Di tahap ketiga, begitu terjemahannya beres, tinggal import JSON terjemahan tadi biar dijadiin file `.dec` baru.
+Select the game's `.dat` archive and click **Unpack DAT**. 
+This operation decrypts the archive, generating a `.dec` (decrypted) file and a critical `manifest.json` file in the output directory.
 
-Tahap terakhir, kamu repack file `.dec` yang udah ditranslate tadi jadi file `.dat` lagi. Kalau kamu ngelanggar urutannya atau nyampur-nyampur file dari sesi lain, file `manifest.json` bakal ngambek dan proses repack bakal gagal total.
+Step 2: Export JSON
+-------------------
+
+The tool will automatically target the `.dec` file generated in Step 1. Click **Export JSON** to extract the translatable text strings into a `.json` file.
+
+Step 3: Translate and Import
+----------------------------
+
+Translate the strings within the generated `.json` file. Do not alter structural keys.
+
+Ensure `manifest.json` remains in its original location relative to the `.json` and `.dec` files. Click **Import JSON** to inject your translations, generating a modified `.dec` file.
+
+Step 4: Repack DAT
+------------------
+
+Click **Repack DAT** to re-encrypt the modified `.dec` file back into the final `.dat` archive required by the game engine.

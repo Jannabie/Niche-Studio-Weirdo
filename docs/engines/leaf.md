@@ -1,7 +1,25 @@
-# Leaf
+Editing Leaf KCAP archives
+--------------------------
 
-Engine Leaf ini terkenal gara-gara game White Album 2. Gamenya pakai archive `.pak` (berbasis KCAP).
+The Leaf engine, notably used in White Album 2, packages assets in `.pak` archives built on the KCAP specification.
 
-Ada satu peringatan krusial banget buat engine ini: pas kamu mau ngekstrak file, pastikan kamu bikin satu folder kosong melompong khusus buat workspace. Folder ini nantinya cuma boleh diisi sama file-file dari gamenya aja. Jangan pernah iseng naruh file executables atau tool lain di folder ini. Soalnya pas repack nanti, semua file di folder itu bakal ikut dimasukin, dan kalau ada file asing, gamenya 100% bakal crash.
+Workspace preparation
+---------------------
 
-Keunggulan tool ini adalah dia bisa otomatis ngejaga nama file aslinya yang pakai encoding Shift-JIS. Jadi, kamu tinggal unpack ke folder kosong tadi, kerjain terjemahannya di dalem situ, lalu repack ulang kalau udah beres.
+**CRITICAL:** You must create an entirely isolated and empty directory to serve as your workspace. 
+
+When rebuilding a `.pak` file, the tool recursively packages all files present in the target directory. If foreign binaries, executables, or tool artifacts are present in the workspace, they will be injected into the archive, leading to inevitable runtime crashes.
+
+Unpacking PAK archives
+----------------------
+
+1. Select your isolated workspace directory.
+2. Select the target `.pak` file.
+3. Click **Unpack .pak**. 
+
+The tool will extract all contents to the workspace while automatically preserving the original Shift-JIS filename encoding.
+
+Repacking PAK archives
+----------------------
+
+Once you have finished modifying the extracted scripts or assets within the workspace, ensure no extraneous files have been created. Click **Repack to .pak** to compile the directory back into a valid archive format.

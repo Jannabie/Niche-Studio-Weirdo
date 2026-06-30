@@ -1,9 +1,32 @@
-# Alicesoft
+Editing Alicesoft files
+-----------------------
 
-Engine legendaris buat game-game kayak seri Rance atau Evenicle. Engine ini lumayan kompleks karena punya banyak jenis file, makanya di Niche Studio tab Alicesoft ini dibagi-bagi sesuai jenis filenya.
+The Alicesoft engine (used in the Rance series and Evenicle) utilizes several distinct file formats for its scripts, databases, and assets.
 
-Buat urusan naskah dan dialog, gamenya pakai file `.ain`. Kamu tinggal dump aja file AIN-nya pakai tool ini, terus nanti dia bakal ngeluarin file TXT yang isinya semua teks dari gamenya. Biar gampang ngetranslatenya, di tab ini juga disediain fitur auto-uncomment yang bakal ngehapus tanda titik koma otomatis dari baris teks Jepang yang mau kamu timpa sama teks terjemahanmu. Nanti kalau udah beres, tinggal edit balik buat bikin file AIN yang baru.
+Editing .ain script files
+-------------------------
 
-Gamenya juga punya database terpisah berekstensi `.ex`. Sama kayak AIN, kamu bisa dump datanya jadi file yang bisa dibaca, edit isinya, lalu rebuild lagi jadi `.ex`. Jangan lupa, file `.ex` ini nggak bisa diedit mentah-mentah ya, harus di-rebuild ulang lewat tool ini.
+Story logic and text are stored in `.ain` files. To extract the text:
 
-Nah, buat file-file data kayak gambar atau suara, biasanya dibungkus di dalam archive `.afa` atau `.ald`. Kamu bisa bebas bongkar dan pasang lagi archive ini. Khusus buat gambar CG yang biasanya pake format `.cg`, kamu bisa convert bolak-balik ke PNG biar gampang diedit.
+1. Use the AIN tool to dump the script. This will generate a text file containing all translatable strings.
+2. Translate the text. The tool automatically supports an "uncomment" feature, allowing you to easily strip `;m[` or `;s[` prefixes to streamline translation.
+3. Rebuild the edited text file back into a new `.ain` file.
+
+Editing .ex database files
+--------------------------
+
+Database entries are stored in `.ex` files.
+
+1. Dump the `.ex` file to generate a readable `.x` structure file.
+2. Edit the generated file. Note that `.ex` files cannot be modified directly; they must be parsed and rebuilt.
+3. Rebuild the modified `.x` file back into an `.ex` file.
+
+Managing .afa and .ald archives
+-------------------------------
+
+Assets and media are packaged into `.afa` and `.ald` archives. You can unpack these archives to a directory, modify the contents, and repack them using the archive tool.
+
+Editing .cg images
+------------------
+
+For images, the engine uses the `.cg` format. You can convert `.cg` files to `.png` for editing in standard image editors, and then encode them back to `.cg` before repacking the archive.

@@ -1,9 +1,28 @@
-# Fuzz Inc.
+Editing Fuzz Inc. files
+-----------------------
 
-Engine Fuzz Inc ini lumayan unik, dipakai di rilisan baru kayak Fate/stay night Remastered. File-file mereka biasanya dibungkus di dalam archive `.epk` dan dienkripsi. 
+The Fuzz Inc. engine, used in modern releases such as Fate/stay night Remastered, packages game data in encrypted `.epk` archives.
 
-Makanya, sebelum kamu bisa ngapa-ngapain, kamu wajib masukin kunci dekripsinya dulu. Kamu butuh file `decryptKey.bin` sama file `main.exe` dari folder gamenya biar tool ini bisa ngebaca cara mereka ngenkripsi datanya.
+Setting decryption keys
+-----------------------
 
-Kalau kunci itu udah diset, kamu tinggal pilih file `.epk` yang mau dibongkar dan klik decrypt. Dari situ, kamu bisa ekstrak teks ceritanya jadi file JSON buat ditranslate santai-santai.
+Before modifying any archives, you must configure the engine's cryptographic keys:
 
-Selesai ngetranslate? Inject balik JSON-nya ke EPK. Nah, khusus buat game yang rilis di Steam, tool ini juga nyediain fitur Build Patch supaya kamu bisa bikin patch yang gak bakal bermasalah sama sistem verifikasi kontennya Steam.
+1. Locate the `decryptKey.bin` file within your game directory.
+2. Locate the game's executable (e.g., `main.exe`).
+3. Set both paths in the tool configuration to allow decryption operations.
+
+Decrypting and extracting EPK files
+-----------------------------------
+
+Once the keys are configured, use the **Decrypt EPK** function on your target `.epk` file. 
+
+To translate dialogue:
+1. Export the decrypted file into an editable `.json` format using **Export → JSON**.
+2. Translate the values within the JSON file.
+3. Inject the translated JSON back into the archive structure using **Inject → EPK**.
+
+Building Steam patches
+----------------------
+
+For Steam releases, modifying base game files directly may trigger integrity verifications. The tool provides a **Build Patch** function to generate a Steam-compatible patch file that safely overrides the original binaries.

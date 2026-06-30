@@ -1,9 +1,23 @@
-# TYPE-MOON
+Editing TYPE-MOON files
+-----------------------
 
-Engine ini dipakai di rilis terbaru TYPE-MOON, contohnya Melty Blood: Type Lumina, di mana datanya dikompres jadi archive berformat `.p`.
+Modern TYPE-MOON releases, such as Melty Blood: Type Lumina, store their data within `.p` archives. The scripts are stored in standard plaintext `.TXT` files.
 
-Sistem unpack dan repacknya standar banget, kamu tinggal pilih archive `.p` buat dibongkar, lalu repack kalau filenya udah kamu modifikasi. Script dialog gamenya sendiri berbentuk file teks biasa (`.TXT`), yang bikin gampang buat diterjemahin.
+Archive operations
+------------------
 
-Tapi, ada peringatan krusial banget buat game ini! Engine ini bener-bener buta sama alfabet Latin biasa (half-width ASCII). Kalau kamu nekat ngetik alfabet normal di dalam file `.TXT`-nya, teks di dalem gamenya bakal ancur lebur. Kamu **wajib** pakai teks berformat Fullwidth (Zenkaku).
+To extract data, select the `.p` archive and click **Unpack .p**. 
+To compile your modifications, select the target folder and click **Repack .p**.
 
-Biar kamu nggak pusing, di tab ini udah disediain fitur converter. Tinggal ketik aja kalimat Inggris/Indonesiamu (misalnya "Shiki Tohno"), nanti bakal otomatis diubah ke wujud fullwidth ("Ｓｈｉｋｉ　Ｔｏｈｎｏ"). Kamu tinggal copy teks yang udah di-convert itu dan paste ke file `.TXT` scriptnya.
+Fullwidth text constraint
+-------------------------
+
+**CRITICAL WARNING:** The game engine does not support standard half-width ASCII characters (standard Latin alphabets). Inputting standard ASCII characters directly into the `.TXT` script files will result in severe text corruption in-game. All Latin characters must be encoded in Fullwidth (Zenkaku) format.
+
+To ensure your text renders correctly:
+1. Type your standard (half-width) English or localized text into the **Input** field of the Fullwidth Text Converter.
+2. The **Output** field will automatically generate the Fullwidth equivalent.
+3. Click **Copy Fullwidth Text**.
+4. Paste the converted text into the `.TXT` script file.
+
+*Example:* `Shiki Tohno` -> `Ｓｈｉｋｉ　Ｔｏｈｎｏ`
