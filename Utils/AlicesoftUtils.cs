@@ -110,7 +110,7 @@ namespace NicheStudioWeirdo.Utils
                     lines[i] = lines[i].Substring(1); // Remove the leading semicolon
                 }
             }
-            System.IO.File.WriteAllLines(tempFile, lines, new System.Text.Encoding(System.Text.Encoding.UTF8.CodePage, false)); // UTF-8 without BOM
+            System.IO.File.WriteAllLines(tempFile, lines, new System.Text.UTF8Encoding(false)); // UTF-8 without BOM
             return tempFile;
         }
 
