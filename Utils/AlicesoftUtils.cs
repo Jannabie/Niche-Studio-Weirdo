@@ -33,10 +33,9 @@ namespace NicheStudioWeirdo.Utils
         }
 
         // Archive Commands (AFA, ALD, DAT, etc.)
-        public static async Task ExtractArchiveAsync(string archivePath, MainWindow main)
+        public static async Task ExtractArchiveAsync(string archivePath, string outDir, MainWindow main)
         {
             // Syntax: alice ar extract <archive> [-o <outdir>]
-            string outDir = Path.Combine(Path.GetDirectoryName(archivePath) ?? "", Path.GetFileNameWithoutExtension(archivePath) + "_ext");
             string args = $"ar extract \"{archivePath}\" -o \"{outDir}\"";
             await ToolRunner.RunAsync(GetRepoDir(), GetAliceExe(), args, main);
         }
@@ -55,10 +54,9 @@ namespace NicheStudioWeirdo.Utils
         }
 
         // Script Commands (AIN)
-        public static async Task DumpAinAsync(string ainPath, MainWindow main)
+        public static async Task DumpAinAsync(string ainPath, string outDir, MainWindow main)
         {
             // Syntax: alice ain dump <ain> -o <outdir>
-            string outDir = Path.Combine(Path.GetDirectoryName(ainPath) ?? "", Path.GetFileNameWithoutExtension(ainPath) + "_dump");
             string args = $"ain dump \"{ainPath}\" -o \"{outDir}\"";
             await ToolRunner.RunAsync(GetRepoDir(), GetAliceExe(), args, main);
         }

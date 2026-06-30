@@ -40,7 +40,11 @@ namespace NicheStudioWeirdo.Views
         private async void ExtractArchive_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(ArchivePathTxt.Text) || ArchivePathTxt.Text.Contains("Select")) return;
-            await Utils.AlicesoftUtils.ExtractArchiveAsync(ArchivePathTxt.Text, GetMain());
+            var dialog = new OpenFolderDialog { Title = "Select Output Folder for Extraction" };
+            if (dialog.ShowDialog() == true)
+            {
+                await Utils.AlicesoftUtils.ExtractArchiveAsync(ArchivePathTxt.Text, dialog.FolderName, GetMain());
+            }
         }
 
         private async void PackArchive_Click(object sender, RoutedEventArgs e)
@@ -69,7 +73,11 @@ namespace NicheStudioWeirdo.Views
         private async void DumpAin_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(AinFileTxt.Text) || AinFileTxt.Text.Contains("Select")) return;
-            await Utils.AlicesoftUtils.DumpAinAsync(AinFileTxt.Text, GetMain());
+            var dialog = new OpenFolderDialog { Title = "Select Output Folder for Dump" };
+            if (dialog.ShowDialog() == true)
+            {
+                await Utils.AlicesoftUtils.DumpAinAsync(AinFileTxt.Text, dialog.FolderName, GetMain());
+            }
         }
 
         private async void EditAin_Click(object sender, RoutedEventArgs e)
