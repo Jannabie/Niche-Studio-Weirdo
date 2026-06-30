@@ -86,17 +86,9 @@ namespace NicheStudioWeirdo.Utils
 
         public static async Task EditExAsync(string originalEx, string modifiedTxt, string outputEx, MainWindow main)
         {
-            string tempTxt = ProcessTxtForEditing(modifiedTxt);
-            try
-            {
-                // Syntax: alice ex edit <ex> <txt> -o <out>
-                string args = $"ex edit \"{originalEx}\" \"{tempTxt}\" -o \"{outputEx}\"";
-                await ToolRunner.RunAsync(GetRepoDir(), GetAliceExe(), args, main);
-            }
-            finally
-            {
-                if (System.IO.File.Exists(tempTxt)) System.IO.File.Delete(tempTxt);
-            }
+            // Syntax: alice ex edit <ex> <txt> -o <out>
+            string args = $"ex edit \"{originalEx}\" \"{modifiedTxt}\" -o \"{outputEx}\"";
+            await ToolRunner.RunAsync(GetRepoDir(), GetAliceExe(), args, main);
         }
 
         private static string ProcessTxtForEditing(string inputFile)
@@ -105,9 +97,9 @@ namespace NicheStudioWeirdo.Utils
             var lines = System.IO.File.ReadAllLines(inputFile, System.Text.Encoding.UTF8);
             for (int i = 0; i < lines.Length; i++)
             {
-                if (lines[i].StartsWith(";m[") || lines[i].StartsWith(";s[") || lines[i].StartsWith(";\t") || lines[i].StartsWith("; "))
+                if (lines[i].StartsWith(";m[") || lines[i].StartsWith(";s["))
                 {
-                    lines[i] = lines[i].Substring(1); // Remove the leading semicolon
+                    lines[i] = lines[i].Substring(1); // Remove the leading semicolon only for valid text assignments
                 }
             }
             System.IO.File.WriteAllLines(tempFile, lines, new System.Text.UTF8Encoding(false)); // UTF-8 without BOM
