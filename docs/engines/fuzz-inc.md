@@ -1,56 +1,9 @@
-# Fuzz Inc. (Fate/stay night Remastered)
+# Fuzz Inc.
 
-> Decrypt EPK files, translate to JSON, and build patches for Steam.
+Engine Fuzz Inc ini lumayan unik, dipakai di rilisan baru kayak Fate/stay night Remastered. File-file mereka biasanya dibungkus di dalam archive `.epk` dan dienkripsi. 
 
-**Example games:** Fate/stay night [Remastered]
+Makanya, sebelum kamu bisa ngapa-ngapain, kamu wajib masukin kunci dekripsinya dulu. Kamu butuh file `decryptKey.bin` sama file `main.exe` dari folder gamenya biar tool ini bisa ngebaca cara mereka ngenkripsi datanya.
 
----
+Kalau kunci itu udah diset, kamu tinggal pilih file `.epk` yang mau dibongkar dan klik decrypt. Dari situ, kamu bisa ekstrak teks ceritanya jadi file JSON buat ditranslate santai-santai.
 
-## Tools Available
-
-### Crypto Keys Setup
-
-Before doing anything, you need to provide the encryption keys from the game.
-
-| Field | Description |
-|---|---|
-| `decryptKey.bin` | The decryption key file from the game install |
-| `main.exe` | The game's main executable (used for key extraction) |
-
-**How to set up:**
-1. Browse → locate `decryptKey.bin` in your game folder
-2. Browse → locate `main.exe` in your game folder
-3. These are required for all operations
-
----
-
-### EPK Tools
-
-Fate/stay night Remastered uses `.epk` archives.
-
-| Button | Action |
-|---|---|
-| **Decrypt EPK** | Decrypt an `.epk` file for editing |
-| **Export → JSON** | Extract dialogue into a `.json` file |
-| **Inject → EPK** | Inject translated JSON back |
-| **Build Patch** | Create a Steam-compatible patch that bypasses `.bin` |
-
-**How to use:**
-
-**Step 1 — Decrypt:**
-1. Browse → select your `.epk` file
-2. Click **Decrypt EPK** → save the decrypted file
-
-**Step 2 — Export:**
-1. Select the decrypted file
-2. Click **Export → JSON** → save the output
-
-**Step 3 — Translate:**
-- Edit the JSON file with your translations
-
-**Step 4 — Inject & Patch:**
-1. Click **Inject → EPK** to create the modified archive
-2. Click **Build Patch** to generate a Steam-compatible patch file
-3. Place the patch file in the game directory as instructed
-
-> **Steam Note:** This tool includes a patch builder specifically to work around Steam's content verification on `.bin` files.
+Selesai ngetranslate? Inject balik JSON-nya ke EPK. Nah, khusus buat game yang rilis di Steam, tool ini juga nyediain fitur Build Patch supaya kamu bisa bikin patch yang gak bakal bermasalah sama sistem verifikasi kontennya Steam.

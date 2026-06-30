@@ -1,31 +1,7 @@
-# Abogado KG — Image Tools
+# Abogado (KG)
 
-> Convert Abogado `.kg` image files to/from standard PNG format.
+Kalau kamu lagi ngerjain game kayak Shuumatsu no Sugoshikata dan nemu file gambar berekstensi `.kg`, kamu ada di tempat yang bener. Format ini format gambar khusus punya Abogado.
 
-**Example games:** Shuumatsu no Sugoshikata series
+Tool ini simpel banget fungsinya. Kamu bisa ubah file `.kg` jadi file `.png` biasa biar bisa diedit di Photoshop atau aplikasi gambar favorit kamu. 
 
----
-
-## Tools Available
-
-### KG Image Converter
-
-| Button | Action |
-|---|---|
-| **KG → PNG** | Convert a `.kg` image to a standard `.png` |
-| **PNG → KG** | Convert a `.png` back into a `.kg` file for the game |
-
-**How to use:**
-
-**KG → PNG:**
-1. Browse → select your `.kg` file
-2. Click **KG → PNG** → save the output `.png`
-3. Edit the image in Photoshop, GIMP, etc.
-
-**PNG → KG:**
-1. Browse → select your edited `.png` file
-2. Optionally browse → select the **original** `.kg` to preserve encoding metadata
-3. Click **PNG → KG** → save the output `.kg`
-4. Replace the original inside the `.dsk` archive, then repack
-
-> **Tip:** When converting PNG → KG, always provide the original `.kg` file so the bit depth and header are preserved correctly.
+Satu hal yang penting banget buat diingat: waktu kamu mau convert balik dari PNG ke KG, pastikan kamu juga masukin file `.kg` yang aslinya di kolom yang disediain. Ini penting banget supaya tool-nya bisa nyontek struktur dan metadata dari gambar aslinya, biar gamenya gak crash waktu baca gambar editanmu.

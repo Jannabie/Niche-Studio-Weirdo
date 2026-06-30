@@ -1,60 +1,7 @@
-# Abogado DSK — Archive & Script Tools
+# Abogado (DSK)
 
-> Unpack, patch, and repack Abogado SDK `.dsk` archives and `.scf` script files.
+Engine ini biasanya dipakai di game kayak Shuumatsu no Sugoshikata. Intinya, game ini nyimpen datanya di dalam file `.dsk`, tapi file ini selalu butuh pasangannya yaitu file indeks `.pft` supaya bisa dibaca. 
 
-**Example games:** Shuumatsu no Sugoshikata series
+Kalau kamu mau bongkar gamenya, kamu tinggal pilih file `.pft` dan `.dsk`-nya di menu, terus tentuin folder buat ngekstraknya. Nanti semua isinya bakal keluar di folder itu. Kalau udah selesai ngedit, tinggal lakuin hal yang sama di bagian repack buat bikin file `.dsk` dan `.pft` yang baru.
 
----
-
-## Tools Available
-
-### 1. DSK Archive (`.dsk` + `.pft`)
-
-The `.dsk` file is the main archive container. It always comes paired with a `.pft` index file.
-
-| Button | Action |
-|---|---|
-| **Unpack Archive** | Extract all files from `.dsk` into a folder |
-| **Repack Archive** | Pack a folder back into a new `.dsk` + `.pft` pair |
-
-**How to use:**
-1. Browse → select your `.pft` file (the index)
-2. Browse → select your `.dsk` file (the data)
-3. Browse → select output folder
-4. Click **Unpack Archive** to extract
-
-**To repack:**
-1. Browse → select the folder containing your modified files
-2. Click **Repack Archive** → choose where to save the new `.dsk` and `.pft`
-
----
-
-### 2. SCF Script Tools (`.scf`)
-
-Abogado script files contain the dialogue and game logic.
-
-| Button | Action |
-|---|---|
-| **Parse → JSON** | Extract text from a `.scf` file into a `.json` |
-| **Inject → SCF** | Inject translated JSON back into the `.scf` |
-
-**How to use:**
-
-**Step 1 — Parse:**
-1. Select your `.scf` script file
-2. Click **Parse → JSON** → save the output `.json`
-
-**Step 2 — Translate:**
-- Open the `.json` and translate the dialogue values
-
-**Step 3 — Inject:**
-1. Select the original `.scf`
-2. Select your translated `.json`
-3. Click **Inject → SCF** → save the new script
-4. Repack it back into the `.dsk` archive
-
----
-
-## See Also
-
-- [Abogado KG (Image Tools)](abogado-kg.md) — for converting `.kg` image files
+Nah, untuk bagian teksnya, gamenya pakai file `.scf`. Kamu bisa parse file `.scf` ini jadi JSON supaya gampang ditranslate. Begitu kelar translate di JSON-nya, tinggal inject balik JSON itu ke file `.scf` aslinya, terus masukin lagi ke folder yang mau di-repack ke `.dsk`. Gampang kan? Jangan lupa cek juga tool Abogado KG kalau kamu mau ngedit gambarnya.

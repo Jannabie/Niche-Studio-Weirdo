@@ -1,42 +1,7 @@
-# HuneX (Tsukihime Remake)
+# HuneX (Tsukihime)
 
-> Extract script text from `script_text.mrg`, translate it, then repack.
+Buat kamu yang mau ngerjain terjemahan Tsukihime Remake, tool ini bakal ngebantu banget. Di game ini, semua script cerita dan dialognya disimpen dalam satu file ajaib bernama `script_text.mrg`.
 
-**Example games:** Tsukihime -A Piece of Blue Glass Moon- (Remake)
+Prosesnya lurus banget, nggak ribet. Kamu tinggal pilih file `script_text.mrg`-nya, terus ekstrak jadi file teks biasa (`.txt`). Di dalam file TXT ini, kamu bakal lihat tiap baris teks punya gamenya. Kamu bisa buka pakai Notepad++ dan mulai ngetranslate. 
 
----
-
-## Tools Available
-
-### Extract & Repack (`script_text.mrg`)
-
-The `script_text.mrg` file contains all in-game dialogue and text.
-
----
-
-### EXTRACT — `script_text.mrg` → `.txt`
-
-1. Browse → select your `script_text.mrg` file
-2. Browse → choose where to save the output `.txt`
-3. Click **Extract → .TXT**
-
-The output `.txt` contains all the game's dialogue, one line per entry.
-
----
-
-### Translate
-
-- Open the `.txt` in Notepad++
-- Translate each Japanese line to your target language
-- Save the file (keep UTF-8 encoding)
-
----
-
-### REPACK — `.txt` → `script_text.mrg`
-
-1. Browse → select your **edited** `.txt` file
-2. Browse → choose the output `.mrg` path
-3. Click **Repack → .MRG**
-4. Replace `script_text.mrg` in your game data folder
-
-> **Warning:** Keep the number of lines identical to the original. Adding or removing lines will break the repack.
+Satu hal yang bener-bener harus kamu inget: waktu kamu ngetranslate, jumlah barisnya gak boleh berubah! Kalau kamu nambahin atau ngurangin baris di file TXT-nya, proses repack bakal gagal dan gamenya gak bakal bisa jalan. Kalau teksnya udah selesai ditranslate dengan jumlah baris yang sama persis, tinggal repack aja balik jadi `.mrg` dan timpa file aslinya di folder game.

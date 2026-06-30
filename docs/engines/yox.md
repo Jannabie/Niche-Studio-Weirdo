@@ -1,48 +1,11 @@
-# YOX Engine (Musicus!)
+# YOX
 
-> A 4-step pipeline: `.dat` → `.dec` → JSON (edit) → `.dec` → `.dat`.
+Engine YOX ini, yang dipakai di game Musicus!, punya proses terjemahan 4 tahap yang cukup panjang. Sistem mereka super ketat, jadi kamu bener-bener harus ngikutin tahapnya secara berurutan dan jangan lompat-lompat!
 
-**Example games:** Musicus!
+Tahap pertama, kamu unpack file `.dat` bawaan game. Hasil dari unpack ini adalah file `.dec` (decrypted) dan yang paling penting, ada file `manifest.json`.
 
----
+Lanjut tahap kedua, pakai file `.dec` tadi buat mengekstrak scriptnya jadi `.json`. Di dalam file JSON ini baru kamu bisa ngetranslate dialog-dialog gamenya.
 
-> ⚠️ **Critical:** This engine uses a strict two-stage pipeline. Complete each step **in order**. If you skip a step or re-run steps out of sequence, `manifest.json` will lose its context and repacking will fail.
+Nah, ini bagian bahayanya: selama kamu ngetranslate, jangan pernah pindahin atau nge-rename file `manifest.json` dari foldernya. File ini itu nyimpen konteks sesi kerjaan kamu. Di tahap ketiga, begitu terjemahannya beres, tinggal import JSON terjemahan tadi biar dijadiin file `.dec` baru.
 
----
-
-## Workflow Overview
-
-```
-STEP 1          STEP 2          STEP 3          STEP 4
-Unpack DAT  →   Export JSON →   Import JSON →   Repack DAT
-(.dat→.dec)    (.dec→.json)    (.json→.dec)   (.dec→.dat)
-```
-
----
-
-## Step-by-Step
-
-### Step 1 — Unpack DAT
-- Browse → select your `.dat` file from the game
-- Click **Unpack DAT**
-- Output: a `.dec` (decrypted) file + `manifest.json`
-
-### Step 2 — Export JSON
-- The tool uses the `.dec` file from Step 1
-- Click **Export JSON**
-- Output: a `.json` file containing all translatable text
-
-### Step 3 — Translate & Import JSON
-- Open the `.json` and translate the text values
-- **Do NOT rename or move `manifest.json`** — it must remain in the same folder
-- Click **Import JSON**
-- Output: a new `.dec` file with your translations
-
-### Step 4 — Repack DAT
-- Click **Repack DAT**
-- Output: a new `.dat` file ready for the game
-- Replace the original `.dat` in your game folder
-
----
-
-> **If anything goes wrong:** Start over from Step 1. Do not try to reuse `.dec` files from a different session — `manifest.json` is session-specific.
+Tahap terakhir, kamu repack file `.dec` yang udah ditranslate tadi jadi file `.dat` lagi. Kalau kamu ngelanggar urutannya atau nyampur-nyampur file dari sesi lain, file `manifest.json` bakal ngambek dan proses repack bakal gagal total.
