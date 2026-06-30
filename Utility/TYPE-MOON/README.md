@@ -1,106 +1,88 @@
-# Melty Blood 2002 — Archive Tools & Editor
+# Melty Blood 2002 Archive Tools & Editor
 
-Tool buat modding dan lokalisasi **Melty Blood (2002)** — dari ekstrak arsip, edit teks lewat GUI, sampai repack balik ke format aslinya.
+A tool for modding and localizing **Melty Blood (2002)** — from extracting archives, editing text through a GUI, to repacking back into the original format.
 
-**Requirements:** Python 3.10+, no external deps (kecuali `tkinter` buat GUI, biasanya udah ada di Python Windows).
+**Requirements:** Python 3.10+, no external deps (except `tkinter` for the GUI, usually already included with Python on Windows).
 
 ---
-
-## Isi Repo
-
-| File | Kegunaan |
+## Repo Contents
+| File | Purpose |
 |---|---|
-| `mb_core.py` | Library inti + CLI buat unpack/repack arsip `.p` |
-| `mb_editor.py` | GUI editor buat translator — tanpa perlu buka terminal |
+| `mb_core.py` | Core library + CLI for unpacking/repacking `.p` archives |
+| `mb_editor.py` | GUI editor for translators — no need to open a terminal |
 
-Keduanya kompatibel dengan format arsip *Mirror Moon English Patch* (Shift-JIS).
+Both are compatible with the *Mirror Moon English Patch* archive format (Shift-JIS).
 
 ---
+## How to Use
 
-## Cara Pakai
-
-### GUI — Disarankan untuk Translator
-
+### GUI — Recommended for Translators
 ```bash
 python mb_editor.py
 ```
+Click **Open Archive (.p)** → select `data04.p`. The left panel will display all script files inside the archive. Select one, enter your translation in the box that appears for each dialogue line, then click **Repack Archive** when done.
 
-Klik **Open Archive (.p)** → pilih `data04.p`. Panel kiri bakal nampilin semua file script di dalam arsip. Pilih salah satu, isi terjemahan di kotak yang muncul tiap baris dialog, selesai klik **Repack Archive**.
+Available features: syntax highlighting (to easily distinguish commands from text), global find & replace, progress tracking, and translation export/import for team collaboration.
 
-Fitur yang ada: syntax highlighting (biar gampang bedain command vs teks), find & replace global, pelacak progres, dan export/import terjemahan buat kolaborasi tim.
-
-### CLI — Untuk Otomasi
-
+### CLI — For Automation
 ```bash
-# Ekstrak arsip ke folder
+# Extract archive into a folder
 python mb_core.py unpack data04.p extracted/
 
-# Repack folder hasil ekstrak
+# Repack the extracted folder
 python mb_core.py repack extracted/ data04_new.p
 
-# Lihat isi arsip (offset, ukuran, dsb) tanpa ekstrak
+# View archive contents (offset, size, etc.) without extracting
 python mb_core.py info data04.p
 ```
 
 ---
+##  Must Read: Fullwidth Characters
+This game uses a Shift-JIS font renderer that **doesn't understand regular Latin (half-width) characters**. If you write a translation using regular `A`, `B`, `C`, the text won't appear in the game at all — or it will appear as corrupted characters.
 
-## ⚠️ Wajib Baca: Huruf Fullwidth
-
-Game ini pakai font renderer Shift-JIS yang **nggak ngerti huruf Latin biasa (half-width)**. Kalau nulis terjemahan pakai `A`, `B`, `C` biasa, teksnya nggak bakal muncul di game — atau muncul tapi jadi karakter rusak.
-
-Semua terjemahan harus pakai **karakter Fullwidth (Zenkaku)**:
+All translations must use **Fullwidth (Zenkaku) characters**:
 
 ```
-❌ Half-width : "Di awal bulan Agustus."
-✅ Fullwidth  : "Ｄｉ　ａｗａｌ　ｂｕｌａｎ　Ａｇｕｓｔｕｓ．"
+ Half-width : "At the beginning of August."
+ Fullwidth  : "Ａｔ　ｔｈｅ　ｂｅｇｉｎｎｉｎｇ　ｏｆ　Ａｕｇｕｓｔ．"
 ```
 
-Cara paling gampang: ubah mode input IME ke Zenkaku, atau pakai tabel konversi. Editor GUI sudah nampilin teks apa adanya jadi kamu bisa langsung kontrol hasilnya.
+The easiest way is to switch your IME input mode to Zenkaku, or use a conversion table. The GUI editor displays the text as-is, so you can directly control the output.
 
 ---
+## About `_manifest.json`
+Every time an archive is extracted, a `_manifest.json` file is automatically created in the extraction output folder. This file stores the original file order and header flags — two things required so that repacking can produce an archive identical byte-for-byte to the original.
 
-## Tentang `_manifest.json`
-
-Setiap kali arsip diekstrak, file `_manifest.json` otomatis dibuat di folder hasil ekstrak. File ini nyimpen urutan file asli dan flag header — dua hal yang dibutuhkan supaya repack bisa menghasilkan arsip yang identik byte-per-byte dengan aslinya.
-
-**Jangan hapus atau ubah file ini.** Tanpa `_manifest.json`, repack nggak bisa jalan.
+**Do not delete or modify this file.** Without `_manifest.json`, repacking won't work.
 
 ---
+## `data04.p` Structure
+The main archive file that needs to be edited for localization. Total of 189 files (~40 MB):
 
-## Struktur `data04.p`
-
-File arsip utama yang perlu diedit untuk lokalisasi. Total 189 file (~40 MB):
-
-| Tipe | Jumlah | Isi |
+| Type | Count | Content |
 |---|---|---|
-| `.TXT` | 62 | Script dialog (±10.676 baris) — **yang perlu diedit** |
-| `.EX3` | 107 | Data gambar/sprite |
+| `.TXT` | 62 | Dialogue script (±10,676 lines) — **needs to be edited** |
+| `.EX3` | 107 | Image/sprite data |
 | `.WAV` | 9 | Audio |
-| `.FNT` | 1 | Data font game |
+| `.FNT` | 1 | Game font data |
 
-File selain `.TXT` nggak perlu disentuh kecuali kamu mau modding grafis atau audio.
-
----
-
-## Format Script
-
-File `.TXT` pakai format script internal. Yang boleh diterjemahkan cuma baris dialog/narasinya:
-
-- `// ...` — komentar, **skip**
-- `EF`, `GW`, `WI`, `MD`, `BP`, dsb. — perintah game, **jangan diubah**
-- Baris yang diawali spasi atau karakter Jepang — **ini yang diterjemahkan**
+Files other than `.TXT` don't need to be touched unless you want to mod graphics or audio.
 
 ---
+## Script Format
+`.TXT` files use an internal script format. Only the dialogue/narration lines may be translated:
 
+- `// ...` — comment, **skip**
+- `EF`, `GW`, `WI`, `MD`, `BP`, etc. — game commands, **do not modify**
+- Lines starting with a space or Japanese characters — **these are the ones to translate**
+
+---
 ## Proof of Concept
-
 | Screenshot |
 |:---:|
 | ![Editor in action](https://i.imgur.com/UEhFLTl.png) |
-| *GUI editor berjalan dengan terjemahan teraplikasi* |
+| *GUI editor running with translation applied* |
 
 ---
-
 ## Disclaimer
-
-Tool ini dibuat untuk keperluan edukasi, penelitian, dan lokalisasi personal. Pastikan penggunaannya sesuai dengan aturan copyright dan ToS game original.
+This tool is created for educational, research, and personal localization purposes. Ensure its use complies with the copyright rules and ToS of the original game.
