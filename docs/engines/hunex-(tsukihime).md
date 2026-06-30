@@ -10,9 +10,8 @@ To access the dialogue:
 
 1. Select the `script_text.mrg` file.
 2. Click **Extract → .TXT** to generate a plaintext file containing all script strings, with one entry per line.
+3. It will gave you all mapping folder for all the scene.
 
-Translating the script
-----------------------
 
 Open the resulting `.txt` file in a text editor (e.g., Notepad++) and translate the entries. 
 
