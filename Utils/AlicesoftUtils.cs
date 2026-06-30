@@ -54,17 +54,17 @@ namespace NicheStudioWeirdo.Utils
         }
 
         // Script Commands (AIN)
-        public static async Task DumpAinAsync(string ainPath, string outDir, MainWindow main)
+        public static async Task DumpAinAsync(string ainPath, string outFile, MainWindow main)
         {
-            // Syntax: alice ain dump <ain> -o <outdir>
-            string args = $"ain dump \"{ainPath}\" -o \"{outDir}\"";
+            // Syntax: alice ain dump <ain> -j -o <outfile>
+            string args = $"ain dump \"{ainPath}\" -j -o \"{outFile}\"";
             await ToolRunner.RunAsync(GetRepoDir(), GetAliceExe(), args, main);
         }
 
         public static async Task EditAinAsync(string originalAin, string modifiedJson, string outputAin, MainWindow main)
         {
-            // Syntax: alice ain edit <ain> <json> -o <out>
-            string args = $"ain edit \"{originalAin}\" \"{modifiedJson}\" -o \"{outputAin}\"";
+            // Syntax: alice ain edit <ain> -j <json> -o <out>
+            string args = $"ain edit \"{originalAin}\" -j \"{modifiedJson}\" -o \"{outputAin}\"";
             await ToolRunner.RunAsync(GetRepoDir(), GetAliceExe(), args, main);
         }
 

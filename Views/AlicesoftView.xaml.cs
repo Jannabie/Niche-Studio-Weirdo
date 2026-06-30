@@ -73,10 +73,10 @@ namespace NicheStudioWeirdo.Views
         private async void DumpAin_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(AinFileTxt.Text) || AinFileTxt.Text.Contains("Select")) return;
-            var dialog = new OpenFolderDialog { Title = "Select Output Folder for Dump" };
+            var dialog = new SaveFileDialog { Title = "Save Dumped JSON As", Filter = "JSON File (*.json)|*.json|All Files|*.*" };
             if (dialog.ShowDialog() == true)
             {
-                await Utils.AlicesoftUtils.DumpAinAsync(AinFileTxt.Text, dialog.FolderName, GetMain());
+                await Utils.AlicesoftUtils.DumpAinAsync(AinFileTxt.Text, dialog.FileName, GetMain());
             }
         }
 
