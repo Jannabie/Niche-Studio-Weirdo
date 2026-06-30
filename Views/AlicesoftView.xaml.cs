@@ -64,16 +64,16 @@ namespace NicheStudioWeirdo.Views
             if (dlg.ShowDialog() == true) AinFileTxt.Text = dlg.FileName;
         }
 
-        private void BrowseAinJson_Click(object sender, RoutedEventArgs e)
+        private void BrowseAinTxt_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog { Filter = "JSON Files (*.json)|*.json|All Files|*.*" };
-            if (dlg.ShowDialog() == true) AinJsonTxt.Text = dlg.FileName;
+            OpenFileDialog dlg = new OpenFileDialog { Filter = "Text Files (*.txt)|*.txt|All Files|*.*" };
+            if (dlg.ShowDialog() == true) AinTxtTxt.Text = dlg.FileName;
         }
 
         private async void DumpAin_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(AinFileTxt.Text) || AinFileTxt.Text.Contains("Select")) return;
-            var dialog = new SaveFileDialog { Title = "Save Dumped JSON As", Filter = "JSON File (*.json)|*.json|All Files|*.*" };
+            var dialog = new SaveFileDialog { Title = "Save Dumped TXT As", Filter = "Text File (*.txt)|*.txt|All Files|*.*" };
             if (dialog.ShowDialog() == true)
             {
                 await Utils.AlicesoftUtils.DumpAinAsync(AinFileTxt.Text, dialog.FileName, GetMain());
@@ -83,12 +83,12 @@ namespace NicheStudioWeirdo.Views
         private async void EditAin_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(AinFileTxt.Text) || AinFileTxt.Text.Contains("Select")) return;
-            if (string.IsNullOrWhiteSpace(AinJsonTxt.Text) || AinJsonTxt.Text.Contains("Select")) return;
+            if (string.IsNullOrWhiteSpace(AinTxtTxt.Text) || AinTxtTxt.Text.Contains("Select")) return;
             
             SaveFileDialog dlg = new SaveFileDialog { Filter = "AIN Files (*.ain)|*.ain|All Files|*.*" };
             if (dlg.ShowDialog() == true)
             {
-                await Utils.AlicesoftUtils.EditAinAsync(AinFileTxt.Text, AinJsonTxt.Text, dlg.FileName, GetMain());
+                await Utils.AlicesoftUtils.EditAinAsync(AinFileTxt.Text, AinTxtTxt.Text, dlg.FileName, GetMain());
             }
         }
 

@@ -41,8 +41,8 @@
                 </Grid>
                 <Grid Margin="0,0,0,20">
                     <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                    <TextBox x:Name="AinJsonTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select modified JSON file (for edit)..."/>
-                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseAinJson_Click"/>
+                    <TextBox x:Name="AinTxtTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select modified TXT file (for edit)..."/>
+                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseAinTxt_Click"/>
                 </Grid>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,20">
                     <Button Content="Dump" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="DumpAin_Click"/>
