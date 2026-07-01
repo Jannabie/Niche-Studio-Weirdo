@@ -64,6 +64,7 @@
                         <Button Content="Alicesoft" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="Alicesoft"/>
                         <Button Content="Buriko" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="BGI"/>
                         <Button Content="codeX RScript" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="CodeXR"/>
+                        <Button Content="Diesel Engine" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="DieselEngine"/>
                         <Button Content="Fuzz Inc." Style="{StaticResource TabButton}" Click="Nav_Click" Tag="FSN"/>
                         <Button Content="HuneX (Tsukihime)" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="HuneX"/>
                         <Button Content="HuneX (Witch on The Holy Night)" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="HuneXMahoyo"/>
@@ -114,7 +115,7 @@
                         </Grid.RowDefinitions>
                         <TextBlock Grid.Row="0" Text="user@NicheVNs ~ %" Foreground="{StaticResource TextMutedBrush}" FontSize="11" FontFamily="{StaticResource TerminalFont}" Margin="0,0,0,8"/>
                         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" x:Name="ConsoleScroll">
-                            <TextBlock x:Name="ConsoleOutput" Foreground="#FFFFFF" FontFamily="{StaticResource TerminalFont}" FontSize="13" TextWrapping="Wrap" Text="Ready..."/>
+                            <TextBox x:Name="ConsoleOutput" IsReadOnly="True" BorderThickness="0" Background="Transparent" Foreground="#FFFFFF" FontFamily="{StaticResource TerminalFont}" FontSize="13" TextWrapping="Wrap" Text="Ready..."/>
                         </ScrollViewer>
                     </Grid>
                 </Border>

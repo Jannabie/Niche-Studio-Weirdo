@@ -1,0 +1,103 @@
+<UserControl x:Class="NicheStudioWeirdo.Views.DieselEngineView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Diesel Engine / Nitroplus (NPK)" Style="{StaticResource HeaderStyle}"/>
+        <TextBlock Grid.Row="1" Text="Extract and repack .npk archives using NPK3Tool for Nitroplus games like The Song of Saya." Style="{StaticResource SubheaderStyle}"/>
+
+        <StackPanel Grid.Row="2">
+            <Border Background="{StaticResource BgDarkestBrush}" Padding="24" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}">
+                <StackPanel>
+
+                    <!-- GAME SELECTION -->
+                    <TextBlock Text="TARGET GAME / PROFILE" Style="{StaticResource LabelStyle}" Foreground="{StaticResource TextLightBrush}" FontSize="13" Margin="0,0,0,12"/>
+                    <ComboBox x:Name="GameProfileCombo" Margin="0,0,0,24" SelectedIndex="6">
+                        <ComboBoxItem Content="0: You and Me and Her (Jast USA)"/>
+                        <ComboBoxItem Content="1: You and Me and Her (Steam)"/>
+                        <ComboBoxItem Content="2: Tokyo Necro"/>
+                        <ComboBoxItem Content="3: Minikui Mojika no Ko"/>
+                        <ComboBoxItem Content="4: SoniComi (JastUSA)"/>
+                        <ComboBoxItem Content="5: The Song of Saya (Steam)"/>
+                        <ComboBoxItem Content="6: The Song of Saya (Steam) [+18]"/>
+                        <ComboBoxItem Content="7: Kishin Houkou Demonbane"/>
+                        <ComboBoxItem Content="8: DRAMAtical Murder (Jast USA)"/>
+                        <ComboBoxItem Content="9: DRAMAtical Murder (Steam)"/>
+                        <ComboBoxItem Content="10: Full Metal Daemon Muramasa (Jast USA)"/>
+                        <ComboBoxItem Content="11: Slow Damage (Jast USA)"/>
+                        <ComboBoxItem Content="12: Tokyo Necro (Jast USA)"/>
+                        <ComboBoxItem Content="13: sweet pool (Jast USA)"/>
+                        <ComboBoxItem Content="14: sweet pool (Steam)"/>
+                        <ComboBoxItem Content="15: Togainu no Chi –Lost Blood– (Jast USA)"/>
+                        <ComboBoxItem Content="16: Togainu no Chi –Lost Blood– (Steam)"/>
+                    </ComboBox>
+
+                    <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,24"/>
+
+                    <!-- EXTRACT -->
+                    <TextBlock Text="EXTRACT  —  Archive.npk → Folder" Style="{StaticResource LabelStyle}" Foreground="{StaticResource TextLightBrush}" FontSize="13" Margin="0,0,0,12"/>
+
+                    <TextBlock Text="INPUT .NPK" Style="{StaticResource LabelStyle}"/>
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                        <TextBox x:Name="ExtractInputTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                        <Button Grid.Column="1" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,0" Click="BrowseExtractInput_Click"/>
+                    </Grid>
+
+                    <TextBlock Text="OUTPUT DIRECTORY" Style="{StaticResource LabelStyle}"/>
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                        <TextBox x:Name="ExtractOutputTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                        <Button Grid.Column="1" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,0" Click="BrowseExtractOutput_Click"/>
+                    </Grid>
+
+                    <Button Content="Extract → Folder" Style="{StaticResource ActionButtonGreen}" HorizontalAlignment="Right" Padding="20,8" Margin="0,0,0,28" Click="Extract_Click"/>
+
+                    <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,24"/>
+
+                    <!-- REPACK -->
+                    <TextBlock Text="REPACK  —  Folder → Archive_new.npk" Style="{StaticResource LabelStyle}" Foreground="{StaticResource TextLightBrush}" FontSize="13" Margin="0,0,0,12"/>
+
+                    <TextBlock Text="INPUT FOLDER (EXTRACTED FILES)" Style="{StaticResource LabelStyle}"/>
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                        <TextBox x:Name="RepackInputTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                        <Button Grid.Column="1" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,0" Click="BrowseRepackInput_Click"/>
+                    </Grid>
+
+                    <TextBlock Text="OUTPUT .NPK" Style="{StaticResource LabelStyle}"/>
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                        <TextBox x:Name="RepackOutputTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                        <Button Grid.Column="1" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,0" Click="BrowseRepackOutput_Click"/>
+                    </Grid>
+
+                    <TextBlock Text="PACKING OPTIONS" Style="{StaticResource LabelStyle}" Margin="0,0,0,8"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                        <CheckBox x:Name="ChkEnableSeg" Content="Enable Segmentation (-sg 1)" Foreground="{StaticResource TextLightBrush}" Margin="0,0,16,0"/>
+                        <CheckBox x:Name="ChkForceSeg" Content="Force Segmentation (-fg 1)" Foreground="{StaticResource TextLightBrush}" IsChecked="True" Margin="0,0,16,0"/>
+                        <CheckBox x:Name="ChkCompress" Content="Enable Compression (-cp 1)" Foreground="{StaticResource TextLightBrush}"/>
+                    </StackPanel>
+
+                    <Button Content="Repack → .NPK" Style="{StaticResource ActionButtonGreen}" HorizontalAlignment="Right" Padding="20,8" Click="Repack_Click"/>
+
+                    <Border Background="#111" CornerRadius="4" Padding="16" Margin="0,24,0,0" BorderBrush="#333" BorderThickness="1">
+                        <StackPanel>
+                            <TextBlock Text="FULL WORKFLOW (from NPK to finished):" Foreground="{StaticResource TextLightBrush}" FontWeight="Bold" Margin="0,0,0,8"/>
+                            <TextBlock Text="① Diesel Engine Tab → Extract → get a folder containing raw files" Foreground="{StaticResource TextMutedBrush}" Margin="0,0,0,4"/>
+                            <TextBlock Text="② Edit the extracted files with your favorite tool or text editor" Foreground="{StaticResource TextMutedBrush}" Margin="0,0,0,4"/>
+                            <TextBlock Text="③ Diesel Engine Tab → Repack → select the extracted folder, get a new ready-to-use .npk" Foreground="{StaticResource TextMutedBrush}" Margin="0,0,0,4"/>
+                            <TextBlock Text="④ Replace the original game's .npk file with the newly generated one" Foreground="{StaticResource TextMutedBrush}"/>
+                        </StackPanel>
+                    </Border>
+
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </Grid>
+</UserControl>

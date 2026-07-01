@@ -1,0 +1,348 @@
+<! ――――――-コメント>
+<INCLUDE SRC="include.h">
+<SYSTEM MENU="#FFE">
+<BGM>
+//////////////////////////////////////////////////////////
+
+//<wait time="300">
+//<BACKGROUND SRC="media_a">//
+//<WIPE EFFECT="fade" TIME="10">
+//<wait time="600">
+//<BACKGROUND SRC="media_b">//
+//<WIPE EFFECT="fade" TIME="30">
+//<wait time="300">
+//<clear>
+//<BACKGROUND SRC="#000000">
+//<WIPE EFFECT="fade" TIME="10">
+//<wait time="600">
+
+//<MOVIE SRC="Nitro_LOGO.mpg" SKIP="ON">
+
+
+<clear>
+<BACKGROUND SRC="#FFFFFF">
+<WIPE EFFECT="fade" TIME="10">
+<A HREF="#MAIN" OPERATOR="LogoFirst=1">
+
+//<BACKGROUND SRC="media_a">//
+//<WIPE EFFECT="fade" TIME="10">
+//<wait time="3000">
+//<BACKGROUND SRC="media_b">//
+//<WIPE EFFECT="fade" TIME="10">
+//<wait time="3000">
+//<BACKGROUND SRC="media_c">//
+//<WIPE EFFECT="fade" TIME="10">
+//<wait time="3000">
+//<clear>
+<BACKGROUND SRC="warning">
+<WIPE EFFECT="fade" TIME="10">
+<wait time="3000">
+<clear>
+<BACKGROUND SRC="#000000">//
+<WIPE EFFECT="fade" TIME="10">
+<BACKGROUND SRC="logo">
+<WIPE EFFECT="fade" TIME="10">
+<wait time="2000">
+<wait time="1000">
+<clear>
+<BACKGROUND SRC="#FFFFFF">//
+<WIPE EFFECT="fade" TIME="10">
+<BACKGROUND SRC="#FFFFFF">
+<WIPE EFFECT="fade" TIME="10">
+
+<SYSTEM INIT="TRUE">
+
+
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////
+//選択画面
+//////////////////////////////////////////////////////////
+<system cmd="savemode" mode="off">
+<clear>
+<BACKGROUND SRC="MENU\title_back01">
+<LAYER NUM="2" SRC="MENU\title01">
+<WIPE EFFECT="FADE" TIME="20">
+<MARKER NAME="#MAIN">
+<SYSTEM INIT="TRUE">
+<CALC WORKNAME="LogoFirst" OPERATOR="1">
+<BGM SRC="s02" MODE="fadein" old="fadeout" TIME="20">
+<clear>
+<BACKGROUND SRC="MENU\title">
+<system cmd="savemode" mode="off">
+<MARKER NAME="#LOOP">			//この間でループする
+<A HREF="#OPEN" OPERATOR="ENDING=1">
+<SYSTEM MENU="#FFE">
+<CHOICE HREF="#START"   x="94" y="261" TYPE="9" FILE="data\start01.png;data\start02.png;data\start03.png;data\start04.png;data\start05.png;data\start04.png;data\start03.png;data\start02.png;data\start01.png;data\startover.png;data\startover.png">
+<CHOICE HREF="#LOAD"   x="219" y="419" TYPE="9" FILE="data\load01.png;data\load02.png;data\load03.png;data\load04.png;data\load05.png;data\load04.png;data\load03.png;data\load02.png;data\load01.png;data\loadover.png;data\loadover.png">
+<CHOICE HREF="#CONFIG"   x="962" y="341" TYPE="9" FILE="data\config01.png;data\config02.png;data\config03.png;data\config04.png;data\config05.png;data\config04.png;data\config03.png;data\config02.png;data\config01.png;data\configover.png;data\configover.png">
+<CHOICE HREF="#CG"     x="922" y="520" TYPE="9" FILE="data\cgl01.png;data\cgl02.png;data\cgl03.png;data\cgl04.png;data\cgl05.png;data\cgl04.png;data\cgl03.png;data\cgl02.png;data\cgl01.png;data\cglover.png;data\cglover.png">
+<CHOICE HREF="#END"    x="1106" y="747" TYPE="9" FILE="data\exit01.png;data\exit02.png;data\exit03.png;data\exit04.png;data\exit05.png;data\exit04.png;data\exit03.png;data\exit02.png;data\exit01.png;data\exitover.png;data\exitover.png">
+<WIPE EFFECT="FADE" TIME="10">
+<SELECT>
+
+<MARKER NAME="#OPEN">
+<SYSTEM MENU="#FFE">
+<CHOICE HREF="#START"   x="94" y="261" TYPE="9" FILE="data\start01.png;data\start02.png;data\start03.png;data\start04.png;data\start05.png;data\start04.png;data\start03.png;data\start02.png;data\start01.png;data\startover.png;data\startover.png">
+<CHOICE HREF="#LOAD"   x="219" y="419" TYPE="9" FILE="data\load01.png;data\load02.png;data\load03.png;data\load04.png;data\load05.png;data\load04.png;data\load03.png;data\load02.png;data\load01.png;data\loadover.png;data\loadover.png">
+<CHOICE HREF="#CONFIG"   x="962" y="341" TYPE="9" FILE="data\config01.png;data\config02.png;data\config03.png;data\config04.png;data\config05.png;data\config04.png;data\config03.png;data\config02.png;data\config01.png;data\configover.png;data\configover.png">
+<CHOICE HREF="#CG"     x="922" y="520" TYPE="9" FILE="data\cgl01.png;data\cgl02.png;data\cgl03.png;data\cgl04.png;data\cgl05.png;data\cgl04.png;data\cgl03.png;data\cgl02.png;data\cgl01.png;data\cglover.png;data\cglover.png">
+<CHOICE HREF="#MUSIC"   x="61" y="730" TYPE="9" FILE="data\sl01.png;data\sl02.png;data\sl03.png;data\sl04.png;data\sl05.png;data\sl04.png;data\sl03.png;data\sl02.png;data\sl01.png;data\slover.png;data\slover.png">
+<CHOICE HREF="#STAFF"  x="1029" y="915" TYPE="9" FILE="data\staff01.png;data\staff02.png;data\staff03.png;data\staff04.png;data\staff05.png;data\staff04.png;data\staff03.png;data\staff02.png;data\staff01.png;data\staff.png;data\staff.png">
+<CHOICE HREF="#END"    x="1106" y="747" TYPE="9" FILE="data\exit01.png;data\exit02.png;data\exit03.png;data\exit04.png;data\exit05.png;data\exit04.png;data\exit03.png;data\exit02.png;data\exit01.png;data\exitover.png;data\exitover.png">
+<WIPE EFFECT="FADE" TIME="10">
+<SELECT>
+
+//////////////////////////////////////////////////////////
+// ―――――――――――――――――――――-
+<MARKER NAME="#START">
+<bgm src="" mode="fadeout" time="50" loop="on">
+<BACKGROUND SRC="#FFFFFF">
+<WIPE EFFECT="NORMAL" TIME="0">
+<BACKGROUND SRC="MENU\title2">
+<WIPE EFFECT="NORMAL" TIME="0">
+<BACKGROUND SRC="#FFFFFF">
+<WIPE EFFECT="NORMAL" TIME="0">
+<BACKGROUND SRC="MENU\title2">
+<WIPE EFFECT="NORMAL" TIME="0">
+<WAIT TIME="1">
+
+//////////////////////////////////////////////////////////
+//フィクション表現
+<clear>
+<BACKGROUND SRC="fiction">
+<WIPE EFFECT="fade" TIME="40">
+<wait time="800">
+<clear>
+<BACKGROUND SRC="#000000">
+<WIPE EFFECT="effect" TIME="40">
+//////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////
+<A HREF="#SKIPOPTION" OPERATOR="FIRST=1">
+<SYSTEM MENU="#FFE">
+<BOX TYPE="8">
+This work of fiction contains grotesque images that may disturb some viewers.
+Please select how you would like such images displayed.
+
+<CHOICE HREF="#LEVEL1" x="256" y="256" TEXT="Do not modify grotesque images. (Default)">
+<CHOICE HREF="#LEVEL2" x="256" y="320" TEXT="Obscure focus of grotesque images.">
+<CHOICE HREF="#LEVEL3" x="256" y="384" TEXT="Lower brightness of grotesque images.">
+<CHOICE HREF="#LEVEL4" x="256" y="448" TEXT="Obscure focus and lower brightness of grotesque images.">
+<WIPE EFFECT="FADE" TIME="10">
+<SELECT>
+
+<MARKER NAME="#LEVEL1">
+<SYSTEM CMD="Shading" TYPE="0">
+<SYSTEM CMD="extraCG" TYPE="0">
+<A HREF="#FIRST_END">
+
+<MARKER NAME="#LEVEL2">
+<SYSTEM CMD="Shading" TYPE="1">
+<SYSTEM CMD="extraCG" TYPE="0">
+<A HREF="#FIRST_END">
+
+
+<MARKER NAME="#LEVEL3">
+<SYSTEM CMD="Shading" TYPE="0">
+<SYSTEM CMD="extraCG" TYPE="1">
+<A HREF="#FIRST_END">
+
+<MARKER NAME="#LEVEL4">
+<SYSTEM CMD="Shading" TYPE="1">
+<SYSTEM CMD="extraCG" TYPE="1">
+<A HREF="#FIRST_END">
+
+<MARKER NAME="#FIRST_END">
+<CALC WORKNAME="FIRST" OPERATOR="1" MODE="global">
+<WIPE EFFECT="FADE" TIME="10">
+
+<MARKER NAME="#SKIPOPTION">
+//////////////////////////////////////////////////////////
+//クリック後、読み込み開始。
+//しばらく時間かかります。
+//
+//<clear>
+//<WIPE EFFECT="NORMAL" TIME="0">
+//<A HREF="#f">//デバッグ用
+//////////////////////////////////////////////////////////
+
+<SYSTEM MENU="#00">
+<A HREF="sy010.nps">
+// ―――――――――――――――――――――-
+
+// ―――――――――――――――――――――-
+<MARKER NAME="#LOAD">
+<BACKGROUND SRC="#FFFFFF">
+<WIPE EFFECT="NORMAL" TIME="0">
+<BACKGROUND SRC="MENU\title2">
+<WIPE EFFECT="NORMAL" TIME="0">
+<BACKGROUND SRC="#FFFFFF">
+<WIPE EFFECT="NORMAL" TIME="0">
+<BACKGROUND SRC="MENU\title2">
+<WIPE EFFECT="NORMAL" TIME="0">
+<WAIT TIME="1">
+<BACKGROUND SRC="MENU\title">
+<SYSTEM MENU="#FFE">
+<LOAD>
+<SYSTEM MENU="#FFE">
+<BACKGROUND SRC="MENU\title">
+<WIPE EFFECT="NORMAL" TIME="0">
+<A HREF="#LOOP">
+// ―――――――――――――――――――――-
+
+// ―――――――――――――――――――――-
+<MARKER NAME="#CONFIG">
+<BACKGROUND SRC="#FFFFFF">
+<WIPE EFFECT="NORMAL" TIME="0">
+<BACKGROUND SRC="MENU\title2">
+<WIPE EFFECT="NORMAL" TIME="0">
+<BACKGROUND SRC="#FFFFFF">
+<WIPE EFFECT="NORMAL" TIME="0">
+<BACKGROUND SRC="MENU\title2">
+<WIPE EFFECT="NORMAL" TIME="0">
+<WAIT TIME="1">
+<BACKGROUND SRC="MENU\title">
+<SYSTEM MENU="#FFE">
+<SYSTEM CMD="config">
+<SYSTEM MENU="#FFE">
+<BACKGROUND SRC="MENU\title">
+<WIPE EFFECT="NORMAL" TIME="0">
+<A HREF="#LOOP">
+// ―――――――――――――――――――――-
+
+
+// ―――――――――――――――――――――-
+<MARKER NAME="#CG">
+<BACKGROUND SRC="#FFFFFF">
+<WIPE EFFECT="NORMAL" TIME="0">
+<BACKGROUND SRC="MENU\title2">
+<WIPE EFFECT="NORMAL" TIME="0">
+<BACKGROUND SRC="#FFFFFF">
+<WIPE EFFECT="NORMAL" TIME="0">
+<BACKGROUND SRC="MENU\title2">
+<WIPE EFFECT="NORMAL" TIME="0">
+<WAIT TIME="1">
+<clear>
+<WIPE EFFECT="NORMAL" TIME="0">
+<A HREF="cg.nps">
+// ―――――――――――――――――――――-
+
+// ―――――――――――――――――――――-
+<MARKER NAME="#MUSIC">
+<BACKGROUND SRC="#FFFFFF">
+<WIPE EFFECT="NORMAL" TIME="0">
+<BACKGROUND SRC="MENU\title2">
+<WIPE EFFECT="NORMAL" TIME="0">
+<BACKGROUND SRC="#FFFFFF">
+<WIPE EFFECT="NORMAL" TIME="0">
+<BACKGROUND SRC="MENU\title2">
+<WIPE EFFECT="NORMAL" TIME="0">
+<WAIT TIME="1">
+<clear>
+<WIPE EFFECT="NORMAL" TIME="0">
+<A HREF="music.nps">
+// ―――――――――――――――――――――-
+
+
+// ―――――――――――――――――――――-
+<MARKER NAME="#STAFF">
+<SYSTEM CMD="url" URL="www.nitroplus.co.jp/secret/saya/login.php3?id=clear&pass=saya1226">
+<WIPE EFFECT="NORMAL" TIME="0">
+<A HREF="#LOOP">
+// ―――――――――――――――――――――-
+
+// ―――――――――――――――――――――-
+<MARKER NAME="#END">
+<BACKGROUND SRC="#FFFFFF">
+<WIPE EFFECT="NORMAL" TIME="0">
+<BACKGROUND SRC="MENU\title2">
+<WIPE EFFECT="NORMAL" TIME="0">
+<BACKGROUND SRC="#FFFFFF">
+<WIPE EFFECT="NORMAL" TIME="0">
+<BACKGROUND SRC="MENU\title2">
+<WIPE EFFECT="NORMAL" TIME="0">
+<WAIT TIME="1000">
+<END OPTION="CLOSE">
+
+//////////////////////////////////////////////////////////
+
+
+
+
+<MARKER NAME="#f">
+<CHOICE X="110" Y="90"  HREF="#a" TEXT="1～4">
+<CHOICE X="110" Y="180" HREF="#b" TEXT="5～8">
+<CHOICE X="110" Y="270" HREF="#c" TEXT="9～12">
+<CHOICE X="110" Y="360" HREF="#d" TEXT="13～16">
+<CHOICE X="110" Y="460" HREF="#e" TEXT="17～20">
+<WIPE EFFECT="NORMAL" TIME="0">
+<SELECT>
+
+<MARKER NAME="#a">
+<CHOICE X="110" Y="90"  HREF="#1" TEXT="１">
+<CHOICE X="110" Y="180" HREF="#2" TEXT="２">
+<CHOICE X="110" Y="270" HREF="#3" TEXT="３">
+<CHOICE X="110" Y="360" HREF="#4" TEXT="４">
+<CHOICE X="110" Y="460" HREF="#f" TEXT="戻る">
+<WIPE EFFECT="NORMAL" TIME="0">
+<SELECT>
+
+<MARKER NAME="#b">
+<CHOICE X="110" Y="90"  HREF="#5" TEXT="５">
+<CHOICE X="110" Y="180" HREF="#6" TEXT="６">
+<CHOICE X="110" Y="270" HREF="#7" TEXT="７">
+<CHOICE X="110" Y="360" HREF="#8" TEXT="８">
+<CHOICE X="110" Y="460" HREF="#f" TEXT="戻る">
+<WIPE EFFECT="NORMAL" TIME="0">
+<SELECT>
+
+<MARKER NAME="#c">
+<CHOICE X="110" Y="90"  HREF="#9" TEXT="９">
+<CHOICE X="110" Y="180" HREF="#10" TEXT="１０">
+<CHOICE X="110" Y="270" HREF="#11" TEXT="１１">
+<CHOICE X="110" Y="360" HREF="#12" TEXT="１２">
+<CHOICE X="110" Y="460" HREF="#f" TEXT="戻る">
+<WIPE EFFECT="NORMAL" TIME="0">
+<SELECT>
+
+<MARKER NAME="#d">
+<CHOICE X="110" Y="90"  HREF="#13" TEXT="１３">
+<CHOICE X="110" Y="180" HREF="#14" TEXT="１４">
+<CHOICE X="110" Y="270" HREF="#15" TEXT="１５">
+<CHOICE X="110" Y="360" HREF="#16" TEXT="１６">
+<CHOICE X="110" Y="460" HREF="#f" TEXT="戻る">
+<WIPE EFFECT="NORMAL" TIME="0">
+<SELECT>
+
+<MARKER NAME="#e">
+<CHOICE X="110" Y="90"  HREF="#17" TEXT="１７">
+<CHOICE X="110" Y="180" HREF="#18" TEXT="１８">
+<CHOICE X="110" Y="270" HREF="#19" TEXT="１９">
+<CHOICE X="110" Y="360" HREF="#20" TEXT="２０">
+<CHOICE X="110" Y="460" HREF="#f" TEXT="戻る">
+<WIPE EFFECT="NORMAL" TIME="0">
+<SELECT>
+
+
+
+<MARKER NAME="#1"><SYSTEM MENU="#00"><WIPE EFFECT="NORMAL" TIME="0"><A HREF="沙耶の唄.nps#1">
+<MARKER NAME="#2"><SYSTEM MENU="#00"><WIPE EFFECT="NORMAL" TIME="0"><A HREF="沙耶の唄.nps#2">
+<MARKER NAME="#3"><SYSTEM MENU="#00"><WIPE EFFECT="NORMAL" TIME="0"><A HREF="沙耶の唄.nps#3">
+<MARKER NAME="#4"><SYSTEM MENU="#00"><WIPE EFFECT="NORMAL" TIME="0"><A HREF="沙耶の唄.nps#4">
+<MARKER NAME="#5"><SYSTEM MENU="#00"><WIPE EFFECT="NORMAL" TIME="0"><A HREF="沙耶の唄.nps#5">
+<MARKER NAME="#6"><SYSTEM MENU="#00"><WIPE EFFECT="NORMAL" TIME="0"><A HREF="沙耶の唄.nps#6">
+<MARKER NAME="#7"><SYSTEM MENU="#00"><WIPE EFFECT="NORMAL" TIME="0"><A HREF="沙耶の唄.nps#7">
+<MARKER NAME="#8"><SYSTEM MENU="#00"><WIPE EFFECT="NORMAL" TIME="0"><A HREF="沙耶の唄.nps#8">
+<MARKER NAME="#9"><SYSTEM MENU="#00"><WIPE EFFECT="NORMAL" TIME="0"><A HREF="沙耶の唄.nps#9">
+<MARKER NAME="#10"><SYSTEM MENU="#00"><WIPE EFFECT="NORMAL" TIME="0"><A HREF="沙耶の唄.nps#10">
+<MARKER NAME="#11"><SYSTEM MENU="#00"><WIPE EFFECT="NORMAL" TIME="0"><A HREF="沙耶の唄.nps#11">
+<MARKER NAME="#12"><SYSTEM MENU="#00"><WIPE EFFECT="NORMAL" TIME="0"><A HREF="沙耶の唄.nps#12">
+<MARKER NAME="#13"><SYSTEM MENU="#00"><WIPE EFFECT="NORMAL" TIME="0"><A HREF="沙耶の唄.nps#13">
+<MARKER NAME="#14"><SYSTEM MENU="#00"><WIPE EFFECT="NORMAL" TIME="0"><A HREF="沙耶の唄.nps#14">
+<MARKER NAME="#15"><SYSTEM MENU="#00"><WIPE EFFECT="NORMAL" TIME="0"><A HREF="沙耶の唄.nps#15">
+<MARKER NAME="#16"><SYSTEM MENU="#00"><WIPE EFFECT="NORMAL" TIME="0"><A HREF="沙耶の唄.nps#16">
+<MARKER NAME="#17"><SYSTEM MENU="#00"><WIPE EFFECT="NORMAL" TIME="0"><A HREF="沙耶の唄.nps#17">
+<MARKER NAME="#18"><SYSTEM MENU="#00"><WIPE EFFECT="NORMAL" TIME="0"><A HREF="沙耶の唄.nps#18">
+<MARKER NAME="#19"><SYSTEM MENU="#00"><WIPE EFFECT="NORMAL" TIME="0"><A HREF="沙耶の唄.nps#19">
+<MARKER NAME="#20"><SYSTEM MENU="#00"><WIPE EFFECT="NORMAL" TIME="0"><A HREF="沙耶の唄.nps#20">

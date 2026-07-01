@@ -98,6 +98,7 @@ namespace NicheStudioWeirdo
                 "MalieKit" => "Malie Engine Guide:\n1. Decrypt/Extract: Unpack .dat or .lib archives to access their contents.\n2. Character Names: Export Names -> Edit -> Patch Names.\n3. Dialog: Export Dialog -> Edit -> Patch Dialog.\nIMPORTANT: Character Names must be patched FIRST before exporting/patching Dialog, as they are stored in separate segments.",
                 "KKK" => "Kajiri Kamui Kagura (KKK) Guide:\n1. Install Base Patch: Select your game folder, pick Horizontal/Vertical layout, and install the required SVG, INI, and initial data6.dat.\n2. Wordwrap: Auto-wrap your translated message.txt.\n3. Compile Script: Compiles message.txt to exec.dat.\n4. Pack data6.dat: Packages the data folder into data6.dat which should then be copied to your game.",
                 "Alicesoft" => "Alicesoft Engine Guide:\n1. Archive Tools (.afa, .ald): Extract archives to a folder or pack them back.\n2. Script Tools (.ain): Dump the AIN to JSON, edit it, and inject it back using the Edit button (requires the original AIN + modified JSON).\n3. Image Tools (.cg): Convert .cg images to .png/.webp or vice versa.",
+                "DieselEngine" => "Diesel Engine (NPK) Guide:\n1. Target Game / Profile: Select the game you are modding (e.g., The Song of Saya) to load the correct encryption key.\n2. Extract: Select the .npk file and an output directory to unpack it.\n3. Repack: Select the folder containing your modified files and repack it back into a new .npk archive.",
                 _ => "Select a tool from the top tabs to view its usage guide."
             };
         }
@@ -136,6 +137,7 @@ namespace NicheStudioWeirdo
                     "MalieKit"  => new MalieKitView(),
                     "KKK"       => new KKKView(),
                     "Alicesoft" => new AlicesoftView(),
+                    "DieselEngine" => new DieselEngineView(),
                     _           => new MinoriView()
                 };
                 LoadView(view, btn.Content?.ToString() ?? btn.Tag?.ToString() ?? "");
@@ -151,11 +153,14 @@ namespace NicheStudioWeirdo
 
         public void LogToConsole(string message)
         {
-            Dispatcher.Invoke(() =>
+            Dispatcher.InvokeAsync(() =>
             {
-                ConsoleOutput.Text += $"\n> {message}";
+                if (ConsoleOutput.Text.Length > 50000)
+                    ConsoleOutput.Text = ConsoleOutput.Text.Substring(ConsoleOutput.Text.Length - 10000); // Prevent infinite memory growth
+                    
+                ConsoleOutput.AppendText($"\n> {message}");
                 ConsoleScroll.ScrollToEnd();
-            });
+            }, System.Windows.Threading.DispatcherPriority.Background);
         }
     }
 }
