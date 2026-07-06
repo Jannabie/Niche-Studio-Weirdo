@@ -20,7 +20,7 @@ The YOX engine uses a strict **4-step sequential pipeline** for translation. Ste
 
 The pipeline produces intermediate files (`.dec` and `manifest.json`) that are used across steps. These files must remain in their generated locations.
 
-> ⚠️ **Do not move or rename `manifest.json` or `.dec` files** between steps. They are referenced by path in subsequent operations. Moving them will cause Step 3 and Step 4 to fail.
+>  **Do not move or rename `manifest.json` or `.dec` files** between steps. They are referenced by path in subsequent operations. Moving them will cause Step 3 and Step 4 to fail.
 
 ---
 
@@ -32,7 +32,7 @@ The pipeline produces intermediate files (`.dec` and `manifest.json`) that are u
    - One or more `.dec` intermediate files
    - A `manifest.json` file index — saved next to the `.dat`
 
-> 💡 **`manifest.json` is the map of the archive.** It records the file list and offsets needed for all subsequent steps. Keep it where the tool saves it.
+>  **`manifest.json` is the map of the archive.** It records the file list and offsets needed for all subsequent steps. Keep it where the tool saves it.
 
 ---
 
@@ -49,7 +49,7 @@ The pipeline produces intermediate files (`.dec` and `manifest.json`) that are u
 1. After translating, click **Import JSON**.
 2. The tool injects your translated strings from the JSON back into the `.dec` intermediate files.
 
-> ⚠️ **Do not modify the `.dec` files manually** between Step 2 and Step 3. Only the JSON translation file should change. Manual edits to `.dec` files will corrupt the injection.
+>  **Do not modify the `.dec` files manually** between Step 2 and Step 3. Only the JSON translation file should change. Manual edits to `.dec` files will corrupt the injection.
 
 ---
 
@@ -79,6 +79,4 @@ The pipeline produces intermediate files (`.dec` and `manifest.json`) that are u
    → Replace original .dat in game directory → test
 ```
 
-> ⚠️ **Steps must be performed in order: 1 → 2 → 3 → 4.** The output of each step is required input for the next. Never skip steps or run them out of sequence.
-
-> 💡 **Do not move `manifest.json`** — keep it in the same directory where Step 1 saved it. The Repack step reads it from that exact path.
+>  **Steps must be performed in order: 1 → 2 → 3 → 4.** The output of each step is required input for the next. Never skip steps or run them out of sequence.
