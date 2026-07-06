@@ -61,23 +61,24 @@ Choose your game from the dropdown at the top. This is critical — each game us
 
 ---
 
-## Step 3 — Edit Your Files
+### Step 3 — Edit Your Files
 
-After extraction, open the script files (usually `.txt` or proprietary format) and translate them.
+After extraction, open the script files (usually .txt or proprietary format) and translate them.
 
->  **Escape Character Rule** — the N2System engine cannot parse certain punctuation directly. You must prefix them with `&` (ampersand):
->
-> | Character | How to Write |
-> |---|---|
-> | `.` (period) | `&.` |
-> | `,` (comma) | `&,` |
-> | `!` (exclamation) | `&!` |
-> | `?` (question mark) | `&?` |
-> | `…` (ellipsis) | `&…` |
->
-> **Example:**  
->  WRONG: `I want to eat.`  
-> CORRECT: `I want to eat&.`
+> **Escape Character Rule** — The N2System engine cannot parse certain punctuation directly. You must prefix them with an ampersand (&):
+
+| Character | How to Write |
+|---|---|
+| . (period) | `&.` |
+| , (comma) | `&,` |
+| ! (exclamation) | `&!` |
+| ? (question mark) | `&?` |
+| … (ellipsis) | `&…` |
+
+**Example:**  
+WRONG: I want to eat.  
+CORRECT: I want to eat`&.`
+
 
 ---
 
