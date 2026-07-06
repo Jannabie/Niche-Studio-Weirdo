@@ -20,7 +20,7 @@
 | AIR | AIR (Steam) |
 | Planetarian SG | Planetarian SG (Steam) |
 
-> ⚠️ **Cartagra HD (English translation version) is NOT supported.** The English publisher modified the bytecode format in a way that is incompatible with LuckSystem.
+>  **Cartagra HD (English translation version) is NOT supported.** The English publisher modified the bytecode format in a way that is incompatible with LuckSystem.
 
 ---
 
@@ -52,7 +52,7 @@ Choose the correct game from the **TARGET GAME / PROFILE** dropdown. This sets t
 
 Open the text files in the `Script_Decompiled` folder. Translate the dialogue strings.
 
-> ⚠️ **FULLWIDTH / ZENKAKU character limits apply.** The Luca System engine has fixed byte-length limits per line. Use fullwidth (Zenkaku) characters for Latin text to stay within bounds. Exceeding these limits will cause text overflow or crash.
+>  **FULLWIDTH / ZENKAKU character limits apply.** The Luca System engine has fixed byte-length limits per line. Use fullwidth (Zenkaku) characters for Latin text to stay within bounds. Exceeding these limits will cause text overflow or crash.
 
 ### Step 4 — Import Translated Text → New SCRIPT.PAK
 
