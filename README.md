@@ -18,21 +18,21 @@ A centralized WPF toolset for reverse-engineering and translating Japanese visua
 | Alicesoft | Rance series, Evenicle, etc | [ Guide](docs/engines/alicesoft.md) |
 | Buriko | Sakura no Uta, Subarashiki Hibi, etc | [ Guide](docs/engines/buriko.md) |
 | codeX RScript | Various | [ Guide](docs/engines/codex-rscript.md) |
-| Diesel Engine 🆕 | Full Metal Daemon Muramasa, etc | [ Guide](docs/engines/diesel-engine.md) |
+| Diesel Engine | Full Metal Daemon Muramasa, etc | [ Guide](docs/engines/diesel-engine.md) |
 | Fuzz Inc. | Fate/stay night Remastered | [Guide](docs/engines/fuzz-inc.md) |
 | HuneX (Tsukihime) | Tsukihime Remake | [ Guide](docs/engines/hunex-(tsukihime).md) |
 | HuneX (Witch on The Holy Night) | Mahoyo Remastered | [ Guide](docs/engines/hunex-(witch-on-the-holy-night).md) |
 | Leaf | White Album 2, etc | [ Guide](docs/engines/leaf.md) |
-| Luca System 🆕 | LOOPERS, Summer Pockets, Kanon, etc | [ Guide](docs/engines/luca-system.md) |
+| Luca System | LOOPERS, Summer Pockets, Kanon, etc | [ Guide](docs/engines/luca-system.md) |
 | Malie |  Dies irae, etc | [Guide](docs/engines/malie.md) |
 | Malie Kajiri | Kajiri Kamui Kagura | [ Guide](docs/engines/malie-kajiri.md) |
 | Minato (New) | Waga Himegimi ni Eikan o, etc | [ Guide](docs/engines/minato-(new).md) |
 | Minato (Old) | Majikoi series, etc | [ Guide](docs/engines/minato-(old).md) |
 | Minori | ef series, eden*, etc | [ Guide](docs/engines/minori.md) |
-| N2System 🆕 | Django, Saya no Uta, etc | [ Guide](docs/engines/n2system.md) |
+| N2System | Django, Saya no Uta, etc | [ Guide](docs/engines/n2system.md) |
 | TYPE-MOON | Melty Blood, etc | [ Guide](docs/engines/type-moon.md) |
 | YOX | Musicus!, etc | [ Guide](docs/engines/yox.md) |
-| YU-RIS 🆕 | Maggot Baits, Erewhon, etc | [ Guide](docs/engines/yuris.md) |
+| YU-RIS | Maggot Baits, Erewhon, etc | [ Guide](docs/engines/yuris.md) |
 
  **[Full Documentation Index →](docs/README.md)**
 
