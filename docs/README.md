@@ -6,8 +6,8 @@
 
 | Tab Name | Games | File Formats |
 |---|---|---|
-| [Abogado (DSK)](engines/abogado-(dsk).md) | Shuumatsu no Sugoshikata series | `.dsk`, `.pft`, `.scf` |
-| [Abogado (KG)](engines/abogado-(kg).md) | Shuumatsu no Sugoshikata (images) | `.kg` |
+| [Abogado (DSK)](engines/abogado-(dsk).md) | Shuumatsu no Sugoshikata | `.dsk`, `.pft`, `.scf` |
+| [Abogado (KG)](engines/abogado-(kg).md) | Shuumatsu no Sugoshikata | `.kg` |
 | [Alicesoft](engines/alicesoft.md) | Rance series, Evenicle, etc | `.ain`, `.afa`, `.ald`, `.cg`, `.ex` |
 | [Buriko](engines/buriko.md) | Subarashiki Hibi, Sakura no Uta, etc| `.arc`, `.sc` |
 | [codeX RScript](engines/codex-rscript.md) | Various | `.gsc` |
