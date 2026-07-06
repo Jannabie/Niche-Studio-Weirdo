@@ -11,17 +11,21 @@
 | [Alicesoft](engines/alicesoft.md) | Rance series, Evenicle | `.ain`, `.afa`, `.ald`, `.cg`, `.ex` |
 | [Buriko](engines/buriko.md) | Higurashi, Umineko, Sakura no Uta | `.arc`, `.sc` |
 | [codeX RScript](engines/codex-rscript.md) | Various | `.gsc` |
+| [Diesel Engine](engines/diesel-engine.md) 🆕 | Saya no Uta, Tokyo Necro, DRAMAtical Murder, Muramasa | `.npk`, `.nut` |
 | [Fuzz Inc.](engines/fuzz-inc.md) | Fate/stay night Remastered | `.epk`, `.bin` |
 | [HuneX (Tsukihime)](engines/hunex-(tsukihime).md) | Tsukihime Remake | `.mrg` |
 | [HuneX (Witch on The Holy Night)](engines/hunex-(witch-on-the-holy-night).md) | Mahoyo Remastered | `.hfa`, `.ctd`, `.cbg`, `.mzp` |
 | [Leaf](engines/leaf.md) | White Album 2 | `.pak` (KCAP) |
+| [Luca System](engines/luca-system.md) 🆕 | LOOPERS, Summer Pockets, Kanon, AIR, Harmonia, LUNARiA | `SCRIPT.PAK`, `.CZ0`–`.CZ3` |
 | [Malie](engines/malie.md) | Sharin no Kuni, G-Senjou, Kami no Rhapsody | `.dat`, `.lib`, `.mgf` |
 | [Malie Kajiri](engines/malie-kajiri.md) | Kajiri Kamui Kagura, Dies irae | Custom |
 | [Minato (New)](engines/minato-(new).md) | Wagamama High Spec | `.dat` (ACV1) |
 | [Minato (Old)](engines/minato-(old).md) | Majikoi series | `.pac`, `.bin` |
 | [Minori](engines/minori.md) | ef series, eden*, Supipara | `.paz` |
+| [N2System](engines/n2system.md) 🆕 | Django, Chaos;Head, Lamento, DRAMAtical Murder, sweet pool | `.npa` |
 | [TYPE-MOON](engines/type-moon.md) | Melty Blood: Type Lumina | `.p` |
 | [YOX](engines/yox.md) | Musicus! | Custom |
+| [YU-RIS](engines/yuris.md) 🆕 | Maggot Baits, Erewhon, ef series | `.ypf`, `.ybn` |
 
 ## General Workflow
 
