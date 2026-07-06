@@ -44,7 +44,7 @@ This tab has **two independent sections**:
 
 ## Section B — Fullwidth Text Converter
 
-> ⚠️ **CRITICAL — Half-width ASCII corrupts game text.** The TYPE-MOON engine does not render standard half-width Latin characters. All English text must be converted to fullwidth (Zenkaku) equivalents before inserting into script files. Failing to do this will produce garbled or invisible text in-game.
+>  **CRITICAL — Half-width ASCII corrupts game text.** The TYPE-MOON engine does not render standard half-width Latin characters. All English text must be converted to fullwidth (Zenkaku) equivalents before inserting into script files. Failing to do this will produce garbled or invisible text in-game.
 
 ### Step 3 — Convert Half-width → Fullwidth
 
@@ -55,7 +55,7 @@ This tab has **two independent sections**:
 
 **Example conversion:**
 
-| Half-width (❌ Wrong) | Fullwidth (✅ Correct) |
+| Half-width (Wrong) | Fullwidth ( Correct) |
 |---|---|
 | `Hello, world!` | `Ｈｅｌｌｏ，　ｗｏｒｌｄ！` |
 | `I want to fight.` | `Ｉ　ｗａｎｔ　ｔｏ　ｆｉｇｈｔ．` |
@@ -77,4 +77,3 @@ ARCHIVE WORKFLOW:
 ⑦ Replace original .p in game directory → test
 ```
 
-> ⚠️ **Never use half-width ASCII directly in script files.** Always run your translation through the Fullwidth Text Converter before saving. This is non-negotiable for this engine.
