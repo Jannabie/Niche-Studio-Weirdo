@@ -65,7 +65,7 @@ Choose your game from the dropdown at the top. This is critical — each game us
 
 After extraction, open the script files (usually `.txt` or proprietary format) and translate them.
 
-> ⚠️ **Escape Character Rule** — the N2System engine cannot parse certain punctuation directly. You must prefix them with `&` (ampersand):
+>  **Escape Character Rule** — the N2System engine cannot parse certain punctuation directly. You must prefix them with `&` (ampersand):
 >
 > | Character | How to Write |
 > |---|---|
@@ -76,8 +76,8 @@ After extraction, open the script files (usually `.txt` or proprietary format) a
 > | `…` (ellipsis) | `&…` |
 >
 > **Example:**  
-> ❌ WRONG: `I want to eat.`  
-> ✅ CORRECT: `I want to eat&.`
+>  WRONG: `I want to eat.`  
+> CORRECT: `I want to eat&.`
 
 ---
 
@@ -86,8 +86,8 @@ After extraction, open the script files (usually `.txt` or proprietary format) a
 1. Under **STEP 2 — REPACK**, click `...` next to **INPUT FOLDER** and select the extracted folder you edited.
 2. Click `...` next to **OUTPUT .NPA** and choose where to save the new archive.
 3. **Compression Option:**
-   - ✅ Enable compression only for **script/data** archives
-   - ❌ **NEVER enable compression for CG/image archives** — it will corrupt the graphics and break the game
+   -  Enable compression only for **script/data** archives
+   -  **NEVER enable compression for CG/image archives** — it will corrupt the graphics and break the game
 4. Click **Repack → .NPA**.
 5. Replace the original `.npa` in your game directory with the new one and test.
 
