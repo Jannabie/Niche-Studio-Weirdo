@@ -65,14 +65,13 @@ This tab handles both layers independently.
 
 ### Step 2 — Translate
 
-Open the `.json` files in the `script_txt` folder with a text editor. Edit the `"message"` fields with your translations.
+Open the `.json` files in the `script_extracted` folder with a text editor. Edit the `"message"` fields with your translations.
 
 **JSON format example:**
 ```json
 [
   {
-    "original": "元の日本語テキスト",
-    "message": "Your English translation here"
+    "message": "The script of the game" <- Replace with your translation.
   }
 ]
 ```
