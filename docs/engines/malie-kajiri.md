@@ -19,7 +19,7 @@
 
 This tab is a variant of the standard **Malie** engine tab, specifically tuned for **Kajiri Kamui Kagura** and related titles in the Light/Dies irae family. The archive format and script structure are handled the same way as the base Malie engine.
 
-> 💡 **Refer to the [Malie](malie.md) guide for the full detailed workflow.** The steps are identical — Decrypt Archive, Export/Patch Names (first!), Export/Patch Dialog (second!), MGF ↔ PNG, Re-encrypt Archive. This tab simply targets the correct game-specific offsets and keys for Kajiri Kamui Kagura.
+>  **Refer to the [Malie](malie.md) guide for the full detailed workflow.** The steps are identical — Decrypt Archive, Export/Patch Names (first!), Export/Patch Dialog (second!), MGF ↔ PNG, Re-encrypt Archive. This tab simply targets the correct game-specific offsets and keys for Kajiri Kamui Kagura.
 
 ---
 
@@ -32,7 +32,7 @@ This tab is a variant of the standard **Malie** engine tab, specifically tuned f
 
 ## Step 2 — Script Translation
 
-> ⚠️ **CRITICAL ORDER: Patch Names BEFORE Patch Dialog.** This rule applies here exactly as it does in the base Malie tab. Reversing the order will corrupt the script.
+>  **CRITICAL ORDER: Patch Names BEFORE Patch Dialog.** This rule applies here exactly as it does in the base Malie tab. Reversing the order will corrupt the script.
 
 1. **Export Names** → translate character names → **Patch Names** ← FIRST
 2. **Export Dialog** → translate dialogue → **Patch Dialog** ← SECOND
@@ -71,4 +71,4 @@ FINAL:
 ⑥ Replace original archive in game directory → test
 ```
 
-> ⚠️ **This tab is game-specific for Kajiri Kamui Kagura.** Do not use it for other Malie games — use the **Malie** tab instead, which supports Dies irae, Sharin no Kuni, and G-Senjou no Maou.
+
