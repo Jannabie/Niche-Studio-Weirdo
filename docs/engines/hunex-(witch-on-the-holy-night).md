@@ -91,8 +91,6 @@ Once all your translated/edited files are in place in the extracted folder:
 2. The tool assembles all files back into a new `.hfa` archive.
 3. Replace the original `.hfa` in your game directory with the new file and test.
 
-> ⚠️ **Make sure all individual file repacks (CTD / CBG / MZP) are done before repacking the HFA.** Any file still in intermediate state will not be included correctly.
-
 ---
 
 ## Full Workflow Summary
@@ -113,4 +111,3 @@ FINAL:
 ⑦ Replace original .hfa in game directory → test
 ```
 
-> 💡 **Back up the original `.hfa`** before you start. Repacking is non-destructive as long as you keep a copy of the original extracted folder.
