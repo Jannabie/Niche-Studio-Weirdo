@@ -28,7 +28,7 @@ The tool supports both **single file** and **batch folder** processing modes.
 1. At the top of the tab, choose the **Encoding** from the selector dropdown.
 2. The default is **Shift-JIS** — use this for most Japanese VN titles.
 
-> ⚠️ **Setting the wrong encoding will produce garbled text.** Always verify encoding before processing. If you are unsure, try Shift-JIS first.
+>  **Setting the wrong encoding will produce garbled text.** Always verify encoding before processing. If you are unsure, try Shift-JIS first.
 
 ---
 
@@ -56,7 +56,7 @@ Before injecting your translation, you can verify the export/import pipeline is 
 1. Click **Verify Roundtrip**.
 2. The tool re-imports the unmodified JSON and checks the output `.gsc` is byte-for-byte identical to the original.
 
-> 💡 **Always run Verify Roundtrip on at least one file** before committing to a full translation. If it fails, there may be an encoding mismatch or unsupported opcode.
+>  **Always run Verify Roundtrip on at least one file** before committing to a full translation. If it fails, there may be an encoding mismatch or unsupported opcode.
 
 ---
 
@@ -79,4 +79,3 @@ Before injecting your translation, you can verify the export/import pipeline is 
 ⑥ Replace original .gsc files in game directory → test
 ```
 
-> ⚠️ **Do not change the JSON key/structure.** Only edit the string values. Changing keys or removing entries will cause import errors.
