@@ -30,7 +30,7 @@ This tab has **two independent sections**:
 
 1. Under **ARCHIVE**, click **Browse** next to **KEY FILE (.PFT)** and select the `.pft` file from your game directory.
 
-> ⚠️ **The `.pft` key file is mandatory.** Without it the `.dsk` archive cannot be decrypted. Do not skip this step.
+>  **The `.pft` key file is mandatory.** Without it the `.dsk` archive cannot be decrypted. Do not skip this step.
 
 ### Step 2 — Select the Archive (.dsk)
 
@@ -83,4 +83,3 @@ SCRIPT WORKFLOW:
 ⑥ Replace original .scf in game data → test
 ```
 
-> 💡 **Always back up your original `.dsk` and `.scf` files** before replacing them with modified versions.
