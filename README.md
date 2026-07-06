@@ -23,7 +23,7 @@ A centralized WPF toolset for reverse-engineering and translating Japanese visua
 | HuneX (Tsukihime) | Tsukihime Remake | [ Guide](docs/engines/hunex-(tsukihime).md) |
 | HuneX (Witch on The Holy Night) | Mahoyo Remastered | [ Guide](docs/engines/hunex-(witch-on-the-holy-night).md) |
 | Leaf | White Album 2, etc | [ Guide](docs/engines/leaf.md) |
-| Luca System | LOOPERS, Summer Pockets, Kanon, etc | [ Guide](docs/engines/luca-system.md) |
+| Luca System | LOOPERS, Little Busters, etc | [ Guide](docs/engines/luca-system.md) |
 | Malie |  Dies irae, etc | [Guide](docs/engines/malie.md) |
 | Malie Kajiri | Kajiri Kamui Kagura | [ Guide](docs/engines/malie-kajiri.md) |
 | Minato (New) | Waga Himegimi ni Eikan o, etc | [ Guide](docs/engines/minato-(new).md) |
