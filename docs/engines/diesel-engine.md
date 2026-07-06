@@ -28,7 +28,7 @@
 | 15 | Togainu no Chi –Lost Blood– (Jast USA) | PC |
 | 16 | Togainu no Chi –Lost Blood– (Steam) | PC |
 
-> ⚠️ **Always select the correct game profile first.** Each Nitroplus game uses a different encryption key for its NPK archives. A wrong profile will produce a corrupt extraction.
+>  **Always select the correct game profile first.** Each Nitroplus game uses a different encryption key for its NPK archives. A wrong profile will produce a corrupt extraction.
 
 ---
 
@@ -91,4 +91,4 @@ Each `.nut` file is compiled Squirrel bytecode containing the dialogue and UI st
 ⑧ Replace the original .npk in your game directory → test
 ```
 
-> 💡 **Always back up your original `.npk` files** before replacing them in the game directory!
+> **Always back up your original `.npk` files** before replacing them in the game directory!
