@@ -31,7 +31,7 @@ Before performing any operations, set the correct encryption parameters:
 | **Script Hex Key** | `0x3793B711` | Script-level decryption key |
 | **Zlib Compression Level** | `6` (0–9) | 0 = no compression, 9 = maximum |
 
-> ⚠️ **Using the wrong key will produce a garbled or empty extraction.** If the defaults do not work for your specific game build, check your game's documentation or community resources for the correct keys.
+>  **Using the wrong key will produce a garbled or empty extraction.** If the defaults do not work for your specific game build, check your game's documentation or community resources for the correct keys.
 
 ---
 
@@ -94,4 +94,3 @@ FINAL:
 ⑩ Replace original .dat in game directory → test
 ```
 
-> 💡 **Keep both default keys as-is** unless you have specific reason to change them — they work for all currently supported games.
