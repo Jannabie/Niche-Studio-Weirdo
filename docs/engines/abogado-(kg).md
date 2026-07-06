@@ -18,7 +18,7 @@
 
 The Abogado SDK engine uses a proprietary `.kg` image format for its CG and sprite resources. This tab provides a **one-way conversion** from `.kg` to standard `.png` for editing or translation purposes (e.g., image-based text).
 
-> 💡 This is a **one-way conversion** — there is no `.kg` repacking step. Once images are converted to `.png`, you work with the `.png` files directly (e.g., via a patch or loose-file replacement mechanism).
+>  This is a **one-way conversion** — there is no `.kg` repacking step. Once images are converted to `.png`, you work with the `.png` files directly (e.g., via a patch or loose-file replacement mechanism).
 
 ---
 
@@ -26,7 +26,7 @@ The Abogado SDK engine uses a proprietary `.kg` image format for its CG and spri
 
 1. Click **Browse** next to **INPUT FOLDER** and select the folder containing your `.kg` image files.
 
-> ⚠️ **The input folder must contain `.kg` files directly.** Subfolders are not recursively searched, so make sure you point to the correct directory.
+>  **The input folder must contain `.kg` files directly.** Subfolders are not recursively searched, so make sure you point to the correct directory.
 
 ---
 
@@ -54,4 +54,3 @@ The Abogado SDK engine uses a proprietary `.kg` image format for its CG and spri
 ⑤ Use the patched .png files in your patch/release build
 ```
 
-> 💡 **No repack needed.** Work directly with the `.png` output — check your game's patch format for how to include them in a release.
