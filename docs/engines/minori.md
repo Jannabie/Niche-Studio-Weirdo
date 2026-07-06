@@ -17,7 +17,7 @@
 | 10 | Mashiro-iro Symphony -The color of lovers- (JP) | Japanese version |
 | — | Supipara | See community resources for index |
 
-> ⚠️ **Selecting the wrong Game Index is the most common mistake with this engine.** Each game uses a different `.paz` encryption key tied to its Game Index. A wrong selection will produce empty or corrupted output.
+>  **Selecting the wrong Game Index is the most common mistake with this engine.** Each game uses a different `.paz` encryption key tied to its Game Index. A wrong selection will produce empty or corrupted output.
 
 ---
 
@@ -32,7 +32,7 @@ The Minori engine stores all game resources — scripts, CG, audio — inside en
 1. At the top of the tab, choose your game from the **GAME INDEX** dropdown.
 2. Use the table above to find the correct index number for your game and version.
 
-> 💡 **The Game Index is tied to both the game AND its version (JP vs EN, retail vs Steam).** Make sure to select the index that matches your exact copy of the game.
+>  **The Game Index is tied to both the game AND its version (JP vs EN, retail vs Steam).** Make sure to select the index that matches your exact copy of the game.
 
 ---
 
@@ -76,4 +76,3 @@ The Minori engine stores all game resources — scripts, CG, audio — inside en
 ⑦ Replace original .paz in game directory → test
 ```
 
-> ⚠️ **Always double-check your Game Index before unpacking or repacking.** Packing with a different index than the one used to unpack will produce an archive the game cannot read.
