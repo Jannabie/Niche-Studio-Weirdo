@@ -27,7 +27,6 @@ This tab also supports **building a Steam-compatible patch** from your translate
 1. Click **Browse** next to **DECRYPT KEY FILE** and select `decryptKey.bin` from your game directory.
 2. Click **Browse** next to **GAME EXE** and select the game's main `.exe` file.
 
-> ⚠️ **Both the key file AND the game `.exe` are required.** The `.exe` provides half of the encryption material. If either is missing or wrong, decryption will fail.
 
 ---
 
@@ -59,7 +58,6 @@ This tab also supports **building a Steam-compatible patch** from your translate
 2. A Steam-compatible patch file is assembled from your translated `.epk` data.
 3. Deploy the patch file according to your release process.
 
-> 💡 **The Build Patch step is Steam-specific.** If you are distributing outside of Steam, consult your release workflow — the raw translated `.epk` output from Step 4 may be sufficient.
 
 ---
 
@@ -75,4 +73,3 @@ This tab also supports **building a Steam-compatible patch** from your translate
 ⑦ Deploy patch → test in-game
 ```
 
-> ⚠️ **Back up your original `.epk` and `decryptKey.bin`** before any operations — both are needed for every future decryption run.
