@@ -64,11 +64,3 @@ Want to add support for a new engine or fix a bug? Here's how:
 3. Add your engine view in `Views/`, your backend logic in `Utils/`, and any tools in `Utility/`.
 4. Register your new tab in `MainWindow.xaml` and `MainWindow.xaml.cs`.
 5. Open a **Pull Request** describing what engine you added and which games it supports.
-
----
-
-##  License
-
-The Niche Studio Weirdo frontend code (C# / WPF) is licensed under the **MIT License**.
-Each tool in `Utility/` retains its own original license — see the individual `README.md`
-or `LICENSE` files within each subdirectory.
