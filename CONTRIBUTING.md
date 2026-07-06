@@ -13,6 +13,7 @@ author(s) and license. Please respect each project's own license before redistri
 
 | Utility Folder | Tool Name | Used For | Author / Source |
 |---|---|---|---|
+| `(Built-in)` | **Abogado Tools** | Extracting & repacking Abogado `.dsk`, `.scf`, `.kg` | Custom C# implementation |
 | `Utility/Alicesoft/` | **alice-tools** | Extracting & editing AliceSoft engine archives (ALD, AFA, ALD files) | [nunuhara](https://github.com/nunuhara/alice-tools) |
 | `Utility/Buriko/` | **BGI Translator** | Unpacking & repacking Ethornell/BGI `.arc` script archives | Custom Python tool (bundled) |
 | `Utility/CodeXR/` | **codeX RScript Extractor** | Reading & repacking `.gsc` script files (Liar-Soft's codeX engine) | Custom Python tool (bundled) |
