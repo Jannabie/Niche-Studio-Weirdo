@@ -43,7 +43,7 @@ This tab handles all four layers.
 2. The tool recompiles the text dump back into a valid `.ain` binary.
 3. Replace the original `.ain` in your game directory with the rebuilt file and test.
 
-> ⚠️ **Do not alter the structure of the AIN dump.** Only change the content of dialogue/string fields. Modifying opcodes or metadata will corrupt the script.
+>  **Do not alter the structure of the AIN dump.** Only change the content of dialogue/string fields. Modifying opcodes or metadata will corrupt the script.
 
 ---
 
@@ -122,4 +122,3 @@ CG IMAGE WORKFLOW:
 ④ Place new .cg into extracted folder, then repack archive
 ```
 
-> 💡 **Always back up original `.ain`, `.ex`, and archive files** before replacing them.
