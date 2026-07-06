@@ -45,8 +45,6 @@ This tab has **three independent sections**:
 
 ## Section B — Script Translation (Names & Dialog)
 
-> ⚠️ **CRITICAL ORDER — Patch Names BEFORE Patch Dialog.** Always patch character names first, then dialog. Patching dialog first will cause name/dialog misalignment and corrupt the script output.
-
 ### Step 3 — Export Names
 
 1. Under **SCRIPT**, click **Export Names**.
@@ -63,8 +61,6 @@ This tab has **three independent sections**:
 
 1. Click **Patch Names**.
 2. Your translated character names are injected into the script data.
-
-> ⚠️ **Patch Names must happen before Patch Dialog.** The dialog patching step references the name data that was just written. Reversing this order causes corruption.
 
 ### Step 6 — Patch Dialog (SECOND!)
 
@@ -107,4 +103,3 @@ FINAL:
 ⑥ Replace original archive in game directory → test
 ```
 
-> ⚠️ **Patch Names BEFORE Patch Dialog — every time.** This is the single most critical rule for Malie. Violating the order will silently corrupt the script.
