@@ -219,7 +219,7 @@ namespace NicheStudioWeirdo.Utils
 
             // Gather files
             var allFiles = Directory.GetFiles(packRoot, "*", SearchOption.AllDirectories)
-                                    .Where(f => !f.Contains("script_txt"))
+                                    .Where(f => !f.Contains("script_extracted"))
                                     .ToArray();
 
             // Build entries — sort by name hash (engine uses binary search)

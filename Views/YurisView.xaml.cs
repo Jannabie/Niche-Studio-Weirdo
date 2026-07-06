@@ -142,8 +142,8 @@ namespace NicheStudioWeirdo.Views
                     return;
                 }
 
-                // Always wipe script_txt first so old .txt files don't contaminate output
-                string textDir = Path.Combine(folder, "script_txt");
+                // Always wipe script_extracted first so old .txt files don't contaminate output
+                string textDir = Path.Combine(folder, "script_extracted");
                 if (Directory.Exists(textDir))
                     Directory.Delete(textDir, true);
                 Directory.CreateDirectory(textDir);
@@ -169,7 +169,7 @@ namespace NicheStudioWeirdo.Views
                 });
 
                 int jsonCount = Directory.GetFiles(textDir, "*.json").Length;
-                AppendLog($"✓ Done — {jsonCount} JSON files in 'script_txt'.");
+                AppendLog($"✓ Done — {jsonCount} JSON files in 'script_extracted'.");
                 MessageBox.Show(
                     $"Extraction complete!\n\n{jsonCount} JSON files created in:\n{textDir}\n\nEdit the \"message\" values, then click Insert Text.",
                     "Done", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -191,10 +191,10 @@ namespace NicheStudioWeirdo.Views
                 return;
             }
 
-            string textDir = Path.Combine(folder, "script_txt");
+            string textDir = Path.Combine(folder, "script_extracted");
             if (!Directory.Exists(textDir))
             {
-                Msg("No 'script_txt' folder found. Run Extract Text first.", "Error");
+                Msg("No 'script_extracted' folder found. Run Extract Text first.", "Error");
                 return;
             }
 

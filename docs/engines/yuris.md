@@ -60,7 +60,7 @@ This tab handles both layers independently.
 1. Under **YBN SCRIPT — ONE-CLICK WORKFLOW**, click **Browse** and select the **folder** containing all your `.ybn` files (typically the `script` subfolder inside your extracted YPF folder).
 2. Click **Decrypt & Extract Text**.
 3. The tool runs VNTextPatch on each `.ybn` file one by one.
-4. JSON files are saved inside a `script_txt` subfolder within your selected folder.
+4. JSON files are saved inside a `script_extracted` subfolder within your selected folder.
 5. **Only `.ybn` files that contain dialogue** will produce a corresponding `.json` file. This is expected behavior.
 
 ### Step 2 — Translate
@@ -98,7 +98,7 @@ Open the `.json` files in the `script_extracted` folder with a text editor. Edit
 ```
 ① Extract YPF archive → extracted folder
 ② Open the "script" subfolder (or wherever .ybn files are)
-③ Decrypt & Extract Text → JSON files appear in script_txt/
+③ Decrypt & Extract Text → JSON files appear in script_extracted/
 ④ Translate the "message" fields in the JSON files
 ⑤ Insert Text & Encrypt → translated .ybn files appear in script_patched/
 ⑥ Replace original .ybn files with the ones from script_patched/
