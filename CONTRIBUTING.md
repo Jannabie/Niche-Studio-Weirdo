@@ -55,7 +55,7 @@ These projects and their contributors made this toolkit possible:
 
 ---
 
-## 📝 Contributing to This Project
+##  Contributing to This Project
 
 Want to add support for a new engine or fix a bug? Here's how:
 
@@ -64,8 +64,6 @@ Want to add support for a new engine or fix a bug? Here's how:
 3. Add your engine view in `Views/`, your backend logic in `Utils/`, and any tools in `Utility/`.
 4. Register your new tab in `MainWindow.xaml` and `MainWindow.xaml.cs`.
 5. Open a **Pull Request** describing what engine you added and which games it supports.
-
-> If you're bundling a third-party tool, please add its attribution to this file.
 
 ---
 
