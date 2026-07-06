@@ -106,4 +106,4 @@ Open the `.json` files in the `script_extracted` folder with a text editor. Edit
 ⑧ Launch game and test
 ```
 
-> 💡 **Tip:** Try the loose-file method (Step 7, no repack) first — it's faster and easier to iterate on.
+>  **Tip:** Try the loose-file method (Step 7, no repack) first — it's faster and easier to iterate on.
