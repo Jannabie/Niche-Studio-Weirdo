@@ -9,7 +9,7 @@ A centralized WPF toolset for reverse-engineering and translating Japanese visua
 
 ---
 ## Supported Engines
-> **Update:** Alicesoft Engine support added.
+> **Update:** Diesel, NS2System, Luca System, YU-RIS.
 
 | Tab Name | Games | Docs |
 |---|---|---|
