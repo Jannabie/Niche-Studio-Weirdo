@@ -38,7 +38,7 @@ This tab handles both layers independently.
 2. Select the `.ypf` archive from your game directory.
 3. Click **Extract YPF**. The contents are extracted into a folder next to the `.ypf` file.
 
-> 📖 **IMPORTANT NOTE:** Many YU-RIS games prioritize loading **loose files** over the packed archive. You might not need to repack at all — just put the extracted folder in the game directory and the game will load from it directly. Try this first before repacking!
+>  **IMPORTANT NOTE:** Many YU-RIS games prioritize loading **loose files** over the packed archive. You might not need to repack at all — just put the extracted folder in the game directory and the game will load from it directly. Try this first before repacking!
 
 ### Repack Folder → .YPF
 
@@ -53,7 +53,7 @@ This tab handles both layers independently.
 
 `.ybn` files are binary-compiled scripts that contain dialogue and event logic. They need to be decrypted and extracted to JSON for translation, then injected back.
 
-> 📖 **IMPORTANT NOTE:** Not all `.ybn` files contain dialogue. Many files are pure system code/logic. If you have 300+ `.ybn` files but only ~150 produce JSON output, **that is completely normal**. Only files with dialogue strings will generate JSON.
+>  **IMPORTANT NOTE:** Not all `.ybn` files contain dialogue. Many files are pure system code/logic. If you have 300+ `.ybn` files but only ~150 produce JSON output, **that is completely normal**. Only files with dialogue strings will generate JSON.
 
 ### Step 1 — Decrypt & Extract Text
 
