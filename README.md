@@ -30,7 +30,7 @@ A centralized WPF toolset for reverse-engineering and translating Japanese visua
 | Minato (Old) | Majikoi series, etc | [ Guide](docs/engines/minato-(old).md) |
 | Minori | ef series, eden*, etc | [ Guide](docs/engines/minori.md) |
 | N2System | Django, Saya no Uta, etc | [ Guide](docs/engines/n2system.md) |
-| TYPE-MOON | Melty Blood, etc | [ Guide](docs/engines/type-moon.md) |
+| TYPE-MOON | Melty Blood 2002, etc | [ Guide](docs/engines/type-moon.md) |
 | YOX | Musicus!, etc | [ Guide](docs/engines/yox.md) |
 | YU-RIS | Maggot Baits, Erewhon, etc | [ Guide](docs/engines/yuris.md) |
 
