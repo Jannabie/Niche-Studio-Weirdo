@@ -1,24 +1,74 @@
-Editing Kajiri Kamui Kagura files
----------------------------------
+# Malie Engine (Kajiri Kamui Kagura / Dies irae Variant)
 
-This toolchain is exclusively designed for Kajiri Kamui Kagura (KKK) and the Malie engine variant used in Dies irae.
+**Tab Name:** Malie (Kajiri)  
+**Powered by:** FreeMalie Tools (bundled)  
+**File Formats:** `.dat`, `.lib` (archives), `.mgf` (images)
 
-Installing the Translation Layout Patch
----------------------------------------
+---
 
-Japanese versions of the game utilize vertical text boxes. To properly render translated alphanumeric text from left to right, you must install a layout patch.
+## Supported Games
 
-1. Select the root directory of the game.
-2. Select **Horizontal ADV** (standard) or **Vertical ADV** (original).
-3. Click **Install Base Patch**. This only needs to be executed once per installation.
+| Game | Notes |
+|---|---|
+| Kajiri Kamui Kagura | Malie engine variant — use this tab specifically |
+| Dies irae ~Also sprach Zarathustra~ | Use the **Malie** tab for the standard Dies irae version |
 
-Building the Translation
-------------------------
+---
 
-Once you have prepared your translated scripts, follow the strict 3-step compilation pipeline:
+## Overview
 
-1. **Wordwrap (Optional):** Execute this step to automatically wrap long dialogue lines within your `dependencies/` folder to prevent text from rendering outside the message window.
-2. **Compile Script:** Execute this step to invoke `Malie_Script_Tool.exe`. This will compile your raw text into the engine's required `exec.dat` binary format.
-3. **Pack data6.dat:** Execute this step to pack the compiled data into the final `data6.dat` archive. 
+This tab is a variant of the standard **Malie** engine tab, specifically tuned for **Kajiri Kamui Kagura** and related titles in the Light/Dies irae family. The archive format and script structure are handled the same way as the base Malie engine.
 
-Once `data6.dat` is generated, place it in your game's data directory.
+> 💡 **Refer to the [Malie](malie.md) guide for the full detailed workflow.** The steps are identical — Decrypt Archive, Export/Patch Names (first!), Export/Patch Dialog (second!), MGF ↔ PNG, Re-encrypt Archive. This tab simply targets the correct game-specific offsets and keys for Kajiri Kamui Kagura.
+
+---
+
+## Step 1 — Decrypt Archive
+
+1. Click **Browse** next to **INPUT ARCHIVE** and select your `.dat` or `.lib` file from the Kajiri Kamui Kagura game directory.
+2. Click **Decrypt Archive** to extract the contents.
+
+---
+
+## Step 2 — Script Translation
+
+> ⚠️ **CRITICAL ORDER: Patch Names BEFORE Patch Dialog.** This rule applies here exactly as it does in the base Malie tab. Reversing the order will corrupt the script.
+
+1. **Export Names** → translate character names → **Patch Names** ← FIRST
+2. **Export Dialog** → translate dialogue → **Patch Dialog** ← SECOND
+
+---
+
+## Step 3 — Image Conversion (MGF ↔ PNG)
+
+1. Use **MGF → PNG** to convert images for editing.
+2. After editing, use **PNG → MGF** to convert back.
+3. Place modified `.mgf` files back into the extracted folder before re-encrypting.
+
+---
+
+## Step 4 — Re-encrypt Archive
+
+1. Click **Re-encrypt Archive** to pack all modified files back.
+2. Replace the original archive in your game directory and test.
+
+---
+
+## Full Workflow Summary
+
+```
+① Decrypt Archive → contents extracted
+
+SCRIPT (in this exact order!):
+② Export Names → translate → Patch Names  ← FIRST
+③ Export Dialog → translate → Patch Dialog ← SECOND
+
+IMAGES (as needed):
+④ MGF → PNG → edit → PNG → MGF → place back in folder
+
+FINAL:
+⑤ Re-encrypt Archive → new .dat/.lib
+⑥ Replace original archive in game directory → test
+```
+
+> ⚠️ **This tab is game-specific for Kajiri Kamui Kagura.** Do not use it for other Malie games — use the **Malie** tab instead, which supports Dies irae, Sharin no Kuni, and G-Senjou no Maou.

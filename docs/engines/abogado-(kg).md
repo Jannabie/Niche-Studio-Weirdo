@@ -1,21 +1,57 @@
-Editing Abogado KG image files
-------------------------------
+# Abogado SDK (KG Image)
 
-The Abogado engine uses a proprietary `.kg` image format. To edit these images, you must first convert them to a standard format.
+**Tab Name:** Abogado (KG)  
+**Powered by:** Abogado SDK Tools (bundled)  
+**File Formats:** `.kg` (proprietary image format)
 
-Converting to PNG
------------------
+---
 
-Use the **KG → PNG** tool to decode the image:
-1. Select the `.kg` file you wish to edit.
-2. Click **KG → PNG** to generate a standard PNG file.
-3. Edit the resulting `.png` file using your preferred image editor.
+## Supported Games
 
-Rebuilding KG files
--------------------
+| Game | Notes |
+|---|---|
+| Shuumatsu no Sugoshikata | Image resources only — use **Abogado (DSK)** tab for archive/script |
 
-Once you've finished editing the PNG, you must convert it back to the `.kg` format for the game engine to read it:
+---
 
-1. Select your modified `.png` file.
-2. Provide the original `.kg` file in the tool. This step is critical, as the tool relies on the original file to accurately preserve the encoding metadata and color depth.
-3. Click **PNG → KG** to generate the final image file.
+## Overview
+
+The Abogado SDK engine uses a proprietary `.kg` image format for its CG and sprite resources. This tab provides a **one-way conversion** from `.kg` to standard `.png` for editing or translation purposes (e.g., image-based text).
+
+> 💡 This is a **one-way conversion** — there is no `.kg` repacking step. Once images are converted to `.png`, you work with the `.png` files directly (e.g., via a patch or loose-file replacement mechanism).
+
+---
+
+## Step 1 — Select Input Folder
+
+1. Click **Browse** next to **INPUT FOLDER** and select the folder containing your `.kg` image files.
+
+> ⚠️ **The input folder must contain `.kg` files directly.** Subfolders are not recursively searched, so make sure you point to the correct directory.
+
+---
+
+## Step 2 — Select Output Folder
+
+1. Click **Browse** next to **OUTPUT FOLDER** and select an empty folder where the converted `.png` files will be saved.
+
+---
+
+## Step 3 — Convert KG → PNG
+
+1. Click **Convert KG → PNG**.
+2. The tool processes every `.kg` file in the input folder and saves a corresponding `.png` file to the output folder.
+3. Open the converted images in Photoshop, GIMP, or any image editor for your translation work.
+
+---
+
+## Full Workflow Summary
+
+```
+① Browse INPUT FOLDER (folder containing .kg files)
+② Browse OUTPUT FOLDER (empty destination folder)
+③ Click Convert KG → PNG
+④ Edit the resulting .png files in your image editor
+⑤ Use the patched .png files in your patch/release build
+```
+
+> 💡 **No repack needed.** Work directly with the `.png` output — check your game's patch format for how to include them in a release.

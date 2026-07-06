@@ -1,32 +1,125 @@
-Editing Alicesoft files
------------------------
+# AliceSoft Engine
 
-The Alicesoft engine (used in the Rance series and Evenicle) utilizes several distinct file formats for its scripts, databases, and assets.
+**Tab Name:** AliceSoft  
+**Powered by:** AliceSoft SDK Tools (bundled)  
+**File Formats:** `.ain` (scripts), `.afa` / `.ald` (archives), `.cg` (images), `.ex` (databases)
 
-Editing .ain script files
--------------------------
+---
 
-Story logic and text are stored in `.ain` files. To extract the text:
+## Supported Games
 
-1. Use the AIN tool to dump the script. This will generate a text file containing all translatable strings.
-2. Translate the text. The tool automatically supports an "uncomment" feature, allowing you to easily strip `;m[` or `;s[` prefixes to streamline translation.
-3. Rebuild the edited text file back into a new `.ain` file.
+| Game | Notes |
+|---|---|
+| Rance series | Various titles; use correct game version |
+| Evenicle | `.afa` archives, `.ain` scripts |
+| Other AliceSoft titles | `.ald` archives on older games |
 
-Editing .ex database files
---------------------------
+---
 
-Database entries are stored in `.ex` files.
+## Overview
 
-1. Dump the `.ex` file to generate a readable `.x` structure file.
-2. Edit the generated file. Note that `.ex` files cannot be modified directly; they must be parsed and rebuilt.
-3. Rebuild the modified `.x` file back into an `.ex` file.
+The AliceSoft engine is a long-running proprietary engine used across many of AliceSoft's titles. It has four distinct resource layers, each handled independently:
 
-Managing .afa and .ald archives
--------------------------------
+- **AIN** — compiled game scripts (bytecode)
+- **EX** — game databases (items, flags, variables)
+- **AFA / ALD** — resource archives (CG, sound, data)
+- **CG** — proprietary image format
 
-Assets and media are packaged into `.afa` and `.ald` archives. You can unpack these archives to a directory, modify the contents, and repack them using the archive tool.
+This tab handles all four layers.
 
-Editing .cg images
-------------------
+---
 
-For images, the engine uses the `.cg` format. You can convert `.cg` files to `.png` for editing in standard image editors, and then encode them back to `.cg` before repacking the archive.
+## Section A — AIN Script (Dump & Rebuild)
+
+### Step 1 — Dump .AIN → Text
+
+1. Under **AIN SCRIPT**, click **Browse** next to **INPUT .AIN** and select the compiled script file (e.g. `System40.ain`, `AliceStart.ain`).
+2. Click **Dump AIN**.
+3. A human-readable text dump is saved next to the `.ain` file. Open and translate the dialogue strings.
+
+### Step 2 — Rebuild .AIN from Text
+
+1. After translating, click **Rebuild AIN**.
+2. The tool recompiles the text dump back into a valid `.ain` binary.
+3. Replace the original `.ain` in your game directory with the rebuilt file and test.
+
+> ⚠️ **Do not alter the structure of the AIN dump.** Only change the content of dialogue/string fields. Modifying opcodes or metadata will corrupt the script.
+
+---
+
+## Section B — EX Database (Dump & Rebuild)
+
+### Step 3 — Dump .EX → Text
+
+1. Under **EX DATABASE**, click **Browse** next to **INPUT .EX** and select the database file.
+2. Click **Dump EX**.
+3. A text export is generated. Translate any localizable strings (item names, descriptions, etc.).
+
+### Step 4 — Rebuild .EX from Text
+
+1. Click **Rebuild EX** to recompile the translated text back into a `.ex` binary.
+2. Replace the original `.ex` in your game directory.
+
+---
+
+## Section C — AFA / ALD Archive (Unpack & Repack)
+
+### Step 5 — Unpack Archive
+
+1. Under **AFA / ALD ARCHIVE**, click **Browse** next to **INPUT ARCHIVE** and select the `.afa` or `.ald` file.
+2. Click **Browse** next to **OUTPUT FOLDER** and choose an empty destination folder.
+3. Click **Unpack**. All resources are extracted to the output folder.
+
+### Step 6 — Repack Archive
+
+1. After modifying the extracted files, click **Browse** next to **INPUT FOLDER** and select the folder containing your modified files.
+2. Click **Repack**. A new `.afa` or `.ald` archive is produced.
+3. Replace the original archive in your game directory.
+
+---
+
+## Section D — CG Image (Convert & Rebuild)
+
+### Step 7 — CG → PNG
+
+1. Under **CG IMAGE**, click **Browse** next to **INPUT .CG** and select an image file.
+2. Click **CG → PNG**. A `.png` is saved next to the original.
+3. Edit the image in your preferred image editor.
+
+### Step 8 — PNG → CG
+
+1. Click **Browse** next to **MODIFIED .PNG** and select your edited image.
+2. Click **PNG → CG** to convert back to the proprietary format.
+3. Replace the original `.cg` in your extracted archive folder, then repack.
+
+---
+
+## Full Workflow Summary
+
+```
+AIN SCRIPT WORKFLOW:
+① Dump AIN → text file
+② Translate dialogue strings
+③ Rebuild AIN → new .ain binary
+④ Replace .ain in game directory → test
+
+EX DATABASE WORKFLOW:
+① Dump EX → text file
+② Translate item/flag strings
+③ Rebuild EX → new .ex binary
+④ Replace .ex in game directory → test
+
+ARCHIVE WORKFLOW:
+① Unpack AFA/ALD → output folder
+② Modify files inside (translate CG, replace audio, etc.)
+③ Repack → new archive
+④ Replace original archive in game directory → test
+
+CG IMAGE WORKFLOW:
+① CG → PNG (convert for editing)
+② Edit the PNG in your image editor
+③ PNG → CG (convert back)
+④ Place new .cg into extracted folder, then repack archive
+```
+
+> 💡 **Always back up original `.ain`, `.ex`, and archive files** before replacing them.
