@@ -103,4 +103,3 @@ After extraction, open the script files (usually `.txt` or proprietary format) a
 ⑤ Replace the original .npa in your game directory → test
 ```
 
-> 💡 **Important:** Do NOT compress CG/image folders when repacking — only use compression for script/data `.npa` files.
