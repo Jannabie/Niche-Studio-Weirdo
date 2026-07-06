@@ -66,7 +66,7 @@ This tab has **two independent sections**:
 
 1. Choose the correct **Repack Mode** from the dropdown menu.
 
-> ⚠️ **The Repack Mode must match your target game version exactly.** Different Majikoi releases (Majikoi, Majikoi S, etc.) use different SEG block formats. Using the wrong mode will produce a broken script.
+>  **The Repack Mode must match your target game version exactly.** Different Majikoi releases (Majikoi, Majikoi S, etc.) use different SEG block formats. Using the wrong mode will produce a broken script.
 
 ### Step 8 — Repack SEG
 
@@ -96,4 +96,3 @@ FINAL:
 ⑩ Replace original .pac in game directory → test
 ```
 
-> ⚠️ **Repack Mode selection is critical.** If your game crashes or shows garbled text after repacking, the first thing to check is whether you selected the correct Repack Mode for your game version.
