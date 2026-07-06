@@ -56,8 +56,6 @@ Before injecting your translation, you can verify the export/import pipeline is 
 1. Click **Verify Roundtrip**.
 2. The tool re-imports the unmodified JSON and checks the output `.gsc` is byte-for-byte identical to the original.
 
->  **Always run Verify Roundtrip on at least one file** before committing to a full translation. If it fails, there may be an encoding mismatch or unsupported opcode.
-
 ---
 
 ## Step 5 — Import JSON → GSC
