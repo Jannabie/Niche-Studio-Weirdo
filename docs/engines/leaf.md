@@ -18,7 +18,7 @@
 
 The Leaf engine uses KCAP-format `.pak` archives to store all game resources. Filenames inside the archive are encoded in Shift-JIS. The tool correctly handles Shift-JIS filename preservation during extraction and repacking.
 
-> ⚠️ **CRITICAL — Clean Workspace Required Before Repacking:** Any extra files present in the workspace folder at repack time will be bundled into the new archive. Always start with a clean, empty workspace folder — or verify that it contains only the files you intend to include.
+>  **CRITICAL — Clean Workspace Required Before Repacking:** Any extra files present in the workspace folder at repack time will be bundled into the new archive. Always start with a clean, empty workspace folder — or verify that it contains only the files you intend to include.
 
 ---
 
@@ -26,7 +26,7 @@ The Leaf engine uses KCAP-format `.pak` archives to store all game resources. Fi
 
 1. Click **Browse** next to **WORKSPACE DIRECTORY** and select an **empty** folder to use as your working area.
 
-> ⚠️ **The workspace must be empty before repacking.** If it contains leftover files from a previous session, those files will be accidentally included in your new archive.
+>  **The workspace must be empty before repacking.** If it contains leftover files from a previous session, those files will be accidentally included in your new archive.
 
 ---
 
@@ -42,7 +42,7 @@ The Leaf engine uses KCAP-format `.pak` archives to store all game resources. Fi
 2. All files are extracted into the workspace directory, preserving Shift-JIS filenames correctly.
 3. Open the extracted files, make your translation edits, and save.
 
-> 💡 **Shift-JIS filenames** will display correctly if your system has Japanese locale set. If filenames appear as question marks or boxes, set your system locale to Japanese (or use a Unicode-aware file manager) before working with them.
+>  **Shift-JIS filenames** will display correctly if your system has Japanese locale set. If filenames appear as question marks or boxes, set your system locale to Japanese (or use a Unicode-aware file manager) before working with them.
 
 ---
 
@@ -67,4 +67,4 @@ The Leaf engine uses KCAP-format `.pak` archives to store all game resources. Fi
 ⑦ Replace original .pak in game directory → test
 ```
 
-> ⚠️ **Extra files in the workspace = extra files in the archive.** This is the most common mistake with this engine — always double-check your workspace contents before repacking.
+>  **Extra files in the workspace = extra files in the archive.** This is the most common mistake with this engine — always double-check your workspace contents before repacking.
