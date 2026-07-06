@@ -6,7 +6,7 @@ VN modding & translation community. This project wouldn't exist without them.
 
 ---
 
-## 🛠️ Bundled Third-Party Tools
+##  Bundled Third-Party Tools
 
 The table below lists every external tool that ships inside `Utility/` along with its original
 author(s) and license. Please respect each project's own license before redistributing.
@@ -42,7 +42,7 @@ author(s) and license. Please respect each project's own license before redistri
 
 ---
 
-## 🙏 Special Thanks
+## Special Thanks
 
 These projects and their contributors made this toolkit possible:
 
@@ -69,7 +69,7 @@ Want to add support for a new engine or fix a bug? Here's how:
 
 ---
 
-## ⚖️ License
+##  License
 
 The Niche Studio Weirdo frontend code (C# / WPF) is licensed under the **MIT License**.
 Each tool in `Utility/` retains its own original license — see the individual `README.md`
