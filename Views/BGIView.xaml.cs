@@ -43,11 +43,19 @@ namespace NicheStudioWeirdo.Views
             if (string.IsNullOrWhiteSpace(ArcFileTxt.Text) || ArcFileTxt.Text.StartsWith("Select ") ||
                 string.IsNullOrWhiteSpace(ArcFolderTxt.Text) || ArcFolderTxt.Text.StartsWith("Select "))
             {
-                GetMain().LogToConsole("BGI [Error]: Select both the target folder and the output .arc file.");
+                GetMain().LogToConsole("BGI [Error]: Select both the target folder and the original .arc file.");
                 return;
             }
+
+            var d = new SaveFileDialog {
+                Filter = "BGI Archives (*.arc)|*.arc|All Files (*.*)|*.*",
+                FileName = Path.GetFileNameWithoutExtension(ArcFileTxt.Text) + "_new.arc",
+                InitialDirectory = Path.GetDirectoryName(ArcFileTxt.Text)
+            };
+            if (d.ShowDialog() != true) return;
+
             string scriptPath = Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Buriko", "bgiarc.py");
-            string cmd = $"\"{scriptPath}\" repack \"{ArcFolderTxt.Text}\" \"{ArcFileTxt.Text}\"";
+            string cmd = $"\"{scriptPath}\" repack \"{ArcFolderTxt.Text}\" \"{d.FileName}\"";
             await ToolRunner.RunAsync(Path.GetDirectoryName(scriptPath), "python", cmd, GetMain());
         }
 

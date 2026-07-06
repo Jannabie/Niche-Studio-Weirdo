@@ -22,6 +22,7 @@ namespace NicheStudioWeirdo.Views
         }
 
         private string GetEncoding() => ((ComboBoxItem)EncodingCombo.SelectedItem).Content.ToString().Contains("UTF") ? "utf-8" : "shift-jis";
+        private string GetFormat() => FormatCombo.SelectedIndex == 0 ? "json" : "txt";
 
         private string GetScriptPath() => Path.Combine(Utils.UtilityResolver.GetToolPath(""), "CodeXR", "gsc_tool.py");
 
@@ -37,19 +38,20 @@ namespace NicheStudioWeirdo.Views
             if (string.IsNullOrWhiteSpace(TargetTxt.Text)) return;
             var main = GetMain();
             string args = "";
+            string fmt = GetFormat();
 
             if (IsBatchMode())
             {
-                string jsonDir = Path.Combine(TargetTxt.Text, "json");
-                args = $"\"{GetScriptPath()}\" export-all \"{Path.Combine(TargetTxt.Text, "*.gsc")}\" -d \"{jsonDir}\"";
+                string jsonDir = Path.Combine(TargetTxt.Text, fmt == "json" ? "json" : "text");
+                args = $"\"{GetScriptPath()}\" export-all \"{Path.Combine(TargetTxt.Text, "*.gsc")}\" -d \"{jsonDir}\" --format {fmt}";
             }
             else
             {
-                string jsonFile = Path.ChangeExtension(TargetTxt.Text, ".json");
-                args = $"\"{GetScriptPath()}\" export \"{TargetTxt.Text}\" -o \"{jsonFile}\"";
+                string jsonFile = Path.ChangeExtension(TargetTxt.Text, $".{fmt}");
+                args = $"\"{GetScriptPath()}\" export \"{TargetTxt.Text}\" -o \"{jsonFile}\" --format {fmt}";
             }
 
-            main.LogToConsole($"CodeX: Exporting GSC ↁEJSON [{GetEncoding()}]...");
+            main.LogToConsole($"CodeX: Exporting GSC ↁE{fmt.ToUpper()} [{GetEncoding()}]...");
             _ = ToolRunner.RunAsync(Path.GetDirectoryName(GetScriptPath()) ?? "", SettingsManager.Config.PythonPath, args, main);
         }
 
@@ -58,21 +60,22 @@ namespace NicheStudioWeirdo.Views
             if (string.IsNullOrWhiteSpace(TargetTxt.Text)) return;
             var main = GetMain();
             string args = "";
+            string fmt = GetFormat();
 
             if (IsBatchMode())
             {
-                string jsonDir = Path.Combine(TargetTxt.Text, "json");
+                string jsonDir = Path.Combine(TargetTxt.Text, fmt == "json" ? "json" : "text");
                 string repackedDir = Path.Combine(TargetTxt.Text, "repacked");
                 args = $"\"{GetScriptPath()}\" import-all \"{Path.Combine(TargetTxt.Text, "*.gsc")}\" -d \"{jsonDir}\" -o \"{repackedDir}\" --encoding {GetEncoding()}";
             }
             else
             {
-                string jsonFile = Path.ChangeExtension(TargetTxt.Text, ".json");
+                string jsonFile = Path.ChangeExtension(TargetTxt.Text, $".{fmt}");
                 string repackedFile = Path.Combine(Path.GetDirectoryName(TargetTxt.Text) ?? "", Path.GetFileNameWithoutExtension(TargetTxt.Text) + "_translated.gsc");
                 args = $"\"{GetScriptPath()}\" import \"{TargetTxt.Text}\" \"{jsonFile}\" -o \"{repackedFile}\" --encoding {GetEncoding()}";
             }
 
-            main.LogToConsole($"CodeX: Importing JSON ↁEGSC [{GetEncoding()}]...");
+            main.LogToConsole($"CodeX: Importing {fmt.ToUpper()} ↁEGSC [{GetEncoding()}]...");
             _ = ToolRunner.RunAsync(Path.GetDirectoryName(GetScriptPath()) ?? "", SettingsManager.Config.PythonPath, args, main);
         }
 

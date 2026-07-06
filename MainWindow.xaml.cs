@@ -99,6 +99,9 @@ namespace NicheStudioWeirdo
                 "KKK" => "Kajiri Kamui Kagura (KKK) Guide:\n1. Install Base Patch: Select your game folder, pick Horizontal/Vertical layout, and install the required SVG, INI, and initial data6.dat.\n2. Wordwrap: Auto-wrap your translated message.txt.\n3. Compile Script: Compiles message.txt to exec.dat.\n4. Pack data6.dat: Packages the data folder into data6.dat which should then be copied to your game.",
                 "Alicesoft" => "Alicesoft Engine Guide:\n1. Archive Tools (.afa, .ald): Extract archives to a folder or pack them back.\n2. Script Tools (.ain): Dump the AIN to JSON, edit it, and inject it back using the Edit button (requires the original AIN + modified JSON).\n3. Image Tools (.cg): Convert .cg images to .png/.webp or vice versa.",
                 "DieselEngine" => "Diesel Engine (NPK) Guide:\n1. Target Game / Profile: Select the game you are modding (e.g., The Song of Saya) to load the correct encryption key.\n2. Extract: Select the .npk file and an output directory to unpack it.\n3. Repack: Select the folder containing your modified files and repack it back into a new .npk archive.",
+                "N2System" => "N2System (NPA) Guide:\n1. Target Game / Encryption ID: Select the game you are modding to use the correct encryption key.\n2. Extract: Select the .npa file to extract it to a folder.\n3. Repack: Select the folder containing your files and repack it back into a new .npa archive.\nWARNING: Do NOT use the Compress Files option if you are repacking CG images, it will break the engine.",
+                "LucaSystem" => "Luca System (Prototype) Guide:\n1. Select the correct Game Profile (e.g. LOOPERS, Little Busters! EN, Summer Pockets).\n2. PAK Extract: Point to a .PAK file (SCRIPT.PAK, IMAGE.PAK, FONT.PAK, etc.) and extract its contents.\n3. Edit the extracted files (text files for scripts, PNG for images).\n4. PAK Replace: Select the original .PAK + your modified folder to build a new .PAK.\n5. Image section: Export CZ images to PNG for editing, then import back.\nSupported games: LOOPERS, Little Busters! EN, Summer Pockets (Switch), CartagraHD, KANON, HARMONIA, LUNARiA, AIR, Planetarian SG.",
+                "Yuris" => "YU-RIS Engine (RxYuris) Guide:\n1. YSTB Decrypt & Encrypt: Use Guess Key on a .ybn file, then decrypt/encrypt it using the key.\n2. Batch Text Extract & Insert: Select the folder containing your .ybn files, and use the Extract/Insert text buttons.\n3. YPF Decode: Select an encrypted .ypf file to decode it.\n4. YSTL Parse: Select yst_list.ybn to recover the original file structure.",
                 _ => "Select a tool from the top tabs to view its usage guide."
             };
         }
@@ -138,6 +141,9 @@ namespace NicheStudioWeirdo
                     "KKK"       => new KKKView(),
                     "Alicesoft" => new AlicesoftView(),
                     "DieselEngine" => new DieselEngineView(),
+                    "N2System"  => new N2SystemView(),
+                    "LucaSystem" => new LucaSystemView(),
+                    "Yuris"     => new YurisView(),
                     _           => new MinoriView()
                 };
                 LoadView(view, btn.Content?.ToString() ?? btn.Tag?.ToString() ?? "");

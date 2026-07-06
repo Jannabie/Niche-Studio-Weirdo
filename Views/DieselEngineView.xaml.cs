@@ -44,7 +44,18 @@ namespace NicheStudioWeirdo.Views
 
             int gameId = GameProfileCombo.SelectedIndex;
 
-            string args = $"-GM {gameId} -u \"{npkPath}\" \"{outDir}\"";
+            string args = $"-GM {gameId}";
+
+            // File filter — only extract matching extensions (e.g. ".nut")
+            string filter = FilterTxt.Text?.Trim();
+            if (!string.IsNullOrEmpty(filter))
+                args += $" -fe \"{filter.Replace("\"", "")}\"";
+
+            // Skip already-existing files
+            if (ChkSkipExisting.IsChecked == true)
+                args += " -se";
+
+            args += $" -u \"{npkPath}\" \"{outDir}\"";
             string exePath = Path.Combine("Utility", "DieselEngineBin", "NPK3Tool.exe");
 
             var main = Window.GetWindow(this) as MainWindow;
@@ -94,5 +105,69 @@ namespace NicheStudioWeirdo.Views
             var main = Window.GetWindow(this) as MainWindow;
             await ToolRunner.RunAsync(AppDomain.CurrentDomain.BaseDirectory, exePath, args, main);
         }
+
+        private void BrowseNutInput_Click(object sender, RoutedEventArgs e)
+        {
+            var d = new OpenFileDialog { Filter = "Nitroplus Squirrel Script (*.nut)|*.nut|All Files (*.*)|*.*", Title = "Select .nut file" };
+            if (d.ShowDialog() == true) NutInputTxt.Text = d.FileName;
+        }
+
+        private async void ExtractNut_Click(object sender, RoutedEventArgs e)
+        {
+            string nutPath = NutInputTxt.Text;
+            if (string.IsNullOrWhiteSpace(nutPath) || !File.Exists(nutPath))
+            {
+                MessageBox.Show("Please select a valid .nut file.");
+                return;
+            }
+
+            string jsonPath = Path.Combine(Path.GetDirectoryName(nutPath) ?? "", Path.GetFileNameWithoutExtension(nutPath) + ".json");
+            var main = Window.GetWindow(this) as MainWindow;
+            main?.LogToConsole($"Extracting text from {Path.GetFileName(nutPath)} to {Path.GetFileName(jsonPath)}...");
+
+            try
+            {
+                await System.Threading.Tasks.Task.Run(() => NitroplusNutTool.ExtractToJson(nutPath, jsonPath));
+                main?.LogToConsole("Extraction Complete! You can now edit the JSON file.");
+            }
+            catch (Exception ex)
+            {
+                main?.LogToConsole($"Error extracting: {ex.Message}");
+                MessageBox.Show($"Error extracting: {ex.Message}");
+            }
+        }
+
+        private async void InjectNut_Click(object sender, RoutedEventArgs e)
+        {
+            string nutPath = NutInputTxt.Text;
+            if (string.IsNullOrWhiteSpace(nutPath) || !File.Exists(nutPath))
+            {
+                MessageBox.Show("Please select a valid .nut file (the original).");
+                return;
+            }
+
+            string jsonPath = Path.Combine(Path.GetDirectoryName(nutPath) ?? "", Path.GetFileNameWithoutExtension(nutPath) + ".json");
+            if (!File.Exists(jsonPath))
+            {
+                MessageBox.Show($"Cannot find translation JSON file: {jsonPath}");
+                return;
+            }
+
+            string outputNut = Path.Combine(Path.GetDirectoryName(nutPath) ?? "", Path.GetFileNameWithoutExtension(nutPath) + "_translated.nut");
+            var main = Window.GetWindow(this) as MainWindow;
+            main?.LogToConsole($"Injecting text from {Path.GetFileName(jsonPath)} into {Path.GetFileName(outputNut)}...");
+
+            try
+            {
+                await System.Threading.Tasks.Task.Run(() => NitroplusNutTool.InjectFromJson(nutPath, jsonPath, outputNut));
+                main?.LogToConsole("Injection Complete! You can now repack your folder.");
+            }
+            catch (Exception ex)
+            {
+                main?.LogToConsole($"Error injecting: {ex.Message}");
+                MessageBox.Show($"Error injecting: {ex.Message}");
+            }
+        }
+
     }
 }

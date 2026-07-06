@@ -13,26 +13,72 @@
 
         <Border Grid.Row="2" Background="{StaticResource BgDarkestBrush}" CornerRadius="0" Padding="20" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}">
             <StackPanel>
-                
-                <!-- Archive Tools -->
-                <TextBlock Text="Archive Tools (.afa, .ald, .dat)" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,10"/>
+
+                <!-- ═══════════════════════════════════════════════════════ -->
+                <!-- EXTRACT ARCHIVE                                         -->
+                <!-- ═══════════════════════════════════════════════════════ -->
+                <TextBlock Text="Extract Archive (.afa / .ald / .dat)" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
+
+                <!-- Input archive file -->
+                <TextBlock Text="Archive File (.afa / .ald / .dat):" Foreground="{StaticResource TextMutedBrush}" FontSize="11" Margin="0,0,0,4"/>
                 <Grid Margin="0,0,0,10">
                     <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                    <TextBox x:Name="ArchivePathTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select archive file (.afa, .ald)..."/>
-                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseArchive_Click"/>
+                    <TextBox x:Name="ExtractArchiveTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select archive file to extract (.afa, .ald, .dat)..."/>
+                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseExtractArchive_Click"/>
                 </Grid>
-                <Grid Margin="0,0,0,20">
+
+                <!-- Output folder -->
+                <TextBlock Text="Output Folder (where files will be extracted):" Foreground="{StaticResource TextMutedBrush}" FontSize="11" Margin="0,0,0,4"/>
+                <Grid Margin="0,0,0,10">
                     <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                    <TextBox x:Name="ArchiveDirTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select folder to pack..."/>
-                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseArchiveDir_Click"/>
+                    <TextBox x:Name="ExtractOutputTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select output folder (leave blank = auto-create next to archive)..."/>
+                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseExtractOutput_Click"/>
                 </Grid>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,20">
-                    <Button Content="List" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="ListArchive_Click" ToolTip="List files inside archive"/>
-                    <Button Content="Extract" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="ExtractArchive_Click"/>
-                    <Button Content="Pack" Style="{StaticResource ActionButtonGreen}" Click="PackArchive_Click"/>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,24">
+                    <Button Content="List Contents" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="ListArchive_Click" ToolTip="List files inside the selected archive"/>
+                    <Button Content="Extract" Style="{StaticResource ActionButtonGreen}" Click="ExtractArchive_Click"/>
                 </StackPanel>
 
-                <!-- Script Tools -->
+                <!-- Divider -->
+                <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,20"/>
+
+                <!-- ═══════════════════════════════════════════════════════ -->
+                <!-- PACK AFA                                                -->
+                <!-- ═══════════════════════════════════════════════════════ -->
+                <Border Background="#0A1A0A" CornerRadius="0" Padding="14,10" Margin="0,0,0,20"
+                        BorderThickness="1" BorderBrush="#1E3A1E">
+                    <StackPanel>
+                        <TextBlock Foreground="#60C060" FontWeight="Bold" FontSize="12" Text="📖  PACK AFA ARCHIVE (.AFA ONLY)"/>
+                        <TextBlock Foreground="#7A9A7A" FontSize="11" Margin="0,4,0,0" TextWrapping="Wrap"
+                                   Text="alice-tools can only CREATE .afa archives. ALD is a read-only legacy format — you can extract it, but cannot repack to ALD. Workflow: Extract .ald → edit files → Pack as .afa."/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Input folder -->
+                <TextBlock Text="Folder of Files to Pack:" Foreground="{StaticResource TextMutedBrush}" FontSize="11" Margin="0,0,0,4"/>
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <TextBox x:Name="PackInputTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select folder containing files to pack..."/>
+                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowsePackInput_Click"/>
+                </Grid>
+
+                <!-- Output AFA file -->
+                <TextBlock Text="Output .afa File:" Foreground="{StaticResource TextMutedBrush}" FontSize="11" Margin="0,0,0,4"/>
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <TextBox x:Name="PackOutputTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select output .afa file path (leave blank = auto-name in parent folder)..."/>
+                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowsePackOutput_Click"/>
+                </Grid>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,24">
+                    <Button Content="Pack as AFA" Style="{StaticResource ActionButtonGreen}" Click="PackArchive_Click"/>
+                </StackPanel>
+
+                <!-- Divider -->
+                <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,20"/>
+
+                <!-- Script Tools (.ain) -->
                 <TextBlock Text="Script Tools (.ain)" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,10"/>
                 <Grid Margin="0,0,0,10">
                     <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
@@ -48,6 +94,9 @@
                     <Button Content="Dump" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="DumpAin_Click"/>
                     <Button Content="Edit" Style="{StaticResource ActionButtonGreen}" Click="EditAin_Click"/>
                 </StackPanel>
+
+                <!-- Divider -->
+                <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,20"/>
 
                 <!-- Database Tools (.ex) -->
                 <TextBlock Text="Database Tools (.ex)" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,10"/>
@@ -65,6 +114,9 @@
                     <Button Content="Dump" Style="{StaticResource BrowseButton}" Margin="0,0,8,0" Click="DumpEx_Click"/>
                     <Button Content="Edit" Style="{StaticResource ActionButtonGreen}" Click="EditEx_Click"/>
                 </StackPanel>
+
+                <!-- Divider -->
+                <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,20"/>
 
                 <!-- Image Tools -->
                 <TextBlock Text="Image Tools (.cg)" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,10"/>

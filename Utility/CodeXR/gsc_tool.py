@@ -271,6 +271,16 @@ def export_json(gsc: GscFile, out_path: str):
         json.dump(data, f, ensure_ascii=False, indent=2)
     print(f"Exported {len(gsc.strings)} strings ke: {out_path}")
 
+def export_txt(gsc: GscFile, out_path: str):
+    """Export string table ke TXT untuk diedit."""
+    with open(out_path, 'w', encoding='utf-8') as f:
+        for i, (off, s) in enumerate(zip(gsc.offsets, gsc.strings)):
+            f.write(f"[INDEX: {i}]\n")
+            f.write(f"{s}\n")
+            f.write("<TRANSLATION>\n")
+            f.write(f"{s}\n")
+            f.write("========================================\n")
+    print(f"Exported {len(gsc.strings)} strings ke: {out_path}")
 
 def import_json(gsc: GscFile, json_path: str) -> GscFile:
     """Import string yang sudah diedit dari JSON ke GscFile."""
@@ -284,6 +294,34 @@ def import_json(gsc: GscFile, json_path: str) -> GscFile:
         )
 
     gsc.strings = [e['translated'] for e in entries]
+    return gsc
+
+def import_txt(gsc: GscFile, txt_path: str) -> GscFile:
+    """Import string yang sudah diedit dari TXT ke GscFile."""
+    with open(txt_path, 'r', encoding='utf-8') as f:
+        lines = f.read().splitlines()
+    
+    translated_strings = []
+    reading_translation = False
+    current_translation = []
+    
+    for line in lines:
+        if line.startswith("[INDEX: "):
+            reading_translation = False
+        elif line == "<TRANSLATION>":
+            reading_translation = True
+            current_translation = []
+        elif line == "========================================":
+            reading_translation = False
+            translated_strings.append("\n".join(current_translation))
+        else:
+            if reading_translation:
+                current_translation.append(line)
+                
+    if len(translated_strings) != len(gsc.strings):
+        raise ValueError(f"Jumlah string tidak cocok: TXT={len(translated_strings)}, file={len(gsc.strings)}")
+        
+    gsc.strings = translated_strings
     return gsc
 
 
@@ -380,14 +418,15 @@ Contoh penggunaan:
     p_list.add_argument('files', nargs='+', help='File .gsc')
 
     # --- export ---
-    p_export = sub.add_parser('export', help='Export string table ke JSON')
+    p_export = sub.add_parser('export', help='Export string table ke JSON/TXT')
     p_export.add_argument('file', help='File .gsc input')
-    p_export.add_argument('-o', '--output', help='Output JSON (default: <file>.json)')
+    p_export.add_argument('-o', '--output', help='Output file (default: <file>.json/txt)')
+    p_export.add_argument('--format', choices=['json', 'txt'], default='json', help='Format output')
 
     # --- import ---
-    p_import = sub.add_parser('import', help='Import JSON dan repack ke .gsc')
+    p_import = sub.add_parser('import', help='Import JSON/TXT dan repack ke .gsc')
     p_import.add_argument('file', help='File .gsc asli (sebagai template)')
-    p_import.add_argument('json', help='File JSON yang sudah diedit')
+    p_import.add_argument('input', help='File JSON/TXT yang sudah diedit')
     p_import.add_argument('-o', '--output', help='Output .gsc (default: <file>_edited.gsc)')
     p_import.add_argument('--encoding', default='shift-jis',
                           help='Encoding untuk string (default: shift-jis)')
@@ -402,14 +441,15 @@ Contoh penggunaan:
     p_verify.add_argument('files', nargs='+', help='File .gsc')
 
     # --- export-all ---
-    p_ea = sub.add_parser('export-all', help='Export semua file ke folder JSON')
+    p_ea = sub.add_parser('export-all', help='Export semua file ke folder JSON/TXT')
     p_ea.add_argument('files', nargs='+', help='File .gsc')
-    p_ea.add_argument('-d', '--dir', default='json_output', help='Folder output JSON')
+    p_ea.add_argument('-d', '--dir', default='text_output', help='Folder output')
+    p_ea.add_argument('--format', choices=['json', 'txt'], default='json', help='Format output')
 
     # --- import-all ---
-    p_ia = sub.add_parser('import-all', help='Import semua JSON dan repack')
+    p_ia = sub.add_parser('import-all', help='Import semua JSON/TXT dan repack')
     p_ia.add_argument('files', nargs='+', help='File .gsc asli')
-    p_ia.add_argument('-d', '--dir', default='json_output', help='Folder berisi JSON')
+    p_ia.add_argument('-d', '--dir', default='text_output', help='Folder berisi JSON/TXT')
     p_ia.add_argument('-o', '--output-dir', default='repacked', help='Folder output .gsc')
     p_ia.add_argument('--encoding', default='shift-jis')
 
@@ -425,12 +465,18 @@ Contoh penggunaan:
 
     elif args.command == 'export':
         gsc = read_gsc(args.file)
-        out = args.output or (args.file + '.json')
-        export_json(gsc, out)
+        out = args.output or (args.file + '.' + args.format)
+        if out.endswith('.txt'):
+            export_txt(gsc, out)
+        else:
+            export_json(gsc, out)
 
     elif args.command == 'import':
         gsc = read_gsc(args.file)
-        gsc = import_json(gsc, args.json)
+        if args.input.endswith('.txt'):
+            gsc = import_txt(gsc, args.input)
+        else:
+            gsc = import_json(gsc, args.input)
         out = args.output or (args.file.replace('.gsc', '_edited.gsc'))
         sz = write_gsc(gsc, out, encoding=args.encoding)
         print(f"Repacked {sz} bytes -> {out}")
@@ -457,19 +503,29 @@ Contoh penggunaan:
         for path in args.files:
             gsc = read_gsc(path)
             name = os.path.basename(path)
-            out = os.path.join(args.dir, name + '.json')
-            export_json(gsc, out)
+            out = os.path.join(args.dir, name + '.' + args.format)
+            if args.format == 'txt':
+                export_txt(gsc, out)
+            else:
+                export_json(gsc, out)
 
     elif args.command == 'import-all':
         os.makedirs(args.output_dir, exist_ok=True)
         for path in args.files:
             name = os.path.basename(path)
             json_path = os.path.join(args.dir, name + '.json')
-            if not os.path.exists(json_path):
-                print(f"  SKIP {name}: tidak ada {json_path}")
+            txt_path = os.path.join(args.dir, name + '.txt')
+            
+            if os.path.exists(txt_path):
+                gsc = read_gsc(path)
+                gsc = import_txt(gsc, txt_path)
+            elif os.path.exists(json_path):
+                gsc = read_gsc(path)
+                gsc = import_json(gsc, json_path)
+            else:
+                print(f"  SKIP {name}: tidak ada file JSON/TXT")
                 continue
-            gsc = read_gsc(path)
-            gsc = import_json(gsc, json_path)
+                
             out = os.path.join(args.output_dir, name)
             sz = write_gsc(gsc, out, encoding=args.encoding)
             print(f"  {name} -> {out} ({sz} bytes)")

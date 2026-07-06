@@ -50,10 +50,23 @@
                     </Grid>
 
                     <TextBlock Text="OUTPUT DIRECTORY" Style="{StaticResource LabelStyle}"/>
-                    <Grid Margin="0,0,0,12">
+                    <Grid Margin="0,0,0,8">
                         <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
                         <TextBox x:Name="ExtractOutputTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
                         <Button Grid.Column="1" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,0" Click="BrowseExtractOutput_Click"/>
+                    </Grid>
+
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="FILE FILTER (optional, e.g: .nut or .nut,.json)" Style="{StaticResource LabelStyle}"/>
+                            <TextBox x:Name="FilterTxt" Style="{StaticResource TextBoxStyle}" ToolTip="Leave empty to extract all files. Enter extensions like .nut to only extract matching files — much faster!"/>
+                        </StackPanel>
+                        <CheckBox x:Name="ChkSkipExisting" Grid.Column="2" Content="Skip already extracted files" VerticalAlignment="Bottom" Foreground="{StaticResource TextLightBrush}" Margin="0,0,0,4" IsChecked="True"/>
                     </Grid>
 
                     <Button Content="Extract → Folder" Style="{StaticResource ActionButtonGreen}" HorizontalAlignment="Right" Padding="20,8" Margin="0,0,0,28" Click="Extract_Click"/>
@@ -84,15 +97,38 @@
                         <CheckBox x:Name="ChkCompress" Content="Enable Compression (-cp 1)" Foreground="{StaticResource TextLightBrush}"/>
                     </StackPanel>
 
-                    <Button Content="Repack → .NPK" Style="{StaticResource ActionButtonGreen}" HorizontalAlignment="Right" Padding="20,8" Click="Repack_Click"/>
+                    <Button Content="Repack → .NPK" Style="{StaticResource ActionButtonGreen}" HorizontalAlignment="Right" Padding="20,8" Margin="0,0,0,24" Click="Repack_Click"/>
 
-                    <Border Background="#111" CornerRadius="4" Padding="16" Margin="0,24,0,0" BorderBrush="#333" BorderThickness="1">
+                    <!-- CNUT SCRIPT TRANSLATOR -->
+                    <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,24"/>
+                    <TextBlock Text="CNUT SCRIPT TRANSLATOR (.nut)" Style="{StaticResource LabelStyle}" Foreground="{StaticResource TextLightBrush}" FontSize="13" Margin="0,0,0,12"/>
+                    <TextBlock Text="Extract strings from compiled Squirrel bytecode (.nut) to JSON for translation, then inject back into the .nut file." Foreground="{StaticResource TextMutedBrush}" Margin="0,0,0,12" TextWrapping="Wrap"/>
+
+                    <TextBlock Text="INPUT .NUT FILE" Style="{StaticResource LabelStyle}"/>
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                        <TextBox x:Name="NutInputTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                        <Button Grid.Column="1" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,0" Click="BrowseNutInput_Click"/>
+                    </Grid>
+
+                    <Grid Margin="0,0,0,28">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" Content="Extract Text → .JSON" Style="{StaticResource ActionButtonGreen}" Padding="0,8" Click="ExtractNut_Click"/>
+                        <Button Grid.Column="2" Content="Inject .JSON → .NUT" Style="{StaticResource ActionButtonGreen}" Padding="0,8" Click="InjectNut_Click"/>
+                    </Grid>
+
+                    <Border Background="#080808" CornerRadius="0" Padding="16,12" Margin="0,0,0,0" BorderThickness="1" BorderBrush="#222">
                         <StackPanel>
-                            <TextBlock Text="FULL WORKFLOW (from NPK to finished):" Foreground="{StaticResource TextLightBrush}" FontWeight="Bold" Margin="0,0,0,8"/>
-                            <TextBlock Text="① Diesel Engine Tab → Extract → get a folder containing raw files" Foreground="{StaticResource TextMutedBrush}" Margin="0,0,0,4"/>
-                            <TextBlock Text="② Edit the extracted files with your favorite tool or text editor" Foreground="{StaticResource TextMutedBrush}" Margin="0,0,0,4"/>
-                            <TextBlock Text="③ Diesel Engine Tab → Repack → select the extracted folder, get a new ready-to-use .npk" Foreground="{StaticResource TextMutedBrush}" Margin="0,0,0,4"/>
-                            <TextBlock Text="④ Replace the original game's .npk file with the newly generated one" Foreground="{StaticResource TextMutedBrush}"/>
+                            <TextBlock Foreground="#555" FontWeight="Bold" FontSize="11" Text="FULL WORKFLOW (from NPK to translated):"/>
+                            <TextBlock Foreground="#444" FontSize="11" Margin="0,6,0,0" TextWrapping="Wrap" Text="① Extract NPK → use File Filter '.nut' to only get script files (much faster)"/>
+                            <TextBlock Foreground="#444" FontSize="11" Margin="0,2,0,0" TextWrapping="Wrap" Text="② Select a .nut file above → click 'Extract Text → JSON'"/>
+                            <TextBlock Foreground="#444" FontSize="11" Margin="0,2,0,0" TextWrapping="Wrap" Text="③ Edit the JSON: fill in the 'Translated' field for each string"/>
+                            <TextBlock Foreground="#444" FontSize="11" Margin="0,2,0,0" TextWrapping="Wrap" Text="④ Click 'Inject JSON → NUT' to build the translated .nut file"/>
+                            <TextBlock Foreground="#444" FontSize="11" Margin="0,2,0,0" TextWrapping="Wrap" Text="⑤ Replace the original .nut in the extracted folder, then Repack → NPK"/>
                         </StackPanel>
                     </Border>
 

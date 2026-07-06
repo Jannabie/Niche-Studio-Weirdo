@@ -14,11 +14,11 @@
         <Border Grid.Row="2" Background="{StaticResource BgDarkestBrush}" CornerRadius="0" Padding="20" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}">
             <StackPanel>
                 <!-- Warning Banner -->
-                <Border Background="#1A0808" CornerRadius="0" Padding="12" Margin="0,0,0,20" BorderThickness="1" BorderBrush="#3A1515">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="!" Foreground="#C87171" FontSize="14" FontWeight="Bold" Margin="0,0,10,0" VerticalAlignment="Center"/>
-                        <TextBlock Text="WARNING: The workspace directory must only contain files from the .pak archive. Repacking foreign binaries (e.g. tools) causes game crashes." 
-                                   Foreground="#8B5050" FontSize="12" TextWrapping="Wrap"/>
+                <Border Background="#0A1A0A" CornerRadius="0" Padding="14,10" Margin="0,0,0,20" BorderThickness="1" BorderBrush="#1E3A1E">
+                    <StackPanel>
+                        <TextBlock Foreground="#60C060" FontWeight="Bold" FontSize="12" Text="📖  IMPORTANT NOTE"/>
+                        <TextBlock Text="The workspace directory must only contain files from the .pak archive. Repacking foreign binaries (e.g. tools) causes game crashes." 
+                                   Foreground="#7A9A7A" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"/>
                     </StackPanel>
                 </Border>
 

@@ -35,16 +35,59 @@ namespace NicheStudioWeirdo.Utils
         // Archive Commands (AFA, ALD, DAT, etc.)
         public static async Task ExtractArchiveAsync(string archivePath, string outDir, MainWindow main)
         {
-            // Syntax: alice ar extract <archive> [-o <outdir>]
-            string args = $"ar extract \"{archivePath}\" -o \"{outDir}\"";
+            // --input-encoding sjis is required for ALD/older archives that use Shift-JIS filenames
+            string args = $"ar extract --input-encoding sjis \"{archivePath}\" -o \"{outDir}\"";
             await ToolRunner.RunAsync(GetRepoDir(), GetAliceExe(), args, main);
         }
 
         public static async Task PackArchiveAsync(string sourceFolder, string outArchive, MainWindow main)
         {
-            // Syntax: alice ar pack <dir> <archive>
-            string args = $"ar pack \"{sourceFolder}\" \"{outArchive}\"";
-            await ToolRunner.RunAsync(GetRepoDir(), GetAliceExe(), args, main);
+            // alice ar pack ONLY supports creating .afa archives (AFAv2).
+            // .ald is a read-only legacy format — extraction works, repacking is not supported.
+            string ext = System.IO.Path.GetExtension(outArchive).ToLowerInvariant();
+            if (ext != ".afa")
+            {
+                main?.LogToConsole($"✘ [ERROR] alice-tools can only CREATE .afa archives. " +
+                    $"Repacking to '{ext}' is not supported. " +
+                    $"Extract from your .ald, edit the files, then repack as .afa instead.");
+                return;
+            }
+
+            // ── MANIFEST FIX ──────────────────────────────────────────────────────────
+            // alice's manifest parser crashes on absolute paths that contain ':' (drive letter).
+            // Workaround: put the manifest in the OUTPUT directory, use only the bare
+            // filename (relative) for the output archive, and run alice with that directory
+            // as the working directory.
+            string outDir  = System.IO.Path.GetDirectoryName(outArchive) ?? AppDomain.CurrentDomain.BaseDirectory;
+            string outName = System.IO.Path.GetFileName(outArchive); // e.g. "script_repacked.afa"
+
+            System.IO.Directory.CreateDirectory(outDir);
+            string manifestPath = System.IO.Path.Combine(outDir, $"_alice_pack_{System.Guid.NewGuid():N}.mft");
+
+            try
+            {
+                var allFiles = System.IO.Directory.GetFiles(sourceFolder, "*", System.IO.SearchOption.AllDirectories);
+                var lines = new System.Collections.Generic.List<string>
+                {
+                    "#ALICEPACK",
+                    $"\"{outName}\""   // relative — alice resolves it from its working dir
+                };
+                foreach (var f in allFiles)
+                    lines.Add($"\"{f.Replace('\\', '/')}\"");
+
+                System.IO.File.WriteAllLines(manifestPath, lines,
+                    new System.Text.UTF8Encoding(false)); // UTF-8 no BOM
+
+                // Run alice FROM outDir so the relative output name resolves correctly.
+                // Use the safe ArgumentList overload (handles spaces in manifest path).
+                var argList = new[] { "ar", "pack", manifestPath };
+                await ToolRunner.RunAsync(outDir, GetAliceExe(), argList, main);
+            }
+            finally
+            {
+                if (System.IO.File.Exists(manifestPath))
+                    System.IO.File.Delete(manifestPath);
+            }
         }
 
         public static async Task ListArchiveAsync(string archivePath, MainWindow main)
