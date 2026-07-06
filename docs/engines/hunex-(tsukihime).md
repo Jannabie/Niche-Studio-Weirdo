@@ -45,8 +45,6 @@ The HuneX engine (Tsukihime Remake variant) stores all dialogue and scene data i
 1. Work through the extracted `.TXT` scene files and replace the Japanese text with your translations.
 2. Keep every existing line — even blank or formatting lines — exactly in place.
 
->  **Line position = game pointer.** The game reads each line by its index. Shifting any line breaks all subsequent dialogue in that scene.
-
 ---
 
 ## Step 4 — Repack → .MRG
