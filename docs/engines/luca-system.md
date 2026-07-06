@@ -32,7 +32,7 @@ This tab has **two independent sections**:
 - **Script Translation** — decompile / recompile `SCRIPT.PAK`
 - **Image Translation** — convert `.CZ` images to `.PNG` and back
 
-> 💡 The **Game Profile** only matters for Script operations. For CZ image conversion, you can ignore it entirely.
+>  The **Game Profile** only matters for Script operations. For CZ image conversion, you can ignore it entirely.
 
 ---
 
