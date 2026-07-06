@@ -10,8 +10,6 @@
 
 | Game | Notes |
 |---|---|
-| Higurashi no Naku Koro ni | `.arc` archives |
-| Umineko no Naku Koro ni | `.arc` archives |
 | Sakura no Uta | `.arc` archives, `.sc` scripts |
 | Subarashiki Hibi ~Furenzoku Sonzai~ | `.arc` archives, `.sc` scripts |
 | Other BGI engine titles | — |
@@ -50,7 +48,7 @@ This tab has **two independent sections**:
 3. A Save dialog will appear — the output file will be automatically named with a `_new` suffix (e.g. `script_new.arc`).
 4. Replace the original `.arc` in your game directory with the new file and test.
 
-> 💡 **The repacked archive is always named `*_new.arc`** via the Save dialog. Rename it to match the original archive name before placing it in your game directory.
+>  **The repacked archive is always named `*_new.arc`** via the Save dialog. Rename it to match the original archive name before placing it in your game directory.
 
 ---
 
@@ -93,4 +91,4 @@ FINAL STEPS:
 ③ Rename *_new.arc to match original → place in game directory → test
 ```
 
-> ⚠️ **Always work on a copy** of the extracted folder. Keep the originals untouched so you can re-extract cleanly if needed.
+
