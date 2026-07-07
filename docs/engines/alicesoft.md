@@ -27,7 +27,7 @@ The AliceSoft engine is a long-running proprietary engine used across many of Al
 
 This tab handles all four layers.
 
-> If you look string name guide go to: **[Rance String Name Guide ](https://github.com/Jannabie/Niche-Studio-Weirdo/blob/main/Rance%20Guide/Rance%20Name%20Guide.md)**
+> If you look string name or smth guide go to: **[Rance String Name Guide ](https://github.com/Jannabie/Niche-Studio-Weirdo/blob/main/Rance%20Guide/Rance%20Name%20Guide.md)** or **[Rance Scripting Guide ](https://github.com/Jannabie/Niche-Studio-Weirdo/blob/main/Rance%20Guide/Rance%20Script%20Guide.md)**
 
 ---
 
