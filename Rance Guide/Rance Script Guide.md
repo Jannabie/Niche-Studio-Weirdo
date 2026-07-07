@@ -1,6 +1,9 @@
 # Rance X Script & Translation Guide
 
-
+| Preview |
+|:---:|
+| ![Proof of Translation](https://i.imgur.com/4gXE3L2.jpeg) |
+| Translation successfully read by the game after repacking |
 ---
 
 ## 1. Modifying Character Titles/Nicknames (Yellow Text)
