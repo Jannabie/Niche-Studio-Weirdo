@@ -1,5 +1,5 @@
-# Rance 10 — Script & Translation Guide
-> A comprehensive guide for translating in-game text (Dialogue, Titles/Nicknames, and Quest Names) in Rance 10.
+# Rance X Script & Translation Guide
+
 
 ---
 
@@ -13,13 +13,13 @@ These titles are stored inside **`Rance10.txt`**.
 Search for the variable `; Ｔ肩書き` (T Katagaki) inside the script. You will find lines of code that look like this:
 
 ```
-; Ｔ肩書き = "魔王"
+;s[10649] = "アルカネーゼ"
 ```
 
 Simply replace the text inside the quotation marks with your desired translation:
 
 ```
-; Ｔ肩書き = "Demon King"
+;s[10649] = "Porn Hub King"
 ```
 Once you recompile the script, the yellow text above the character's name will be updated in-game.
 
