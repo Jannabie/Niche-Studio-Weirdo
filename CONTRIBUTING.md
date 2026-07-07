@@ -19,6 +19,7 @@ author(s) and license. Please respect each project's own license before redistri
 | `Utility/CodeXR/` | **codeX RScript Extractor** | Reading & repacking `.gsc` script files (Liar-Soft's codeX engine) | Custom Python tool (bundled) |
 | `Utility/Diesel Engine/` | **MwareStuff** | Unpacking & repacking Mware/Diesel Engine `.npk` archives | [marcussacana](https://github.com/marcussacana/MwareStuff) |
 | `Utility/DieselEngineBin/` | **NPK3Tool** | Binary helper for Diesel Engine NPK3 archive format | Part of MwareStuff |
+| `Utility/FVP/` | **fvp-tools** | Extracting/Repacking `.bin`, decompiling `.hcb`, converting `.hzc` | [vn-tools](https://github.com/vn-tools/fvp-tools) |
 | `Utility/Fuzz Inc/` | **Fuzz Inc. Toolkit** | Full translation pipeline for Fate/Stay Night Remastered (EPK archives) | Custom Python tool (bundled) |
 | `Utility/Hunex Mahoyo/` | **WoTH Tools** | Unpacking & rebuilding Witch on the Holy Night (Mahoyo Remastered) files | Custom tool (bundled) |
 | `Utility/Hunex Tsukire/` | **Tsukihime Remake Parser** | Parsing `.mrg` script archives from Tsukihime Remake | Custom tool (bundled) |

@@ -1,0 +1,16 @@
+<svg width="2048px" height="1200px" xmlns='http://www.w3.org/2000/svg' xmlns:m='' xmlns:ui=''>
+	<defs>
+		<filter id='Multiply'>
+			<feBlend mode='multiply' in2='BackgroundImage' in='SourceGraphic'/>
+		</filter>
+		<filter id='Add'>
+			<feBlend mode='screen' in2='BackgroundImage' in='SourceGraphic'/>
+		</filter>
+	</defs>
+	<g transform='scale(0.5)'>
+	<image id='auto' x='8' y='8' width='28' height='72' xlink:href='./auto.png' opacity='1'/>
+	<image id='auto_on' x='8' y='8' width='28' height='72' xlink:href='./auto_on.png' opacity='1'>
+		<animate attributeName='opacity' begin='0' dur='2' keyTimes='0;0.25;0.75;1' values='0;1;1;0' repeatDur='indefinite'/>
+	</image>
+	</g>
+</svg>

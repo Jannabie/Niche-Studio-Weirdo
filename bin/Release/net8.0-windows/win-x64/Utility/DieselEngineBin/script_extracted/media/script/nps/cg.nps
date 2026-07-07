@@ -1,0 +1,16 @@
+//CGMODE
+// ―――――――――――――――――――――――――-
+<MARKER NAME="#CGMODE">
+
+<BACKGROUND SRC="menu\cg_back">//
+<CHOICE HREF="#back" FILE="data\CG_menu_01.png;data\CG_menu_02.png;data\CG_menu_03.png" x="389" y="862" SHORTCUT="MouseDownR" ONSE="" PUSHSE="se_sys_決定">
+<system cmd="cgmode" list="cglist.txt" nextfile="data\CG_next_01.png;data\CG_next_02.png;data\CG_next_03.png" nextx="778" nexty="862" backfile="data\CG_back_01.png;data\CG_back_02.png;data\CG_back_03.png" backx="581" backy="862" ONSE="" PUSHSE="鉄パイプ構え">
+// ―――――――――――――――――――――――――-
+
+
+// ―――――――――――――――――――――――――-
+<MARKER NAME="#back">
+<clear>
+<WIPE EFFECT="FADE" TIME="8">
+<A HREF="menu#MAIN" OPERATOR="">
+// ―――――――――――――――――――――――――-

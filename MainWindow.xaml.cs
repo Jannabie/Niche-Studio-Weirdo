@@ -102,6 +102,7 @@ namespace NicheStudioWeirdo
                 "N2System" => "N2System (NPA) Guide:\n1. Target Game / Encryption ID: Select the game you are modding to use the correct encryption key.\n2. Extract: Select the .npa file to extract it to a folder.\n3. Repack: Select the folder containing your files and repack it back into a new .npa archive.\nWARNING: Do NOT use the Compress Files option if you are repacking CG images, it will break the engine.",
                 "LucaSystem" => "Luca System (Prototype) Guide:\n1. Select the correct Game Profile (e.g. LOOPERS, Little Busters! EN, Summer Pockets).\n2. PAK Extract: Point to a .PAK file (SCRIPT.PAK, IMAGE.PAK, FONT.PAK, etc.) and extract its contents.\n3. Edit the extracted files (text files for scripts, PNG for images).\n4. PAK Replace: Select the original .PAK + your modified folder to build a new .PAK.\n5. Image section: Export CZ images to PNG for editing, then import back.\nSupported games: LOOPERS, Little Busters! EN, Summer Pockets (Switch), CartagraHD, KANON, HARMONIA, LUNARiA, AIR, Planetarian SG.",
                 "Yuris" => "YU-RIS Engine (RxYuris) Guide:\n1. YSTB Decrypt & Encrypt: Use Guess Key on a .ybn file, then decrypt/encrypt it using the key.\n2. Batch Text Extract & Insert: Select the folder containing your .ybn files, and use the Extract/Insert text buttons.\n3. YPF Decode: Select an encrypted .ypf file to decode it.\n4. YSTL Parse: Select yst_list.ybn to recover the original file structure.",
+                "FVP" => "FVP Engine Guide:\n1. BIN Archive: Extract .bin to a folder, or repack an edited folder back into .bin.\n2. HCB Script: Decompile .hcb into strings.txt and script.dat. Edit strings.txt, then select the folder containing it to compile back into a new .hcb.\n3. NVSG Image: Decode NVSG (.hzc) to PNG for editing, then encode your edited PNG back to NVSG.",
                 _ => "Select a tool from the top tabs to view its usage guide."
             };
         }
@@ -144,6 +145,7 @@ namespace NicheStudioWeirdo
                     "N2System"  => new N2SystemView(),
                     "LucaSystem" => new LucaSystemView(),
                     "Yuris"     => new YurisView(),
+                    "FVP"       => new FvpEngineView(),
                     _           => new MinoriView()
                 };
                 LoadView(view, btn.Content?.ToString() ?? btn.Tag?.ToString() ?? "");

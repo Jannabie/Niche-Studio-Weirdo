@@ -1,0 +1,11 @@
+<svg width="1024px" height="600px" xmlns:a="http://www.adobe.com/svg10-extensions" xmlns:m="" xmlns:ui="">
+	<defs>
+		<filter id='Multiply'>
+			<feBlend mode='multiply' in2='BackgroundImage' in='SourceGraphic'/>
+		</filter>
+		<filter id='Add'>
+			<feBlend mode='screen' in2='BackgroundImage' in='SourceGraphic'/>
+		</filter>
+	</defs>
+	<ui:custom id='message' x='112' y='100' width='800' height='400'/>
+</svg>
