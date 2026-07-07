@@ -1,4 +1,4 @@
-# How to Change Rance's Name —  Rance 10 / Every Rance
+# How to Change Rance's Name, Rance 10 / Every Rance
 
 ---
 
