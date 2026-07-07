@@ -34,8 +34,10 @@ A centralized WPF toolset for reverse-engineering and translating Japanese visua
 | TYPE-MOON | Melty Blood 2002, etc | [ Guide](docs/engines/type-moon.md) |
 | YOX | Musicus!, etc | [ Guide](docs/engines/yox.md) |
 | YU-RIS | Maggot Baits, Erewhon, etc | [ Guide](docs/engines/yuris.md) |
+---
+ **[Full Documentation Index →](docs/README.md)** |
+ **[Rance Guide →](https://github.com/Jannabie/Niche-Studio-Weirdo/blob/main/Rance%20Guide/RanceTranslationWorkflow.md)**
 
- **[Full Documentation Index →](docs/README.md)**
 
 ---
 ## General Translation Workflow
