@@ -47,8 +47,7 @@ table クエスト情報 = {
 5. Replace this string with the translated quest title you want. Leave the rest of the line (commas, numbers, and empty strings) exactly as they are.
 
 ---
-
-## 3. Safely Replacing Kagikakko (「 」) with Double Quotes (" ")
+## 3. Safely Replacing Kagikakko 「 」 with Double Quotes " "
 
 This is a crucial trick if you want to replace the Japanese brackets `「` and `」` with English double quotes `" "` without triggering an `Unterminated string literal` compile error.
 
