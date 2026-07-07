@@ -1,5 +1,4 @@
-# Rance 10 — MC Name Change Guide
-> For beginners. No coding experience needed.
+# Rance 10 — String Name Guide
 
 ---
 
@@ -82,7 +81,7 @@ Replace only the second value. For example, to rename Rance to **"Alex"**:
 	{ "ランス／", "Alex" },
 ```
 
-> ⚠️ **Important rules:**
+>  **Important rules:**
 > - Keep the curly braces `{ }`, the comma `,`, and the quotes `"` exactly as they are.
 > - Only change the text between the **second pair** of quotes.
 > - Do NOT touch `"ランス／"` — that is the internal game code.
@@ -120,7 +119,7 @@ These are **variable declarations** inside the AIN bytecode. The game reads the 
 
 ### Step 1 — Search in Rance10.txt
 
-> ⚠️ WARNING: `Rance10.txt` is a very large file (~24 MB). Notepad++ may be slow.
+>  `Rance10.txt` is a very large file (~24 MB). Notepad++ may be slow.
 > Use **PowerShell** to search first, then go to the exact line number in Notepad++.
 
 Open **PowerShell** (press `Win + R`, type `powershell`, press Enter) and run:
