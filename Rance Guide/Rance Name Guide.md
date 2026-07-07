@@ -31,7 +31,7 @@ table 立ち絵名札マッピング情報 = {
 
 ## The Problem
 
-**Rance (the MC) is not in this table by default.**
+**Rance is not in this table by default.**
 
 So if you search for `ランス` or `Rance` in this section, you will not find him.
 
@@ -45,7 +45,7 @@ The Alicesoft engine reads this table **dynamically at runtime**. It does not ha
 
 This means: **if you add a new entry for Rance, the engine will pick it up and use it.**
 
-This is the flexibility of the Alicesoft engine — you are not breaking anything, you are extending the table with a new valid entry.
+This is the flexibility of the Alicesoft engine, you are not breaking anything, you are extending the table with a new valid entry.
 
 ---
 
@@ -117,11 +117,7 @@ To change the name to something else, replace `"Rance"` with your desired name:
 
 ## Step 5 — Recompile the EX file
 
-After saving, you need to recompile `Rance10EX.txt` back into the game's binary format using AliceTools:
-
-```bash
-alice ex build Rance10EX.txt -o ExHihi.ex
-```
+After saving, you need to recompile `Rance10EX.txt` back into the game's binary format using my Alice Engine tools:
 
 Then replace the original `.ex` file in the game directory with the newly compiled one.
 
