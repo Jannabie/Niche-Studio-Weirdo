@@ -6,7 +6,7 @@
 
 ---
 
-## 📦 1. BIN Archive Extract & Repack
+##  1. BIN Archive Extract & Repack
 
 The `.bin` archive contains the game's assets. 
 
@@ -20,12 +20,9 @@ The `.bin` archive contains the game's assets.
 2. Select the folder containing your modified files.
 3. Click **Repack to .BIN**. 
 
-> [!WARNING]
-> When packing, make sure the folder DOES NOT contain any files other than those unpacked from the original archive! FVP expects a fixed number of files, otherwise the game will crash.
-
 ---
 
-## 📜 2. HCB Script Decompile & Compile
+##  2. HCB Script Decompile & Compile
 
 The `.hcb` files contain the game's compiled scripts and dialogue.
 
@@ -44,7 +41,7 @@ The `.hcb` files contain the game's compiled scripts and dialogue.
 
 ---
 
-## 🖼️ 3. NVSG Image Decode & Encode
+##  3. NVSG Image Decode & Encode
 
 FVP games use the NVSG image format (often without extensions or using `.hzc`).
 
