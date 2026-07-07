@@ -4,7 +4,7 @@
 
 ## Background
 
-After you decode `Rance10EX.txt` using AliceTools, you will find a table called:
+After you decode `Rance10EX.ex` using AliceTools and got `Rance10EX.txt`, you will find a table called:
 
 ```
 table 立ち絵名札マッピング情報 = {
