@@ -13,7 +13,7 @@
 | [codeX RScript](engines/codex-rscript.md) | Various | `.gsc` |
 | [Diesel Engine](engines/diesel-engine.md) | Saya no Uta, Tokyo Necro, DRAMAtical Murder, Muramasa | `.npk`, `.nut` |
 | [Fuzz Inc.](engines/fuzz-inc.md) | Fate/stay night Remastered | `.epk`, `.bin` |
-| [FVP Engine](engines/fvp.md) | Developer Favorite games | `.bin`, `.hcb`, `.hzc` |
+| [FVP Engine](engines/fvp.md) | Sakura Moyu, etc | `.bin`, `.hcb`, `.hzc` |
 | [HuneX (Tsukihime)](engines/hunex-(tsukihime).md) | Tsukihime Remake | `.mrg` |
 | [HuneX (Witch on The Holy Night)](engines/hunex-(witch-on-the-holy-night).md) | Mahoyo Remastered | `.hfa`, `.ctd`, `.cbg`, `.mzp` |
 | [Leaf](engines/leaf.md) | White Album 2 | `.pak` (KCAP) |
