@@ -276,9 +276,20 @@ namespace NicheStudioWeirdo.Views
         private async Task RunVNTextPatchAsync(string mode, string ybnFolder, string scriptFolder, Action<string> log)
         {
             string exePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Utility", "VNTextPatch", "VNTextPatch.exe");
-            string arguments = mode == "extractlocal"
-                ? $"extractlocal \"{ybnFolder}\" \"{scriptFolder}\""
-                : $"insertlocal \"{ybnFolder}\" \"{scriptFolder}\" \"{ybnFolder}\"";
+            var args = new System.Collections.Generic.List<string>();
+            if (mode == "extractlocal")
+            {
+                args.Add("extractlocal");
+                args.Add(ybnFolder);
+                args.Add(scriptFolder);
+            }
+            else
+            {
+                args.Add("insertlocal");
+                args.Add(ybnFolder);
+                args.Add(scriptFolder);
+                args.Add(ybnFolder);
+            }
 
             var tcs = new TaskCompletionSource<bool>();
             var proc = new System.Diagnostics.Process
@@ -286,7 +297,6 @@ namespace NicheStudioWeirdo.Views
                 StartInfo = new System.Diagnostics.ProcessStartInfo
                 {
                     FileName  = exePath,
-                    Arguments = arguments,
                     UseShellExecute        = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError  = true,
@@ -295,6 +305,7 @@ namespace NicheStudioWeirdo.Views
                 },
                 EnableRaisingEvents = true
             };
+            foreach (var a in args) proc.StartInfo.ArgumentList.Add(a);
             proc.OutputDataReceived += (s, ev) => { if (!string.IsNullOrEmpty(ev.Data)) log(ev.Data); };
             proc.ErrorDataReceived  += (s, ev) => { if (!string.IsNullOrEmpty(ev.Data)) log("ERROR: " + ev.Data); };
             proc.Exited += (s, ev) => { tcs.TrySetResult(true); proc.Dispose(); };

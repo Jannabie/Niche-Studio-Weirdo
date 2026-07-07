@@ -53,8 +53,8 @@ namespace NicheStudioWeirdo.Views
             // exkizpak_v2.exe takes the .pak file as a direct argument ?Eno flags needed.
             // It will extract into a subfolder inside the workspace.
             // We run it from the workspace directory so output lands there.
-            string arguments = $"\"{PakFileTxt.Text}\"";
-            _ = ToolRunner.RunAsync(WorkspaceTxt.Text, exkizpakPath, arguments, main);
+            var args = new System.Collections.Generic.List<string> { PakFileTxt.Text };
+            _ = ToolRunner.RunAsync(WorkspaceTxt.Text, exkizpakPath, args, main);
         }
 
         private async void Repack_Click(object sender, RoutedEventArgs e)

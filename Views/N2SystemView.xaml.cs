@@ -35,9 +35,18 @@ namespace NicheStudioWeirdo.Views
             // Read the internal nipa GameID from the Tag, not the human-readable Content
             string gameId = ((ComboBoxItem)GameProfileCombo.SelectedItem)?.Tag?.ToString() ?? "";
 
-            string args = !string.IsNullOrEmpty(gameId)
-                ? $"-xg \"{npaPath}\" \"{gameId}\""
-                : $"-x \"{npaPath}\"";
+            var args = new System.Collections.Generic.List<string>();
+            if (!string.IsNullOrEmpty(gameId))
+            {
+                args.Add("-xg");
+                args.Add(npaPath);
+                args.Add(gameId);
+            }
+            else
+            {
+                args.Add("-x");
+                args.Add(npaPath);
+            }
 
             string exePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Utility", "N2SystemBin", "nipa.exe");
 
@@ -91,9 +100,9 @@ namespace NicheStudioWeirdo.Views
             if (compress) flags += "z";
             if (!string.IsNullOrEmpty(gameId)) flags += "g";
 
-            string args = $"{flags} \"{inDir}\" \"{outNpa}\"";
+            var args = new System.Collections.Generic.List<string> { flags, inDir, outNpa };
             if (!string.IsNullOrEmpty(gameId))
-                args += $" \"{gameId}\"";
+                args.Add(gameId);
 
             string exePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Utility", "N2SystemBin", "nipa.exe");
 
@@ -111,14 +120,13 @@ namespace NicheStudioWeirdo.Views
         /// entirely and just check the exit code for success/failure.
         /// </summary>
         private static async Task RunNipaSilentAsync(
-            string exePath, string args, string workingDir, MainWindow? main)
+            string exePath, System.Collections.Generic.IEnumerable<string> args, string workingDir, MainWindow? main)
         {
             try
             {
                 var psi = new ProcessStartInfo
                 {
                     FileName = exePath,
-                    Arguments = args,
                     WorkingDirectory = workingDir,
                     UseShellExecute = false,
                     // Redirect but discard all output — nipa's wide-char stdout
@@ -127,6 +135,9 @@ namespace NicheStudioWeirdo.Views
                     RedirectStandardError  = true,
                     CreateNoWindow = true,
                 };
+
+                foreach (var a in args)
+                    psi.ArgumentList.Add(a);
 
                 using var process = new Process { StartInfo = psi };
 
