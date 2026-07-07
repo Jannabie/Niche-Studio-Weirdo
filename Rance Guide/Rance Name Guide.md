@@ -1,4 +1,4 @@
-# How to Change Rance's Name, Rance 10 / Every Rance
+# How to Change Rance's Name - Rance X or Every Rance
 
 ---
 
@@ -51,14 +51,14 @@ This is the flexibility of the Alicesoft engine, you are not breaking anything, 
 
 ## How to Add Rance to the Table
 
-### Step 1 — Open the file
+### Step 1 - Open the file
 
 Open `Rance10EX.txt` in **Notepad++**.
 
 Make sure encoding is set to **Shift-JIS**:
 **Encoding → Character sets → Japanese → Shift-JIS**
 
-### Step 2 — Find the table
+### Step 2 - Find the table
 
 Press **Ctrl + F** and search for:
 
@@ -74,7 +74,7 @@ Or you can search for a character you know is in the list, for example:
 
 You will land somewhere inside the table.
 
-### Step 3 — Add the Rance entry
+### Step 3 - Add the Rance entry
 
 Scroll through the list and find an appropriate place (alphabetical order is fine but not required). Then **add this line**:
 
@@ -109,13 +109,13 @@ To change the name to something else, replace `"Rance"` with your desired name:
 > - Only change the second value (the display name).
 > - Keep the format exactly: tab, open brace, first string, comma, second string, close brace, comma.
 
-### Step 4 — Save
+### Step 4 - Save
 
 **Ctrl + S** → save as **Shift-JIS**.
 
 ---
 
-## Step 5 — Recompile the EX file
+## Step 5 - Recompile the EX file
 
 After saving, you need to recompile `Rance10EX.txt` back into the game's binary format using my Alice Engine tools:
 
