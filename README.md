@@ -35,8 +35,8 @@ A centralized WPF toolset for reverse-engineering and translating Japanese visua
 | YOX | Musicus!, etc | [ Guide](docs/engines/yox.md) |
 | YU-RIS | Maggot Baits, Erewhon, etc | [ Guide](docs/engines/yuris.md) |
 ---
- **[Full Documentation Index →](docs/README.md)** —
- **[Rance String Name Guide →](https://github.com/Jannabie/Niche-Studio-Weirdo/blob/main/Rance%20Guide/Rance%20Name%20Guide.md)**
+ **[Full Documentation Index ](docs/README.md)**  —
+ **[Rance String Name Guide ](https://github.com/Jannabie/Niche-Studio-Weirdo/blob/main/Rance%20Guide/Rance%20Name%20Guide.md)**
 
 
 ---
