@@ -4,7 +4,7 @@
 
 ## Background
 
-After you decode `Rance10EX.ex` using AliceTools and got `Rance10EX.txt`, you will find a table called:
+After you decode `Rance10EX.ex` using Alice Engine tools and got `Rance10EX.txt`, you will find a table called:
 
 ```
 table 立ち絵名札マッピング情報 = {
@@ -35,7 +35,7 @@ table 立ち絵名札マッピング情報 = {
 
 So if you search for `ランス` or `Rance` in this section, you will not find him.
 
-This means you cannot change his displayed name through the normal method — because there is no entry to edit in the first place.
+This means you cannot change his displayed name through the normal method, because there is no entry to edit in the first place.
 
 ---
 
@@ -131,9 +131,9 @@ Then replace the original `.ex` file in the game directory with the newly compil
 
 The engine does not have a fixed hardcoded list of which characters are in the name plate table. It reads **all entries in the table** at startup and builds an internal lookup map.
 
-So when you add `{ "ランス／", "Rance" }`, the engine adds that mapping to its internal map — and whenever it needs to display Rance's name plate, it finds the entry and shows `"Rance"` (or whatever you put there).
+So when you add `{ "ランス／", "Rance" }`, the engine adds that mapping to its internal map, and whenever it needs to display Rance's name plate, it finds the entry and shows `"Rance"` (or whatever you put there).
 
-You are not hacking or patching anything. You are using the system exactly as it was designed — just extending the data.
+You are not hacking or patching anything. You are using the system exactly as it was designed, just extending the data.
 
 ---
 
