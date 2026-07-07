@@ -1,5 +1,4 @@
-# Rance 10 — How to Change Rance's Name
-> Beginner friendly. Step by step.
+# How to Change Rance's Name —  Rance 10 / Every Rance
 
 ---
 
@@ -105,7 +104,7 @@ To change the name to something else, replace `"Rance"` with your desired name:
 	{ "ランス／", "Alex" },
 ```
 
-> ⚠️ Rules:
+>  Rules:
 > - Do NOT change `"ランス／"` — that is the internal identifier the engine uses to look him up.
 > - Only change the second value (the display name).
 > - Keep the format exactly: tab, open brace, first string, comma, second string, close brace, comma.
