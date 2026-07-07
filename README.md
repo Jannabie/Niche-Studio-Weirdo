@@ -9,7 +9,7 @@ A centralized WPF toolset for reverse-engineering and translating Japanese visua
 
 ---
 ## Supported Engines
-> **Update:** Diesel, NS2System, Luca System, YU-RIS.
+> **Update:** Diesel, NS2System, Luca System, YU-RIS, **FVP Engine**.
 
 | Tab Name | Games | Docs |
 |---|---|---|
@@ -20,6 +20,7 @@ A centralized WPF toolset for reverse-engineering and translating Japanese visua
 | codeX RScript | Various | [ Guide](docs/engines/codex-rscript.md) |
 | Diesel Engine | Full Metal Daemon Muramasa, etc | [ Guide](docs/engines/diesel-engine.md) |
 | Fuzz Inc. | Fate/stay night Remastered | [Guide](docs/engines/fuzz-inc.md) |
+| FVP Engine | Prelude to the Blue, Bishoujo Mangekyou, etc | [ Guide](docs/engines/fvp.md) |
 | HuneX (Tsukihime) | Tsukihime Remake | [ Guide](docs/engines/hunex-(tsukihime).md) |
 | HuneX (Witch on The Holy Night) | Mahoyo Remastered | [ Guide](docs/engines/hunex-(witch-on-the-holy-night).md) |
 | Leaf | White Album 2, etc | [ Guide](docs/engines/leaf.md) |

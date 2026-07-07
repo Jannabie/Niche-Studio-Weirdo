@@ -52,6 +52,7 @@ These projects and their contributors made this toolkit possible:
 - **[arcusmaximus](https://github.com/arcusmaximus)** — for `VNTranslationTools` / `VNTextPatch`, the backbone of YU-RIS script extraction and injection.
 - **[rafael-vasconcellos](https://github.com/rafael-vasconcellos)** — for the `.NET 8` port of `VNTextPatch`, keeping the tool modern and dependency-light.
 - **[wetor](https://github.com/wetor)** — for `LuckSystem`, the foundation for Key/VisualArts Luca System translation.
+- **[vn-tools](https://github.com/vn-tools)** — for `fvp-tools`, the only open-source toolkit for FVP Engine archives and scripts.
 - The **Tsukihimates** team — for foundational research on Tsukihime Remake's archive format.
 
 ---
