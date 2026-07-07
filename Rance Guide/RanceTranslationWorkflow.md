@@ -7,7 +7,7 @@
 
 When you dump the game scripts using **AliceTools**, you get two main text files:
 
-| File | What's inside |
+| File Example | What's inside |
 |---|---|
 | `Rance10.txt` | Main game script (dialogue, story, variables, etc.) |
 | `Rance10EX.txt` | Extra data — character cards, name tables, BGM info, etc. |
