@@ -106,35 +106,62 @@ namespace NicheStudioWeirdo.Utils
         /// This scans the raw .rio data for readable Shift-JIS / UTF-16 dialogue patterns
         /// compatible with the CRsa (AGES script) format.
         /// </summary>
-        public static List<string> ExtractScriptStrings(string rioPath, IProgress<string>? progress = null)
+        public static string ExtractScriptStrings(string rioFile)
         {
-            progress?.Report($"Reading {Path.GetFileName(rioPath)}...");
-            byte[] data = File.ReadAllBytes(rioPath);
-
-            var results = new List<string>();
-
-            // AGES script text is stored as length-prefixed Shift-JIS or UTF-16 strings
-            // Pattern: look for common VN script text — JP characters clusters (Hiragana/Katakana/CJK)
+            byte[] rioData = File.ReadAllBytes(rioFile);
             var enc932 = Encoding.GetEncoding(932);
-            string fullText = enc932.GetString(data);
+            string fullText = enc932.GetString(rioData);
 
-            // Match Japanese text sequences that look like dialogue (4+ chars, mixed JP)
-            var matches = Regex.Matches(fullText,
-                @"[\u3040-\u9FFF\uFF00-\uFFEF]{4,}[^\x00-\x1F\x7F]*");
+            // Broad regex to capture potential Japanese text blocks
+            var regex = new Regex(@"[\x20-\x7E\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FAF\uFF00-\uFFEF]+");
+            var matches = regex.Matches(fullText);
 
-            int count = 0;
+            var sb = new StringBuilder();
+            sb.AppendLine($"# AGES Script Export — {Path.GetFileName(rioFile)}");
+            sb.AppendLine($"# Exported: {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
+
+            var validStrings = new List<string>();
             foreach (Match m in matches)
             {
-                string line = m.Value.Trim();
-                if (line.Length >= 2 && line.Length < 500)
+                string s = m.Value;
+                if (s.Length > 4)
                 {
-                    results.Add(line);
-                    count++;
+                    // Heuristic: Real JP text almost ALWAYS contains Hiragana (particles).
+                    // Binary noise mapped to Shift-JIS frequently hits the huge Kanji range
+                    // but rarely forms continuous grammatical Hiragana.
+                    int hiraganaCount = 0;
+                    int kanjiCount = 0;
+                    bool hasInvalidControl = false;
+
+                    foreach (char c in s)
+                    {
+                        if (c >= '\u3040' && c <= '\u309F') hiraganaCount++;
+                        if (c >= '\u4E00' && c <= '\u9FAF') kanjiCount++;
+                        if (c < 0x20 && c != '\r' && c != '\n' && c != '\t') hasInvalidControl = true;
+                    }
+
+                    // Strict filter to eliminate 99% of binary noise:
+                    // Requires at least 2 Hiragana and no weird symbols
+                    if (!hasInvalidControl && hiraganaCount >= 2 && !s.Contains("・"))
+                    {
+                        string clean = s.Trim('\0', ' ', '\r', '\n', '\t');
+                        if (clean.Length >= 4)
+                        {
+                            validStrings.Add(clean);
+                        }
+                    }
                 }
             }
 
-            progress?.Report($"Found {count} strings in {Path.GetFileName(rioPath)}.");
-            return results;
+            sb.AppendLine($"# Total strings: {validStrings.Count}");
+            sb.AppendLine();
+
+            for (int i = 0; i < validStrings.Count; i++)
+            {
+                sb.AppendLine($"[{i:D5}] {validStrings[i]}");
+            }
+
+            return sb.ToString();
         }
 
         /// <summary>
@@ -143,23 +170,13 @@ namespace NicheStudioWeirdo.Utils
         public static int ExportScriptToTxt(string rioPath, string outputTxtPath,
             IProgress<string>? progress = null)
         {
-            var strings = ExtractScriptStrings(rioPath, progress);
+            progress?.Report($"Extracting {Path.GetFileName(rioPath)}...");
+            string result = ExtractScriptStrings(rioPath);
+            File.WriteAllText(outputTxtPath, result, new UTF8Encoding(false));
 
-            using var writer = new StreamWriter(outputTxtPath, false, new UTF8Encoding(false));
-            writer.WriteLine($"# AGES Script Export — {Path.GetFileName(rioPath)}");
-            writer.WriteLine($"# Exported: {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
-            writer.WriteLine($"# Total strings: {strings.Count}");
-            writer.WriteLine();
-
-            int idx = 0;
-            foreach (var s in strings)
-            {
-                writer.WriteLine($"[{idx:D5}] {s}");
-                idx++;
-            }
-
-            progress?.Report($"Exported {strings.Count} strings to {Path.GetFileName(outputTxtPath)}");
-            return strings.Count;
+            // Heuristic to estimate count based on line breaks
+            int count = result.Split('\n').Length - 5; 
+            return Math.Max(0, count);
         }
 
         /// <summary>
