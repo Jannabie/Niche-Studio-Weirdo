@@ -29,6 +29,12 @@ namespace NicheStudioWeirdo.Utils
         private const uint SizeMask2           = 0xC92E568F;
         private const uint KeyRotateConstant   = 0xA3B376C9;
 
+        static AgesRioDecoder()
+        {
+            // Register encoding provider for Shift-JIS (932) support in .NET Core / .NET 5+
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+        }
+
         // ──────────────────────────────────────────────────────────────────────
         // Public entry points
         // ──────────────────────────────────────────────────────────────────────
