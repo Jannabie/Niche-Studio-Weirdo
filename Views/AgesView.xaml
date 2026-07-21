@@ -8,135 +8,204 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="AGES Engine (rUGP 7.0)" Style="{StaticResource HeaderStyle}"/>
+        <TextBlock Grid.Row="0" Text="AGES Engine (rUGP) — Schwarzesmarken Hook Mode" Style="{StaticResource HeaderStyle}"/>
         <TextBlock Grid.Row="1"
-                   Text="Extract and inspect .rio archives and script files from âge games (Schwarzesmarken / Muv-Luv series)."
+                   Text="Patch-based translation workflow for Schwarzesmarken (殉教者たち). Uses the Chinese hook patch as a base — no .rio extraction needed."
                    Style="{StaticResource SubheaderStyle}"/>
 
         <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
             <StackPanel>
 
-                <!-- ═══ SECTION 1: ICI Inspector ═══ -->
+                <!-- ═══ SECTION 1: How It Works ═══ -->
                 <Border Background="{StaticResource BgDarkestBrush}" Padding="20" BorderThickness="1"
                         BorderBrush="{StaticResource BorderBrush2}" Margin="0,0,0,16">
                     <StackPanel>
-                        <TextBlock Text="STEP 1 — INSPECT .ICI INDEX FILE" Style="{StaticResource LabelStyle}"
-                                   FontSize="12" Foreground="{StaticResource TextLightBrush}" Margin="0,0,0,4"/>
-                        <TextBlock Text="Select the .ici file (e.g. muv_schB.rio.ici) to decrypt it and view the archive table of contents."
-                                   Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" FontSize="11" Margin="0,0,0,16"/>
+                        <TextBlock Text="STEP 1 — SETUP THE HOOK TOOLKIT" Style="{StaticResource LabelStyle}"
+                                   FontSize="12" Foreground="{StaticResource TextLightBrush}" Margin="0,0,0,12"/>
 
-                        <!-- Info note -->
-                        <Border Background="#0A1020" CornerRadius="0" Padding="14,10" Margin="0,0,0,18"
+                        <!-- Info banner -->
+                        <Border Background="#0A1020" CornerRadius="0" Padding="14,12" Margin="0,0,0,16"
                                 BorderThickness="1" BorderBrush="#1E2A4A">
                             <StackPanel>
-                                <TextBlock Foreground="#6080C0" FontWeight="Bold" FontSize="12" Text="ℹ  ENGINE INFO"/>
-                                <TextBlock Foreground="#7A8AAA" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"
-                                           Text="AGES 7.0 uses a split archive format: one .ici index file + multiple .rio data files (muv_schB.rio, muv_schB.rio.002, muv_schB.rio.003). The ICI is encrypted with key 0xB29D5A0C and a custom key-rotation algorithm."/>
+                                <TextBlock Foreground="#6080C0" FontWeight="Bold" FontSize="12" Text="ℹ  HOW IT WORKS"/>
+                                <TextBlock Foreground="#7A8AAA" FontSize="11" TextWrapping="Wrap" Margin="0,6,0,10"
+                                           Text="Instead of extracting the encrypted .rio archive, this workflow uses a DLL hook that intercepts Japanese text at runtime and swaps it with your translation. The toolkit contains:"/>
+                                
+                                <Grid Margin="10,0,0,14">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- Row 0 -->
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Foreground="#6080C0" FontSize="11" Text="• " Margin="0,0,6,8"/>
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Foreground="#7A8AAA" FontSize="11" Text="winmm.dll + JLXH.dll — the hook loader (DLL hijacking)" Margin="0,0,0,8" TextWrapping="Wrap"/>
+                                    
+                                    <!-- Row 1 -->
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Foreground="#6080C0" FontSize="11" Text="• " Margin="0,0,6,8"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Foreground="#7A8AAA" FontSize="11" Text="FONTCHANGER.dll — handles font rendering for non-Japanese scripts" Margin="0,0,0,8" TextWrapping="Wrap"/>
+                                    
+                                    <!-- Row 2 -->
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Foreground="#6080C0" FontSize="11" Text="• " Margin="0,0,6,8"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="1" Foreground="#7A8AAA" FontSize="11" Text="シュヴァケン殉教者たち_tl.exe — the patched launcher" Margin="0,0,0,8" TextWrapping="Wrap"/>
+                                    
+                                    <!-- Row 3 -->
+                                    <TextBlock Grid.Row="3" Grid.Column="0" Foreground="#6080C0" FontSize="11" Text="• " Margin="0,0,6,8"/>
+                                    <TextBlock Grid.Row="3" Grid.Column="1" Foreground="#7A8AAA" FontSize="11" Text="orgi.jlx — the full extracted Japanese script (16,957 lines)" Margin="0,0,0,8" TextWrapping="Wrap"/>
+                                    
+                                    <!-- Row 4 -->
+                                    <TextBlock Grid.Row="4" Grid.Column="0" Foreground="#6080C0" FontSize="11" Text="• " Margin="0,0,6,0"/>
+                                    <TextBlock Grid.Row="4" Grid.Column="1" Foreground="#7A8AAA" FontSize="11" Text="trans.jlx — the translation target file (edit this!)" Margin="0,0,0,0" TextWrapping="Wrap"/>
+                                </Grid>
+                                
+                                <TextBlock Foreground="#7A8AAA" FontSize="11" TextWrapping="Wrap" Margin="0,0,0,14"
+                                           Text="Place all these files in the same folder as your Schwarzesmarken game, then run the _tl.exe."/>
+
+                                <Border Background="#161208" CornerRadius="4" Padding="12,10" BorderThickness="1" BorderBrush="#3A2D12">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Foreground="#E0B050" FontSize="14" Text="💡" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                                        <TextBlock Foreground="#D0A860" FontSize="11" TextWrapping="Wrap" VerticalAlignment="Center">
+                                            For <Run Foreground="#FFD080" FontWeight="Bold">UI translation hooking</Run>, please contact me privately.<LineBreak/>
+                                            I can assist anyone serious about translating this game. <Run Foreground="#FFD080" FontWeight="Bold">Discord: Obyyy#0999</Run>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Border>
                             </StackPanel>
                         </Border>
 
-                        <!-- ICI file picker -->
-                        <TextBlock Text="SELECT .ICI FILE" Style="{StaticResource LabelStyle}"/>
-                        <Grid Margin="0,0,0,12">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBox x:Name="IciPathTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"
-                                     ToolTip="Path to the .ici file (e.g. C:\game\muv_schB.rio.ici)"/>
-                            <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}"
-                                    Margin="8,0,0,0" Click="BrowseIci_Click"/>
-                            <Button Grid.Column="2" Content="Inspect ICI" Style="{StaticResource ActionButton}"
-                                    Margin="8,0,0,0" Click="InspectIci_Click"/>
-                        </Grid>
+                        <!-- Google Drive download button -->
+                        <TextBlock Text="DOWNLOAD HOOK TOOLKIT FROM GOOGLE DRIVE" Style="{StaticResource LabelStyle}"/>
+                        <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="11" TextWrapping="Wrap"
+                                   Margin="0,0,0,12"
+                                   Text="Click the button below to open the Google Drive folder containing all required hook files (winmm.dll, JLXH.dll, FONTCHANGER.dll, orgi.jlx, trans.jlx, launcher, font)."/>
 
-                        <!-- ICI result output -->
-                        <TextBlock Text="ARCHIVE INFO" Style="{StaticResource LabelStyle}"/>
-                        <Border Background="#0D0D10" BorderThickness="1" BorderBrush="#333" Padding="12" Margin="0,0,0,0">
-                            <TextBox x:Name="IciResultTxt" IsReadOnly="True" TextWrapping="Wrap"
-                                     Background="Transparent" BorderThickness="0"
-                                     Foreground="#9EC0FF" FontFamily="{StaticResource TerminalFont}"
-                                     FontSize="11" MinHeight="80"
-                                     Text="No ICI loaded yet. Browse and click Inspect ICI."/>
-                        </Border>
+                        <Button x:Name="OpenDriveBtn" Content="🔗  Open Google Drive — Hook Toolkit"
+                                Style="{StaticResource ActionButton}"
+                                HorizontalAlignment="Left" Padding="18,10"
+                                Click="OpenDrive_Click"/>
+
+                        <TextBlock Foreground="#404860" FontSize="10" Margin="0,8,0,0"
+                                   Text="https://drive.google.com/drive/folders/1WODb-fN5Q18jnOjRPvTveSrcT_Iwg3RQ"/>
                     </StackPanel>
                 </Border>
 
-                <!-- ═══ SECTION 2: Script Extractor ═══ -->
+                <!-- ═══ SECTION 2: JLX → JSON Parser ═══ -->
                 <Border Background="{StaticResource BgDarkestBrush}" Padding="20" BorderThickness="1"
                         BorderBrush="{StaticResource BorderBrush2}" Margin="0,0,0,16">
                     <StackPanel>
-                        <TextBlock Text="STEP 2 — EXTRACT SCRIPT TEXT FROM .RIO" Style="{StaticResource LabelStyle}"
-                                   FontSize="12" Foreground="{StaticResource TextLightBrush}" Margin="0,0,0,4"/>
-                        <TextBlock Text="Select any .rio or .rio.002/.003 file to extract all readable Japanese/text strings from the AGES script (CRsa) objects inside."
-                                   Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" FontSize="11" Margin="0,0,0,16"/>
+                        <TextBlock Text="STEP 2 — PARSE trans.jlx → JSON (for editing)" Style="{StaticResource LabelStyle}"
+                                   FontSize="12" Foreground="{StaticResource TextLightBrush}" Margin="0,0,0,12"/>
+                        <TextBlock Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" FontSize="11" Margin="0,0,0,16"
+                                   Text="Select the trans.jlx file (UTF-16LE, ':::::' delimited). This will convert it to a clean JSON array that you can edit with any text editor or AI translation tool."/>
 
                         <!-- Note -->
-                        <Border Background="#0A140A" CornerRadius="0" Padding="14,10" Margin="0,0,0,18"
+                        <Border Background="#0A140A" CornerRadius="0" Padding="14,10" Margin="0,0,0,16"
                                 BorderThickness="1" BorderBrush="#1E3A1E">
                             <StackPanel>
-                                <TextBlock Foreground="#60C060" FontWeight="Bold" FontSize="12" Text="📜  SCRIPT FORMAT"/>
+                                <TextBlock Foreground="#60C060" FontWeight="Bold" FontSize="12" Text="📋  JSON FORMAT"/>
                                 <TextBlock Foreground="#7A9A7A" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"
-                                           Text="AGES scripts (CRsa class) store dialogue as Shift-JIS strings inside encrypted .rio data. The extractor scans the raw archive for Japanese text clusters. Output is a numbered .txt file you can use as a translation base."/>
+                                           Text="Output is a UTF-8 JSON array: [{&quot;id&quot;: 0, &quot;jp&quot;: &quot;【ハンニバル】…&quot;, &quot;tl&quot;: &quot;【Hannibal】…&quot;}, …]. Edit the 'tl' fields with your Indonesian translation. The 'jp' field is for reference only."/>
                             </StackPanel>
                         </Border>
 
-                        <!-- .rio input -->
-                        <TextBlock Text="SELECT .RIO FILE (any part)" Style="{StaticResource LabelStyle}"/>
-                        <Grid Margin="0,0,0,12">
+                        <!-- Input JLX files (orgi + trans) -->
+                        <TextBlock Text="ORIGINAL SCRIPT (orgi.jlx)" Style="{StaticResource LabelStyle}"/>
+                        <Grid Margin="0,0,0,10">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <TextBox x:Name="RioPathTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"
-                                     ToolTip="e.g. C:\game\muv_schB.rio or muv_schB.rio.003"/>
+                            <TextBox x:Name="OrgiJlxTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"
+                                     ToolTip="Path to orgi.jlx (the Japanese original)"/>
                             <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}"
-                                    Margin="8,0,0,0" Click="BrowseRio_Click"/>
+                                    Margin="8,0,0,0" Click="BrowseOrgi_Click"/>
                         </Grid>
 
-                        <!-- Output folder -->
-                        <TextBlock Text="OUTPUT FOLDER (for extracted .txt)" Style="{StaticResource LabelStyle}"/>
+                        <TextBlock Text="TRANSLATION FILE (trans.jlx)" Style="{StaticResource LabelStyle}"/>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="TransJlxTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"
+                                     ToolTip="Path to trans.jlx (the translation target)"/>
+                            <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}"
+                                    Margin="8,0,0,0" Click="BrowseTrans_Click"/>
+                        </Grid>
+
+                        <TextBlock Text="OUTPUT JSON FILE" Style="{StaticResource LabelStyle}"/>
                         <Grid Margin="0,0,0,16">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <TextBox x:Name="RioOutTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"
-                                     ToolTip="Folder where the extracted script .txt will be saved"/>
+                            <TextBox x:Name="ParseOutTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"
+                                     ToolTip="Where to save the output JSON file"/>
                             <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}"
-                                    Margin="8,0,0,0" Click="BrowseRioOut_Click"/>
+                                    Margin="8,0,0,0" Click="BrowseParseOut_Click"/>
                         </Grid>
 
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                            <Button Content="Extract Script Strings" Style="{StaticResource ActionButtonGreen}"
-                                    Click="ExtractScript_Click"/>
+                            <Button Content="Parse JLX → JSON" Style="{StaticResource ActionButtonGreen}"
+                                    Click="ParseJlx_Click"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>
 
-                <!-- ═══ SECTION 3: Batch Inspect ═══ -->
+                <!-- ═══ SECTION 3: JSON → JLX Repack ═══ -->
                 <Border Background="{StaticResource BgDarkestBrush}" Padding="20" BorderThickness="1"
                         BorderBrush="{StaticResource BorderBrush2}" Margin="0,0,0,16">
                     <StackPanel>
-                        <TextBlock Text="STEP 3 — BATCH EXTRACT (ALL PARTS)" Style="{StaticResource LabelStyle}"
-                                   FontSize="12" Foreground="{StaticResource TextLightBrush}" Margin="0,0,0,4"/>
-                        <TextBlock Text="Select the folder containing all .rio files. The tool will scan and extract script strings from every part automatically."
-                                   Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" FontSize="11" Margin="0,0,0,16"/>
+                        <TextBlock Text="STEP 3 — REPACK JSON → trans.jlx (for game)" Style="{StaticResource LabelStyle}"
+                                   FontSize="12" Foreground="{StaticResource TextLightBrush}" Margin="0,0,0,12"/>
+                        <TextBlock Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" FontSize="11" Margin="0,0,0,16"
+                                   Text="After editing the 'tl' fields in your JSON file, repack it back into trans.jlx. Place the resulting file in the game folder alongside winmm.dll and run the launcher."/>
 
-                        <TextBlock Text="GAME FOLDER (containing .rio files)" Style="{StaticResource LabelStyle}"/>
+                        <!-- Note -->
+                        <Border Background="#140A0A" CornerRadius="0" Padding="14,10" Margin="0,0,0,16"
+                                BorderThickness="1" BorderBrush="#3A1E1E">
+                            <StackPanel>
+                                <TextBlock Foreground="#C06060" FontWeight="Bold" FontSize="12" Text="⚠  IMPORTANT"/>
+                                <TextBlock Foreground="#9A7A7A" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"
+                                           Text="The output trans.jlx must have the exact same number of entries as orgi.jlx (16,957 lines). Do not add or remove entries — only edit the 'tl' text values."/>
+                            </StackPanel>
+                        </Border>
+
+                        <TextBlock Text="TRANSLATED JSON FILE" Style="{StaticResource LabelStyle}"/>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="RepackJsonTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"
+                                     ToolTip="Path to your translated JSON file"/>
+                            <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}"
+                                    Margin="8,0,0,0" Click="BrowseRepackJson_Click"/>
+                        </Grid>
+
+                        <TextBlock Text="OUTPUT trans.jlx PATH" Style="{StaticResource LabelStyle}"/>
                         <Grid Margin="0,0,0,16">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <TextBox x:Name="BatchFolderTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                            <TextBox x:Name="RepackOutTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"
+                                     ToolTip="Where to save the new trans.jlx (e.g. same folder as your game)"/>
                             <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}"
-                                    Margin="8,0,0,0" Click="BrowseBatchFolder_Click"/>
-                            <Button Grid.Column="2" Content="Batch Extract" Style="{StaticResource ActionButton}"
-                                    Margin="8,0,0,0" Click="BatchExtract_Click"/>
+                                    Margin="8,0,0,0" Click="BrowseRepackOut_Click"/>
                         </Grid>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Content="Repack JSON → trans.jlx" Style="{StaticResource ActionButton}"
+                                    Click="RepackJson_Click"/>
+                        </StackPanel>
                     </StackPanel>
                 </Border>
 

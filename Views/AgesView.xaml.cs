@@ -1,27 +1,46 @@
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Win32;
-using NicheStudioWeirdo.Utils;
 
 namespace NicheStudioWeirdo.Views
 {
+    // ─── JSON model ────────────────────────────────────────────────────────────
+    public class JlxEntry
+    {
+        [JsonPropertyName("id")]
+        public int Id { get; set; }
+
+        [JsonPropertyName("jp")]
+        public string Jp { get; set; } = "";
+
+        [JsonPropertyName("tl")]
+        public string Tl { get; set; } = "";
+    }
+
+    // ─── View ──────────────────────────────────────────────────────────────────
     public partial class AgesView : UserControl
     {
+        private const string DriveUrl =
+            "https://drive.google.com/drive/folders/1WODb-fN5Q18jnOjRPvTveSrcT_Iwg3RQ?usp=sharing";
+
         public AgesView()
         {
             InitializeComponent();
         }
 
-        // ─────────────────────────────────────────────────────────────────────
-        // Helpers
-        // ─────────────────────────────────────────────────────────────────────
+        // ── Helpers ─────────────────────────────────────────────────────────
 
         private void Log(string msg)
         {
-            // Forward to the global console if accessible
             if (Application.Current.MainWindow is MainWindow mw)
                 mw.LogToConsole(msg);
         }
@@ -30,176 +49,170 @@ namespace NicheStudioWeirdo.Views
             => MessageBox.Show(text, title, MessageBoxButton.OK,
                                title == "Error" ? MessageBoxImage.Error : MessageBoxImage.Information);
 
-        // ─────────────────────────────────────────────────────────────────────
-        // Browse helpers
-        // ─────────────────────────────────────────────────────────────────────
+        // ── Section 1 — Google Drive ─────────────────────────────────────────
 
-        private void BrowseIci_Click(object sender, RoutedEventArgs e)
+        private void OpenDrive_Click(object sender, RoutedEventArgs e)
         {
-            var dlg = new OpenFileDialog
+            try
             {
-                Filter = "AGES Index Files (*.ici)|*.ici|All Files (*.*)|*.*",
-                Title  = "Select .ici index file"
-            };
-            if (dlg.ShowDialog() == true) IciPathTxt.Text = dlg.FileName;
+                Process.Start(new ProcessStartInfo(DriveUrl) { UseShellExecute = true });
+                Log("Opened Google Drive: Hook Toolkit folder.");
+            }
+            catch (Exception ex)
+            {
+                Msg($"Cannot open browser:\n{ex.Message}", "Error");
+            }
         }
 
-        private void BrowseRio_Click(object sender, RoutedEventArgs e)
+        // ── Section 2 — Browse helpers ──────────────────────────────────────
+
+        private void BrowseOrgi_Click(object sender, RoutedEventArgs e)
         {
-            var dlg = new OpenFileDialog
-            {
-                Filter = "AGES Archive Files (*.rio;*.rio.*)|*.rio;*.rio.*|All Files (*.*)|*.*",
-                Title  = "Select .rio archive file"
-            };
+            var dlg = new OpenFileDialog { Filter = "JLX Files (*.jlx)|*.jlx|All Files (*.*)|*.*", Title = "Select orgi.jlx" };
             if (dlg.ShowDialog() == true)
             {
-                RioPathTxt.Text = dlg.FileName;
-                // Auto-fill output folder with same directory
-                if (string.IsNullOrWhiteSpace(RioOutTxt.Text))
-                    RioOutTxt.Text = Path.GetDirectoryName(dlg.FileName) ?? "";
+                OrgiJlxTxt.Text = dlg.FileName;
+                // Auto-suggest trans.jlx alongside
+                string dir = Path.GetDirectoryName(dlg.FileName) ?? "";
+                string transCandidate = Path.Combine(dir, "trans.jlx");
+                if (File.Exists(transCandidate) && string.IsNullOrWhiteSpace(TransJlxTxt.Text))
+                    TransJlxTxt.Text = transCandidate;
+                // Auto-suggest output json
+                if (string.IsNullOrWhiteSpace(ParseOutTxt.Text))
+                    ParseOutTxt.Text = Path.Combine(dir, "script.json");
             }
         }
 
-        private void BrowseRioOut_Click(object sender, RoutedEventArgs e)
+        private void BrowseTrans_Click(object sender, RoutedEventArgs e)
         {
-            var dlg = new OpenFolderDialog { Title = "Select output folder for extracted script" };
-            if (dlg.ShowDialog() == true) RioOutTxt.Text = dlg.FolderName;
+            var dlg = new OpenFileDialog { Filter = "JLX Files (*.jlx)|*.jlx|All Files (*.*)|*.*", Title = "Select trans.jlx" };
+            if (dlg.ShowDialog() == true) TransJlxTxt.Text = dlg.FileName;
         }
 
-        private void BrowseBatchFolder_Click(object sender, RoutedEventArgs e)
+        private void BrowseParseOut_Click(object sender, RoutedEventArgs e)
         {
-            var dlg = new OpenFolderDialog { Title = "Select game folder containing .rio files" };
-            if (dlg.ShowDialog() == true) BatchFolderTxt.Text = dlg.FolderName;
+            var dlg = new SaveFileDialog { Filter = "JSON Files (*.json)|*.json", Title = "Save output JSON", FileName = "script.json" };
+            if (dlg.ShowDialog() == true) ParseOutTxt.Text = dlg.FileName;
         }
 
-        // ─────────────────────────────────────────────────────────────────────
-        // Section 1 — ICI Inspector
-        // ─────────────────────────────────────────────────────────────────────
+        // ── Section 2 — Parse JLX → JSON ────────────────────────────────────
 
-        private async void InspectIci_Click(object sender, RoutedEventArgs e)
+        private async void ParseJlx_Click(object sender, RoutedEventArgs e)
         {
-            string iciPath = IciPathTxt.Text.Trim();
-            if (!File.Exists(iciPath))
-            {
-                Msg("Please select a valid .ici file.", "Error");
-                return;
-            }
+            string orgiPath  = OrgiJlxTxt.Text.Trim();
+            string transPath = TransJlxTxt.Text.Trim();
+            string outPath   = ParseOutTxt.Text.Trim();
 
-            IciResultTxt.Text = "Decrypting .ici …";
-            Log($"Inspecting ICI: {iciPath}");
+            if (!File.Exists(orgiPath))  { Msg("Please select a valid orgi.jlx file.",  "Error"); return; }
+            if (!File.Exists(transPath)) { Msg("Please select a valid trans.jlx file.", "Error"); return; }
+            if (string.IsNullOrWhiteSpace(outPath)) { Msg("Please specify an output JSON path.", "Error"); return; }
+
+            Log($"Parsing JLX files → {Path.GetFileName(outPath)} …");
 
             try
             {
-                string summary = await Task.Run(() => AgesRioDecoder.GetIciSummary(iciPath));
-                IciResultTxt.Text = summary;
-                Log("ICI inspection complete.");
+                int count = await Task.Run(() => ParseJlxToJson(orgiPath, transPath, outPath));
+                Msg($"Parsed {count:N0} lines.\nSaved to:\n{outPath}", "Parse Complete");
+                Log($"Done — {count:N0} entries written to {outPath}");
             }
             catch (Exception ex)
             {
-                IciResultTxt.Text = $"Error: {ex.Message}";
-                Log($"ICI Error: {ex.Message}");
+                Msg($"Error during parsing:\n{ex.Message}", "Error");
+                Log($"Parse error: {ex.Message}");
             }
         }
 
-        // ─────────────────────────────────────────────────────────────────────
-        // Section 2 — Single .rio script extraction
-        // ─────────────────────────────────────────────────────────────────────
-
-        private async void ExtractScript_Click(object sender, RoutedEventArgs e)
+        private static int ParseJlxToJson(string orgiPath, string transPath, string outPath)
         {
-            string rioPath = RioPathTxt.Text.Trim();
-            string outDir  = RioOutTxt.Text.Trim();
+            string orgiText  = File.ReadAllText(orgiPath,  Encoding.Unicode);
+            string transText = File.ReadAllText(transPath, Encoding.Unicode);
 
-            if (!File.Exists(rioPath))
+            string[] orgiLines  = orgiText.Split(new[] { ":::::" }, StringSplitOptions.None);
+            string[] transLines = transText.Split(new[] { ":::::" }, StringSplitOptions.None);
+
+            int count = Math.Min(orgiLines.Length, transLines.Length);
+            var entries = new List<JlxEntry>(count);
+            for (int i = 0; i < count; i++)
             {
-                Msg("Please select a valid .rio file.", "Error");
-                return;
-            }
-            if (string.IsNullOrWhiteSpace(outDir))
-                outDir = Path.GetDirectoryName(rioPath)!;
-
-            Directory.CreateDirectory(outDir);
-
-            string outFile = Path.Combine(outDir,
-                Path.GetFileName(rioPath) + "_script.txt");
-
-            Log($"Extracting scripts from: {Path.GetFileName(rioPath)}");
-
-            var progress = new Progress<string>(msg => Log(msg));
-
-            try
-            {
-                int count = await Task.Run(
-                    () => AgesRioDecoder.ExportScriptToTxt(rioPath, outFile, progress));
-
-                Msg($"Extracted {count} strings.\nSaved to:\n{outFile}",
-                    "Extraction Complete");
-                Log($"Done — {count} strings exported to {outFile}");
-            }
-            catch (Exception ex)
-            {
-                Msg($"Error during extraction:\n{ex.Message}", "Error");
-                Log($"Extraction error: {ex.Message}");
-            }
-        }
-
-        // ─────────────────────────────────────────────────────────────────────
-        // Section 3 — Batch extraction
-        // ─────────────────────────────────────────────────────────────────────
-
-        private async void BatchExtract_Click(object sender, RoutedEventArgs e)
-        {
-            string folder = BatchFolderTxt.Text.Trim();
-            if (!Directory.Exists(folder))
-            {
-                Msg("Please select a valid game folder.", "Error");
-                return;
-            }
-
-            // Collect all .rio files in the folder (including .rio.002, .rio.003 etc.)
-            string[] rioFiles = Directory.GetFiles(folder, "*.rio*",
-                SearchOption.TopDirectoryOnly);
-
-            if (rioFiles.Length == 0)
-            {
-                Msg("No .rio files found in the selected folder.", "Error");
-                return;
-            }
-
-            string outDir = Path.Combine(folder, "ages_script_export");
-            Directory.CreateDirectory(outDir);
-
-            Log($"Batch extract: {rioFiles.Length} .rio files found in {folder}");
-
-            var progress = new Progress<string>(msg => Log(msg));
-            int totalStrings = 0;
-
-            try
-            {
-                await Task.Run(() =>
+                entries.Add(new JlxEntry
                 {
-                    foreach (string rioPath in rioFiles)
-                    {
-                        string outFile = Path.Combine(outDir,
-                            Path.GetFileName(rioPath) + "_script.txt");
-                        int count = AgesRioDecoder.ExportScriptToTxt(rioPath, outFile, progress);
-                        totalStrings += count;
-                    }
+                    Id = i,
+                    Jp = orgiLines[i],
+                    Tl = transLines[i]
                 });
+            }
 
-                Msg($"Batch extraction complete!\n\n" +
-                    $"Files processed : {rioFiles.Length}\n" +
-                    $"Total strings   : {totalStrings}\n" +
-                    $"Output folder   : {outDir}",
-                    "Batch Complete");
+            var options = new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+            };
+            string json = JsonSerializer.Serialize(entries, options);
+            File.WriteAllText(outPath, json, Encoding.UTF8);
+            return count;
+        }
 
-                Log($"Batch done — {totalStrings} strings total from {rioFiles.Length} files.");
+        // ── Section 3 — Browse helpers ──────────────────────────────────────
+
+        private void BrowseRepackJson_Click(object sender, RoutedEventArgs e)
+        {
+            var dlg = new OpenFileDialog { Filter = "JSON Files (*.json)|*.json|All Files (*.*)|*.*", Title = "Select translated JSON file" };
+            if (dlg.ShowDialog() == true)
+            {
+                RepackJsonTxt.Text = dlg.FileName;
+                if (string.IsNullOrWhiteSpace(RepackOutTxt.Text))
+                    RepackOutTxt.Text = Path.Combine(Path.GetDirectoryName(dlg.FileName) ?? "", "trans.jlx");
+            }
+        }
+
+        private void BrowseRepackOut_Click(object sender, RoutedEventArgs e)
+        {
+            var dlg = new SaveFileDialog { Filter = "JLX Files (*.jlx)|*.jlx|All Files (*.*)|*.*", Title = "Save trans.jlx", FileName = "trans.jlx" };
+            if (dlg.ShowDialog() == true) RepackOutTxt.Text = dlg.FileName;
+        }
+
+        // ── Section 3 — Repack JSON → JLX ───────────────────────────────────
+
+        private async void RepackJson_Click(object sender, RoutedEventArgs e)
+        {
+            string jsonPath = RepackJsonTxt.Text.Trim();
+            string outPath  = RepackOutTxt.Text.Trim();
+
+            if (!File.Exists(jsonPath)) { Msg("Please select a valid JSON file.", "Error"); return; }
+            if (string.IsNullOrWhiteSpace(outPath)) { Msg("Please specify an output trans.jlx path.", "Error"); return; }
+
+            Log($"Repacking {Path.GetFileName(jsonPath)} → trans.jlx …");
+
+            try
+            {
+                int count = await Task.Run(() => RepackJsonToJlx(jsonPath, outPath));
+                Msg($"Repacked {count:N0} lines.\nSaved to:\n{outPath}", "Repack Complete");
+                Log($"Done — {count:N0} entries written to {outPath}");
             }
             catch (Exception ex)
             {
-                Msg($"Batch error:\n{ex.Message}", "Error");
-                Log($"Batch error: {ex.Message}");
+                Msg($"Error during repack:\n{ex.Message}", "Error");
+                Log($"Repack error: {ex.Message}");
             }
+        }
+
+        private static int RepackJsonToJlx(string jsonPath, string outPath)
+        {
+            string jsonText = File.ReadAllText(jsonPath, Encoding.UTF8);
+            var entries = JsonSerializer.Deserialize<List<JlxEntry>>(jsonText)
+                          ?? throw new InvalidDataException("Failed to deserialize JSON.");
+
+            // Sort by id to preserve original order
+            entries.Sort((a, b) => a.Id.CompareTo(b.Id));
+
+            string combined = string.Join(":::::", entries.Select(e => e.Tl));
+
+            // Write UTF-16 LE without BOM (same as original jlx format)
+            using var fs = new FileStream(outPath, FileMode.Create, FileAccess.Write);
+            using var sw = new StreamWriter(fs, new UnicodeEncoding(false, false));
+            sw.Write(combined);
+
+            return entries.Count;
         }
     }
 }
