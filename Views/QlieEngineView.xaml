@@ -57,11 +57,52 @@
                     </StackPanel>
                 </Border>
 
-                <!-- ═══ SECTION 2: Parse to JSON ═══ -->
+                <!-- ═══ SECTION 2: Repack to .PACK ═══ -->
                 <Border Background="{StaticResource BgDarkestBrush}" Padding="24" BorderThickness="1"
                         BorderBrush="{StaticResource BorderBrush2}" Margin="0,0,0,16">
                     <StackPanel>
-                        <TextBlock Text="STEP 2 — PARSE SCRIPTS → JSON" Style="{StaticResource LabelStyle}"
+                        <TextBlock Text="STEP 2 — REPACK TO .PACK" Style="{StaticResource LabelStyle}"
+                                   Foreground="{StaticResource TextLightBrush}" FontSize="13" Margin="0,0,0,12"/>
+                        <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,16"/>
+
+                        <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="11" TextWrapping="Wrap"
+                                   Margin="0,0,0,12"
+                                   Text="Repack the translated .s scripts back into a new .pack archive. The archive will be created in FilePackVer2.0 format."/>
+
+                        <TextBlock Text="INPUT FOLDER (Translated Scripts)" Style="{StaticResource LabelStyle}" Margin="0,0,0,6"/>
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="RepackInputBox" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                            <Button Grid.Column="1" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,0"
+                                    Click="BrowseRepackInputBtn_Click"/>
+                        </Grid>
+
+                        <TextBlock Text="OUTPUT .PACK FILE" Style="{StaticResource LabelStyle}" Margin="0,0,0,6"/>
+                        <Grid Margin="0,0,0,16">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="RepackOutputBox" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                            <Button Grid.Column="1" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,0"
+                                    Click="BrowseRepackOutputBtn_Click"/>
+                        </Grid>
+
+                        <Button x:Name="RepackPackBtn" Content="Repack to .PACK Archive"
+                                Style="{StaticResource ActionButtonGreen}"
+                                HorizontalAlignment="Right" Padding="20,8"
+                                Click="RepackPackBtn_Click"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- ═══ SECTION 3: Parse to JSON ═══ -->
+                <Border Background="{StaticResource BgDarkestBrush}" Padding="24" BorderThickness="1"
+                        BorderBrush="{StaticResource BorderBrush2}" Margin="0,0,0,16">
+                    <StackPanel>
+                        <TextBlock Text="STEP 3 — PARSE SCRIPTS → JSON" Style="{StaticResource LabelStyle}"
                                    Foreground="{StaticResource TextLightBrush}" FontSize="13" Margin="0,0,0,12"/>
                         <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,16"/>
 
@@ -98,11 +139,11 @@
                     </StackPanel>
                 </Border>
 
-                <!-- ═══ SECTION 3: Repack Scripts ═══ -->
+                <!-- ═══ SECTION 4: Inject JSON ═══ -->
                 <Border Background="{StaticResource BgDarkestBrush}" Padding="24" BorderThickness="1"
                         BorderBrush="{StaticResource BorderBrush2}" Margin="0,0,0,16">
                     <StackPanel>
-                        <TextBlock Text="STEP 3 — INJECT JSON → .S SCRIPTS" Style="{StaticResource LabelStyle}"
+                        <TextBlock Text="STEP 4 — INJECT JSON → .S SCRIPTS" Style="{StaticResource LabelStyle}"
                                    Foreground="{StaticResource TextLightBrush}" FontSize="13" Margin="0,0,0,12"/>
                         <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,16"/>
 
@@ -136,47 +177,6 @@
                                 Style="{StaticResource ActionButtonGreen}"
                                 HorizontalAlignment="Right" Padding="20,8"
                                 Click="RepackScriptsBtn_Click"/>
-                    </StackPanel>
-                </Border>
-
-                <!-- ═══ SECTION 4: Repack ═══ -->
-                <Border Background="{StaticResource BgDarkestBrush}" Padding="24" BorderThickness="1"
-                        BorderBrush="{StaticResource BorderBrush2}" Margin="0,0,0,16">
-                    <StackPanel>
-                        <TextBlock Text="STEP 4 — REPACK TO .PACK" Style="{StaticResource LabelStyle}"
-                                   Foreground="{StaticResource TextLightBrush}" FontSize="13" Margin="0,0,0,12"/>
-                        <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,16"/>
-
-                        <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="11" TextWrapping="Wrap"
-                                   Margin="0,0,0,12"
-                                   Text="Repack the translated .s scripts back into a new .pack archive. The archive will be created in FilePackVer2.0 format."/>
-
-                        <TextBlock Text="INPUT FOLDER (Translated Scripts)" Style="{StaticResource LabelStyle}" Margin="0,0,0,6"/>
-                        <Grid Margin="0,0,0,12">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBox x:Name="RepackInputBox" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
-                            <Button Grid.Column="1" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,0"
-                                    Click="BrowseRepackInputBtn_Click"/>
-                        </Grid>
-
-                        <TextBlock Text="OUTPUT .PACK FILE" Style="{StaticResource LabelStyle}" Margin="0,0,0,6"/>
-                        <Grid Margin="0,0,0,16">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="Auto"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBox x:Name="RepackOutputBox" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
-                            <Button Grid.Column="1" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,0"
-                                    Click="BrowseRepackOutputBtn_Click"/>
-                        </Grid>
-
-                        <Button x:Name="RepackPackBtn" Content="Repack to .PACK Archive"
-                                Style="{StaticResource ActionButtonGreen}"
-                                HorizontalAlignment="Right" Padding="20,8"
-                                Click="RepackPackBtn_Click"/>
                     </StackPanel>
                 </Border>
 

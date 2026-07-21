@@ -48,7 +48,17 @@ namespace NicheStudioWeirdo.Views
             }
             if (string.IsNullOrWhiteSpace(outDir))
             {
-                outDir = Path.Combine(Path.GetDirectoryName(packFile) ?? "", Path.GetFileNameWithoutExtension(packFile));
+                string dir = Path.GetDirectoryName(packFile) ?? "";
+                string progFiles = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+                string progFilesX86 = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86);
+                
+                if (dir.StartsWith(progFiles, StringComparison.OrdinalIgnoreCase) || 
+                    dir.StartsWith(progFilesX86, StringComparison.OrdinalIgnoreCase))
+                {
+                    dir = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                }
+                
+                outDir = Path.Combine(dir, Path.GetFileNameWithoutExtension(packFile));
                 PackOutputBox.Text = outDir;
             }
 
@@ -63,6 +73,10 @@ namespace NicheStudioWeirdo.Views
                     extractor.ExtractPack(packFile, outDir);
                 });
                 MessageBox.Show($"Extracted successfully to {outDir}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                MessageBox.Show($"Permission denied: You do not have write access to '{outDir}'.\n\nPlease select a different output folder, or run Niche Studio as Administrator.", "Access Denied", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             catch (Exception ex)
             {
