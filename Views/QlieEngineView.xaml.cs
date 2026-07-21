@@ -183,5 +183,65 @@ namespace NicheStudioWeirdo.Views
 
             await ToolRunner.RunAsync(workingDir, "VNTextPatch.exe", args, main);
         }
+        private void BrowseRepackInputBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFolderDialog { Title = "Select folder with translated scripts to repack" };
+            if (dialog.ShowDialog() == true)
+            {
+                RepackInputBox.Text = dialog.FolderName;
+            }
+        }
+
+        private void BrowseRepackOutputBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new SaveFileDialog
+            {
+                Title = "Save Repacked .pack file",
+                Filter = "QLIE Archive (*.pack)|*.pack|All files (*.*)|*.*",
+                FileName = "data1_translated.pack"
+            };
+            if (dialog.ShowDialog() == true)
+            {
+                RepackOutputBox.Text = dialog.FileName;
+            }
+        }
+
+        private async void RepackPackBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string inDir = RepackInputBox.Text;
+            string outPack = RepackOutputBox.Text;
+
+            if (string.IsNullOrWhiteSpace(inDir) || !Directory.Exists(inDir))
+            {
+                MessageBox.Show("Please select a valid input folder containing the scripts.");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(outPack))
+            {
+                MessageBox.Show("Please specify an output .pack file.");
+                return;
+            }
+
+            var btn = sender as Button;
+            if (btn != null) btn.IsEnabled = false;
+
+            try
+            {
+                await Task.Run(() =>
+                {
+                    var extractor = new NicheStudioWeirdo.Utils.QlieExtractor();
+                    extractor.RepackPack(inDir, outPack);
+                });
+                MessageBox.Show($"Repacked successfully to {outPack}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Repack failed: {ex.Message}\n{ex.StackTrace}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                if (btn != null) btn.IsEnabled = true;
+            }
+        }
     }
 }

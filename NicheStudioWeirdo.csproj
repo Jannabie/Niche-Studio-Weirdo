@@ -21,6 +21,7 @@
     <Compile Remove="NicheStudio\**\*.cs" />
     <None Include="Utility\**\*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </None>
   </ItemGroup>
 

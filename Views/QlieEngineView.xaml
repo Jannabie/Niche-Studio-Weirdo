@@ -139,27 +139,44 @@
                     </StackPanel>
                 </Border>
 
-                <!-- ═══ SECTION 4: Install ═══ -->
+                <!-- ═══ SECTION 4: Repack ═══ -->
                 <Border Background="{StaticResource BgDarkestBrush}" Padding="24" BorderThickness="1"
                         BorderBrush="{StaticResource BorderBrush2}" Margin="0,0,0,16">
                     <StackPanel>
-                        <TextBlock Text="STEP 4 — INSTALL &amp; PLAY" Style="{StaticResource LabelStyle}"
+                        <TextBlock Text="STEP 4 — REPACK TO .PACK" Style="{StaticResource LabelStyle}"
                                    Foreground="{StaticResource TextLightBrush}" FontSize="13" Margin="0,0,0,12"/>
                         <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,16"/>
 
-                        <Border Background="#161208" Padding="14,12" BorderThickness="1" BorderBrush="#3A2D12">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Grid.Column="0" Foreground="#E0B050" FontSize="14" Text="💡" Margin="0,0,10,0" VerticalAlignment="Top"/>
-                                <TextBlock Grid.Column="1" Foreground="#D0A860" FontSize="11" TextWrapping="Wrap">
-                                    <Run FontWeight="Bold">No repacking needed!</Run><LineBreak/>
-                                    QLIE natively prioritizes loose files. Simply copy the translated .s files (preserving folder structure) directly into the game's <Run Foreground="#FFD080" FontWeight="Bold">GameData</Run> folder. The engine reads loose files before .pack archives.
-                                </TextBlock>
-                            </Grid>
-                        </Border>
+                        <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="11" TextWrapping="Wrap"
+                                   Margin="0,0,0,12"
+                                   Text="Repack the translated .s scripts back into a new .pack archive. The archive will be created in FilePackVer2.0 format."/>
+
+                        <TextBlock Text="INPUT FOLDER (Translated Scripts)" Style="{StaticResource LabelStyle}" Margin="0,0,0,6"/>
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="RepackInputBox" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                            <Button Grid.Column="1" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,0"
+                                    Click="BrowseRepackInputBtn_Click"/>
+                        </Grid>
+
+                        <TextBlock Text="OUTPUT .PACK FILE" Style="{StaticResource LabelStyle}" Margin="0,0,0,6"/>
+                        <Grid Margin="0,0,0,16">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="RepackOutputBox" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                            <Button Grid.Column="1" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,0"
+                                    Click="BrowseRepackOutputBtn_Click"/>
+                        </Grid>
+
+                        <Button x:Name="RepackPackBtn" Content="Repack to .PACK Archive"
+                                Style="{StaticResource ActionButtonGreen}"
+                                HorizontalAlignment="Right" Padding="20,8"
+                                Click="RepackPackBtn_Click"/>
                     </StackPanel>
                 </Border>
 
