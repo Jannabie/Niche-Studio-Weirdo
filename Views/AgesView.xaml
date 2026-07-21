@@ -68,7 +68,7 @@
                                 <TextBlock Foreground="#7A8AAA" FontSize="11" TextWrapping="Wrap" Margin="0,0,0,14"
                                            Text="Place all these files in the same folder as your Schwarzesmarken game, then run the _tl.exe."/>
 
-                                <Border Background="#161208" CornerRadius="4" Padding="12,10" BorderThickness="1" BorderBrush="#3A2D12">
+                                <Border Background="#161208" CornerRadius="0" Padding="12,10" BorderThickness="1" BorderBrush="#3A2D12">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Foreground="#E0B050" FontSize="14" Text="💡" Margin="0,0,8,0" VerticalAlignment="Center"/>
                                         <TextBlock Foreground="#D0A860" FontSize="11" TextWrapping="Wrap" VerticalAlignment="Center">
