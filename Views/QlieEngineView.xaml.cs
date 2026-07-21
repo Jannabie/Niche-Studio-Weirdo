@@ -151,9 +151,10 @@ namespace NicheStudioWeirdo.Views
             if (main == null) return;
 
             string vnTextPatchDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Utility", "VNTextPatch");
+            string vnTextPatchExe = Path.Combine(vnTextPatchDir, "VNTextPatch.exe");
             string args = $"extractlocal \"{inPath}\" \"{outJson}\"";
 
-            await ToolRunner.RunAsync(vnTextPatchDir, "VNTextPatch.exe", args, main);
+            await ToolRunner.RunAsync(vnTextPatchDir, vnTextPatchExe, args, main);
         }
 
         private void BrowseTranslatedJsonBtn_Click(object sender, RoutedEventArgs e)
@@ -212,9 +213,10 @@ namespace NicheStudioWeirdo.Views
             if (main == null) return;
 
             string vnTextPatchDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Utility", "VNTextPatch");
+            string vnTextPatchExe = Path.Combine(vnTextPatchDir, "VNTextPatch.exe");
             string args = $"insertlocal \"{inPath}\" \"{jsonFile}\" \"{outFolder}\"";
 
-            await ToolRunner.RunAsync(vnTextPatchDir, "VNTextPatch.exe", args, main);
+            await ToolRunner.RunAsync(vnTextPatchDir, vnTextPatchExe, args, main);
         }
         private void BrowseRepackInputBtn_Click(object sender, RoutedEventArgs e)
         {
