@@ -24,14 +24,36 @@
                                    Foreground="{StaticResource TextLightBrush}" FontSize="13" Margin="0,0,0,12"/>
                         <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,16"/>
 
-                        <Border Background="#0A1020" Padding="14,12" Margin="0,0,0,8"
-                                BorderThickness="1" BorderBrush="#1E2A4A">
-                            <StackPanel>
-                                <TextBlock Foreground="#6080C0" FontWeight="Bold" FontSize="12" Text="ℹ  HOW TO UNPACK"/>
-                                <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="11" TextWrapping="Wrap" Margin="0,8,0,0"
-                                           Text="Use an external extractor like GARbro to unpack the script archives. In Bishoujo Mangekyou, scripts are typically in data1.pack or data2.pack. Extract to a folder to get the loose .s script files."/>
-                            </StackPanel>
-                        </Border>
+                        <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="11" TextWrapping="Wrap"
+                                   Margin="0,0,0,12"
+                                   Text="Unpack QLIE .pack archives directly (e.g. data1.pack). The extraction uses native GARbro decompression algorithms."/>
+
+                        <TextBlock Text="INPUT .PACK FILE" Style="{StaticResource LabelStyle}" Margin="0,0,0,6"/>
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="PackInputBox" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                            <Button Grid.Column="1" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,0"
+                                    Click="BrowsePackInputBtn_Click"/>
+                        </Grid>
+
+                        <TextBlock Text="OUTPUT FOLDER" Style="{StaticResource LabelStyle}" Margin="0,0,0,6"/>
+                        <Grid Margin="0,0,0,16">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="PackOutputBox" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                            <Button Grid.Column="1" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,0"
+                                    Click="BrowsePackOutputBtn_Click"/>
+                        </Grid>
+
+                        <Button x:Name="UnpackPackBtn" Content="Unpack .PACK Archive"
+                                Style="{StaticResource ActionButtonGreen}"
+                                HorizontalAlignment="Right" Padding="20,8"
+                                Click="UnpackPackBtn_Click"/>
                     </StackPanel>
                 </Border>
 

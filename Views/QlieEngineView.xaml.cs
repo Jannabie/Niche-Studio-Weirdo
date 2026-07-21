@@ -14,6 +14,66 @@ namespace NicheStudioWeirdo.Views
             InitializeComponent();
         }
 
+        private void BrowsePackInputBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog
+            {
+                Title = "Select QLIE .pack file",
+                Filter = "QLIE Archive (*.pack)|*.pack|All files (*.*)|*.*"
+            };
+            if (dialog.ShowDialog() == true)
+            {
+                PackInputBox.Text = dialog.FileName;
+            }
+        }
+
+        private void BrowsePackOutputBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFolderDialog { Title = "Select extraction folder" };
+            if (dialog.ShowDialog() == true)
+            {
+                PackOutputBox.Text = dialog.FolderName;
+            }
+        }
+
+        private async void UnpackPackBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string packFile = PackInputBox.Text;
+            string outDir = PackOutputBox.Text;
+
+            if (string.IsNullOrWhiteSpace(packFile) || !File.Exists(packFile))
+            {
+                MessageBox.Show("Please select a valid .pack file.");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(outDir))
+            {
+                outDir = Path.Combine(Path.GetDirectoryName(packFile) ?? "", Path.GetFileNameWithoutExtension(packFile));
+                PackOutputBox.Text = outDir;
+            }
+
+            var btn = sender as Button;
+            if (btn != null) btn.IsEnabled = false;
+
+            try
+            {
+                await Task.Run(() =>
+                {
+                    var extractor = new NicheStudioWeirdo.Utils.QlieExtractor();
+                    extractor.ExtractPack(packFile, outDir);
+                });
+                MessageBox.Show($"Extracted successfully to {outDir}", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Extraction failed: {ex.Message}\n{ex.StackTrace}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                if (btn != null) btn.IsEnabled = true;
+            }
+        }
+
         private void BrowseInputScriptsBtn_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new OpenFolderDialog { Title = "Select folder containing extracted QLIE .s script files" };
