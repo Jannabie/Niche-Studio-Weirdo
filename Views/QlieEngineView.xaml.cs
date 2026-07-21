@@ -90,10 +90,19 @@ namespace NicheStudioWeirdo.Views
 
         private void BrowseInputScriptsBtn_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new OpenFolderDialog { Title = "Select folder containing extracted QLIE .s script files" };
+            var dialog = new OpenFileDialog
+            {
+                Title = "Select QLIE .s script file(s)",
+                Filter = "QLIE Script files (*.s)|*.s|All files (*.*)|*.*",
+                Multiselect = true
+            };
             if (dialog.ShowDialog() == true)
             {
-                InputScriptsFolderBox.Text = dialog.FolderName;
+                // If single file, show just that file; if multiple, show the folder
+                if (dialog.FileNames.Length == 1)
+                    InputScriptsFolderBox.Text = dialog.FileName;
+                else
+                    InputScriptsFolderBox.Text = Path.GetDirectoryName(dialog.FileName) ?? dialog.FileName;
             }
         }
 
@@ -113,29 +122,38 @@ namespace NicheStudioWeirdo.Views
 
         private async void ParseScriptsBtn_Click(object sender, RoutedEventArgs e)
         {
-            string inFolder = InputScriptsFolderBox.Text;
+            string inPath = InputScriptsFolderBox.Text;
             string outJson = OutputJsonBox.Text;
 
-            if (string.IsNullOrWhiteSpace(inFolder) || !Directory.Exists(inFolder))
+            if (string.IsNullOrWhiteSpace(inPath))
             {
-                MessageBox.Show("Please select a valid folder containing the original .s script files.");
+                MessageBox.Show("Please select a .s script file or folder.");
                 return;
             }
+
+            // Accept either a single file or a folder
+            bool isFile = File.Exists(inPath);
+            bool isFolder = Directory.Exists(inPath);
+            if (!isFile && !isFolder)
+            {
+                MessageBox.Show("Please select a valid .s script file or folder.");
+                return;
+            }
+
             if (string.IsNullOrWhiteSpace(outJson))
             {
-                outJson = Path.Combine(inFolder, "qlie_translation.json");
+                string baseDir = isFile ? Path.GetDirectoryName(inPath) ?? "" : inPath;
+                outJson = Path.Combine(baseDir, "qlie_translation.json");
                 OutputJsonBox.Text = outJson;
             }
 
             var main = Window.GetWindow(this) as MainWindow;
             if (main == null) return;
 
-            // VNTextPatch extractlocal infile|infolder scriptfile|scriptfolder
-            // Notice VNTextPatch arguments: extractlocal <input_scripts_folder> <output_json>
-            string args = $"extractlocal \"{inFolder}\" \"{outJson}\"";
-            string workingDir = Path.Combine("Utility", "VNTextPatch");
+            string vnTextPatchDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Utility", "VNTextPatch");
+            string args = $"extractlocal \"{inPath}\" \"{outJson}\"";
 
-            await ToolRunner.RunAsync(workingDir, "VNTextPatch.exe", args, main);
+            await ToolRunner.RunAsync(vnTextPatchDir, "VNTextPatch.exe", args, main);
         }
 
         private void BrowseTranslatedJsonBtn_Click(object sender, RoutedEventArgs e)
@@ -163,7 +181,7 @@ namespace NicheStudioWeirdo.Views
         private async void RepackScriptsBtn_Click(object sender, RoutedEventArgs e)
         {
             string jsonFile = TranslatedJsonBox.Text;
-            string inFolder = InputScriptsFolderBox.Text;
+            string inPath = InputScriptsFolderBox.Text;
             string outFolder = OutputScriptsFolderBox.Text;
 
             if (string.IsNullOrWhiteSpace(jsonFile) || !File.Exists(jsonFile))
@@ -171,31 +189,32 @@ namespace NicheStudioWeirdo.Views
                 MessageBox.Show("Please select a valid translated JSON file.");
                 return;
             }
-            if (string.IsNullOrWhiteSpace(inFolder) || !Directory.Exists(inFolder))
+
+            bool isFile = File.Exists(inPath);
+            bool isFolder = Directory.Exists(inPath);
+            if (!isFile && !isFolder)
             {
-                MessageBox.Show("Please ensure the input scripts folder (STEP 2) points to the original .s files. VNTextPatch needs the originals to inject the translation.");
+                MessageBox.Show("Please ensure the input .s file/folder (STEP 3) is valid. VNTextPatch needs the originals to inject the translation.");
                 return;
             }
+
+            string baseDir = isFile ? Path.GetDirectoryName(inPath) ?? "" : inPath;
             if (string.IsNullOrWhiteSpace(outFolder))
             {
-                outFolder = Path.Combine(Path.GetDirectoryName(inFolder) ?? "", Path.GetFileName(inFolder) + "_translated");
+                outFolder = Path.Combine(baseDir, "translated");
                 OutputScriptsFolderBox.Text = outFolder;
             }
 
             if (!Directory.Exists(outFolder))
-            {
                 Directory.CreateDirectory(outFolder);
-            }
 
             var main = Window.GetWindow(this) as MainWindow;
             if (main == null) return;
 
-            // VNTextPatch insertlocal infile|infolder scriptfile|scriptfolder outfile|outfolder
-            // Usage for injecting: insertlocal <original_scripts_folder> <translation_json> <output_scripts_folder>
-            string args = $"insertlocal \"{inFolder}\" \"{jsonFile}\" \"{outFolder}\"";
-            string workingDir = Path.Combine("Utility", "VNTextPatch");
+            string vnTextPatchDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Utility", "VNTextPatch");
+            string args = $"insertlocal \"{inPath}\" \"{jsonFile}\" \"{outFolder}\"";
 
-            await ToolRunner.RunAsync(workingDir, "VNTextPatch.exe", args, main);
+            await ToolRunner.RunAsync(vnTextPatchDir, "VNTextPatch.exe", args, main);
         }
         private void BrowseRepackInputBtn_Click(object sender, RoutedEventArgs e)
         {

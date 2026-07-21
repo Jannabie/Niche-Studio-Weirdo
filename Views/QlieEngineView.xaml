@@ -108,9 +108,9 @@
 
                         <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="11" TextWrapping="Wrap"
                                    Margin="0,0,0,12"
-                                   Text="Select the folder containing extracted .s scripts. VNTextPatch will compile all translatable text into a single JSON file."/>
+                                   Text="Select a .s script file (or folder) to extract. VNTextPatch will compile all translatable text into a single JSON file."/>
 
-                        <TextBlock Text="INPUT .S SCRIPTS FOLDER" Style="{StaticResource LabelStyle}" Margin="0,0,0,6"/>
+                        <TextBlock Text="INPUT .S SCRIPT FILE" Style="{StaticResource LabelStyle}" Margin="0,0,0,6"/>
                         <Grid Margin="0,0,0,12">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
