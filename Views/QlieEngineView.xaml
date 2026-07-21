@@ -10,134 +10,133 @@
 
         <TextBlock Grid.Row="0" Text="QLIE Engine — Script Override Mode" Style="{StaticResource HeaderStyle}"/>
         <TextBlock Grid.Row="1"
-                   Text="Translation workflow for QLIE games (e.g. Bishoujo Mangekyou). Uses VNTextPatch to parse and repack .s scripts, and the loose-file override method to bypass packing."
+                   Text="Translation workflow for QLIE games (e.g. Bishoujo Mangekyou). Uses VNTextPatch to parse .s scripts to JSON and inject translations back. No repacking needed."
                    Style="{StaticResource SubheaderStyle}"/>
 
         <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
             <StackPanel>
 
                 <!-- ═══ SECTION 1: Unpack ═══ -->
-                <Border Background="{StaticResource BgDarkestBrush}" Padding="20" BorderThickness="1"
+                <Border Background="{StaticResource BgDarkestBrush}" Padding="24" BorderThickness="1"
                         BorderBrush="{StaticResource BorderBrush2}" Margin="0,0,0,16">
                     <StackPanel>
                         <TextBlock Text="STEP 1 — UNPACK .PACK ARCHIVES" Style="{StaticResource LabelStyle}"
-                                   FontSize="12" Foreground="{StaticResource TextLightBrush}" Margin="0,0,0,12"/>
+                                   Foreground="{StaticResource TextLightBrush}" FontSize="13" Margin="0,0,0,12"/>
+                        <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,16"/>
 
-                        <!-- Info banner -->
-                        <Border Background="#0A1020" CornerRadius="0" Padding="14,12" Margin="0,0,0,16"
+                        <Border Background="#0A1020" Padding="14,12" Margin="0,0,0,8"
                                 BorderThickness="1" BorderBrush="#1E2A4A">
                             <StackPanel>
                                 <TextBlock Foreground="#6080C0" FontWeight="Bold" FontSize="12" Text="ℹ  HOW TO UNPACK"/>
-                                <TextBlock Foreground="#7A8AAA" FontSize="11" TextWrapping="Wrap" Margin="0,6,0,10"
-                                           Text="Use an external extractor like GARbro to unpack the script archives. In Bishoujo Mangekyou, scripts are typically found in data1.pack or data2.pack. Extract the archive into a folder so you have access to the loose .s script files."/>
+                                <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="11" TextWrapping="Wrap" Margin="0,8,0,0"
+                                           Text="Use an external extractor like GARbro to unpack the script archives. In Bishoujo Mangekyou, scripts are typically in data1.pack or data2.pack. Extract to a folder to get the loose .s script files."/>
                             </StackPanel>
                         </Border>
                     </StackPanel>
                 </Border>
 
                 <!-- ═══ SECTION 2: Parse to JSON ═══ -->
-                <Border Background="{StaticResource BgDarkestBrush}" Padding="20" BorderThickness="1"
+                <Border Background="{StaticResource BgDarkestBrush}" Padding="24" BorderThickness="1"
                         BorderBrush="{StaticResource BorderBrush2}" Margin="0,0,0,16">
                     <StackPanel>
-                        <TextBlock Text="STEP 2 — PARSE SCRIPTS TO JSON" Style="{StaticResource LabelStyle}"
-                                   FontSize="12" Foreground="{StaticResource TextLightBrush}" Margin="0,0,0,12"/>
+                        <TextBlock Text="STEP 2 — PARSE SCRIPTS → JSON" Style="{StaticResource LabelStyle}"
+                                   Foreground="{StaticResource TextLightBrush}" FontSize="13" Margin="0,0,0,12"/>
+                        <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,16"/>
 
                         <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="11" TextWrapping="Wrap"
                                    Margin="0,0,0,12"
-                                   Text="Select the folder containing the extracted .s scripts, and specify where to save the output JSON translation file. VNTextPatch will scan all scripts and compile the translatable text."/>
+                                   Text="Select the folder containing extracted .s scripts. VNTextPatch will compile all translatable text into a single JSON file."/>
 
-                        <Grid Margin="0,0,0,10">
+                        <TextBlock Text="INPUT .S SCRIPTS FOLDER" Style="{StaticResource LabelStyle}" Margin="0,0,0,6"/>
+                        <Grid Margin="0,0,0,12">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <TextBox x:Name="InputScriptsFolderBox" Style="{StaticResource InputTextBox}"
-                                     Height="32" Padding="10,6"
-                                     ToolTip="Folder containing original .s files"/>
-                            <Button x:Name="BrowseInputScriptsBtn" Grid.Column="1" Content="Browse Folder..."
-                                    Style="{StaticResource ActionButton}" Margin="10,0,0,0" Width="120"
+                            <TextBox x:Name="InputScriptsFolderBox" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                            <Button Grid.Column="1" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,0"
                                     Click="BrowseInputScriptsBtn_Click"/>
                         </Grid>
 
+                        <TextBlock Text="OUTPUT JSON FILE" Style="{StaticResource LabelStyle}" Margin="0,0,0,6"/>
                         <Grid Margin="0,0,0,16">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <TextBox x:Name="OutputJsonBox" Style="{StaticResource InputTextBox}"
-                                     Height="32" Padding="10,6"
-                                     ToolTip="Output JSON file path (e.g. qlie_translation.json)"/>
-                            <Button x:Name="BrowseOutputJsonBtn" Grid.Column="1" Content="Browse File..."
-                                    Style="{StaticResource ActionButton}" Margin="10,0,0,0" Width="120"
+                            <TextBox x:Name="OutputJsonBox" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                            <Button Grid.Column="1" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,0"
                                     Click="BrowseOutputJsonBtn_Click"/>
                         </Grid>
 
-                        <Button x:Name="ParseScriptsBtn" Content="⚡ PARSE SCRIPTS TO JSON"
-                                Style="{StaticResource ActionButton}"
-                                Background="{StaticResource AccentBrush}" Foreground="White"
-                                FontWeight="Bold" Height="36" Click="ParseScriptsBtn_Click"/>
+                        <Button x:Name="ParseScriptsBtn" Content="Parse Scripts → JSON"
+                                Style="{StaticResource ActionButtonGreen}"
+                                HorizontalAlignment="Right" Padding="20,8"
+                                Click="ParseScriptsBtn_Click"/>
                     </StackPanel>
                 </Border>
 
                 <!-- ═══ SECTION 3: Repack Scripts ═══ -->
-                <Border Background="{StaticResource BgDarkestBrush}" Padding="20" BorderThickness="1"
+                <Border Background="{StaticResource BgDarkestBrush}" Padding="24" BorderThickness="1"
                         BorderBrush="{StaticResource BorderBrush2}" Margin="0,0,0,16">
                     <StackPanel>
-                        <TextBlock Text="STEP 3 — REPACK TRANSLATED JSON" Style="{StaticResource LabelStyle}"
-                                   FontSize="12" Foreground="{StaticResource TextLightBrush}" Margin="0,0,0,12"/>
+                        <TextBlock Text="STEP 3 — INJECT JSON → .S SCRIPTS" Style="{StaticResource LabelStyle}"
+                                   Foreground="{StaticResource TextLightBrush}" FontSize="13" Margin="0,0,0,12"/>
+                        <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,16"/>
 
                         <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="11" TextWrapping="Wrap"
                                    Margin="0,0,0,12"
-                                   Text="Select the translated JSON file, the folder containing the original .s scripts, and the folder where the newly translated .s scripts should be saved."/>
+                                   Text="Select the translated JSON, the original .s folder (required as template), and an output folder for the translated .s files."/>
 
-                        <Grid Margin="0,0,0,10">
+                        <TextBlock Text="TRANSLATED JSON FILE" Style="{StaticResource LabelStyle}" Margin="0,0,0,6"/>
+                        <Grid Margin="0,0,0,12">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <TextBox x:Name="TranslatedJsonBox" Style="{StaticResource InputTextBox}"
-                                     Height="32" Padding="10,6"
-                                     ToolTip="Translated JSON file"/>
-                            <Button x:Name="BrowseTranslatedJsonBtn" Grid.Column="1" Content="Browse JSON..."
-                                    Style="{StaticResource ActionButton}" Margin="10,0,0,0" Width="120"
+                            <TextBox x:Name="TranslatedJsonBox" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                            <Button Grid.Column="1" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,0"
                                     Click="BrowseTranslatedJsonBtn_Click"/>
                         </Grid>
 
+                        <TextBlock Text="OUTPUT .S SCRIPTS FOLDER" Style="{StaticResource LabelStyle}" Margin="0,0,0,6"/>
                         <Grid Margin="0,0,0,16">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <TextBox x:Name="OutputScriptsFolderBox" Style="{StaticResource InputTextBox}"
-                                     Height="32" Padding="10,6"
-                                     ToolTip="Folder to save the translated .s files"/>
-                            <Button x:Name="BrowseOutputScriptsBtn" Grid.Column="1" Content="Browse Folder..."
-                                    Style="{StaticResource ActionButton}" Margin="10,0,0,0" Width="120"
+                            <TextBox x:Name="OutputScriptsFolderBox" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                            <Button Grid.Column="1" Content="..." Style="{StaticResource BrowseButton}" Margin="5,0,0,0"
                                     Click="BrowseOutputScriptsBtn_Click"/>
                         </Grid>
 
-                        <Button x:Name="RepackScriptsBtn" Content="⚡ REPACK TO .S SCRIPTS"
-                                Style="{StaticResource ActionButton}"
-                                Background="{StaticResource PrimaryBrush}" Foreground="White"
-                                FontWeight="Bold" Height="36" Click="RepackScriptsBtn_Click"/>
+                        <Button x:Name="RepackScriptsBtn" Content="Inject JSON → .S Scripts"
+                                Style="{StaticResource ActionButtonGreen}"
+                                HorizontalAlignment="Right" Padding="20,8"
+                                Click="RepackScriptsBtn_Click"/>
                     </StackPanel>
                 </Border>
 
                 <!-- ═══ SECTION 4: Install ═══ -->
-                <Border Background="{StaticResource BgDarkestBrush}" Padding="20" BorderThickness="1"
+                <Border Background="{StaticResource BgDarkestBrush}" Padding="24" BorderThickness="1"
                         BorderBrush="{StaticResource BorderBrush2}" Margin="0,0,0,16">
                     <StackPanel>
-                        <TextBlock Text="STEP 4 — PLAY THE GAME" Style="{StaticResource LabelStyle}"
-                                   FontSize="12" Foreground="{StaticResource TextLightBrush}" Margin="0,0,0,12"/>
+                        <TextBlock Text="STEP 4 — INSTALL &amp; PLAY" Style="{StaticResource LabelStyle}"
+                                   Foreground="{StaticResource TextLightBrush}" FontSize="13" Margin="0,0,0,12"/>
+                        <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,16"/>
 
-                        <Border Background="#161208" CornerRadius="0" Padding="14,12" BorderThickness="1" BorderBrush="#3A2D12">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Foreground="#E0B050" FontSize="14" Text="💡" Margin="0,0,8,0" VerticalAlignment="Top"/>
-                                <TextBlock Foreground="#D0A860" FontSize="11" TextWrapping="Wrap" VerticalAlignment="Center">
+                        <Border Background="#161208" Padding="14,12" BorderThickness="1" BorderBrush="#3A2D12">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Foreground="#E0B050" FontSize="14" Text="💡" Margin="0,0,10,0" VerticalAlignment="Top"/>
+                                <TextBlock Grid.Column="1" Foreground="#D0A860" FontSize="11" TextWrapping="Wrap">
                                     <Run FontWeight="Bold">No repacking needed!</Run><LineBreak/>
-                                    QLIE natively prioritizes loose files. Simply copy the generated translated `.s` files and their folder structure directly into your game's <Run Foreground="#FFD080" FontWeight="Bold">GameData</Run> directory. The game will read your loose files instead of the .pack archives!
+                                    QLIE natively prioritizes loose files. Simply copy the translated .s files (preserving folder structure) directly into the game's <Run Foreground="#FFD080" FontWeight="Bold">GameData</Run> folder. The engine reads loose files before .pack archives.
                                 </TextBlock>
-                            </StackPanel>
+                            </Grid>
                         </Border>
                     </StackPanel>
                 </Border>
