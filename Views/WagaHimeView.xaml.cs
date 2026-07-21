@@ -1,4 +1,4 @@
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -37,7 +37,7 @@ namespace NicheStudioWeirdo.Views
             string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Minato New", "WagaHime-Arc");
             string py = SettingsManager.Config.PythonPath;
             
-            // acv1_extractor.py <file.dat> [options]  Eoutput auto goes to <name>_extracted/
+            // acv1_extractor.py <file.dat> [options] 窶・output auto goes to <name>_extracted/
             string args = $"acv1_extractor.py \"{DatFileTxt.Text}\" --master-key {MasterKeyTxt.Text} --script-key {ScriptKeyTxt.Text}";
             if (SkipRawChk.IsChecked == true) args += " --no-raw";
             if (SkipTextChk.IsChecked == true) args += " --no-text";
@@ -66,3 +66,4 @@ namespace NicheStudioWeirdo.Views
         }
     }
 }
+

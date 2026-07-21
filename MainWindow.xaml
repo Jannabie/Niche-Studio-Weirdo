@@ -78,7 +78,8 @@
                         <Button Content="Minato (Old)" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="Majikoai"/>
                         <Button Content="Minori" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="Minori"/>
                         <Button Content="N2System" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="N2System"/>
-                        <Button Content="QLIE" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="Qlie"/>
+
+
                         <Button Content="TYPE-MOON" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="MeltyBlood"/>
                         <Button Content="YOX" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="Musicus"/>
                         <Button Content="YU-RIS" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="Yuris"/>

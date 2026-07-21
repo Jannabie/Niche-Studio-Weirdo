@@ -1,4 +1,4 @@
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -62,7 +62,7 @@ namespace NicheStudioWeirdo.Views
             }
             catch (Exception ex)
             {
-                GetMain().LogToConsole($"✘ [ERROR] Unpack failed: {ex.Message}");
+                GetMain().LogToConsole($"笨・[ERROR] Unpack failed: {ex.Message}");
             }
         }
 
@@ -87,30 +87,31 @@ namespace NicheStudioWeirdo.Views
                 // fuckpaz to crash with ACCESS_VIOLATION when it can't write the output.
                 string tmpPath = Path.Combine(Path.GetTempPath(), $"fuckpaz_{Guid.NewGuid():N}.paz");
 
-                GetMain().LogToConsole($"▶ Repacking via temp: {tmpPath}");
+                GetMain().LogToConsole($"笆ｶ Repacking via temp: {tmpPath}");
 
                 await ToolRunner.RunAsync(workDir, exe,
                     new[] { RepackOriginalPazTxt.Text, idx.ToString(), tmpPath }, GetMain());
 
-                // Move temp → final output if fuckpaz succeeded
+                // Move temp 竊・final output if fuckpaz succeeded
                 if (File.Exists(tmpPath) && new FileInfo(tmpPath).Length > 0)
                 {
                     try { if (File.Exists(outPath)) File.Delete(outPath); } catch { }
                     File.Move(tmpPath, outPath, overwrite: true);
-                    GetMain().LogToConsole($"✔ Output saved to: {outPath}");
+                    GetMain().LogToConsole($"笨・Output saved to: {outPath}");
                 }
                 else
                 {
                     try { if (File.Exists(tmpPath)) File.Delete(tmpPath); } catch { }
-                    GetMain().LogToConsole("✘ [ERROR] Repack failed — check game index and that TARGET FOLDER directly contains the unpacked files.");
+                    GetMain().LogToConsole("笨・[ERROR] Repack failed 窶・check game index and that TARGET FOLDER directly contains the unpacked files.");
                 }
             }
             catch (Exception ex)
             {
-                GetMain().LogToConsole($"✘ [ERROR] Repack failed: {ex.Message}");
+                GetMain().LogToConsole($"笨・[ERROR] Repack failed: {ex.Message}");
             }
         }
 
 
     }
 }
+

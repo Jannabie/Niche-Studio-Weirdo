@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Win32;
@@ -15,7 +15,7 @@ namespace NicheStudioWeirdo.Views
         private static readonly string[] GamePlugins = new[]
         {
             "LOOPERS.py",   // 0 LOOPERS
-            "LB_EN.py",     // 1 Little Busters EN  — no dedicated .py, use LOOPERS base
+            "LB_EN.py",     // 1 Little Busters EN  窶・no dedicated .py, use LOOPERS base
             "SP.py",        // 2 Summer Pockets
             "CartagraHD.py",// 3 CartagraHD
             "KANON.py",     // 4 KANON
@@ -43,10 +43,10 @@ namespace NicheStudioWeirdo.Views
             InitializeComponent();
         }
 
-        // ── Helpers ──────────────────────────────────────────────────────────
+        // 笏笏 Helpers 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 
         private string GetDataDir() =>
-            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Utility", "LuckSystemBin", "data");
+            Path.Combine((Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory), "Utility", "LuckSystemBin", "data");
 
         private (string plugin, string opcode) GetGameFiles()
         {
@@ -59,7 +59,7 @@ namespace NicheStudioWeirdo.Views
             );
         }
 
-        // ── SCRIPT DECOMPILE ──────────────────────────────────────────────────
+        // 笏笏 SCRIPT DECOMPILE 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 
         private void BrowseScriptDecompileInput_Click(object sender, RoutedEventArgs e)
         {
@@ -89,12 +89,12 @@ namespace NicheStudioWeirdo.Views
             // Run in the data directory so gpython can resolve "from base.xxx import *"
             string args = $"script decompile -s \"{pakPath}\" -O \"{opcodeName}\" -p \"{pluginName}\" -o \"{outDir}\"";
 
-            string exeAbsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ExePath);
+            string exeAbsPath = Path.Combine((Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory), ExePath);
             var main = Window.GetWindow(this) as MainWindow;
             await ToolRunner.RunAsync(dataDir, exeAbsPath, args, main);
         }
 
-        // ── SCRIPT IMPORT ─────────────────────────────────────────────────────
+        // 笏笏 SCRIPT IMPORT 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 
         private void BrowseScriptImportSource_Click(object sender, RoutedEventArgs e)
         {
@@ -135,12 +135,12 @@ namespace NicheStudioWeirdo.Views
             // script import -s <original SCRIPT.PAK> -O <opcode> -p <plugin> -i <inDir> -o <outPak>
             string args = $"script import -s \"{srcPak}\" -O \"{opcodeName}\" -p \"{pluginName}\" -i \"{inDir}\" -o \"{outPak}\"";
 
-            string exeAbsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ExePath);
+            string exeAbsPath = Path.Combine((Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory), ExePath);
             var main = Window.GetWindow(this) as MainWindow;
             await ToolRunner.RunAsync(dataDir, exeAbsPath, args, main);
         }
 
-        // ── IMAGE EXPORT (CZ → PNG) ──────────────────────────────────────────
+        // 笏笏 IMAGE EXPORT (CZ 竊・PNG) 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 
         private void BrowseCzExportInput_Click(object sender, RoutedEventArgs e)
         {
@@ -168,10 +168,10 @@ namespace NicheStudioWeirdo.Views
             string args = $"image export -i \"{czPath}\" -o \"{pngPath}\"";
 
             var main = Window.GetWindow(this) as MainWindow;
-            await ToolRunner.RunAsync(AppDomain.CurrentDomain.BaseDirectory, ExePath, args, main);
+            await ToolRunner.RunAsync((Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory), ExePath, args, main);
         }
 
-        // ── IMAGE IMPORT (PNG → CZ) ──────────────────────────────────────────
+        // 笏笏 IMAGE IMPORT (PNG 竊・CZ) 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 
         private void BrowseCzImportSource_Click(object sender, RoutedEventArgs e)
         {
@@ -212,7 +212,8 @@ namespace NicheStudioWeirdo.Views
             string args = $"image import -s \"{srcCz}\" -i \"{pngPath}\" -o \"{outCz}\"";
 
             var main = Window.GetWindow(this) as MainWindow;
-            await ToolRunner.RunAsync(AppDomain.CurrentDomain.BaseDirectory, ExePath, args, main);
+            await ToolRunner.RunAsync((Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory), ExePath, args, main);
         }
     }
 }
+

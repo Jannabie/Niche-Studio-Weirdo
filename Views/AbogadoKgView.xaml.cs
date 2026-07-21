@@ -1,4 +1,4 @@
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -36,10 +36,10 @@ namespace NicheStudioWeirdo.Views
             return true;
         }
 
-        // ─── Decode: KG ↁEPNG ───────────────────────────────────────────────
+        // 笏笏笏 Decode: KG 竊・PNG 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
         private async void DecodeFolder_Click(object sender, RoutedEventArgs e)
         {
-            if (!TrySetBusy(true)) { GetMain().LogToConsole("[WARN] Already running  Eplease wait."); return; }
+            if (!TrySetBusy(true)) { GetMain().LogToConsole("[WARN] Already running 窶・please wait."); return; }
 
             if (string.IsNullOrWhiteSpace(DecodeFolderTxt.Text))
             {
@@ -49,7 +49,7 @@ namespace NicheStudioWeirdo.Views
             }
 
             string folder = DecodeFolderTxt.Text;
-            GetMain().LogToConsole($"[*] Decoding all .KG ↁEPNG in: {folder}");
+            GetMain().LogToConsole($"[*] Decoding all .KG 竊・PNG in: {folder}");
             await System.Threading.Tasks.Task.Run(() =>
             {
                 try
@@ -65,10 +65,10 @@ namespace NicheStudioWeirdo.Views
             TrySetBusy(false);
         }
 
-        // ─── Encode: PNG ↁEKG ───────────────────────────────────────────────
+        // 笏笏笏 Encode: PNG 竊・KG 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
         private async void ConvertPngKg_Click(object sender, RoutedEventArgs e)
         {
-            if (!TrySetBusy(true)) { GetMain().LogToConsole("[WARN] Already running  Eplease wait."); return; }
+            if (!TrySetBusy(true)) { GetMain().LogToConsole("[WARN] Already running 窶・please wait."); return; }
 
             if (string.IsNullOrWhiteSpace(EncodeFolderTxt.Text))
             {
@@ -78,7 +78,7 @@ namespace NicheStudioWeirdo.Views
             }
 
             string folder = EncodeFolderTxt.Text;
-            GetMain().LogToConsole($"[*] Encoding all .PNG ↁEKG in: {folder}");
+            GetMain().LogToConsole($"[*] Encoding all .PNG 竊・KG in: {folder}");
             GetMain().LogToConsole($"[*] Output: {System.IO.Path.Combine(folder, "packed_kg")}");
             await System.Threading.Tasks.Task.Run(() =>
             {
@@ -96,3 +96,4 @@ namespace NicheStudioWeirdo.Views
         }
     }
 }
+

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,9 +19,9 @@ namespace NicheStudioWeirdo.Views
 
         private void Msg(string msg, string title) => MessageBox.Show(msg, title, MessageBoxButton.OK, MessageBoxImage.Error);
 
-        // ─────────────────────────────────────────────────────────────────────
+        // 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
         // Browse Helpers
-        // ─────────────────────────────────────────────────────────────────────
+        // 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
         private void BrowseBinInput_Click(object sender, RoutedEventArgs e)
         {
             var dlg = new OpenFileDialog { Filter = "BIN Archives (*.bin)|*.bin|All Files (*.*)|*.*", Title = "Select .bin archive" };
@@ -58,58 +58,58 @@ namespace NicheStudioWeirdo.Views
             if (dlg.ShowDialog() == true) NvsgEncodeTxt.Text = dlg.FileName;
         }
 
-        // ─────────────────────────────────────────────────────────────────────
+        // 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
         // BIN Archive Extract
-        // ─────────────────────────────────────────────────────────────────────
+        // 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
         private async void BinExtract_Click(object sender, RoutedEventArgs e)
         {
             string file = BinInputTxt.Text.Trim();
             if (!File.Exists(file)) { Msg("Please select a valid .bin file.", "Error"); return; }
 
             string outFolder = Path.Combine(Path.GetDirectoryName(file)!, Path.GetFileNameWithoutExtension(file) + "_extracted");
-            string scriptPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Utility", "FVP", "bin_archiver.py");
+            string scriptPath = Path.Combine((Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory), "Utility", "FVP", "bin_archiver.py");
 
             if (!File.Exists(scriptPath)) { Msg($"Python script not found at {scriptPath}", "Error"); return; }
 
             try
             {
-                await ToolRunner.RunAsync(AppDomain.CurrentDomain.BaseDirectory, "python", $"\"{scriptPath}\" -d \"{file}\" \"{outFolder}\"", GetMain());
+                await ToolRunner.RunAsync((Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory), "python", $"\"{scriptPath}\" -d \"{file}\" \"{outFolder}\"", GetMain());
                 
                 MessageBox.Show($"BIN extraction complete!\nSaved to: {outFolder}", "Done", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex) { Msg(ex.Message, "Error"); }
         }
 
-        // ─────────────────────────────────────────────────────────────────────
+        // 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
         // BIN Archive Repack
-        // ─────────────────────────────────────────────────────────────────────
+        // 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
         private async void BinRepack_Click(object sender, RoutedEventArgs e)
         {
             string folder = BinRepackFolderTxt.Text.Trim();
             if (!Directory.Exists(folder)) { Msg("Please select a valid folder.", "Error"); return; }
 
             string outFile = folder + "_repacked.bin";
-            string scriptPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Utility", "FVP", "bin_archiver.py");
+            string scriptPath = Path.Combine((Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory), "Utility", "FVP", "bin_archiver.py");
 
             try
             {
-                await ToolRunner.RunAsync(AppDomain.CurrentDomain.BaseDirectory, "python", $"\"{scriptPath}\" -c \"{folder}\" \"{outFile}\"", GetMain());
+                await ToolRunner.RunAsync((Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory), "python", $"\"{scriptPath}\" -c \"{folder}\" \"{outFile}\"", GetMain());
                 
                 MessageBox.Show($"BIN repack complete!\nSaved to: {outFile}", "Done", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex) { Msg(ex.Message, "Error"); }
         }
 
-        // ─────────────────────────────────────────────────────────────────────
+        // 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
         // HCB Decompile
-        // ─────────────────────────────────────────────────────────────────────
+        // 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
         private async void HcbDecompile_Click(object sender, RoutedEventArgs e)
         {
             string file = HcbDecompileTxt.Text.Trim();
             if (!File.Exists(file)) { Msg("Please select a valid .hcb file.", "Error"); return; }
 
             string workDir = Path.GetDirectoryName(file)!;
-            string scriptPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Utility", "FVP", "hcb_compiler.py");
+            string scriptPath = Path.Combine((Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory), "Utility", "FVP", "hcb_compiler.py");
 
             try
             {
@@ -120,9 +120,9 @@ namespace NicheStudioWeirdo.Views
             catch (Exception ex) { Msg(ex.Message, "Error"); }
         }
 
-        // ─────────────────────────────────────────────────────────────────────
+        // 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
         // HCB Compile
-        // ─────────────────────────────────────────────────────────────────────
+        // 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
         private async void HcbCompile_Click(object sender, RoutedEventArgs e)
         {
             string folder = HcbCompileFolderTxt.Text.Trim();
@@ -130,7 +130,7 @@ namespace NicheStudioWeirdo.Views
             if (!File.Exists(Path.Combine(folder, "strings.txt"))) { Msg("strings.txt not found in the selected folder.", "Error"); return; }
 
             string outFile = "script_compiled.hcb"; // written to workDir
-            string scriptPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Utility", "FVP", "hcb_compiler.py");
+            string scriptPath = Path.Combine((Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory), "Utility", "FVP", "hcb_compiler.py");
 
             try
             {
@@ -141,40 +141,40 @@ namespace NicheStudioWeirdo.Views
             catch (Exception ex) { Msg(ex.Message, "Error"); }
         }
 
-        // ─────────────────────────────────────────────────────────────────────
+        // 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
         // NVSG Decode
-        // ─────────────────────────────────────────────────────────────────────
+        // 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
         private async void NvsgDecode_Click(object sender, RoutedEventArgs e)
         {
             string file = NvsgDecodeTxt.Text.Trim();
             if (!File.Exists(file)) { Msg("Please select a valid image file.", "Error"); return; }
 
             string outFile = Path.ChangeExtension(file, ".png");
-            string scriptPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Utility", "FVP", "nvsg_converter.py");
+            string scriptPath = Path.Combine((Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory), "Utility", "FVP", "nvsg_converter.py");
 
             try
             {
-                await ToolRunner.RunAsync(AppDomain.CurrentDomain.BaseDirectory, "python", $"\"{scriptPath}\" --decode \"{file}\" \"{outFile}\"", GetMain());
+                await ToolRunner.RunAsync((Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory), "python", $"\"{scriptPath}\" --decode \"{file}\" \"{outFile}\"", GetMain());
                 
                 MessageBox.Show($"NVSG decoded!\nSaved to: {outFile}", "Done", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex) { Msg(ex.Message, "Error"); }
         }
 
-        // ─────────────────────────────────────────────────────────────────────
+        // 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
         // NVSG Encode
-        // ─────────────────────────────────────────────────────────────────────
+        // 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
         private async void NvsgEncode_Click(object sender, RoutedEventArgs e)
         {
             string file = NvsgEncodeTxt.Text.Trim();
             if (!File.Exists(file)) { Msg("Please select a valid .png file.", "Error"); return; }
 
             string outFile = Path.ChangeExtension(file, ".hzc");
-            string scriptPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Utility", "FVP", "nvsg_converter.py");
+            string scriptPath = Path.Combine((Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory), "Utility", "FVP", "nvsg_converter.py");
 
             try
             {
-                await ToolRunner.RunAsync(AppDomain.CurrentDomain.BaseDirectory, "python", $"\"{scriptPath}\" --encode \"{file}\" \"{outFile}\"", GetMain());
+                await ToolRunner.RunAsync((Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory), "python", $"\"{scriptPath}\" --encode \"{file}\" \"{outFile}\"", GetMain());
                 
                 MessageBox.Show($"PNG encoded!\nSaved to: {outFile}", "Done", MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -182,3 +182,4 @@ namespace NicheStudioWeirdo.Views
         }
     }
 }
+

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -13,7 +13,7 @@ using Microsoft.Win32;
 
 namespace NicheStudioWeirdo.Views
 {
-    // ─── JSON model ────────────────────────────────────────────────────────────
+    // 笏笏笏 JSON model 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
     public class JlxEntry
     {
         [JsonPropertyName("id")]
@@ -26,7 +26,7 @@ namespace NicheStudioWeirdo.Views
         public string Tl { get; set; } = "";
     }
 
-    // ─── View ──────────────────────────────────────────────────────────────────
+    // 笏笏笏 View 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
     public partial class AgesView : UserControl
     {
         private const string DriveUrl =
@@ -37,7 +37,7 @@ namespace NicheStudioWeirdo.Views
             InitializeComponent();
         }
 
-        // ── Helpers ─────────────────────────────────────────────────────────
+        // 笏笏 Helpers 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 
         private void Log(string msg)
         {
@@ -49,7 +49,7 @@ namespace NicheStudioWeirdo.Views
             => MessageBox.Show(text, title, MessageBoxButton.OK,
                                title == "Error" ? MessageBoxImage.Error : MessageBoxImage.Information);
 
-        // ── Section 1 — Google Drive ─────────────────────────────────────────
+        // 笏笏 Section 1 窶・Google Drive 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 
         private void OpenDrive_Click(object sender, RoutedEventArgs e)
         {
@@ -64,7 +64,7 @@ namespace NicheStudioWeirdo.Views
             }
         }
 
-        // ── Section 2 — Browse helpers ──────────────────────────────────────
+        // 笏笏 Section 2 窶・Browse helpers 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 
         private void BrowseOrgi_Click(object sender, RoutedEventArgs e)
         {
@@ -95,7 +95,7 @@ namespace NicheStudioWeirdo.Views
             if (dlg.ShowDialog() == true) ParseOutTxt.Text = dlg.FileName;
         }
 
-        // ── Section 2 — Parse JLX → JSON ────────────────────────────────────
+        // 笏笏 Section 2 窶・Parse JLX 竊・JSON 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 
         private async void ParseJlx_Click(object sender, RoutedEventArgs e)
         {
@@ -107,13 +107,13 @@ namespace NicheStudioWeirdo.Views
             if (!File.Exists(transPath)) { Msg("Please select a valid trans.jlx file.", "Error"); return; }
             if (string.IsNullOrWhiteSpace(outPath)) { Msg("Please specify an output JSON path.", "Error"); return; }
 
-            Log($"Parsing JLX files → {Path.GetFileName(outPath)} …");
+            Log($"Parsing JLX files 竊・{Path.GetFileName(outPath)} 窶ｦ");
 
             try
             {
                 int count = await Task.Run(() => ParseJlxToJson(orgiPath, transPath, outPath));
                 Msg($"Parsed {count:N0} lines.\nSaved to:\n{outPath}", "Parse Complete");
-                Log($"Done — {count:N0} entries written to {outPath}");
+                Log($"Done 窶・{count:N0} entries written to {outPath}");
             }
             catch (Exception ex)
             {
@@ -152,7 +152,7 @@ namespace NicheStudioWeirdo.Views
             return count;
         }
 
-        // ── Section 3 — Browse helpers ──────────────────────────────────────
+        // 笏笏 Section 3 窶・Browse helpers 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 
         private void BrowseRepackJson_Click(object sender, RoutedEventArgs e)
         {
@@ -171,7 +171,7 @@ namespace NicheStudioWeirdo.Views
             if (dlg.ShowDialog() == true) RepackOutTxt.Text = dlg.FileName;
         }
 
-        // ── Section 3 — Repack JSON → JLX ───────────────────────────────────
+        // 笏笏 Section 3 窶・Repack JSON 竊・JLX 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 
         private async void RepackJson_Click(object sender, RoutedEventArgs e)
         {
@@ -181,13 +181,13 @@ namespace NicheStudioWeirdo.Views
             if (!File.Exists(jsonPath)) { Msg("Please select a valid JSON file.", "Error"); return; }
             if (string.IsNullOrWhiteSpace(outPath)) { Msg("Please specify an output trans.jlx path.", "Error"); return; }
 
-            Log($"Repacking {Path.GetFileName(jsonPath)} → trans.jlx …");
+            Log($"Repacking {Path.GetFileName(jsonPath)} 竊・trans.jlx 窶ｦ");
 
             try
             {
                 int count = await Task.Run(() => RepackJsonToJlx(jsonPath, outPath));
                 Msg($"Repacked {count:N0} lines.\nSaved to:\n{outPath}", "Repack Complete");
-                Log($"Done — {count:N0} entries written to {outPath}");
+                Log($"Done 窶・{count:N0} entries written to {outPath}");
             }
             catch (Exception ex)
             {
@@ -216,3 +216,4 @@ namespace NicheStudioWeirdo.Views
         }
     }
 }
+

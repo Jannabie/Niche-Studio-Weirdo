@@ -1,4 +1,4 @@
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
@@ -102,3 +102,4 @@ namespace NicheStudioWeirdo.Views
         }
     }
 }
+

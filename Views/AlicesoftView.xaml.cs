@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,9 +16,9 @@ namespace NicheStudioWeirdo.Views
 
         private MainWindow GetMain() => (MainWindow)Window.GetWindow(this);
 
-        // ═══════════════════════════════════════════════════════
+        // 笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊・
         // EXTRACT ARCHIVE
-        // ═══════════════════════════════════════════════════════
+        // 笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊・
 
         private void BrowseExtractArchive_Click(object sender, RoutedEventArgs e)
         {
@@ -61,9 +61,9 @@ namespace NicheStudioWeirdo.Views
             await AlicesoftUtils.ExtractArchiveAsync(archivePath, outDir, GetMain());
         }
 
-        // ═══════════════════════════════════════════════════════
+        // 笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊・
         // PACK AFA
-        // ═══════════════════════════════════════════════════════
+        // 笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊・
 
         private void BrowsePackInput_Click(object sender, RoutedEventArgs e)
         {
@@ -104,9 +104,9 @@ namespace NicheStudioWeirdo.Views
             await AlicesoftUtils.PackArchiveAsync(inputFolder, outAfa, GetMain());
         }
 
-        // ═══════════════════════════════════════════════════════
+        // 笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊・
         // SCRIPT TOOLS (.ain)
-        // ═══════════════════════════════════════════════════════
+        // 笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊・
 
         private void BrowseAin_Click(object sender, RoutedEventArgs e)
         {
@@ -137,9 +137,9 @@ namespace NicheStudioWeirdo.Views
                 await AlicesoftUtils.EditAinAsync(AinFileTxt.Text, AinTxtTxt.Text, dlg.FileName, GetMain());
         }
 
-        // ═══════════════════════════════════════════════════════
+        // 笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊・
         // DATABASE TOOLS (.ex)
-        // ═══════════════════════════════════════════════════════
+        // 笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊・
 
         private void BrowseEx_Click(object sender, RoutedEventArgs e)
         {
@@ -170,9 +170,9 @@ namespace NicheStudioWeirdo.Views
                 await AlicesoftUtils.EditExAsync(ExFileTxt.Text, ExTxtTxt.Text, dlg.FileName, GetMain());
         }
 
-        // ═══════════════════════════════════════════════════════
+        // 笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊・
         // IMAGE TOOLS (.cg)
-        // ═══════════════════════════════════════════════════════
+        // 笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊・
 
         private void BrowseCg_Click(object sender, RoutedEventArgs e)
         {
@@ -191,3 +191,4 @@ namespace NicheStudioWeirdo.Views
         }
     }
 }
+

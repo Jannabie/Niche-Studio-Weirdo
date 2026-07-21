@@ -1,4 +1,4 @@
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -51,7 +51,7 @@ namespace NicheStudioWeirdo.Views
                 args = $"\"{GetScriptPath()}\" export \"{TargetTxt.Text}\" -o \"{jsonFile}\" --format {fmt}";
             }
 
-            main.LogToConsole($"CodeX: Exporting GSC ↁE{fmt.ToUpper()} [{GetEncoding()}]...");
+            main.LogToConsole($"CodeX: Exporting GSC 竊・{fmt.ToUpper()} [{GetEncoding()}]...");
             _ = ToolRunner.RunAsync(Path.GetDirectoryName(GetScriptPath()) ?? "", SettingsManager.Config.PythonPath, args, main);
         }
 
@@ -75,7 +75,7 @@ namespace NicheStudioWeirdo.Views
                 args = $"\"{GetScriptPath()}\" import \"{TargetTxt.Text}\" \"{jsonFile}\" -o \"{repackedFile}\" --encoding {GetEncoding()}";
             }
 
-            main.LogToConsole($"CodeX: Importing {fmt.ToUpper()} ↁEGSC [{GetEncoding()}]...");
+            main.LogToConsole($"CodeX: Importing {fmt.ToUpper()} 竊・GSC [{GetEncoding()}]...");
             _ = ToolRunner.RunAsync(Path.GetDirectoryName(GetScriptPath()) ?? "", SettingsManager.Config.PythonPath, args, main);
         }
 
@@ -99,3 +99,4 @@ namespace NicheStudioWeirdo.Views
         }
     }
 }
+

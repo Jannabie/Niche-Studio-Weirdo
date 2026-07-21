@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -17,9 +17,9 @@ namespace NicheStudioWeirdo.Views
             InitializeComponent();
         }
 
-        // ─────────────────────────────────────────────────────────────────────
+        // 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
         // Browse helpers
-        // ─────────────────────────────────────────────────────────────────────
+        // 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 
         private void BrowseYpfInput_Click(object sender, RoutedEventArgs e)
         {
@@ -43,9 +43,9 @@ namespace NicheStudioWeirdo.Views
             if (dlg.ShowDialog() == true) YbnFolderTxt.Text = dlg.FolderName;
         }
 
-        // ─────────────────────────────────────────────────────────────────────
-        // SECTION 1 — YPF EXTRACT
-        // ─────────────────────────────────────────────────────────────────────
+        // 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
+        // SECTION 1 窶・YPF EXTRACT
+        // 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 
         private async void YpfExtract_Click(object sender, RoutedEventArgs e)
         {
@@ -63,11 +63,11 @@ namespace NicheStudioWeirdo.Views
             try
             {
                 SetBusy(true);
-                AppendLog($"Extracting {Path.GetFileName(file)} …");
+                AppendLog($"Extracting {Path.GetFileName(file)} 窶ｦ");
                 int n = await Task.Run(() =>
                     YurisYpf.Extract(file, outDir,
                         msg => Dispatcher.Invoke(() => AppendLog(msg))));
-                AppendLog($"✓ Done — {n} files extracted to: {outDir}");
+                AppendLog($"笨・Done 窶・{n} files extracted to: {outDir}");
                 MessageBox.Show($"Extracted {n} files to:\n{outDir}", "Done",
                     MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -75,9 +75,9 @@ namespace NicheStudioWeirdo.Views
             finally { SetBusy(false); }
         }
 
-        // ─────────────────────────────────────────────────────────────────────
-        // SECTION 1 — YPF REPACK
-        // ─────────────────────────────────────────────────────────────────────
+        // 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
+        // SECTION 1 窶・YPF REPACK
+        // 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 
         private async void YpfRepack_Click(object sender, RoutedEventArgs e)
         {
@@ -106,11 +106,11 @@ namespace NicheStudioWeirdo.Views
             try
             {
                 SetBusy(true);
-                AppendLog($"Packing {folder} → {Path.GetFileName(outputYpf)} (engine v{version}, CRC32: {useCrc32}) …");
+                AppendLog($"Packing {folder} 竊・{Path.GetFileName(outputYpf)} (engine v{version}, CRC32: {useCrc32}) 窶ｦ");
                 await Task.Run(() =>
                     YurisYpf.Pack(folder, outputYpf, version, useCrc32,
                         msg => Dispatcher.Invoke(() => AppendLog(msg))));
-                AppendLog($"✓ Done — saved to: {outputYpf}");
+                AppendLog($"笨・Done 窶・saved to: {outputYpf}");
                 MessageBox.Show($"Repacked successfully!\n\nSaved to:\n{outputYpf}", "Done",
                     MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -118,9 +118,9 @@ namespace NicheStudioWeirdo.Views
             finally { SetBusy(false); }
         }
 
-        // ─────────────────────────────────────────────────────────────────────
-        // SECTION 2 — YBN EXTRACT TEXT
-        // ─────────────────────────────────────────────────────────────────────
+        // 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
+        // SECTION 2 窶・YBN EXTRACT TEXT
+        // 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 
         private async void YbnDecryptExtract_Click(object sender, RoutedEventArgs e)
         {
@@ -135,7 +135,7 @@ namespace NicheStudioWeirdo.Views
             {
                 SetBusy(true);
 
-                string exePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Utility", "VNTextPatch", "VNTextPatch.exe");
+                string exePath = Path.Combine((Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory), "Utility", "VNTextPatch", "VNTextPatch.exe");
                 if (!File.Exists(exePath))
                 {
                     Msg($"Please place VNTextPatch.exe at:\n{exePath}", "Error");
@@ -148,7 +148,7 @@ namespace NicheStudioWeirdo.Views
                     Directory.Delete(textDir, true);
                 Directory.CreateDirectory(textDir);
 
-                AppendLog("Extracting text via VNTextPatch (file by file) …");
+                AppendLog("Extracting text via VNTextPatch (file by file) 窶ｦ");
                 int ok = 0, fail = 0;
                 var ybnFiles = Directory.GetFiles(folder, "*.ybn").OrderBy(f => f).ToArray();
                 
@@ -163,13 +163,13 @@ namespace NicheStudioWeirdo.Views
                         if (File.Exists(outJson))
                         {
                             ok++;
-                            Dispatcher.Invoke(() => AppendLog($"  ✓ {fname}.ybn"));
+                            Dispatcher.Invoke(() => AppendLog($"  笨・{fname}.ybn"));
                         }
                     }
                 });
 
                 int jsonCount = Directory.GetFiles(textDir, "*.json").Length;
-                AppendLog($"✓ Done — {jsonCount} JSON files in 'script_extracted'.");
+                AppendLog($"笨・Done 窶・{jsonCount} JSON files in 'script_extracted'.");
                 MessageBox.Show(
                     $"Extraction complete!\n\n{jsonCount} JSON files created in:\n{textDir}\n\nEdit the \"message\" values, then click Insert Text.",
                     "Done", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -178,9 +178,9 @@ namespace NicheStudioWeirdo.Views
             finally { SetBusy(false); }
         }
 
-        // ─────────────────────────────────────────────────────────────────────
-        // SECTION 3 — YBN INSERT TEXT
-        // ─────────────────────────────────────────────────────────────────────
+        // 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
+        // SECTION 3 窶・YBN INSERT TEXT
+        // 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 
         private async void YbnInsertEncrypt_Click(object sender, RoutedEventArgs e)
         {
@@ -202,15 +202,15 @@ namespace NicheStudioWeirdo.Views
             {
                 SetBusy(true);
 
-                string exePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Utility", "VNTextPatch", "VNTextPatch.exe");
+                string exePath = Path.Combine((Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory), "Utility", "VNTextPatch", "VNTextPatch.exe");
                 if (!File.Exists(exePath))
                 {
                     Msg($"Please place VNTextPatch.exe at:\n{exePath}", "Error");
                     return;
                 }
 
-                // Step 1 — copy originals to script_patched
-                AppendLog("Step 1 — Copying original .ybn files to script_patched …");
+                // Step 1 窶・copy originals to script_patched
+                AppendLog("Step 1 窶・Copying original .ybn files to script_patched 窶ｦ");
                 string patchedDir = Path.Combine(folder, "script_patched");
                 if (Directory.Exists(patchedDir))
                     Directory.Delete(patchedDir, true);
@@ -221,8 +221,8 @@ namespace NicheStudioWeirdo.Views
                         File.Copy(f, Path.Combine(patchedDir, Path.GetFileName(f)), true);
                 });
 
-                // Step 2 — inject via VNTextPatch individually
-                AppendLog("Step 2 — Injecting translated JSON into .ybn files via VNTextPatch …");
+                // Step 2 窶・inject via VNTextPatch individually
+                AppendLog("Step 2 窶・Injecting translated JSON into .ybn files via VNTextPatch 窶ｦ");
                 int ok = 0;
                 var jsonFiles = Directory.GetFiles(textDir, "*.json").OrderBy(f => f).ToArray();
                 
@@ -236,13 +236,13 @@ namespace NicheStudioWeirdo.Views
                         {
                             await RunVNTextPatchAsync("insertlocal", targetYbn, json, msg => { });
                             ok++;
-                            Dispatcher.Invoke(() => AppendLog($"  ✓ injected {fname}.json"));
+                            Dispatcher.Invoke(() => AppendLog($"  笨・injected {fname}.json"));
                         }
                     }
                 });
 
                 int patchedCount = Directory.GetFiles(patchedDir, "*.ybn").Length;
-                AppendLog($"✓ Done — {ok} files patched in script_patched.");
+                AppendLog($"笨・Done 窶・{ok} files patched in script_patched.");
                 MessageBox.Show(
                     $"Injection complete!\n\nPatched {ok} .ybn files:\n{patchedDir}\n\nNow pack this folder into a YPF.",
                     "Done", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -251,9 +251,9 @@ namespace NicheStudioWeirdo.Views
             finally { SetBusy(false); }
         }
 
-        // ─────────────────────────────────────────────────────────────────────
+        // 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
         // Shared helpers
-        // ─────────────────────────────────────────────────────────────────────
+        // 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 
         private void AppendLog(string msg)
         {
@@ -275,7 +275,7 @@ namespace NicheStudioWeirdo.Views
         /// </summary>
         private async Task RunVNTextPatchAsync(string mode, string ybnFolder, string scriptFolder, Action<string> log)
         {
-            string exePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Utility", "VNTextPatch", "VNTextPatch.exe");
+            string exePath = Path.Combine((Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory), "Utility", "VNTextPatch", "VNTextPatch.exe");
             var args = new System.Collections.Generic.List<string>();
             if (mode == "extractlocal")
             {
@@ -316,3 +316,4 @@ namespace NicheStudioWeirdo.Views
         }
     }
 }
+

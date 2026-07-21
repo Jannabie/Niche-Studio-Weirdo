@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Win32;
@@ -46,7 +46,7 @@ namespace NicheStudioWeirdo.Views
 
             string args = $"-GM {gameId}";
 
-            // File filter — only extract matching extensions (e.g. ".nut")
+            // File filter 窶・only extract matching extensions (e.g. ".nut")
             string filter = FilterTxt.Text?.Trim();
             if (!string.IsNullOrEmpty(filter))
                 args += $" -fe \"{filter.Replace("\"", "")}\"";
@@ -59,7 +59,7 @@ namespace NicheStudioWeirdo.Views
             string exePath = Path.Combine("Utility", "DieselEngineBin", "NPK3Tool.exe");
 
             var main = Window.GetWindow(this) as MainWindow;
-            await ToolRunner.RunAsync(AppDomain.CurrentDomain.BaseDirectory, exePath, args, main);
+            await ToolRunner.RunAsync((Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory), exePath, args, main);
         }
 
         private void BrowseRepackInput_Click(object sender, RoutedEventArgs e)
@@ -103,7 +103,7 @@ namespace NicheStudioWeirdo.Views
             string exePath = Path.Combine("Utility", "DieselEngineBin", "NPK3Tool.exe");
 
             var main = Window.GetWindow(this) as MainWindow;
-            await ToolRunner.RunAsync(AppDomain.CurrentDomain.BaseDirectory, exePath, args, main);
+            await ToolRunner.RunAsync((Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory), exePath, args, main);
         }
 
         private void BrowseNutInput_Click(object sender, RoutedEventArgs e)
@@ -171,3 +171,4 @@ namespace NicheStudioWeirdo.Views
 
     }
 }
+

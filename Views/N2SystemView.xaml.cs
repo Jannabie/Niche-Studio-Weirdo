@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -48,18 +48,18 @@ namespace NicheStudioWeirdo.Views
                 args.Add(npaPath);
             }
 
-            string exePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Utility", "N2SystemBin", "nipa.exe");
+            string exePath = Path.Combine((Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory), "Utility", "N2SystemBin", "nipa.exe");
 
             // nipa.exe creates the folder in the current working directory,
             // so set the working directory to the archive's own folder.
-            string workingDir = Path.GetDirectoryName(npaPath) ?? AppDomain.CurrentDomain.BaseDirectory;
+            string workingDir = Path.GetDirectoryName(npaPath) ?? (Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory);
 
             var main = Window.GetWindow(this) as MainWindow;
-            main?.LogToConsole($"▶ N2System: Extracting \"{Path.GetFileName(npaPath)}\"...");
+            main?.LogToConsole($"笆ｶ N2System: Extracting \"{Path.GetFileName(npaPath)}\"...");
 
             await RunNipaSilentAsync(exePath, args, workingDir, main);
 
-            main?.LogToConsole("✅ Extraction complete! Check the folder next to your .npa file.");
+            main?.LogToConsole("笨・Extraction complete! Check the folder next to your .npa file.");
         }
 
         private void BrowseRepackInput_Click(object sender, RoutedEventArgs e)
@@ -104,19 +104,19 @@ namespace NicheStudioWeirdo.Views
             if (!string.IsNullOrEmpty(gameId))
                 args.Add(gameId);
 
-            string exePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Utility", "N2SystemBin", "nipa.exe");
+            string exePath = Path.Combine((Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory), "Utility", "N2SystemBin", "nipa.exe");
 
             var main = Window.GetWindow(this) as MainWindow;
-            main?.LogToConsole($"▶ N2System: Repacking \"{Path.GetFileName(inDir)}\" → \"{Path.GetFileName(outNpa)}\"...");
+            main?.LogToConsole($"笆ｶ N2System: Repacking \"{Path.GetFileName(inDir)}\" 竊・\"{Path.GetFileName(outNpa)}\"...");
 
-            await RunNipaSilentAsync(exePath, args, AppDomain.CurrentDomain.BaseDirectory, main);
+            await RunNipaSilentAsync(exePath, args, (Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory), main);
 
-            main?.LogToConsole($"✅ Repack complete! Saved to \"{Path.GetFileName(outNpa)}\".");
+            main?.LogToConsole($"笨・Repack complete! Saved to \"{Path.GetFileName(outNpa)}\".");
         }
 
         /// <summary>
         /// Runs nipa.exe silently. nipa uses _UNICODE/_O_WTEXT wide-char output mode which
-        /// cannot be reliably parsed by C#'s OutputDataReceived — so we suppress all output
+        /// cannot be reliably parsed by C#'s OutputDataReceived 窶・so we suppress all output
         /// entirely and just check the exit code for success/failure.
         /// </summary>
         private static async Task RunNipaSilentAsync(
@@ -129,7 +129,7 @@ namespace NicheStudioWeirdo.Views
                     FileName = exePath,
                     WorkingDirectory = workingDir,
                     UseShellExecute = false,
-                    // Redirect but discard all output — nipa's wide-char stdout
+                    // Redirect but discard all output 窶・nipa's wide-char stdout
                     // cannot be read as text reliably from C#.
                     RedirectStandardOutput = true,
                     RedirectStandardError  = true,
@@ -141,7 +141,7 @@ namespace NicheStudioWeirdo.Views
 
                 using var process = new Process { StartInfo = psi };
 
-                // Do NOT call BeginOutputReadLine — just start and wait.
+                // Do NOT call BeginOutputReadLine 窶・just start and wait.
                 // The redirected streams are discarded automatically when the process exits.
                 process.Start();
 
@@ -154,12 +154,13 @@ namespace NicheStudioWeirdo.Views
                 await drainErr;
 
                 if (process.ExitCode != 0)
-                    main?.LogToConsole($"✘ [ERROR] nipa exited with code {process.ExitCode}. Make sure you selected the correct game.");
+                    main?.LogToConsole($"笨・[ERROR] nipa exited with code {process.ExitCode}. Make sure you selected the correct game.");
             }
             catch (Exception ex)
             {
-                main?.LogToConsole($"✘ [EXCEPTION] Failed to run nipa: {ex.Message}");
+                main?.LogToConsole($"笨・[EXCEPTION] Failed to run nipa: {ex.Message}");
             }
         }
     }
 }
+

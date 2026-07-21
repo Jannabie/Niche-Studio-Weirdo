@@ -1,4 +1,4 @@
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System;
 using System.IO;
 using System.Windows;
@@ -14,17 +14,17 @@ namespace NicheStudioWeirdo.Views
 
         private string GetToolPath()
         {
-            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            string baseDir = (Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory);
             return Path.Combine(baseDir, "Utility", "Hunex Tsukire", "mrg_tool.py");
         }
 
         private string GetToolDir()
         {
-            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            string baseDir = (Path.GetDirectoryName(Environment.ProcessPath) ?? AppContext.BaseDirectory);
             return Path.Combine(baseDir, "Utility", "Hunex Tsukire");
         }
 
-        // ── Extract: MRG → TXT ───────────────────────────────────────────────────
+        // 笏笏 Extract: MRG 竊・TXT 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
         private void BrowseMrgInput_Click(object sender, RoutedEventArgs e)
         {
             var d = new OpenFileDialog { Filter = "MRG Files (*.mrg)|*.mrg|All Files (*.*)|*.*", Title = "Select script_text.mrg" };
@@ -60,7 +60,7 @@ namespace NicheStudioWeirdo.Views
             await ToolRunner.RunAsync(toolDir, PythonPath, $"\"{script}\" extract \"{mrgPath}\" \"{outTxt}\"", GetMain());
         }
 
-        // ── Repack: TXT → MRG ───────────────────────────────────────────────────
+        // 笏笏 Repack: TXT 竊・MRG 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
         private void BrowseRepackInput_Click(object sender, RoutedEventArgs e)
         {
             var d = new OpenFolderDialog { Title = "Select input directory containing edited .txt files..." };
@@ -97,3 +97,4 @@ namespace NicheStudioWeirdo.Views
         }
     }
 }
+

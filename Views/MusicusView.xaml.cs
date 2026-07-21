@@ -1,4 +1,4 @@
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -35,7 +35,7 @@ namespace NicheStudioWeirdo.Views
             if (string.IsNullOrWhiteSpace(DatFileTxt.Text)) return;
             string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "YOX");
             string py = SettingsManager.Config.PythonPath;
-            // Output folder name = dat filename without extension (e.g. script_en.dat ↁEscript_en/)
+            // Output folder name = dat filename without extension (e.g. script_en.dat 竊・script_en/)
             string outDir = System.IO.Path.Combine(
                 System.IO.Path.GetDirectoryName(DatFileTxt.Text) ?? repoDir,
                 System.IO.Path.GetFileNameWithoutExtension(DatFileTxt.Text));
@@ -73,3 +73,4 @@ namespace NicheStudioWeirdo.Views
         }
     }
 }
+

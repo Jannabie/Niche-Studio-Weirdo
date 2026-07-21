@@ -1,4 +1,4 @@
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -67,10 +67,10 @@ namespace NicheStudioWeirdo.Views
             return true;
         }
 
-        // ─── UNPACK DSK ──────────────────────────────────────────────────────
+        // 笏笏笏 UNPACK DSK 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
         private async void UnpackDsk_Click(object sender, RoutedEventArgs e)
         {
-            if (!TrySetBusy(true)) { GetMain().LogToConsole("[WARN] Already running  Eplease wait."); return; }
+            if (!TrySetBusy(true)) { GetMain().LogToConsole("[WARN] Already running 窶・please wait."); return; }
 
             if (string.IsNullOrWhiteSpace(SdkPftTxt.Text) || string.IsNullOrWhiteSpace(SdkDskTxt.Text) || string.IsNullOrWhiteSpace(SdkFolderTxt.Text))
             {
@@ -100,10 +100,10 @@ namespace NicheStudioWeirdo.Views
             TrySetBusy(false);
         }
 
-        // ─── REPACK DSK ──────────────────────────────────────────────────────
+        // 笏笏笏 REPACK DSK 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
         private async void RepackDsk_Click(object sender, RoutedEventArgs e)
         {
-            if (!TrySetBusy(true)) { GetMain().LogToConsole("[WARN] Already running  Eplease wait."); return; }
+            if (!TrySetBusy(true)) { GetMain().LogToConsole("[WARN] Already running 窶・please wait."); return; }
 
             if (string.IsNullOrWhiteSpace(SdkPftTxt.Text) || string.IsNullOrWhiteSpace(SdkDskTxt.Text) || string.IsNullOrWhiteSpace(SdkFolderTxt.Text))
             {
@@ -115,7 +115,7 @@ namespace NicheStudioWeirdo.Views
             string pft = SdkPftTxt.Text;
             string dsk = SdkDskTxt.Text;
             string folder = SdkFolderTxt.Text;
-            // Output goes NEXT TO source folder  ENOT next to .DSK (may be in Program Files ↁEaccess denied!)
+            // Output goes NEXT TO source folder 窶・NOT next to .DSK (may be in Program Files 竊・access denied!)
             string outFolder = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(folder) ?? folder, "Repacked");
 
             GetMain().LogToConsole($"[*] Repack DSK from: {folder}");
@@ -135,10 +135,10 @@ namespace NicheStudioWeirdo.Views
             TrySetBusy(false);
         }
 
-        // ─── VERIFY ──────────────────────────────────────────────────────────
+        // 笏笏笏 VERIFY 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
         private async void VerifyIntegrity_Click(object sender, RoutedEventArgs e)
         {
-            if (!TrySetBusy(true)) { GetMain().LogToConsole("[WARN] Already running  Eplease wait."); return; }
+            if (!TrySetBusy(true)) { GetMain().LogToConsole("[WARN] Already running 窶・please wait."); return; }
 
             if (string.IsNullOrWhiteSpace(SdkPftTxt.Text) || string.IsNullOrWhiteSpace(SdkDskTxt.Text))
             {
@@ -166,10 +166,10 @@ namespace NicheStudioWeirdo.Views
             TrySetBusy(false);
         }
 
-        // ─── PARSE SCF ───────────────────────────────────────────────────────
+        // 笏笏笏 PARSE SCF 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
         private async void ParseScf_Click(object sender, RoutedEventArgs e)
         {
-            if (!TrySetBusy(true)) { GetMain().LogToConsole("[WARN] Already running  Eplease wait."); return; }
+            if (!TrySetBusy(true)) { GetMain().LogToConsole("[WARN] Already running 窶・please wait."); return; }
 
             if (string.IsNullOrWhiteSpace(ScfFileTxt.Text))
             {
@@ -199,10 +199,10 @@ namespace NicheStudioWeirdo.Views
             TrySetBusy(false);
         }
 
-        // ─── REBUILD SCF (inject translation) ────────────────────────────────
+        // 笏笏笏 REBUILD SCF (inject translation) 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
         private async void InjectTranslation_Click(object sender, RoutedEventArgs e)
         {
-            if (!TrySetBusy(true)) { GetMain().LogToConsole("[WARN] Already running  Eplease wait."); return; }
+            if (!TrySetBusy(true)) { GetMain().LogToConsole("[WARN] Already running 窶・please wait."); return; }
 
             if (string.IsNullOrWhiteSpace(TranslationJsonTxt.Text))
             {
@@ -236,3 +236,4 @@ namespace NicheStudioWeirdo.Views
         }
     }
 }
+
