@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Win32;
@@ -87,7 +87,16 @@ namespace NicheStudioWeirdo.Views
 
             if (string.IsNullOrWhiteSpace(outNpk))
             {
-                outNpk = Path.Combine(Path.GetDirectoryName(inDir) ?? "", Path.GetFileName(inDir) + "_new.npk");
+                var dlg = new SaveFileDialog
+                {
+                    Filter      = "NPK Archive (*.npk)|*.npk",
+                    DefaultExt  = "npk",
+                    Title       = "Save repacked .npk as...",
+                    FileName    = Path.GetFileName(inDir) + "_new.npk",
+                    InitialDirectory = Path.GetDirectoryName(inDir) ?? ""
+                };
+                if (dlg.ShowDialog() != true) return;
+                outNpk = dlg.FileName;
                 RepackOutputTxt.Text = outNpk;
             }
 
