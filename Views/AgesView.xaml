@@ -92,7 +92,7 @@
                         <TextBlock Text="DOWNLOAD HOOK TOOLKIT FROM GITHUB" Style="{StaticResource LabelStyle}"/>
                         <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="11" TextWrapping="Wrap"
                                    Margin="0,0,0,12"
-                                   Text="Click the button below to open the GitHub repository containing all required hook files (winmm.dll, JLXH.dll, FONTCHANGER.dll, orgi.jlx, trans.jlx, launcher, font)."/>
+                                   Text="Click the button below to open the GitHub repository. Clone or download it, then copy the files to your game directory."/>
 
                         <Button x:Name="OpenDriveBtn" Content="🔗  Open GitHub — Schwarzesmarken Hook"
                                 Style="{StaticResource ActionButton}"
@@ -116,7 +116,7 @@
                             <StackPanel>
                                 <TextBlock Foreground="#60C060" FontWeight="Bold" FontSize="12" Text="📋  JSON FORMAT"/>
                                 <TextBlock Foreground="#7A9A7A" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"
-                                           Text="Output is a UTF-8 JSON array: [{&quot;id&quot;: 0, &quot;jp&quot;: &quot;【ハンニバル】…&quot;, &quot;tl&quot;: &quot;【Hannibal】…&quot;}, …]. Edit the 'tl' fields with your Indonesian translation. The 'jp' field is for reference only."/>
+                                           Text="Output is a UTF-8 JSON array. Edit the 'tl' fields with your translation. DO NOT remove '\u0003' or similar control characters from the text; they are required by the game engine for text formatting and voice syncing!"/>
                             </StackPanel>
                         </Border>
 
@@ -178,8 +178,8 @@
                                 BorderThickness="1" BorderBrush="#3A1E1E">
                             <StackPanel>
                                 <TextBlock Foreground="#C06060" FontWeight="Bold" FontSize="12" Text="⚠  IMPORTANT"/>
-                                <TextBlock Foreground="#9A7A7A" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"
-                                           Text="The output trans.jlx must have the exact same number of entries as orgi.jlx (16,957 lines). Do not add or remove entries — only edit the 'tl' text values."/>
+                                <TextBlock Foreground="#7A8AAA" FontSize="11" TextWrapping="Wrap" Margin="0,6,0,10"
+                                   Text="Clone the GitHub repository and copy all hook files into the main game directory. The output trans.jlx must have the exact same number of entries as orgi.jlx (16,957 lines). Do not add or remove entries — only edit the 'tl' text values."/>
                             </StackPanel>
                         </Border>
 
