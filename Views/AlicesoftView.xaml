@@ -143,8 +143,6 @@
 
                 <!-- ── SECTION A: AliceSoft → PNG ── -->
                 <TextBlock Text="EXTRACT  —  AliceSoft → PNG" Foreground="{StaticResource TextMutedBrush}" FontSize="11" FontWeight="Bold" Margin="0,0,0,6"/>
-                <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="10" TextWrapping="Wrap" Margin="0,0,0,8"
-                           Text="Convert .dcf / .qnt / .ajp to PNG using alice-tools."/>
                 <TextBlock Text="Input File (.dcf / .qnt / .ajp):" Foreground="{StaticResource TextMutedBrush}" FontSize="11" Margin="0,0,0,4"/>
                 <Grid Margin="0,0,0,10">
                     <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
@@ -161,8 +159,6 @@
 
                 <!-- ── SECTION B: PNG → AliceSoft ── -->
                 <TextBlock Text="REPACK  —  PNG → AliceSoft" Foreground="{StaticResource TextMutedBrush}" FontSize="11" FontWeight="Bold" Margin="0,0,0,6"/>
-                <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="10" TextWrapping="Wrap" Margin="0,0,0,8"
-                           Text="Copy a PNG file with the selected AliceSoft extension. The game engine reads PNG data natively regardless of extension."/>
                 <TextBlock Text="Input PNG File:" Foreground="{StaticResource TextMutedBrush}" FontSize="11" Margin="0,0,0,4"/>
                 <Grid Margin="0,0,0,10">
                     <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>

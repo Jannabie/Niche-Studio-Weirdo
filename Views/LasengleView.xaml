@@ -27,9 +27,9 @@
                         <Border Background="#0A1020" CornerRadius="0" Padding="14,12" Margin="0,0,0,16"
                                 BorderThickness="1" BorderBrush="#1E2A4A">
                             <StackPanel>
-                                <TextBlock Foreground="#6080C0" FontWeight="Bold" FontSize="12" Text="ℹ  HOW IT WORKS"/>
+                                <TextBlock Foreground="#6080C0" FontWeight="Bold" FontSize="12" Text="ℹ  HOW TO TRANSLATE"/>
                                 <TextBlock Foreground="#7A8AAA" FontSize="11" TextWrapping="Wrap" Margin="0,6,0,10"
-                                           Text="This workflow uses a DLL hook that intercepts Japanese text at runtime and swaps it with your translation."/>
+                                           Text="This workflow uses a DLL hook that intercepts English text at runtime. To translate, simply open the provided .txt files in the script folder and change the dialog text. For images, just overwrite them in the images folder."/>
                             </StackPanel>
                         </Border>
 
