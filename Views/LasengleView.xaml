@@ -43,9 +43,6 @@
                                 Style="{StaticResource ActionButton}"
                                 HorizontalAlignment="Left" Padding="18,10"
                                 Click="OpenGithub_Click"/>
-
-                        <TextBlock Foreground="#404860" FontSize="10" Margin="0,8,0,0"
-                                   Text="https://github.com/Jannabie/Niche-Studio-Weirdo/tree/main/MBTL%20Hook"/>
                     </StackPanel>
                 </Border>
 

@@ -125,9 +125,9 @@
                 <Border Background="#100A1A" CornerRadius="0" Padding="12,10" Margin="0,0,0,8"
                         BorderThickness="1" BorderBrush="#2A1A3A">
                     <StackPanel>
-                        <TextBlock Foreground="#A070D0" FontWeight="Bold" FontSize="11" Text="💡  CATATAN FORMAT DCF"/>
+                        <TextBlock Foreground="#A070D0" FontWeight="Bold" FontSize="11" Text="💡  ABOUT .DCF FORMAT"/>
                         <TextBlock Foreground="#8A7A9A" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"
-                                   Text=".dcf (Differential CG) adalah sprite overlay/layer — bukan full image. Hasil PNG-nya berisi bagian karakter (mata, rambut, dll) dengan alpha transparan, BUKAN background hitam. Ini sudah benar. Viewer yang menampilkan background gelap bukan berarti konversi salah."/>
+                                   Text=".dcf (Differential CG) is a sprite overlay/layer — not a full image. The resulting PNG contains character parts (eyes, hair, etc.) with transparent alpha, NOT a black background. This is correct. Viewers showing a dark background do not mean the conversion is wrong."/>
                     </StackPanel>
                 </Border>
 
@@ -137,7 +137,7 @@
                     <StackPanel>
                         <TextBlock Foreground="#6080C0" FontWeight="Bold" FontSize="11" Text="ℹ  SUPPORTED FORMATS"/>
                         <TextBlock Foreground="#7A8AAA" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"
-                                   Text="AliceSoft → PNG: alice-tools cg convert. Semua format didukung (.dcf, .qnt, .ajp, .cg).&#10;PNG → AliceSoft: copy file dengan extension yang dipilih (engine baca PNG natively)."/>
+                                   Text="AliceSoft → PNG: alice-tools cg convert. All formats supported (.dcf, .qnt, .ajp, .cg).&#10;PNG → AliceSoft: copy file with the selected extension (the engine reads PNG natively)."/>
                     </StackPanel>
                 </Border>
 
