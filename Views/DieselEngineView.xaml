@@ -121,16 +121,7 @@
                         <Button Grid.Column="2" Content="Inject .JSON → .NUT" Style="{StaticResource ActionButtonGreen}" Padding="0,8" Click="InjectNut_Click"/>
                     </Grid>
 
-                    <Border Background="#080808" CornerRadius="0" Padding="16,12" Margin="0,0,0,0" BorderThickness="1" BorderBrush="#222">
-                        <StackPanel>
-                            <TextBlock Foreground="#555" FontWeight="Bold" FontSize="11" Text="FULL WORKFLOW (from NPK to translated):"/>
-                            <TextBlock Foreground="#444" FontSize="11" Margin="0,6,0,0" TextWrapping="Wrap" Text="① Extract NPK → use File Filter '.nut' to only get script files (much faster)"/>
-                            <TextBlock Foreground="#444" FontSize="11" Margin="0,2,0,0" TextWrapping="Wrap" Text="② Select a .nut file above → click 'Extract Text → JSON'"/>
-                            <TextBlock Foreground="#444" FontSize="11" Margin="0,2,0,0" TextWrapping="Wrap" Text="③ Edit the JSON: fill in the 'Translated' field for each string"/>
-                            <TextBlock Foreground="#444" FontSize="11" Margin="0,2,0,0" TextWrapping="Wrap" Text="④ Click 'Inject JSON → NUT' to build the translated .nut file"/>
-                            <TextBlock Foreground="#444" FontSize="11" Margin="0,2,0,0" TextWrapping="Wrap" Text="⑤ Replace the original .nut in the extracted folder, then Repack → NPK"/>
-                        </StackPanel>
-                    </Border>
+
 
                 </StackPanel>
             </Border>

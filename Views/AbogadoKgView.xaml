@@ -86,26 +86,7 @@
                     </StackPanel>
                 </Border>
 
-                <!-- ══════════════════════════════════════════════════════════ -->
-                <!-- INFO: Full Workflow Reminder                               -->
-                <!-- ══════════════════════════════════════════════════════════ -->
-                <Border Background="#080808" CornerRadius="0"
-                        Padding="16,12" Margin="0,2,0,0"
-                        BorderThickness="1" BorderBrush="#222">
-                    <StackPanel>
-                        <TextBlock Foreground="#555" FontWeight="Bold" FontSize="11" Text="FULL WORKFLOW (from DSK to finished):"/>
-                        <TextBlock Foreground="#444" FontSize="11" Margin="0,6,0,0" TextWrapping="Wrap"
-                                   Text="① DSK Tab → Unpack DSK  →  get a folder containing raw files (.KG for images)"/>
-                        <TextBlock Foreground="#444" FontSize="11" Margin="0,2,0,0" TextWrapping="Wrap"
-                                   Text="② KG Tab  → Decode KG → PNG  →  get .PNG files ready for editing"/>
-                        <TextBlock Foreground="#444" FontSize="11" Margin="0,2,0,0" TextWrapping="Wrap"
-                                   Text="③ Edit .PNG with your favorite editor (Photoshop, GIMP, etc.)"/>
-                        <TextBlock Foreground="#444" FontSize="11" Margin="0,2,0,0" TextWrapping="Wrap"
-                                   Text="④ KG Tab  → Encode PNG → KG  →  get packed_kg/*.KG"/>
-                        <TextBlock Foreground="#444" FontSize="11" Margin="0,2,0,0" TextWrapping="Wrap"
-                                   Text="⑤ DSK Tab → Repack DSK  →  select the packed_kg folder, get a new ready-to-use .DSK"/>
-                    </StackPanel>
-                </Border>
+
 
             </StackPanel>
         </ScrollViewer>
