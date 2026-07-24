@@ -116,7 +116,7 @@
                             <StackPanel>
                                 <TextBlock Foreground="#60C060" FontWeight="Bold" FontSize="12" Text="📋  JSON FORMAT"/>
                                 <TextBlock Foreground="#7A9A7A" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"
-                                           Text="Output is a UTF-8 JSON array. Edit the 'tl' fields with your translation. DO NOT remove '\u0003' or similar control characters from the text; they are required by the game engine for text formatting and voice syncing!"/>
+                                           Text="Output is a UTF-8 JSON array. Edit the 'tl' fields with your translation. Any \u0003 symbols are now automatically cleaned up for you!"/>
                             </StackPanel>
                         </Border>
 

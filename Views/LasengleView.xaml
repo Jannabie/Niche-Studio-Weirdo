@@ -29,7 +29,7 @@
                             <StackPanel>
                                 <TextBlock Foreground="#6080C0" FontWeight="Bold" FontSize="12" Text="ℹ  HOW TO TRANSLATE"/>
                                 <TextBlock Foreground="#7A8AAA" FontSize="11" TextWrapping="Wrap" Margin="0,6,0,10"
-                                           Text="This workflow uses a DLL hook that intercepts English text at runtime. To translate, simply open the provided .txt files in the script folder and change the dialog text. For images, just overwrite them in the images folder."/>
+                                           Text="Clone the repository to your PC. This workflow uses a DLL hook that intercepts English text at runtime. To translate, simply open the provided .txt files in the script folder and change the dialog text. For images, just overwrite them in the images folder."/>
                             </StackPanel>
                         </Border>
 

@@ -137,8 +137,8 @@ namespace NicheStudioWeirdo.Views
                 entries.Add(new JlxEntry
                 {
                     Id = i,
-                    Jp = orgiLines[i],
-                    Tl = transLines[i]
+                    Jp = orgiLines[i].Replace("\u0003", ""),
+                    Tl = transLines[i].Replace("\u0003", "")
                 });
             }
 
