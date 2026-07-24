@@ -98,7 +98,8 @@ namespace NicheStudioWeirdo
                 "MalieKit" => "Malie Engine Guide:\n1. Decrypt/Extract: Unpack .dat or .lib archives to access their contents.\n2. Character Names: Export Names -> Edit -> Patch Names.\n3. Dialog: Export Dialog -> Edit -> Patch Dialog.\nIMPORTANT: Character Names must be patched FIRST before exporting/patching Dialog, as they are stored in separate segments.",
                 "KKK" => "Kajiri Kamui Kagura (KKK) Guide:\n1. Install Base Patch: Select your game folder, pick Horizontal/Vertical layout, and install the required SVG, INI, and initial data6.dat.\n2. Wordwrap: Auto-wrap your translated message.txt.\n3. Compile Script: Compiles message.txt to exec.dat.\n4. Pack data6.dat: Packages the data folder into data6.dat which should then be copied to your game.",
                 "Alicesoft" => "Alicesoft Engine Guide:\n1. Archive Tools (.afa, .ald): Extract archives to a folder or pack them back.\n2. Script Tools (.ain): Dump the AIN to JSON, edit it, and inject it back using the Edit button (requires the original AIN + modified JSON).\n3. Image Tools (.cg): Convert .cg images to .png/.webp or vice versa.",
-                "Ages" => "AGES Engine (rUGP) Guide:\n1. Open Google Drive to download the hook toolkit (JLXH, FONTCHANGER, etc.).\n2. Extract original .s / .jlx files from the game.\n3. Parse them to JSON using the built-in parser.\n4. Repack the JSON back to the original script format.\n5. Play using the patched launcher.",
+                "Ages" => "AGES Engine (rUGP) Guide:\n1. Open GitHub to download the hook toolkit (JLXH, FONTCHANGER, etc.).\n2. Extract original .s / .jlx files from the game.\n3. Parse them to JSON using the built-in parser.\n4. Repack the JSON back to the original script format.\n5. Play using the patched launcher.",
+                "Lasengle" => "Lasengle Engine (MBTL) Guide:\n1. Click the GitHub button to get the MBTL hook files.\n2. Put them in the game directory to load the translated texts automatically.",
 
                 "DieselEngine" => "Diesel Engine (NPK) Guide:\n1. Target Game / Profile: Select the game you are modding (e.g., The Song of Saya) to load the correct encryption key.\n2. Extract: Select the .npk file and an output directory to unpack it.\n3. Repack: Select the folder containing your modified files and repack it back into a new .npk archive.",
                 "N2System" => "N2System (NPA) Guide:\n1. Target Game / Encryption ID: Select the game you are modding to use the correct encryption key.\n2. Extract: Select the .npa file to extract it to a folder.\n3. Repack: Select the folder containing your files and repack it back into a new .npa archive.\nWARNING: Do NOT use the Compress Files option if you are repacking CG images, it will break the engine.",
@@ -139,6 +140,7 @@ namespace NicheStudioWeirdo
                     "HuneXMahoyo" => new HuneXMahoyoView(),
                     "BGI"       => new BGIView(),
                     "MeltyBlood"=> new MeltyBloodView(),
+                    "Lasengle"  => new LasengleView(),
                     "CodeXR"    => new CodeXRView(),
                     "Majikoai"  => new MajikaiView(),
                     "Musicus"   => new MusicusView(),

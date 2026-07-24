@@ -88,19 +88,19 @@
                             </StackPanel>
                         </Border>
 
-                        <!-- Google Drive download button -->
-                        <TextBlock Text="DOWNLOAD HOOK TOOLKIT FROM GOOGLE DRIVE" Style="{StaticResource LabelStyle}"/>
+                        <!-- GitHub download button -->
+                        <TextBlock Text="DOWNLOAD HOOK TOOLKIT FROM GITHUB" Style="{StaticResource LabelStyle}"/>
                         <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="11" TextWrapping="Wrap"
                                    Margin="0,0,0,12"
-                                   Text="Click the button below to open the Google Drive folder containing all required hook files (winmm.dll, JLXH.dll, FONTCHANGER.dll, orgi.jlx, trans.jlx, launcher, font)."/>
+                                   Text="Click the button below to open the GitHub repository containing all required hook files (winmm.dll, JLXH.dll, FONTCHANGER.dll, orgi.jlx, trans.jlx, launcher, font)."/>
 
-                        <Button x:Name="OpenDriveBtn" Content="🔗  Open Google Drive — Hook Toolkit"
+                        <Button x:Name="OpenDriveBtn" Content="🔗  Open GitHub — Schwarzesmarken Hook"
                                 Style="{StaticResource ActionButton}"
                                 HorizontalAlignment="Left" Padding="18,10"
                                 Click="OpenDrive_Click"/>
 
                         <TextBlock Foreground="#404860" FontSize="10" Margin="0,8,0,0"
-                                   Text="https://drive.google.com/drive/folders/1WODb-fN5Q18jnOjRPvTveSrcT_Iwg3RQ"/>
+                                   Text="https://github.com/Jannabie/Niche-Studio-Weirdo/tree/main/Schwarzesmarken%20Hook"/>
                     </StackPanel>
                 </Border>
 

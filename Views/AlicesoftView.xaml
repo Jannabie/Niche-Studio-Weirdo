@@ -119,7 +119,7 @@
                 <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,20"/>
 
                 <!-- Image Tools -->
-                <TextBlock Text="Image Tools (.cg / .dcf / .qnt / .ajp)" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
+                <TextBlock Text="Image Tools (.dcf / .qnt / .ajp)" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
 
                 <!-- DCF note -->
                 <Border Background="#100A1A" CornerRadius="0" Padding="12,10" Margin="0,0,0,8"
@@ -144,11 +144,11 @@
                 <!-- ── SECTION A: AliceSoft → PNG ── -->
                 <TextBlock Text="EXTRACT  —  AliceSoft → PNG" Foreground="{StaticResource TextMutedBrush}" FontSize="11" FontWeight="Bold" Margin="0,0,0,6"/>
                 <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="10" TextWrapping="Wrap" Margin="0,0,0,8"
-                           Text="Convert .dcf / .qnt / .ajp / .cg to PNG using alice-tools."/>
-                <TextBlock Text="Input File (.dcf / .qnt / .ajp / .cg):" Foreground="{StaticResource TextMutedBrush}" FontSize="11" Margin="0,0,0,4"/>
+                           Text="Convert .dcf / .qnt / .ajp to PNG using alice-tools."/>
+                <TextBlock Text="Input File (.dcf / .qnt / .ajp):" Foreground="{StaticResource TextMutedBrush}" FontSize="11" Margin="0,0,0,4"/>
                 <Grid Margin="0,0,0,10">
                     <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                    <TextBox x:Name="CgFileTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select AliceSoft image file (.dcf, .qnt, .ajp, .cg)..."/>
+                    <TextBox x:Name="CgFileTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select AliceSoft image file (.dcf, .qnt, .ajp)..."/>
                     <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseCg_Click"/>
                 </Grid>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,20">
@@ -170,13 +170,11 @@
                     <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowsePngToAlice_Click"/>
                 </Grid>
                 <TextBlock Text="Target Extension:" Foreground="{StaticResource TextMutedBrush}" FontSize="11" Margin="0,0,0,4"/>
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
                     <ComboBox x:Name="CgTargetExtCombo"
-                              Width="100" Margin="0,0,8,0"
+                              Width="100" Margin="0,0,12,0"
                               SelectedIndex="0"
-                              FontSize="11"
-                              Background="#1A1A2A" Foreground="#B0B8D0"
-                              BorderBrush="#303850">
+                              FontSize="12">
                         <ComboBoxItem Content=".dcf" Tag=".dcf"/>
                         <ComboBoxItem Content=".qnt" Tag=".qnt"/>
                         <ComboBoxItem Content=".ajp" Tag=".ajp"/>

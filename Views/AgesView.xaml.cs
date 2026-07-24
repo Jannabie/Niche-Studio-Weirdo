@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -30,7 +30,7 @@ namespace NicheStudioWeirdo.Views
     public partial class AgesView : UserControl
     {
         private const string DriveUrl =
-            "https://drive.google.com/drive/folders/1WODb-fN5Q18jnOjRPvTveSrcT_Iwg3RQ?usp=sharing";
+            "https://github.com/Jannabie/Niche-Studio-Weirdo/tree/main/Schwarzesmarken%20Hook";
 
         public AgesView()
         {
