@@ -119,14 +119,74 @@
                 <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,20"/>
 
                 <!-- Image Tools -->
-                <TextBlock Text="Image Tools (.cg)" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,10"/>
-                <Grid Margin="0,0,0,20">
+                <TextBlock Text="Image Tools (.cg / .dcf / .qnt / .ajp)" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
+
+                <!-- DCF note -->
+                <Border Background="#100A1A" CornerRadius="0" Padding="12,10" Margin="0,0,0,8"
+                        BorderThickness="1" BorderBrush="#2A1A3A">
+                    <StackPanel>
+                        <TextBlock Foreground="#A070D0" FontWeight="Bold" FontSize="11" Text="💡  CATATAN FORMAT DCF"/>
+                        <TextBlock Foreground="#8A7A9A" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"
+                                   Text=".dcf (Differential CG) adalah sprite overlay/layer — bukan full image. Hasil PNG-nya berisi bagian karakter (mata, rambut, dll) dengan alpha transparan, BUKAN background hitam. Ini sudah benar. Viewer yang menampilkan background gelap bukan berarti konversi salah."/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Info banner -->
+                <Border Background="#0A1020" CornerRadius="0" Padding="12,10" Margin="0,0,0,10"
+                        BorderThickness="1" BorderBrush="#1E2A4A">
+                    <StackPanel>
+                        <TextBlock Foreground="#6080C0" FontWeight="Bold" FontSize="11" Text="ℹ  SUPPORTED FORMATS"/>
+                        <TextBlock Foreground="#7A8AAA" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"
+                                   Text="AliceSoft → PNG: alice-tools cg convert. Semua format didukung (.dcf, .qnt, .ajp, .cg).&#10;PNG → AliceSoft: copy file dengan extension yang dipilih (engine baca PNG natively)."/>
+                    </StackPanel>
+                </Border>
+
+                <!-- ── SECTION A: AliceSoft → PNG ── -->
+                <TextBlock Text="EXTRACT  —  AliceSoft → PNG" Foreground="{StaticResource TextMutedBrush}" FontSize="11" FontWeight="Bold" Margin="0,0,0,6"/>
+                <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="10" TextWrapping="Wrap" Margin="0,0,0,8"
+                           Text="Convert .dcf / .qnt / .ajp / .cg to PNG using alice-tools."/>
+                <TextBlock Text="Input File (.dcf / .qnt / .ajp / .cg):" Foreground="{StaticResource TextMutedBrush}" FontSize="11" Margin="0,0,0,4"/>
+                <Grid Margin="0,0,0,10">
                     <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
-                    <TextBox x:Name="CgFileTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select image file (.cg, .png, .webp)..."/>
+                    <TextBox x:Name="CgFileTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select AliceSoft image file (.dcf, .qnt, .ajp, .cg)..."/>
                     <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseCg_Click"/>
                 </Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,20">
+                    <Button Content="Extract → PNG" Style="{StaticResource ActionButtonGreen}" Click="ConvertCg_Click"
+                            ToolTip="Convert AliceSoft image to PNG via alice-tools cg convert"/>
+                </StackPanel>
+
+                <!-- Divider -->
+                <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,20"/>
+
+                <!-- ── SECTION B: PNG → AliceSoft ── -->
+                <TextBlock Text="REPACK  —  PNG → AliceSoft" Foreground="{StaticResource TextMutedBrush}" FontSize="11" FontWeight="Bold" Margin="0,0,0,6"/>
+                <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="10" TextWrapping="Wrap" Margin="0,0,0,8"
+                           Text="Copy a PNG file with the selected AliceSoft extension. The game engine reads PNG data natively regardless of extension."/>
+                <TextBlock Text="Input PNG File:" Foreground="{StaticResource TextMutedBrush}" FontSize="11" Margin="0,0,0,4"/>
+                <Grid Margin="0,0,0,10">
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <TextBox x:Name="PngToAliceTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select PNG file to repack..."/>
+                    <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowsePngToAlice_Click"/>
+                </Grid>
+                <TextBlock Text="Target Extension:" Foreground="{StaticResource TextMutedBrush}" FontSize="11" Margin="0,0,0,4"/>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                    <ComboBox x:Name="CgTargetExtCombo"
+                              Width="100" Margin="0,0,8,0"
+                              SelectedIndex="0"
+                              FontSize="11"
+                              Background="#1A1A2A" Foreground="#B0B8D0"
+                              BorderBrush="#303850">
+                        <ComboBoxItem Content=".dcf" Tag=".dcf"/>
+                        <ComboBoxItem Content=".qnt" Tag=".qnt"/>
+                        <ComboBoxItem Content=".ajp" Tag=".ajp"/>
+                    </ComboBox>
+                    <TextBlock Foreground="#505870" FontSize="10" VerticalAlignment="Center"
+                               Text="Output filename will match the input PNG name with this extension."/>
+                </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Content="Convert Image" Style="{StaticResource ActionButtonGreen}" Click="ConvertCg_Click" ToolTip="Converts CG to PNG/WebP or vice-versa based on output extension"/>
+                    <Button Content="Repack PNG → AliceSoft" Style="{StaticResource ActionButton}" Click="RepackPngToAlice_Click"
+                            ToolTip="Copy PNG with the selected AliceSoft extension (no re-encoding)"/>
                 </StackPanel>
 
             </StackPanel>

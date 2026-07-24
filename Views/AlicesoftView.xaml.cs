@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,9 +16,9 @@ namespace NicheStudioWeirdo.Views
 
         private MainWindow GetMain() => (MainWindow)Window.GetWindow(this);
 
-        // 笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊・
+        // ══════════════════════════════════════════════════════════════════════
         // EXTRACT ARCHIVE
-        // 笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊・
+        // ══════════════════════════════════════════════════════════════════════
 
         private void BrowseExtractArchive_Click(object sender, RoutedEventArgs e)
         {
@@ -61,9 +61,9 @@ namespace NicheStudioWeirdo.Views
             await AlicesoftUtils.ExtractArchiveAsync(archivePath, outDir, GetMain());
         }
 
-        // 笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊・
+        // ══════════════════════════════════════════════════════════════════════
         // PACK AFA
-        // 笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊・
+        // ══════════════════════════════════════════════════════════════════════
 
         private void BrowsePackInput_Click(object sender, RoutedEventArgs e)
         {
@@ -104,9 +104,9 @@ namespace NicheStudioWeirdo.Views
             await AlicesoftUtils.PackArchiveAsync(inputFolder, outAfa, GetMain());
         }
 
-        // 笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊・
+        // ══════════════════════════════════════════════════════════════════════
         // SCRIPT TOOLS (.ain)
-        // 笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊・
+        // ══════════════════════════════════════════════════════════════════════
 
         private void BrowseAin_Click(object sender, RoutedEventArgs e)
         {
@@ -137,9 +137,9 @@ namespace NicheStudioWeirdo.Views
                 await AlicesoftUtils.EditAinAsync(AinFileTxt.Text, AinTxtTxt.Text, dlg.FileName, GetMain());
         }
 
-        // 笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊・
+        // ══════════════════════════════════════════════════════════════════════
         // DATABASE TOOLS (.ex)
-        // 笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊・
+        // ══════════════════════════════════════════════════════════════════════
 
         private void BrowseEx_Click(object sender, RoutedEventArgs e)
         {
@@ -170,25 +170,67 @@ namespace NicheStudioWeirdo.Views
                 await AlicesoftUtils.EditExAsync(ExFileTxt.Text, ExTxtTxt.Text, dlg.FileName, GetMain());
         }
 
-        // 笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊・
-        // IMAGE TOOLS (.cg)
-        // 笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊絶武笊・
+        // ══════════════════════════════════════════════════════════════════════
+        // IMAGE TOOLS (.cg, .dcf, .qnt, .ajp)
+        // ══════════════════════════════════════════════════════════════════════
+
+        // ══════════════════════════════════════════════════════════════════════
+        // IMAGE TOOLS — EXTRACT (AliceSoft → PNG)
+        // ══════════════════════════════════════════════════════════════════════
 
         private void BrowseCg_Click(object sender, RoutedEventArgs e)
         {
-            var dlg = new OpenFileDialog { Filter = "Image Files (*.cg;*.png;*.webp)|*.cg;*.png;*.webp|All Files|*.*" };
+            var dlg = new OpenFileDialog
+            {
+                Filter = "AliceSoft Images (*.dcf;*.qnt;*.ajp;*.cg)|*.dcf;*.qnt;*.ajp;*.cg|All Files|*.*"
+            };
             if (dlg.ShowDialog() == true) CgFileTxt.Text = dlg.FileName;
         }
 
         private async void ConvertCg_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(CgFileTxt.Text) || CgFileTxt.Text.StartsWith("Select")) return;
-            string ext = Path.GetExtension(CgFileTxt.Text).ToLower();
-            string outFilter = ext == ".cg" ? "Image Files (*.png;*.webp)|*.png;*.webp" : "CG Files (*.cg)|*.cg";
-            var dlg = new SaveFileDialog { Filter = outFilter };
+
+            string baseName = Path.GetFileNameWithoutExtension(CgFileTxt.Text);
+            var dlg = new SaveFileDialog
+            {
+                Title = "Save Extracted PNG",
+                FileName = baseName + ".png",
+                Filter = "PNG Image (*.png)|*.png|All Files (*.*)|*.*"
+            };
             if (dlg.ShowDialog() == true)
                 await AlicesoftUtils.ConvertCgAsync(CgFileTxt.Text, dlg.FileName, GetMain());
         }
+
+        // ══════════════════════════════════════════════════════════════════════
+        // IMAGE TOOLS — REPACK (PNG → AliceSoft)
+        // ══════════════════════════════════════════════════════════════════════
+
+        private void BrowsePngToAlice_Click(object sender, RoutedEventArgs e)
+        {
+            var dlg = new OpenFileDialog
+            {
+                Filter = "PNG Image (*.png)|*.png|All Files|*.*"
+            };
+            if (dlg.ShowDialog() == true) PngToAliceTxt.Text = dlg.FileName;
+        }
+
+        private async void RepackPngToAlice_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(PngToAliceTxt.Text) || PngToAliceTxt.Text.StartsWith("Select")) return;
+
+            var selectedItem = CgTargetExtCombo.SelectedItem as System.Windows.Controls.ComboBoxItem;
+            string targetExt = selectedItem?.Tag?.ToString() ?? ".dcf";
+            string baseName = Path.GetFileNameWithoutExtension(PngToAliceTxt.Text);
+
+            var dlg = new SaveFileDialog
+            {
+                Title = $"Save as {targetExt}",
+                FileName = baseName + targetExt,
+                Filter = $"AliceSoft Image (*{targetExt})|*{targetExt}|All Files (*.*)|*.*"
+            };
+            if (dlg.ShowDialog() == true)
+                await AlicesoftUtils.ConvertCgAsync(PngToAliceTxt.Text, dlg.FileName, GetMain());
+        }
     }
 }
-

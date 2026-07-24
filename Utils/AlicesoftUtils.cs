@@ -153,6 +153,29 @@ namespace NicheStudioWeirdo.Utils
         // Image Commands (CG)
         public static async Task ConvertCgAsync(string inputCg, string outputImage, MainWindow main)
         {
+            string inExt = System.IO.Path.GetExtension(inputCg).ToLower();
+            string outExt = System.IO.Path.GetExtension(outputImage).ToLower();
+            
+            bool inIsStandard = inExt == ".png" || inExt == ".webp";
+            bool outIsStandard = outExt == ".png" || outExt == ".webp";
+            
+            // If converting from PNG/WEBP back to an AliceSoft extension, we just rename/copy
+            // because the System4.0 engine reads PNG files natively regardless of extension!
+            if (inIsStandard && !outIsStandard)
+            {
+                try
+                {
+                    System.IO.File.Copy(inputCg, outputImage, true);
+                    main?.LogToConsole($"✓ [SUCCESS] Copied standard image to AliceSoft format ({outExt}). The engine reads this natively.");
+                }
+                catch (Exception ex)
+                {
+                    main?.LogToConsole($"✘ [ERROR] Failed to copy image: {ex.Message}");
+                }
+                return;
+            }
+
+            // Otherwise, use alice-tools (extracting AliceSoft format to PNG/WEBP)
             // Syntax: alice cg convert <in> <out>
             string args = $"cg convert \"{inputCg}\" \"{outputImage}\"";
             await ToolRunner.RunAsync(GetRepoDir(), GetAliceExe(), args, main);
