@@ -1,0 +1,129 @@
+WinMesScript
+
+
+WinMes00:
+chara_type 1
+//ガイドは結構です。日本の街には詳しいので。
+//とはいえ、この街は私の知る街より都会のようですね。
+I do not require someone to guide me.
+After all, I am quite familiar with Japanese cities.
+That said, this city is far more urban than the one I know.
+\e
+
+WinMes01:
+chara_type 0
+//死徒……私の国ではあまり聞かなかった言葉です。
+//太陽に弱いのなら、ガウェイン卿の剣を
+//借りてくるべきでしたか……
+Dead Apostle...
+Not a phrase one would hear often back in my home country.
+Perhaps I should have borrowed Sir Gawain's sword
+if they're so weak to sunlight.
+\e
+
+WinMes02:
+chara_type 1
+//これも何かの縁でしょう。
+//私の力が必要であればお貸ししますが？
+Fate must have had a hand in this.
+I could lend you my strength should it prove necessary.
+\e
+
+WinMes03:
+chara_type 0
+//他にサーヴァントはいないようですね。
+//……私、ういていなければいいのですが……
+There don't seem to be any other Servants here.
+Hopefully I don't appear too out of place.
+\e
+
+WinMes04:
+chara_type 1
+//……眠らない不夜の街……
+//ところで、都心にある深夜の飲食店は
+//とても美味しいと聞きました。
+//具体的な住所とお勧めを紹介してください。
+A nightless city that never sleeps...
+Incidentally, I've heard these kinds of cities house many
+late-night dining establishments that serve especially
+delicious food. May I trouble you to provide me with
+an address and menu recommendations?
+\e
+
+// 対一般人 Versus Commoner
+// 翡翠・琥珀・秋葉・志貴 Hisui, Kohaku, Akiha, Shiki
+WinMes05:
+chara_type 1
+//……ふう。なんとか怪我をさせずに済みました。
+//次はもっと慎重に、目立たないように行動しなければ……
+Phew...
+I'm glad I managed to finish this without causing injury.
+I must be more careful not to stand out as much next time.
+\e
+
+// 対能力者 Versus Superpowered people
+// 秋葉・ロア・ヴローヴ Akiha, Roa, Vlov
+WinMes06:
+chara_type 2
+//敵ながら、目を見張る異能でした。
+//次はそちらに軍配があがるかもしれませんね。
+Though you are my enemy, I must admit.
+Your abilities are astonishing.
+I may find myself defeated next time we do battle.
+\e
+
+// 対吸血鬼 Versus Vampires
+// ロア・ヴローヴ・暴走アルク Roa, Vlov, Red Arc
+WinMes07:
+chara_type 0
+//塵に還るがいい、怪物。
+//何物であれ、
+//人々を脅かす魔であれば斬り伏せるのみだ。
+Return to dust, monster.
+I shall strike down any evil which would threaten
+the populace, whatever form it may take.
+\e
+
+// 対翡翠＆琥珀（ストーリー専用） Versus Maids (story only)
+WinMesArcadeWin07:
+chara_type 0
+//バツグンのコンビネーションだったので
+//優れたアサシンだと思ったのですが……
+//まさか、ただお茶目なだけのメイドたちだったとは……
+//この街の貴族階級はどうなっているのでしょう……
+You two have such excellent teamwork that I mistook you
+for a pair of highly skilled Assassins. Little did I suspect
+you were merely a pair of mischievous maids. There's certainly
+something strange about the nobility in this city.
+\e
+
+
+// 99まで追加可能
+
+
+// ３連勝・１０連勝専用セリフ (win streak messages)
+
+WinMes3WinStreak00:
+chara_type 1
+//素晴らしい腕前です。
+//このまま勝ち進みましょう。
+Excellent skills.
+Let's keep the win streak going.
+\e
+
+
+WinMes10WinStreak00:
+chara_type 2
+//感服いたしました。
+//あなたのようなプレイヤーに出会えて、私はとても誇らしい。
+Most impressive.
+I am honored to have met a player such as yourself.
+\e
+
+
+//隠しキャラ解放シーン　テスト (story unlock message)
+UnlockMes00:
+chara_type 0
+//セイバーのストーリーが開放されました。
+Saber story has been unlocked.
+\e

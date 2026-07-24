@@ -1,0 +1,151 @@
+\\@SYSTEM@<9999>
+\\@LOAD_BATTLE_BG@<6>
+\\@FADE_IN@<0, 0, 0, 0, 0>//黒フェードイン
+// \\@BG_IN@<"screen_bg06", 0, 2, 0>
+
+\\@SYSTEM@<0>
+// \\@SYSTEM@<1>
+\aw
+
+\\@NPC_LOAD_SYNC@<5, 9, 320, 0, 1>
+\\@CHARA_SET_MVNAME@<5, "FadeIn">//vlov
+\\@CHARA_SET_PATTERN@<5, 0>//vlov
+
+\\@SYSTEM@<101>
+
+\\@NPC_LOAD_SYNC@<4, 3, -320, 0, 0>
+\\@CHARA_SET_MVNAME@<4, "FadeIn">//shiki
+\\@CHARA_SET_PATTERN@<4, 57>//shiki
+
+\\@CHARA_IN@<0, 3, 0, 1, 0>
+\\@CHARA_IN@<1, 9, 1, 2, 0>
+\aw
+
+\\@BGM_PLAY@<0, 75, 50>
+
+\\@CHARA_IN@< 0, 3, -1, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "03Sik/Sik05_0020", 100>
+\\@TEXT_ID@<10>
+Shiki
+/*-comment-
+おまえが吸血鬼騒ぎの元凶か。
+ずいぶんと好き放題やってくれたな。
+*/
+So you're the one behind this whole vampire mess?
+You've been acting pretty brazenly, haven't you?
+
+\\@SYSTEM@<102>
+\\@CHARA_IN@< 1, 9, 1, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "09Vlo/Vlo05_0020", 100>
+\\@TEXT_ID@<20>
+Volv
+/*-comment-
+……この爛れた街を、おれが……？
+……挑発にしては筋が悪いぞ、殺人鬼。
+*/
+You think this smoldering city... is my work...?
+What an unfounded and odd provocation... murderer.
+\l
+
+\\@CHARA_IN@< 1, 9, 0, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "09Vlo/Vlo05_0021", 100>
+\\@TEXT_ID@<30>
+Volv
+/*-comment-
+怒りより先に悲しみがくる。
+愚者に殺意を持つ者がいないように。
+*/
+It makes me more sad than it does upset...
+Much as one does not let a fool get under one's skin.
+
+
+\\@SYSTEM@<101>
+\\@CHARA_IN@< 0, 3, 2, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "03Sik/Sik05_0021", 100>
+\\@TEXT_ID@<40>
+Shiki
+/*-comment-
+そうかよ。アンタにどう思われるかなんて、
+それこそどうでもいい話だ。
+*/
+Really now? Sorry to disappoint, but I 
+don't really care what you think of me.
+\l
+
+\\@CHARA_IN@< 0, 3, 2, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "03Sik/Sik05_0022", 100>
+\\@TEXT_ID@<50>
+Shiki
+/*-comment-
+俺は吸血鬼が目の前にいるだけで、
+怒りで我を忘れそうだ。
+*/
+The mere sight of a vampire is almost 
+enough to make me lose myself in anger.
+
+\\@SYSTEM@<102>
+\\@CHARA_IN@< 1, 9, 0, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "09Vlo/Vlo05_0022", 100>
+\\@TEXT_ID@<60>
+Volv
+/*-comment-
+……そうか。忘れていながら、
+なお忘れられぬ《瑕＜きず＞があるのだな。
+*/
+I see... It appears you have a wound that 
+you cannot forget, yet cannot recall either.
+\l
+
+\\@CHARA_IN@< 1, 9, 4, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "09Vlo/Vlo05_0023", 100>
+\\@TEXT_ID@<70>
+Volv
+/*-comment-
+……憐れな事だ。人の身であっても
+死徒に挑まねばならないほどの、怒りとは。
+*/
+How pitiful... Such fury that it compels you to
+challenge even a Dead Apostle... even though 
+you are merely human.
+\l
+
+\\@CHARA_IN@< 1, 9, 2, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "09Vlo/Vlo05_0024", 100>
+\\@TEXT_ID@<80>
+Volv
+/*-comment-
+……であれば、その挑戦は断れまい。
+*/
+I could not turn down such a challenge... now could I?
+\l
+
+\\@CHARA_SET_PATTERN@<5, 6>//vlov
+
+\\@CHARA_IN@< 1, 9, 3, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "09Vlo/Vlo05_0025", 100>
+\\@TEXT_ID@<90>
+Volv
+/*-comment-
+来るがいい《血袋＜ちぶくろ＞。
+その灼熱の《暖＜ち＞、ありがたく受け取ろう。
+*/
+Come at me, blood bag...
+I shall gratefully accept your scorching blood.
+\l
+
+\\@SYSTEM@<101>
+\\@CHARA_IN@< 0, 3, 102, 0, 1>//怒り2
+/*-auto-*/\\@VOICE_PLAY@<0, "03Sik/Sik05_0023", 100>
+\\@TEXT_ID@<100>
+Shiki
+/*-comment-
+言ってろ。おまえにくれてやるのは、
+温かくも冷たくもない、ただの『死』だ。
+*/
+Say whatever you want. What I'm going to give you 
+is neither warm nor cold. It is simply death.
+
+
+\\@BGM_STOP@<0>
+\e
+

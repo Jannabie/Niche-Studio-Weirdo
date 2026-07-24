@@ -1,0 +1,439 @@
+\\@SYSTEM@<9999>
+\\@FADE_IN@<1, 0, 0, 0, 0>
+\aw
+// \\@BG_IN@<"screen_bg06", 0, 0>
+\\@LOAD_BATTLE_BG@<14>
+// \\@SQ_CALL@<1>
+\\@FADE_IN@<1,255,255,255,0>
+\\@SE_PLAY@<0, "talk/talk_se/Atk_StrongWind", 0, 75>
+\aw
+
+\\@NPC_LOAD_SYNC@<5, 3, 100, 0, 0>
+\\@CHARA_SET_MVNAME@<5, "FadeIn">//shiki
+\\@CHARA_SET_PATTERN@<5, 30>//shiki 眼鏡待て
+
+\\@NPC_LOAD_SYNC@<4, 13,-100, 0, 0>
+\\@CHARA_SET_MVNAME@<4, "FadeIn">//miyako
+\\@CHARA_SET_PATTERN@<4, 3>//miyako 驚き
+
+\\@SYSTEM@<0>
+// \\@SYSTEM@<1>
+\aw
+
+\\@BGM_PLAY@<0, 75, 50>
+
+
+\\@CHARA_IN@< 0, 13, 3, 1, 0>
+\\@CHARA_IN@< 2, 3,  0, 1, 0>
+\aw
+
+\\@SYSTEM@<101>
+\\@CHARA_IN@< 2, 3, 5, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "03Sik/Sik_10010", 100>
+\\@TEXT_ID@<10>
+Shiki
+/*-comment-
+あぶない都古ちゃん！
+頭上から１メートル大の氷塊が！
+*/
+Miyako, watch out! 
+There's a 1-meter tall block of ice right above you!
+
+\\@CHARA_IN@< 0, 13, 10, 0, 1>
+\\@CHARA_EMOVE@<0, -1 , 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "13Miy/Miy_10050", 100>
+\\@TEXT_ID@<20>
+Miyako
+/*-comment-
+ひょ、ひょうかい！？　夏なのに！？
+とと、とにかく、てやーーーーっ！
+*/
+A-A block of ice?! But it's the middle of summer! 
+A-A-Anyways! Hyah!!
+
+\\@CHARA_SET_PATTERN@<4, 19>
+\\@CHARA_SET_PATTERN@<5, 31>
+
+\\@CHARA_IN@< 0, 13, 4, 52, 20>
+\\@CHARA_MUKI@<0,0>
+\\@SQ_CALL@<2>
+\\@SE_PLAY@<1, "talk/talk_se/Atk_IcePillar", 0, 75>
+\w<20>
+\\@SE_PLAY@<0, "talk/talk_se/Hit_PunchC", 0, 75>
+\\@GO_SUB@<"QUAKE_1">
+\\@CHARA_IN@< 0, 13, -1, 50, 20>
+\\@CHARA_FOCUS_COLOR@< 0, 1>
+\aw
+
+\\@CHARA_SET_PATTERN@<4,11>//miyako 構え→立ち
+
+\\@NPC_LOAD_SYNC@<6, 9, 640, 0, 1>
+\\@CHARA_SET_MVNAME@<6, "FadeIn">//vlov
+\\@CHARA_SET_PATTERN@<6, 0>//vlov
+
+\\@CHARA_IN@< 1, 9,  0, 2, 100>
+\aw
+
+\\@SYSTEM@<102>
+\\@CHARA_IN@< 1, 9, 4, 0, 101>
+/*-auto-*/\\@VOICE_PLAY@<0, "09Vlo/Vlo_10000", 100>
+\\@TEXT_ID@<30>
+Volv@Volv_Fuyu
+/*-comment-
+……おれのプレゼントを、正面から粉砕するとは。
+……酷い街だ。無惨、ここに極まったな。
+*/
+To think you would straight up destroy my gift 
+like that... What a terrible city...
+What in the world could be crueler than this?
+
+\\@CHARA_OUT@<0, 13, -1, 0, 0>
+\\@CHARA_OUT@<1, 9, -1, 0, 0>
+\\@CHARA_OUT@<2, 3, -1, 0, 0>
+\\@BGM_FADE@<0, -1, 0, -2, 1>
+\\aw
+
+\\@NPC_LOAD_SYNC@<4, -1, 0, 0, 0>
+\\@NPC_LOAD_SYNC@<5, -1, 0, 0, 0>
+\\@NPC_LOAD_SYNC@<6, -1, 0, 0, 0>
+
+
+\\@DRAW_EFFECT@<1>
+\aw
+
+\\@BGM_PLAY@<1, 61, 50>//コミカルでちょっと怪しげなBGM
+
+\\@CHARA_IN@< 3, 19,  0, 44, 0>
+\\@CHARA_MUKI@<3,0>
+\aw
+
+\\@SYSTEM@<100>
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNec/NpcNec_10070", 100>
+\\@TEXT_ID@<40>
+Neco_Arc
+/*-comment-
+～これまでのあらすじ～
+*/
+The story so far...
+\l
+
+\\@CHARA_IN@< 3, 19, 110, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNec/NpcNec_10071", 100>
+\\@TEXT_ID@<50>
+Neco_Arc
+/*-comment-
+凄腕の暗殺者、ノエルを倒した都古。
+しかし平穏は１０分しか続かなかった。
+*/
+Miyako defeated the master assassin, Noel. However, not 
+ten minutes passed before the peace was broken.
+\l
+
+\\@CHARA_IN@< 3, 19, 102, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNec/NpcNec_10072", 100>
+\\@TEXT_ID@<60>
+Neco_Arc
+/*-comment-
+新たに現れた、遠野志貴を狙う吸血怪人。
+その名はマロース。冬将軍マロース。
+*/
+What appeared was a vampiric monster, out for Shiki's 
+blood! It was Ded Moroz, General Winter himself!
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNec/NpcNec_10073", 100>
+\\@TEXT_ID@<70>
+Neco_Arc
+/*-comment-
+三咲町にドチャクソな寒波が訪れる。
+*/
+Misaki Town was hit with an extreme cold wave.
+\l
+
+\\@CHARA_IN@< 3, 19, 110, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNec/NpcNec_10074", 100>
+\\@TEXT_ID@<80>
+Neco_Arc
+/*-comment-
+このままではかき氷の売り上げは低下し、
+海の家は大量の《在庫＜やきそば＞を抱えるだろう。
+*/
+If nobody stopped it, then surely the sales of snow cones 
+would hit a record low, and the beach-front cafes wouldn't 
+be able to sell their noodles anymore!
+\l
+
+\\@CHARA_IN@< 3, 19, 100, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNec/NpcNec_10075", 100>
+\\@TEXT_ID@<90>
+Neco_Arc
+/*-comment-
+夏の風物詩を、そしてオニイチャンとの
+サマー・バカンスの可能性を守るため、
+*/
+To save the summer spirit, not to mention
+the possibility of a vacation with her brother...
+\l
+
+\\@CHARA_IN@< 3, 19, 102, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNec/NpcNec_10076", 100>
+\\@TEXT_ID@<100>
+Neco_Arc
+/*-comment-
+いま、都古の秘められた真の力が覚醒する……！
+*/
+Miyako awoke to her inner true power!
+
+\\@CHARA_OUT@<3, -1, -1, 0, 0>
+\\aw
+\\@BGM_FADE@<1, -1, 0, -2, 1>
+
+
+\\@DRAW_EFFECT@<0>
+\aw
+
+\\@NPC_LOAD_SYNC@<5, 3, 100, 0, 0>
+\\@CHARA_SET_MVNAME@<5, "FadeIn">//shiki
+\\@CHARA_SET_PATTERN@<5, 90>//shiki 
+
+\\@NPC_LOAD_SYNC@<4, 13,-100, 0, 0>
+\\@CHARA_SET_MVNAME@<4, "FadeIn">//miyako
+\\@CHARA_SET_PATTERN@<4, 0>//miyako
+
+\\@NPC_LOAD_SYNC@<6, 9, 640, 0, 1>
+\\@CHARA_SET_MVNAME@<6, "FadeIn">//vlov
+\\@CHARA_SET_PATTERN@<6, 0>//vlov
+
+
+\\@BGM_PLAY@<0, 75, 50>
+\\@CHARA_IN@< 0, 13, 4, 11, 0>
+\\@CHARA_IN@< 2, 3,  0, 11, 0>
+\\@CHARA_IN@< 1, 9,  0, 12, 100>
+\aw
+
+
+\\@SYSTEM@<102>
+\\@CHARA_IN@< 1, 9, -1, 0, 101>
+/*-auto-*/\\@VOICE_PLAY@<0, "09Vlo/Vlo_10001", 100>
+\\@TEXT_ID@<110>
+Volv@Volv_Fuyu
+/*-comment-
+……大抵の痛みには慣れたつもりだが。
+*/
+It had thought that most pain no longer bothered me...
+\l
+
+\\@CHARA_SET_PATTERN@<6, 11>//vlov ため息
+/*-auto-*/\\@VOICE_PLAY@<0, "09Vlo/Vlo_10002", 100>
+\\@TEXT_ID@<120>
+Volv@Volv_Fuyu
+/*-comment-
+……純真な少女の受け取り拒否を直に見るのは、
+いくつになっても堪えるものだ……。
+*/
+But seeing such an innocent girl reject my gifts 
+directly is not something I'll ever get used to...
+\l
+
+\\@CHARA_IN@< 1, 9, 4, 0, 101>
+/*-auto-*/\\@VOICE_PLAY@<0, "09Vlo/Vlo_10003", 100>
+\\@TEXT_ID@<130>
+Volv@Volv_Fuyu
+/*-comment-
+おれなりに、流行り物を押さえたつもりだが……。
+*/
+And here I thought these were all the craze right now...
+
+\\@CHARA_SET_PATTERN@<4, 3>//miyako 驚き
+\\@SYSTEM@<101>
+\\@CHARA_IN@< 0, 13, 14, 0, 1>
+\\@CHARA_EMOVE@<0, -1 , 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "13Miy/Miy_10051", 100>
+\\@TEXT_ID@<140>
+Miyako
+/*-comment-
+あー！　よく見たら氷の中に何か入ってるーー！
+えーと、これは……
+*/
+Oh, look! There was something inside the ice!
+I wonder what it is. Let's see...
+
+\\@CHARA_SET_PATTERN@<5, 27>//shiki 眼鏡うなずき（2回）
+\\@CHARA_IN@< 2, 3, 5, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "03Sik/Sik_10011", 100>
+\\@TEXT_ID@<150>
+Shiki
+/*-comment-
+カードゲームのエクステンドパックだね。
+でもこれ、レギュレーション的に二世代ほど前のヤツだよ。
+*/
+It's a booster pack for that popular card game.
+This one was only valid two banlists ago, though.
+\l
+
+\\@CHARA_SET_PATTERN@<5, 28>//shiki 眼鏡ため息
+\\@CHARA_IN@< 2, 3, 4, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "03Sik/Sik_10012", 100>
+\\@TEXT_ID@<160>
+Shiki
+/*-comment-
+使い道はほぼないかなあ。
+まあ、コレクターなら取っておきたいかもだけど。
+*/
+Can't really use them anymore, though it does 
+have some cards that collectors would love to 
+get their hands on.
+
+\\@CHARA_SET_PATTERN@<5, 29>
+
+\\@CHARA_SET_PATTERN@<4,11>//miyako 構え→立ち
+\\@CHARA_IN@< 0, 13, 7, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "13Miy/Miy_10052", 100>
+\\@TEXT_ID@<170>
+Miyako
+/*-comment-
+そうなんだー。
+すてきなイラストがいっぱい描かれてるのにねー。
+*/
+Oh... 
+But it's got such good art and all, too...
+
+\\@CHARA_SET_PATTERN@<6, 9>//vlov はぁはぁ
+\\@SYSTEM@<102>
+\\@CHARA_IN@< 1, 9, 2, 0, 101>
+/*-auto-*/\\@VOICE_PLAY@<0, "09Vlo/Vlo_10004", 100>
+\\@TEXT_ID@<180>
+Volv@Volv_Fuyu
+/*-comment-
+…………ソレジャナイ……のか？
+おれの《土地＜くに＞では……それが……最新だと……
+*/
+You were expecting more...? 
+Where I'm from... those are the newest cards we have...
+
+\\@CHARA_SET_PATTERN@<5, 22>//shiki 眼鏡お手
+\\@SYSTEM@<101>
+\\@CHARA_IN@< 2, 3, 1, 0, 1>
+\\@CHARA_EMOVE@<2, -1 , 2>
+/*-auto-*/\\@VOICE_PLAY@<0, "03Sik/Sik_10013", 100>
+\\@TEXT_ID@<190>
+Shiki
+/*-comment-
+<"特別意訳：どこの地方のデュエリストですか？">
+ああ。それはずいぶんと田舎の方なんですね。
+戦術の前に、流通から見直した方がいいですよ。
+*/
+\\@EMG_SETUP@<16, 0, 0, 0, 16, 64, 1>
+\\@EMG_PRINT@<"Special translation: Where is this duelist from?", 102, 1130, 670>
+You must live in the middle of nowhere, then. 
+Maybe you should study the latest trends instead
+of stratagems of war.
+
+\\@CHARA_SET_PATTERN@<5, 23>
+
+\\@CHARA_SET_PATTERN@<6, 10>//vlov はぁはぁ→顔上げ
+\\@SYSTEM@<122>
+\\@GO_SUB@<"QUAKE_2">
+\\@CHARA_IN@< 1, 9, 6, 0, 101>
+\\@CHARA_EMOVE@<1, -1 , 14>
+/*-auto-*/\\@VOICE_PLAY@<0, "09Vlo/Vlo_10005", 100>
+\\@TEXT_ID@<200>
+Volv@Volv_Fuyu
+/*-comment-
+お―――
+おおぉおおおォオオオオオオオ……！！！！
+*/
+OOooOo!!
+OOOOOOOoOOooOOOOOOOO!!
+
+\\@CHARA_SET_PATTERN@<4, 3>//miyako 驚き
+\\@SYSTEM@<101>
+\\@CHARA_IN@< 0, 13, 5, 0, 1>
+\\@CHARA_EMOVE@<0, -1, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "13Miy/Miy_10053", 100>
+\\@TEXT_ID@<210>
+Miyako
+/*-comment-
+ひゃあああ！？
+とと、とつぜんなんでしょーか、マロースさん！？
+*/
+AHHH!!
+D-D-Don't scare me like that, Mr. Moroz!
+
+\\@CHARA_SET_PATTERN@<6, 14>//vlov
+\\@SYSTEM@<102>
+\\@CHARA_IN@< 1, 9, 5, 0, 101>
+/*-auto-*/\\@VOICE_PLAY@<0, "09Vlo/Vlo_10006", 100>
+\\@TEXT_ID@<220>
+Volv@Volv_Fuyu
+/*-comment-
+その男はいま、触れてはならない闇に触れた。
+流通？　流通だと？
+*/
+That man just touched a nerve he shouldn't have.
+Trends? Is that what you said?
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "09Vlo/Vlo_10007", 100>
+\\@TEXT_ID@<230>
+Volv@Volv_Fuyu
+/*-comment-
+おれの《土地＜くに＞は郵便すら半年遅れで届く魔境。
+いわんや、当日届きの通販など夢のまた夢。
+*/
+In my accursed homeland even the postal service is 
+six months behind! Same-day delivery might as well 
+be something I could only ever dream of...
+\l
+
+\\@CHARA_IN@< 1, 9, 1, 0, 101>
+/*-auto-*/\\@VOICE_PLAY@<0, "09Vlo/Vlo_10008", 100>
+\\@TEXT_ID@<240>
+Volv@Volv_Fuyu
+/*-comment-
+都会の人間どもはこれだから度しがたい。
+……やはり、この街は死に絶えねばならん。
+*/
+This is precisely why you city people don't deserve salvation!
+Just like I thought... this city ought to be wiped out!
+\l
+
+\\@CHARA_SET_PATTERN@<6, 4>//vlov いくぞ！
+\\@CHARA_IN@< 1, 9, 2, 0, 101>
+/*-auto-*/\\@VOICE_PLAY@<0, "09Vlo/Vlo_10009", 100>
+\\@TEXT_ID@<250>
+Volv@Volv_Fuyu
+/*-comment-
+おれは冬将軍マロース。
+またの名を怪人サンタクロース。
+*/
+I am Ded Moroz, General Winter. 
+To some, I am known as the Monstrous Santa Claus.
+\l
+
+\\@CHARA_IN@< 1, 9, 5, 0, 101>
+/*-auto-*/\\@VOICE_PLAY@<0, "09Vlo/Vlo_10010", 100>
+\\@TEXT_ID@<260>
+Volv@Volv_Fuyu
+/*-comment-
+吹雪に埋もれた交通網を見て、今まで
+どれほど恵まれた環境にいたのかを思い知るがいい！
+*/
+And once I bury your entire transportation network in
+snow, you'll know exactly how good you've had it!
+
+\\@SYSTEM@<121>
+\\@CHARA_IN@< 0, 13, 6, 0, 1>
+\\@CHARA_EMOVE@<0, -1 , 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "13Miy/Miy_10054", 100>
+\\@TEXT_ID@<270>
+Miyako
+/*-comment-
+ひゃーー！？　気持ちはわかるけど、
+サンタクロースが言っていいセリフじゃないよね！？
+*/
+What?! Look, I get how you must feel, but I don't
+think Santa Claus is supposed to say stuff like that!
+
+\\@BGM_STOP@<0>
+\e

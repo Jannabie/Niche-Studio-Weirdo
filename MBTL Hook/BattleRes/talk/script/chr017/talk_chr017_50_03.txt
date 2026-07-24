@@ -1,0 +1,400 @@
+\\@SYSTEM@<9999>
+\\@LOAD_BATTLE_BG@<13>
+\\@FADE_IN@<0, 0, 0, 0, 0>//黒フェードイン
+// \\@BG_IN@<"screen_bg13", 0, 2, 0>
+
+\\@SYSTEM@<0>
+// \\@SYSTEM@<1>
+\aw
+
+\\@CHARA_IN@<0, 17, 3, 1, 0>
+\\@CHARA_IN@<1, 0, 0, 2, 0>
+\aw
+
+\\@BGM_PLAY@<0, 74, 50>
+
+\\@SYSTEM@<101>
+\\@NPC_LOAD_SYNC@<4, 17, -320, 0, 0>
+\\@CHARA_SET_MVNAME@<4, "FadeIn">//mario
+\\@CHARA_SET_PATTERN@<4, 0>//mario
+
+\\@NPC_LOAD_SYNC@<5, 0, 320, 0, 1>
+\\@CHARA_SET_MVNAME@<5, "FadeIn">//arc
+\\@CHARA_SET_PATTERN@<5, 0>//arc
+
+
+\\@CHARA_IN@<0, 17, 3, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "17Mar/Mar07_0070", 100>
+\\@TEXT_ID@<10>
+Mario
+/*-comment-
+止まれよ吸血姫。
+悪いが、待ち合わせはキャンセルだ。
+*/
+Stop right there, princess.
+Real sorry, but the date's been canceled.
+\l
+
+\\@CHARA_IN@<0, 17, 3, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "17Mar/Mar07_0071", 100>
+\\@TEXT_ID@<20>
+Mario
+/*-comment-
+今まで十分に遊んだだろう？
+自由時間は今夜かぎりで、城にお帰り願おうか。
+*/
+You've messed around long enough. Your vacation ends 
+tonight. I've gotta ask of you to return to your castle.
+
+\\@SYSTEM@<102>
+\\@CHARA_SET_PATTERN@<5, 16>//arc
+\\@CHARA_IN@<1, 0, 14, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "00Arc/Arc07_0000", 100>
+\\@TEXT_ID@<30>
+Arcueid
+/*-comment-
+あれ？
+アナタ、もしかしてラウレンティスの子？
+*/
+Hm?
+Wait, are you one of Laurentis' kids?
+
+\\@SYSTEM@<101>
+\\@CHARA_SET_PATTERN@<4, 20>//mario
+\\@CHARA_IN@<0, 17, 1, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "17Mar/Mar07_0072", 100>
+\\@TEXT_ID@<40>
+Mario
+/*-comment-
+ああ。実の息子だよ。何人目かのな。
+アンタとは初対面だが、自己紹介の必要はねえ。
+*/
+Right, one of his many biological sons.
+First time we meet, but no need for introductions.
+\l
+
+\\@CHARA_FACE@<0,10,6,210>
+/*-auto-*/\\@VOICE_PLAY@<0, "17Mar/Mar07_0073", 100>
+\\@TEXT_ID@<50>
+Mario
+/*-comment-
+爺さんからよーく聞いている。
+……印象、まるで違うけどな。
+*/
+My old man's told me aaall about you.
+You seem pretty damn different though.
+
+\\@SYSTEM@<102>
+\\@CHARA_IN@<1, 0, 13, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "00Arc/Arc07_0001", 100>
+\\@TEXT_ID@<60>
+Arcueid
+/*-comment-
+ふーん。養子じゃないんだ。枢機卿なのに。
+ま、どうでもいいけど。
+*/
+Hmmm, so you're not adopted?
+Isn't he supposed to be a Cardinal...?
+Well, whatever.
+\l
+
+\\@CHARA_SET_PATTERN@<5, 12>//arc
+\\@CHARA_IN@<1, 0, 13, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "00Arc/Arc07_0002", 100>
+\\@TEXT_ID@<70>
+Arcueid
+/*-comment-
+それよりこの糸、どういうつもり？
+街じゅうに張り巡らされていたのは知ってたけど……
+*/
+Anyway, what are you planning on doing with 
+these wires? I knew you'd already extended 
+them all around the city but...
+\l
+
+\\@CHARA_IN@<1, 0, 13, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "00Arc/Arc07_0003", 100>
+\\@TEXT_ID@<80>
+Arcueid
+/*-comment-
+これ、わたしに対して使ったもの？
+それとも偶然？
+*/
+Are you planning to use them against me somehow?
+Or is that just a coincidence?
+\l
+
+\\@CHARA_IN@<1, 0, 2, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "00Arc/Arc07_0004", 100>
+\\@TEXT_ID@<90>
+Arcueid
+/*-comment-
+偶然なら許してあげるから、
+いますぐ消えなさい。
+*/
+If it's the latter, I don't mind turning a blind eye to it. 
+Just get out of my sight.
+\l
+
+\\@CHARA_IN@<1, 0, 2, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "00Arc/Arc07_0005", 100>
+\\@TEXT_ID@<100>
+Arcueid
+/*-comment-
+そうじゃないなら、絡まった絹糸ごと
+アナタの両腕、引きちぎるコトになるけど？
+*/
+If not, I might have to rip off
+those arms of yours, wires and all.
+
+\\@SYSTEM@<101>
+\\@CHARA_SET_PATTERN@<4, 12>//mario
+
+\\@CHARA_IN@<0, 17, 6, 0, 1>
+\\@CHARA_FACE@<1,2,15,350>
+/*-auto-*/\\@VOICE_PLAY@<0, "17Mar/Mar07_0074", 100>
+\\@TEXT_ID@<110>
+Mario
+/*-comment-
+そこは『指ごと』ぐらいにしておけっつの。
+あんまり物騒だとトオノに引かれるぞ？
+*/
+Couldn't you keep it to just the fingers, huh?
+Too vicious and the Tohno boy might stop likin' ya.
+\l
+
+\\@CHARA_IN@<0, 17, 3, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "17Mar/Mar07_0075", 100>
+\\@TEXT_ID@<120>
+Mario
+/*-comment-
+人間と付き合うならソフト、かつデリケートな
+行動を心がけとけよ。
+*/
+If you're gonna keep company with humans,
+you gotta act softer. More delicate.
+\l
+
+\\@CHARA_SET_PATTERN@<4, 8>//mario
+\\@CHARA_IN@<0, 17, 9, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "17Mar/Mar07_0076", 100>
+\\@TEXT_ID@<130>
+Mario
+/*-comment-
+恋の駆け引きの話じゃなく、単純に命の話な。
+*/
+And that ain't dating advice. 
+Just sayin', humans are fragile.
+\l
+
+\\@CHARA_IN@<0, 17, 9, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "17Mar/Mar07_0077", 100>
+\\@TEXT_ID@<140>
+Mario
+/*-comment-
+少しはお淑やかにしねえと、
+死者と一緒に恋人まで消しかねねえぞ？
+*/
+Without a bit of grace, you might accidentally take 
+out your lover boy when you're disposin' of the Dead.
+
+\\@SYSTEM@<102>
+\\@CHARA_SET_PATTERN@<5, 5>//arc
+
+\\@CHARA_IN@<1, 0, 15, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "00Arc/Arc07_0006", 100>
+\\@TEXT_ID@<150>
+Arcueid
+/*-comment-
+！　そ、そんな気遣い必要ないし、
+ずっとお淑やかだし！
+*/
+Hmph! I-I don't need your advice!
+Also, I'm always graceful!
+\l
+
+\\@CHARA_IN@<1, 0, 16, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "00Arc/Arc07_0007", 100>
+\\@TEXT_ID@<160>
+Arcueid
+/*-comment-
+……そもそも、恋人でもないし。
+*/
+A-And besides, he's not my "lover boy"...
+\l
+
+\\@CHARA_SET_PATTERN@<5, 12>//arc
+
+\\@CHARA_IN@<1, 0, 2, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "00Arc/Arc07_0008", 100>
+\\@TEXT_ID@<170>
+Arcueid
+/*-comment-
+志貴のことは、あくまで保険よ。
+逃がさないよう、手元に置いているだけだから。
+*/
+He's just... insurance.
+I'm keeping him close at hand so he doesn't get away.
+
+\\@SYSTEM@<101>
+\\@CHARA_SET_PATTERN@<4, 20>//mario
+\\@CHARA_IN@<0, 17, 11, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "17Mar/Mar07_0078", 100>
+\\@TEXT_ID@<180>
+Mario
+/*-comment-
+へえ。なんだ、ゆだってるようで
+そこはしっかりしてるんだな。見直したぜ。
+*/
+Well, well. You seemed kinda soft, but I guess
+you're still a lil' bit hard at heart. That's great.
+\l
+
+\\@CHARA_SET_PATTERN@<4, 8>//mario
+
+\\@CHARA_IN@<0, 17, 9, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "17Mar/Mar07_0079", 100>
+\\@TEXT_ID@<190>
+Mario
+/*-comment-
+なら、トオノがロアに乗っ取られそうになった時、
+いち早く始末するんだよな？
+*/
+So then when Roa's 'boutta possess the Tohno-boy, 
+you'll take him out right away, yeah?
+\l
+
+\\@CHARA_IN@<0, 17, 9, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "17Mar/Mar07_0080", 100>
+\\@TEXT_ID@<200>
+Mario
+/*-comment-
+鳥を絞め殺すように、
+こう、首を掴んでブチっとよ。
+*/
+You'll grab his neck firmly, 'til it goes crack.
+Just like killin' a chicken. 
+
+\\@SYSTEM@<102>
+\\@CHARA_SET_PATTERN@<5, 35>//arc
+
+\\@CHARA_IN@<1, 0, 13, 0, 1>
+\\@CHARA_EMOVE@<1, -1 , 14>
+/*-auto-*/\\@VOICE_PLAY@<0, "00Arc/Arc07_0009", 100>
+\\@TEXT_ID@<210>
+Arcueid
+/*-comment-
+……いいえ。
+志貴の体はロアの転生先というより避難所よ。
+*/
+No... Shiki isn't really Roa's host.
+He's more like his safe shelter.
+\l
+
+\\@CHARA_IN@<1, 0, 2, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "00Arc/Arc07_0010", 100>
+\\@TEXT_ID@<220>
+Arcueid
+/*-comment-
+ロアの魂が浮上しても、
+完全に切り替わる訳じゃない。だから……
+*/
+Even if Roa's soul has surfaced,
+he won't completely take over. 
+Which is why...
+\l
+
+\\@CHARA_IN@<1, 0, 2, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "00Arc/Arc07_0011", 100>
+\\@TEXT_ID@<230>
+Arcueid
+/*-comment-
+ロアの魂を抑えられる場所に連れて行けば、
+志貴のままで生きていける。
+*/
+If I take him somewhere where I can suppress 
+Roa's soul, Shiki can live on as himself.
+\l
+
+\\@CHARA_IN@<1, 0, 16, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "00Arc/Arc07_0012", 100>
+\\@TEXT_ID@<240>
+Arcueid
+/*-comment-
+本人はイヤがるだろうけど……
+わたしの城なら、助けてあげられる。
+*/
+Shiki may not like it, but...
+If I take him to my castle, he can still be saved.
+
+
+\\@SYSTEM@<101>
+\\@CHARA_SET_PATTERN@<4, 15>//mario
+\\@CHARA_IN@<0, 17, 1, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "17Mar/Mar07_0081", 100>
+\\@TEXT_ID@<250>
+Mario
+/*-comment-
+……ああ、そう。だからつかず離れずで
+恋人ごっこしてたワケか。
+*/
+Ah, so that's why you've been sticking 
+so close to him and playing all lovey-dovey.
+\l
+
+\\@CHARA_IN@<0, 17, 3, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "17Mar/Mar07_0082", 100>
+\\@TEXT_ID@<260>
+Mario
+/*-comment-
+応援してやりたい気持ちはある。
+爺さん曰く、テメェには借りがあるからな。
+*/
+Wish I could support you in this, really do.
+Old man said he owed you a debt, after all
+\l
+
+\\@CHARA_SET_PATTERN@<4, 20>//mario
+\\@CHARA_IN@<0, 17, 10, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "17Mar/Mar07_0083", 100>
+\\@TEXT_ID@<270>
+Mario
+/*-comment-
+だが―――こっちにも事情がある。
+馬に蹴られて死んでやるワケにはいかねぇ。
+*/
+Unfortunately, I got my own shit to worry 'bout.
+Can't afford dying just 'cause of your love affair.
+\l
+
+\\@CHARA_SET_PATTERN@<4, 11>//mario
+
+\\@CHARA_OUT@<0, 17, 10, 0, 1>
+\\@CHARA_IN@<3, 17, 203, 11, 0>
+/*-auto-*/\\@VOICE_PLAY@<0, "17Mar/Mar07_0084", 100>
+\\@TEXT_ID@<280>
+Mario
+/*-comment-
+トオノは諦めろ。
+城に帰るのはテメェひとりだアルクェイド。
+*/
+Give up on the Tohno-boy. You'll be going home
+to the castle on your own, Arcueid.
+\l
+
+\\@CHARA_IN@<1, 0, 2, 0, 10>
+\\@CHARA_IN@<3, 17, 203, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "17Mar/Mar07_0085", 100>
+\\@TEXT_ID@<290>
+Mario
+/*-comment-
+人間は人間の世界で生きるのが一番
+《易しい＜イージィ＞だって、言われなくても分かるだろう？
+*/
+Humans stay in the human world. 
+That's how simple it is; I shouldn't hafta tell ya.
+
+
+\\@BGM_STOP@<0>
+\e
+

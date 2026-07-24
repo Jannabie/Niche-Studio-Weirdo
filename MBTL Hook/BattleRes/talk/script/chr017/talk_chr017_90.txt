@@ -1,0 +1,322 @@
+\\@SYSTEM@<9999>
+\\@LOAD_BATTLE_BG@<9>
+\\@FADE_IN@<0, 0, 0, 0, 0>
+
+\\@SYSTEM@<0>
+\\@SYSTEM@<1>
+\aw
+
+\\@NPC_LOAD_SYNC@<4, 17, -320, 0, 0>
+\\@CHARA_SET_MVNAME@<4, "FadeIn">//mario
+\\@CHARA_SET_PATTERN@<4, 0>//mario
+
+\\@NPC_LOAD_SYNC@<5, 15, 320, 0, 1>
+\\@CHARA_SET_MVNAME@<5, "FadeIn">//aoko
+\\@CHARA_SET_PATTERN@<5, 2>//aoko
+
+//デフォ表情での入場だとこの後の表情との繋ぎに違和感あったので最初から表情変更
+\\@CHARA_IN@< 0, 17, 3, 1, 0>
+\\@CHARA_IN@< 1, 15, 5, 2, 0>
+\\@CHARA_MUKI@<1,1>
+\aw
+
+\\@BGM_PLAY@<0, 76, 50>
+
+\\@CHARA_IN@< 0, 17, 3, 1, 10>
+\\@CHARA_IN@<1, 15, 5, 0, 1>
+\\@CHARA_MUKI@<1,1>
+/*-auto-*/\\@VOICE_PLAY@<0, "15Aok/Aok07_0080", 100>
+\\@TEXT_ID@<10>
+Aoko
+/*-comment-
+……そんな事情があったのね。
+*/
+Oh, so that's your story...
+\l
+
+\\@CHARA_SET_PATTERN@<5, 9>//aoko
+\\@CHARA_IN@<1, 15, 4, 0, 1>
+\\@CHARA_MUKI@<1,1>
+/*-auto-*/\\@VOICE_PLAY@<0, "15Aok/Aok07_0081", 100>
+\\@TEXT_ID@<20>
+Aoko
+/*-comment-
+……ごめんなさい、マーリオゥ君。
+私、てっきりアナタも死徒側の汚職司祭だと……
+*/
+I'm sorry, Mario. I thought for sure you were 
+some corrupt Presbyter who'd gone over the to 
+the Dead Apostles' side.
+
+\\@CHARA_SET_PATTERN@<4, 6>//mario
+\\@CHARA_IN@<0, 17, 8, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "17Mar/Mar07_0110", 100>
+\\@TEXT_ID@<30>
+Mario
+/*-comment-
+ざけんな破壊魔。
+１２のガキが汚職に手を染めるかよ。
+*/
+Don't give me that shit, you walking disaster. You 
+really think a 12 year-old brat would be getting up
+in the corruption business already?
+\l
+
+\\@CHARA_IN@<0, 17, 7, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "17Mar/Mar07_0111", 100>
+\\@TEXT_ID@<40>
+Mario
+/*-comment-
+こっちは人命がかかってんだ。いつだってまっすぐだ。
+回りくどい手段をする時間はねえ。
+*/
+My life's on the goddamn line here. 
+I go at things straight on. 
+Ain't got no time beatin' around the bush.
+\l
+
+\\@CHARA_SET_PATTERN@<4, 8>//mario
+\\@CHARA_IN@<0, 17, 2, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "17Mar/Mar07_0112", 100>
+\\@TEXT_ID@<50>
+Mario
+/*-comment-
+ま、その苦労もこれでご破算だがな！
+ひっでぇ疫病神に出遭っちまったモンだ！
+*/
+Well, all my plans went to shit 'cause of you!
+Got myself involved with one helluva pest!
+
+\\@CHARA_SET_PATTERN@<5, 16>//aoko
+\\@CHARA_IN@<1, 15, 10, 0, 1>
+\\@CHARA_MUKI@<1,1>
+/*-auto-*/\\@VOICE_PLAY@<0, "15Aok/Aok07_0082", 100>
+\\@TEXT_ID@<60>
+Aoko
+/*-comment-
+それなんだけど。
+現状維持でいいなら手が無くもないわ。
+*/
+Yeah, about that.
+I think I might know a way to 
+stop things from getting any worse.
+\l
+
+\\@CHARA_SET_PATTERN@<4, 6>//mario
+\\@CHARA_IN@<0, 17, 11, 0, 1>
+\\@CHARA_IN@<1, 15, 1, 0, 1>
+\\@CHARA_MUKI@<1,1>
+/*-auto-*/\\@VOICE_PLAY@<0, "15Aok/Aok07_0083", 100>
+\\@TEXT_ID@<70>
+Aoko
+/*-comment-
+ようは………しなければいいんでしょう？
+ならうちの姉貴に相談してみて。
+*/
+Basically as long as...... it'll be fine, right?
+So why don't you try asking my sister about it?
+\l
+
+\\@CHARA_IN@<1, 15, 6, 0, 1>
+\\@CHARA_MUKI@<1,1>
+/*-auto-*/\\@VOICE_PLAY@<0, "15Aok/Aok07_0084", 100>
+\\@TEXT_ID@<80>
+Aoko
+/*-comment-
+そういう小ずるい逃げ道を考案する事に関しちゃあ、
+右に出るヤツはいない変人よ。
+*/
+There's no other weirdo quite as good as her when 
+it comes to devising clever ways of getting oneself 
+out of problems.
+
+\\@BGM_FADE@<0, -1, 0, -2, 0>
+\\@FADE_OUT@<0, 255, 255, 255, 0>
+\w<180>
+
+\\@NPC_LOAD_SYNC@<4, -1, 0, 0, 0>
+\\@NPC_LOAD_SYNC@<5, -1, 0, 0, 0>
+\\@CHARA_OUT@<0, -1, -1, 0, 0>
+\\@CHARA_OUT@<1, -1, -1, 0, 0>
+\aw
+
+
+\\@FADE_IN@<0, 255, 255, 255, 0>
+\\@BGM_FADE@<0, -1, 25, -2, 0>
+
+\\@SQ_CALL@<1>
+\aw
+
+
+
+/*-auto-*/\\@VOICE_PLAY@<0, "17Mar/Mar07_0113", 100>
+\\@TEXT_ID@<90>
+Mario
+/*-comment-
+ロアの消滅が確認されて、
+代行者シエルは総耶に残った。
+*/
+After confirming that Roa had indeed perished,
+Executor Ciel chose to remain in Souya.
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "17Mar/Mar07_0114", 100>
+\\@TEXT_ID@<100>
+Mario
+/*-comment-
+あの後、総耶で大きな異変があったようだが、
+誰も観測はできていない。
+*/
+After that, it appears as if a great abnormality 
+occurred there, though it could not be observed.
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "17Mar/Mar07_0115", 100>
+\\@TEXT_ID@<110>
+Mario
+/*-comment-
+はん。目を覆うような決戦があったんだろうよ。
+関わりたくもねえ。
+*/
+Hm. Some kinda terrifying battle probably took place.
+Don't wanna get involved.
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "17Mar/Mar07_0116", 100>
+\\@TEXT_ID@<120>
+Mario
+/*-comment-
+とはいえ―――
+*/
+That said...
+\l
+
+\\@SQ_CALL@<2>
+\\@BGM_FADE@<0, -1, 50, 15, 0>
+
+/*-auto-*/\\@VOICE_PLAY@<0, "08Noe/Noe07_0030", 100>
+\\@TEXT_ID@<130>
+Noel
+/*-comment-
+勝負はわたしたちの勝ちってコトですよね？
+*/
+I think we can chalk this one up as a win.
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "08Noe/Noe07_0031", 100>
+\\@TEXT_ID@<140>
+Noel
+/*-comment-
+真祖を迎撃、ロアは消滅。魔法使いも退散して、
+シエルのヤツは新しい弟子とかゲットしたし！
+*/
+I mean, we beat back the True Ancestor, exterminated 
+Roa, and drove off that Magician, too. Ciel even got 
+herself a new apprentice!
+
+/*-auto-*/\\@VOICE_PLAY@<0, "17Mar/Mar07_0117", 100>
+\\@TEXT_ID@<150>
+Mario
+/*-comment-
+長いレースの始まりって気もするがな。
+*/
+Got a feeling it's just the 
+beginning of a long road ahead...
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "17Mar/Mar07_0118", 100>
+\\@TEXT_ID@<160>
+Mario
+/*-comment-
+ついでにテメェもやり直しだ。
+とりま１年、オレの下で再訓練させてやる。
+*/
+By the way, you're starting over from scratch,
+fatass. You're getting a reeducation under me, 
+for at least a year.
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "17Mar/Mar07_0119", 100>
+\\@TEXT_ID@<170>
+Mario
+/*-comment-
+性根ともども鍛え直してもらえ。
+それが済んだら、適当な教会に赴任させてやる。
+*/
+I'm gonna fix up you up, attitude and all. 
+Once we're done with that, I'll assign you
+to whatever church you'd like.
+
+/*-auto-*/\\@VOICE_PLAY@<0, "08Noe/Noe07_0032", 100>
+\\@TEXT_ID@<180>
+Noel
+/*-comment-
+うそ、やったー！
+なら司祭代行の直属がいいでーす！
+*/
+For real? Awesome! Then I want to work 
+directly under you, Acting Presbyter!
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "08Noe/Noe07_0033", 100>
+\\@TEXT_ID@<190>
+Noel
+/*-comment-
+いい暮らしさせてくださーい！
+*/
+Please let me live the good life!
+
+/*-auto-*/\\@VOICE_PLAY@<0, "17Mar/Mar07_0120", 100>
+\\@TEXT_ID@<200>
+Mario
+/*-comment-
+……はあ。オレの成果は使えねえ駒ひとつときた。
+ま、命があるだけ上出来か。
+*/
+*Sigh* And my big prize turns out to be a useless pawn. 
+Just coming outta this alive was a huge plus.
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "17Mar/Mar07_0121", 100>
+\\@TEXT_ID@<210>
+Mario
+/*-comment-
+さて―――アオザキトウコ、希代の人形師。
+コイツが役に立つのなら、話はまだ終わらない。
+*/
+Now... Touko Aozaki, the peerless puppeteer. If she turns
+out to be of any help, this may not be over after all.
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "17Mar/Mar07_0122", 100>
+\\@TEXT_ID@<220>
+Mario
+/*-comment-
+ロアが遺した道筋は生きている。
+この糸が続いているのなら―――
+*/
+The road Roa paved is still intact.
+If I can just see where this thread leads...
+\l
+
+\\@SQ_CALL@<3>
+//SQの待機ではなく固定ウェイト
+\w<200>
+
+/*-auto-*/\\@VOICE_PLAY@<0, "17Mar/Mar07_0123", 100>
+\\@TEXT_ID@<230>
+Mario
+/*-comment-
+心底、面倒で頭が痛いがな。
+もう一度、この街にやってくる事になるだろうさ。
+*/
+It's gonna be real fuckin' annoying but... I have a 
+feeling I'll need to return to this city again someday.
+
+\\@SYSTEM@<21>
+\aw
+
+
+\\@BGM_STOP@<0>
+\e
+

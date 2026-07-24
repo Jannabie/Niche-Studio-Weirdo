@@ -1,0 +1,154 @@
+\\@SYSTEM@<9999>
+\\@LOAD_BATTLE_BG@<9>
+\\@FADE_IN@<0, 0, 0, 0, 0>//黒フェードイン
+// \\@BG_IN@<"screen_bg09", 0, 2>
+
+\\@SYSTEM@<0>
+// \\@SYSTEM@<1>
+\aw
+
+\\@NPC_LOAD_SYNC@<4, 5, 0, 0, 0>
+\\@CHARA_SET_MVNAME@<4, "FadeIn">//roa
+\\@CHARA_SET_PATTERN@<4, 14>//roa
+
+\\@CHARA_IN@<0, 5, 1, 11, 0>
+\\@CHARA_MUKI@<0,0>
+\aw
+
+\\@BGM_PLAY@<0, 78, 50>
+
+\\@SYSTEM@<101>
+
+\\@CHARA_IN@< 0, 5, 3, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "05Roa/Roa05_0000", 100>
+\\@TEXT_ID@<10>
+Roa
+/*-comment-
+―――オレが、生きている？
+直死の魔眼に点をつかれたオレが？
+*/
+I'm... alive? Even though my point of death was 
+pierced by the Mystic Eyes of Death Perception?
+\l
+
+\\@CHARA_IN@< 0, 5, 5, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "05Roa/Roa05_0001", 100>
+\\@TEXT_ID@<20>
+Roa
+/*-comment-
+ヤツが殺しそこなった……はないな。
+*/
+Did he fail to kill me? 
+No, impossible...
+\l
+
+\\@CHARA_IN@<0, 5, 4, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "05Roa/Roa05_0002", 100>
+\\@TEXT_ID@<30>
+Roa
+/*-comment-
+第一、ご丁寧にもあの女が
+八つ裂きにしやがったんだ。
+*/
+He wouldn't. Not after I went through the 
+trouble of tearing that woman to pieces for him.
+\l
+
+\\@CHARA_IN@<0, 5, 4, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "05Roa/Roa05_0003", 100>
+\\@TEXT_ID@<40>
+Roa
+/*-comment-
+吸血鬼ロアは完全に死んだ。それは確かだ。
+*/
+The vampire known as Roa was completely killed. 
+Such is certain.
+\l
+
+\\@CHARA_IN@< 0, 5, 5, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "05Roa/Roa05_0004", 100>
+\\@TEXT_ID@<50>
+Roa
+/*-comment-
+これはその後に起きた変異だろう。
+*/
+What we have here then, is no doubt a 
+deviation taking place after that event.
+\l
+
+\\@CHARA_IN@< 0, 5, 5, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "05Roa/Roa05_0005", 100>
+\\@TEXT_ID@<60>
+Roa
+/*-comment-
+オレ個人がおかしいのか、
+この《状況＜せかい＞自体がおかしいのか。
+*/
+So... is it me individually that's odd?
+Or is it the world itself?
+\l
+
+\\@CHARA_IN@< 0, 5, 4, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "05Roa/Roa05_0006", 100>
+\\@TEXT_ID@<70>
+Roa
+/*-comment-
+個人であればパラノダリアの置き土産、
+あたりが妥当だな。
+*/
+If it's just me, then I'd reckon a guess at it
+being some kind of parting gift from Paranodahlia.
+\l
+
+\\@CHARA_IN@< 0, 5, 5, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "05Roa/Roa05_0007", 100>
+\\@TEXT_ID@<80>
+Roa
+/*-comment-
+《状況＜せかい＞そのものとなると、さて―――
+今の『私』では見当もつかない。
+*/
+If it's the world itself, then, well...
+This current "me" won't have a clue as to why.
+\l
+
+\\@CHARA_SET_PATTERN@<4, 15>//roa
+
+\\@CHARA_IN@< 0, 5, 1, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "05Roa/Roa05_0008", 100>
+\\@TEXT_ID@<90>
+Roa
+/*-comment-
+まあいい。
+*/
+Regardless...
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "05Roa/Roa05_0009", 100>
+\\@TEXT_ID@<100>
+Roa
+/*-comment-
+何か役割があっての事らしいが、
+そんな物は他の連中に任せておけばいい。
+*/
+It would seem I have a role of sorts to play, 
+but let's leave that to the others for the time being.
+\l
+
+\\@CHARA_SET_PATTERN@<4, 19>//roa
+
+\\@CHARA_IN@< 0, 5, 0, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "05Roa/Roa05_0010", 100>
+\\@TEXT_ID@<110>
+Roa
+/*-comment-
+仮初めとは言え、せっかくの肉体だ。
+せいぜい、肉の愉しみを味わわせてもらうとするさ。
+*/
+Temporary as it may be, this is a body nonetheless.
+I ought to have as much fun with it as I can.
+
+
+\\@BGM_STOP@<0>
+\e
+

@@ -1,0 +1,365 @@
+\\@SYSTEM@<9999>
+\\@FADE_IN@<1, 0, 0, 0, 0>
+\aw
+// \\@BG_IN@<"screen_bg01", 0, 0>
+\\@LOAD_BATTLE_BG@<1>
+
+\\@SYSTEM@<0>
+// \\@SYSTEM@<1>
+\aw
+
+\\@BGM_PLAY@<0, 74, 50>
+
+
+// \\@NPC_LOAD_SYNC@<5, 3, 100, 0, 0>
+// \\@CHARA_SET_MVNAME@<5, "FadeIn">//shiki
+// \\@CHARA_SET_PATTERN@<5, 90>//shiki
+
+// \\@NPC_LOAD_SYNC@<4, 13,-100, 0, 0>
+// \\@CHARA_SET_MVNAME@<4, "FadeIn">//miyako
+// \\@CHARA_SET_PATTERN@<4, 0>//miyako
+
+// \\@CHARA_IN@< 0, 13, 3, 11, 0>
+// \\@CHARA_IN@< 2, 3,  0, 11, 0>
+// \aw
+
+// \\@NPC_LOAD_SYNC@<4, -1, 0, 0, 0>
+// \\@NPC_LOAD_SYNC@<5, -1, 0, 0, 0>
+
+
+\\@CHARA_OUT@<0, 13, -1, 0, 0>
+\\@CHARA_OUT@<2, 3, -1, 0, 0>
+\\@BGM_FADE@<0, -1, 0, -2, 1>
+\\aw
+
+\\@DRAW_EFFECT@<1>
+\aw
+
+\\@BGM_PLAY@<1, 61, 50>//コミカルでちょっと怪しげなBGM
+
+\\@CHARA_IN@< 3, 19,  0, 44, 0>
+\\@CHARA_MUKI@<3,0>
+\aw
+
+\\@SYSTEM@<100>
+\\@CHARA_IN@< 3, 19, -1, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNec/NpcNec_10100", 100>
+\\@TEXT_ID@<10>
+Neco_Arc
+/*-comment-
+～これまでのあらすじ～
+*/
+The story so far...
+\l
+
+\\@CHARA_IN@< 3, 19, 110, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNec/NpcNec_10101", 100>
+\\@TEXT_ID@<20>
+/*-comment-
+ついに三咲町を牛耳る悪の本部に
+辿り着いた有間都古。
+*/
+Neco_Arc
+Miyako Arima finally arrived at the headquarters
+of those who command Misaki Town from the shadows.
+\l
+
+\\@CHARA_IN@< 3, 19, 100, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNec/NpcNec_10102", 100>
+\\@TEXT_ID@<30>
+Neco_Arc
+/*-comment-
+そこは遠野志貴の妹にして遠野家当主、
+遠野秋葉が支配する洋館だった。
+*/
+It was the mansion under the control of Akiha Tohno,
+the Tohno family head and Shiki's younger sister.
+\l
+
+\\@CHARA_IN@< 3, 19, 110, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNec/NpcNec_10103", 100>
+\\@TEXT_ID@<40>
+Neco_Arc
+/*-comment-
+遠野秋葉は遠野志貴の根無し草な性根をただし、
+品行方正な優等生になってもらうため、
+*/
+Akiha was set on correcting Shiki's listless nature
+so as to turn him into an upstanding, model student.
+\l
+
+\\@CHARA_IN@< 3, 19, 102, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNec/NpcNec_10104", 100>
+\\@TEXT_ID@<50>
+Neco_Arc
+/*-comment-
+暇を持て余したシスターを金で雇い、
+田舎からやってきた吸血鬼と協定を結び、
+*/
+She paid good money to hire a nun with too much 
+time on her hands, formed a pact with a vampire 
+from the middle of nowhere...
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNec/NpcNec_10105", 100>
+\\@TEXT_ID@<60>
+Neco_Arc
+/*-comment-
+普段から目を離せない双子の侍女を
+『減給されたくなければ』と恫喝し、
+*/
+...and gave a pair of inseparable maids 
+a nudge with subtle threats of a pay cut...
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNec/NpcNec_10106", 100>
+\\@TEXT_ID@<70>
+Neco_Arc
+/*-comment-
+遠野志貴捕獲計画を企てていたのだった。
+*/
+...all as part of the Tohno Shiki Acquisition Project.
+\l
+
+\\@CHARA_IN@< 3, 19, 110, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNec/NpcNec_10107", 100>
+\\@TEXT_ID@<80>
+Neco_Arc
+/*-comment-
+つまりどういう事かというと、
+*/
+In other words...
+
+\\@CHARA_OUT@<3, -1, -1, 0, 0>
+\\aw
+\\@BGM_FADE@<1, -1, 0, -2, 1>
+
+
+
+\\@DRAW_EFFECT@<0>
+\aw
+
+\\@NPC_LOAD_SYNC@<4, 13,-100, 0, 0>
+\\@CHARA_SET_MVNAME@<4, "FadeIn">//miyako
+\\@CHARA_SET_PATTERN@<4, 0>//miyako
+
+\\@BGM_PLAY@<0, 74, 50>
+\\@CHARA_IN@< 0, 13, 3, 11, 0>
+\aw
+
+\\@CHARA_SET_PATTERN@<4, 3>//miyako 驚き
+\\@SYSTEM@<121>
+\\@CHARA_IN@< 0, 13, 5, 0, 1>
+\\@CHARA_EMOVE@<0, -1, 13>
+/*-auto-*/\\@VOICE_PLAY@<0, "13Miy/Miy_10080", 100>
+\\@GO_SUB@<"QUAKE_2">
+\\@TEXT_ID@<90>
+Miyako
+/*-comment-
+ぜんぜん吸血鬼事件と関係ない、
+どうでもいい家庭内騒動だこれーーーー！
+*/
+This has nothing to do with the vampire incident!
+This is just some stupid family quarrel!
+\l
+
+\\@CHARA_SET_PATTERN@<4, 1>
+\\@SYSTEM@<101>
+\\@CHARA_IN@< 0, 13, 3, 0, 1>
+\\@CHARA_EMOVE@<0, -1 , 2>
+/*-auto-*/\\@VOICE_PLAY@<0, "13Miy/Miy_10081", 100>
+\\@TEXT_ID@<100>
+Miyako
+/*-comment-
+そうだよね、ネコアルクの脚本だもんね！
+期待したわたしが馬鹿だった！
+*/
+Why was I so stupid to get my hopes up...
+Neco-Arc wrote this stupid script, after all!
+\l
+
+\\@CHARA_IN@< 0, 13, 7, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "13Miy/Miy_10082", 100>
+\\@TEXT_ID@<110>
+Miyako
+/*-comment-
+さっきの吸血鬼のお姉さん、このオチを知ってたから
+邪魔しに来てくれたんだ……
+*/
+It explains why the vampire lady interrupted me like that. 
+She knew how this story would turn out, didn't she?
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "13Miy/Miy_10083", 100>
+\\@TEXT_ID@<120>
+Miyako
+/*-comment-
+アキハなんて、どうせビームひとつ撃てない
+意地悪なだけのヤツだろうし……
+*/
+I bet Akiha's just doing this out of spite,
+she probably can't even shoot any beams either.
+\l
+
+\\@CHARA_IN@< 0, 13, 8, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "13Miy/Miy_10084", 100>
+\\@TEXT_ID@<130>
+Miyako
+/*-comment-
+ラスボス役とか、
+荷が勝ちすぎるに決まってるよ……
+*/
+How exactly is someone like that supposed
+to be up to the role of final boss?
+
+\\@NPC_LOAD_SYNC@<5, 2, 640, 0, 1>
+\\@CHARA_SET_MVNAME@<5, "FadeIn">
+\\@CHARA_SET_PATTERN@<5, 4>
+
+\\@CHARA_FOCUS_COLOR@< 0, 1>
+\\@CHARA_IN@< 1, 2,  0, 2, 0>
+\aw
+
+\\@SYSTEM@<102>
+\\@CHARA_IN@< 1, 2, 3, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "02Sak/Sak_10000", 100>
+\\@TEXT_ID@<140>
+Akiha
+/*-comment-
+―――まったく。呼び鈴も鳴らさず押し入ってきて、
+第一声がそれですか。
+*/
+What a rude child. You barge in here without even
+ringing the doorbell, then start insulting me?
+\l
+
+\\@CHARA_IN@< 1, 2, 201, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "02Sak/Sak_10001", 100>
+\\@TEXT_ID@<150>
+Akiha
+/*-comment-
+意地悪なだけ、とか。
+ラスボスには相応しくない、とか……
+*/
+You think I'm just being spiteful?
+You don't think I'm final boss material?
+\l
+
+\\@CHARA_SET_PATTERN@<5, 5>
+\\@CHARA_IN@< 1, 2, 202, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "02Sak/Sak_10002", 100>
+\\@TEXT_ID@<160>
+Akiha
+/*-comment-
+甘い評価をしていただいて、ありがとう。
+この後、本気を出すのを躊躇ってしまいそうだわ。
+*/
+Thank you for that shining assessment, I'm so torn
+up I may have trouble fighting at full strength.
+
+\\@CHARA_SET_PATTERN@<4, 3>//miyako 驚き
+\\@SYSTEM@<101>
+\\@CHARA_IN@< 0, 13, 5, 0, 1>
+\\@CHARA_EMOVE@<0, -1, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "13Miy/Miy_10085", 100>
+\\@TEXT_ID@<170>
+Miyako
+/*-comment-
+うぇ！？　だだ、誰かいる……！
+あれがアキハなの、お兄ちゃ―――
+*/
+Huh? Who's there?!
+Is that Akiha's voice, Shi--?
+\l
+
+\\@CHARA_SET_PATTERN@<4, 48>//miyako 振り向き
+\\@SYSTEM@<131>
+\\@CHARA_IN@< 0, 13, 7, 0, 1>
+\\@CHARA_EMOVE@<0, -1, 13>
+/*-auto-*/\\@VOICE_PLAY@<0, "13Miy/Miy_10086", 100>
+\\@TEXT_ID@<180>
+Miyako
+/*-comment-
+（あれ？　お兄ちゃん、どこにもいない……？）
+*/
+(What? Where did he go? I don't see him anywhere...)
+
+\\@CHARA_SET_PATTERN@<5, 9>//akiha 知りません
+\\@SYSTEM@<102>
+\\@CHARA_IN@< 1, 2, 8, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "02Sak/Sak_10003", 100>
+\\@TEXT_ID@<190>
+Akiha
+/*-comment-
+……ここにきて挙動不審な娘ですね。
+助けを期待しているのなら諦めなさい。
+*/
+Quite the odd thing to say. If you were hoping to
+find someone to help you, you'd best give up now.
+\l
+
+\\@CHARA_IN@< 1, 2, 0, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "02Sak/Sak_10004", 100>
+\\@TEXT_ID@<200>
+Akiha
+/*-comment-
+ここは遠野の私有地。
+警察も、代行者とやらも近づけない帰らずの森。
+*/
+This is the Tohno private estate. 
+An unapproachable and inescapable forest, 
+for both the police and the Executors.
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "02Sak/Sak_10005", 100>
+\\@TEXT_ID@<210>
+Akiha
+/*-comment-
+不埒な侵入者の末路は決まっています。
+呪うのなら、自らの運命を呪うのね。
+*/
+I think you know what fate befall any who would dare intrude.
+Curse your destiny, if you must.
+
+\\@NPC_LOAD_SYNC@<4, -2,-100, 0, 0>
+\\@CHARA_SET_PATTERN@<4, 3>//miyako 驚き
+\\@SYSTEM@<101>
+\\@CHARA_IN@< 0, 13, 5, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "13Miy/Miy_10087", 100>
+\\@TEXT_ID@<220>
+Miyako
+/*-comment-
+な、なんかヒヤッとした気配が来る……！
+い、いいよ、わたしだって強いんだからっ！
+*/
+Wh-What a chilling aura! But I'm not afraid!
+F-Fine, I'll show you how strong I am!
+\l
+
+\\@CHARA_SET_PATTERN@<4, 8>//miyako 行くぞ！
+\\@CHARA_IN@< 0, 13, 4, 0, 1>
+\\@CHARA_EMOVE@<0, -1 , 4>
+/*-auto-*/\\@VOICE_PLAY@<0, "13Miy/Miy_10088", 100>
+\\@TEXT_ID@<230>
+Miyako
+/*-comment-
+勝負だ、アキハ！　わたしは有間都古、
+血は繋がってないけど、お兄ちゃんの妹です！
+*/
+I challenge you, Akiha! My name is Miyako Arima!
+I am my brother's sister, even if it's not by blood!
+
+\\@CHARA_SET_PATTERN@<5, 10>//akiha ちらっ
+\\@SYSTEM@<102>
+\\@CHARA_IN@< 1, 2, 5, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "02Sak/Sak_10006", 100>
+\\@TEXT_ID@<240>
+Akiha
+/*-comment-
+―――有間、ですって？
+*/
+Did you say Arima...?
+
+\\@BGM_STOP@<0>
+\e
+

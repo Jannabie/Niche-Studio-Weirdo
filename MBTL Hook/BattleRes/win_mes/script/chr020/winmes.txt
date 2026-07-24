@@ -1,0 +1,288 @@
+WinMesScript
+
+
+WinMes00:
+chara_type 123
+chara_type_sub 118
+chara_switchframe 240
+chara_type_sub1 102
+chara_switchframe1 679
+//“まだ物足りないぜ、かかってこーい！”
+//……戦いが終わった時はこう言うのが
+//礼儀だとネコアルクさんに教わりましたが……
+//ど、どうでしょうか？
+'I'm still raring to go! Come at me!'
+Neco-Arc taught this is what's proper
+to say at the end of a fight.
+W-What do think?
+\e
+
+WinMes01:
+chara_type 7
+//損害は軽微でした。
+//補充なしで次の戦闘に移行できます。
+Damages minimal.
+Proceeding to next battle without resupplying.
+\e
+
+WinMes02:
+chara_type 8
+//驚嘆すべき戦闘力でした。
+//何か特別なトレーニングでも
+//されているのですか？
+I can only be astonished at your combat prowess.
+Have you been undergoing some sort of special training?
+\e
+
+WinMes03:
+chara_type 0
+//ふぅ、驚きの連続です！
+//後ほど、所感などまとめさせていただければ！
+Phew... what a string of surprises!
+I'll have to organize my thoughts about it sometime later.
+\e
+
+WinMes04:
+chara_type 1
+//時代が変われば武器も変わるのは
+//当然ですが……たいへん得がたい
+//戦闘経験を積ませていただきました。
+I suppose it's only natural that the instruments of war
+would change with the era... That said, you've given
+me quite the unforgettable combat experience, thank you.
+\e
+
+WinMes05:
+chara_type 2
+chara_type_sub 3
+chara_switchframe 280
+//何より防御が凄かった、ですか……？
+//はい！　わたしはカルデアが誇る、
+//盾のサーヴァントですので！
+You think my defense stood out the most...?
+Indeed! I am Chaldea's famous 
+Servant of the Shield, after all!
+\e
+
+
+WinMes06:
+chara_type 5
+//マスター不在ですが、わたしも経験豊富なので！
+//マシュ・キリエライト、
+//パワフルに、がんばります！
+Even without a Master, I'm still plenty experienced on my own!
+Mash Kyrielight, on duty, powerfully!
+\e
+
+WinMes07:
+chara_type 107
+//なんであれ、未知の事を学べる事は幸福です。
+//わたしの取り柄はそれくらいなので……
+//ご協力、ありがとうございました！
+It brings me happiness to learn something new, 
+regardless of what it may be. I think that's what I excel at,
+if nothing else. Thank you so much for your cooperation!
+\e
+
+// 対死徒 Versus Dead Apostles
+WinMes08:
+chara_type 124
+//ヒトでありながら、
+//人類の脅威として活動する……
+//対話する事は、できないのでしょうか……
+Your actions threaten mankind even though you are human yourself...
+I suppose we cannot simply talk this over...?
+\e
+
+// 対死徒 Versus Dead Apostles
+WinMes09:
+chara_type 114
+//わたしたちの世界にも
+//吸血種は存在しますが……
+//これほど強力、いえ、独自性を持った
+//種は記録されていません……。
+There are bloodsuckers in my world too...
+Even so, there aren't any records of any of them 
+being this powerful--or rather, this distinctive...
+\e
+
+// 対セイバー Versus Saber
+WinMes10:
+chara_type 1
+//カルデアとは違う舞台、
+//多くの物語ではなくたった一つの物語から
+//やってきた方なのですね。
+//とても、眩しいです。
+I see, so you're someone who has arrived from a world 
+separate to Chaldea's. Someone originating from a single story,
+instead of many. That is so very precious.
+\e
+
+// 対ネコアルク Versus Neco-Arc
+WinMes11:
+chara_type 3
+//準備運動にお付き合いいただき、
+//ありがとうございました！
+//次回もよろしくお願いします、
+//ネコアルクさん！
+I very much appreciate you allowing me to
+accompany you on your warm-up sessions!
+I look forward to next time as well,
+Neco-Arc!
+\e
+
+// 対翡翠 Versus Hisui
+WinMes12:
+chara_type 4
+//仕えるものの心構え……
+//日常のサポート、お手伝い……
+//なるほど。翡翠さんからは学ぶべき事が
+//たくさんありましゅ……
+//P: たくさんありましゅ…… seems to be some weird Mash pun...?
+How to think like a servant.
+How to provide routine support. 
+How to give assistance...
+I see. There are many things that Hisui could teach me.
+\e
+
+// 対牛若丸
+WinMes13:
+chara_type 1
+//近代都市であっても、
+//牛若丸さんの身のこなしは華麗ですね！
+//ビルの側面を走る……
+//わたしもやってみたいです……
+Even in this modern city,
+your movements are so elegant, Ushiwakamaru!
+You can run at the sides of buildings...
+I want to try that as well...
+\e
+
+// 対巌窟王
+WinMes14:
+chara_type 2
+//……いったいどなただったのでしょうか……
+//声だけなら、
+//どこかで聞いた気がするのですが……
+Just who could that have been...?
+I feel like I've at least heard that voice somewhere before...
+\e
+
+// 対ロア（ストーリー専用） Versus Roa (story only)
+WinMesArcadeWin05:
+chara_type 114
+chara_type_sub 100
+chara_switchframe 368
+chara_type_sub1 117
+chara_switchframe1 585
+//ひとりめの死徒とは違い、
+//様々な魔術に精通した強敵でした。
+//これで街に潜む吸血鬼は―――え、
+//床にゲートが！？　きゃあああーーー！？
+Unlike the first Dead Apostle I encountered,
+you were a real dangerous opponent, given your mastery
+of all those different varieties of magecraft.
+With this, the Dead Apostle lurking in the city is def-- wha--
+There's a gate below?! Eeeeeek!?
+\e
+
+// 対ヒスコハ（ストーリー専用） Versus Maids (story only)
+WinMesArcadeWin07:
+chara_type 101
+chara_type_sub 119
+chara_switchframe 270
+//驚きました、お二人ともお強いのですね！
+//……え？　普段はとても戦えない？
+//今夜だけ限定の戦闘力……なるほど。
+How surprising, the two of you were quite strong!
+Huh? You usually don't fight very much at all?
+So, you were only this strong tonight in particular.
+I see...
+\e
+
+// 対死徒ノエル（ストーリー専用） Versus DA Noel (story only)
+WinMesArcadeWin14:
+chara_type 6
+//魔術、科学による力でもなく、
+//星の神秘による力でもない……
+//ただ●＜そこにいるだけ＞で世界を侵す毒。
+//これが、死徒と呼ばれる吸血鬼なのですね。
+Power born not from magecraft or science,
+nor even from the planet's arcanas...
+A poison which intrudes upon the world by its presence alone.
+So that's what the Dead Apostle-type vampires are.
+\e
+
+
+// 対ネコアルク（Ｂシナリオストーリー専用） Versus Neco-Arc (B story only)
+WinMesArcade01Win19:
+chara_type 6
+chara_type_sub 5
+chara_switchframe 630
+//２０１０年代の日本、吸血鬼―――
+//わたしたちの世界と法則は違うようですが、
+//戦闘に支障はありません。
+//カルデアの代表として、頑張ります！
+Japan in the 2010s... Vampires...
+Though it appears the laws governing this world are different
+from mine, it doesn't impede on my ability to fight.
+Chaldea's representative, on duty!
+\e
+
+// 対ネコヒスイ（Ｂシナリオストーリー専用） Versus Neco-Hisui (B story only)
+WinMesArcade01Win19_03:
+chara_type 101
+chara_type_sub 110
+chara_switchframe 590
+//良かった。毒物、すべて摘出されました！
+//念のため、あと数回衝撃を加えて胃洗浄も……
+//ネコアルクさん！？
+//そんなに急いでどこに行かれるのですか！？
+Thank God. All venom neutralized!
+But just for good measure, 
+I'll perform some gastric lavage with extra few blow--
+Neco-Arc?!
+Where are you off to in such a hurry?!
+\e
+
+// 対ネココハク（Ｂシナリオストーリー専用） Versus Neco-Kohaku (B story only)
+WinMesArcade01Win19_04:
+chara_type 0
+chara_type_sub 4
+chara_switchframe 435
+//毒物の排出、完了しました！
+//さすがネコアルクさん、脅威の回復力です！
+//では、地上に戻りましょう。
+//お屋敷の主人にご挨拶されるのですよね？
+Expulsion of venom, complete!
+What incredible resilience! I expected nothing less of Neco-Arc!
+Alright, let's get back to the surface.
+We SHOULD greet the master of this mansion, shouldn't we?
+\e
+
+// 99まで追加可能
+
+
+// ３連勝・１０連勝専用セリフ
+
+WinMes3WinStreak00:
+chara_type 3
+//３連勝、お見事です！
+//今日はノッているとみました！
+Great work on the three straight wins!
+I see you're in great form today!
+\e
+
+WinMes10WinStreak00:
+chara_type 6
+chara_type_sub 0
+chara_switchframe 615
+//１０連勝、ただ事ではありません！
+//わたしも緊張してきました……
+//深呼吸、深呼吸……
+//さあ、更なるレコードを築きましょう！
+Ten straight wins is no small feat!
+I'm getting nervous as well...
+Deep breaths, deep breaths...
+Okay! Let's go for even higher records!
+\e

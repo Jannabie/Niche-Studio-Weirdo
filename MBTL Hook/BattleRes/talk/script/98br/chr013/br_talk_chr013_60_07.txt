@@ -1,0 +1,126 @@
+\\@SYSTEM@<9999>
+
+\\@FADE_OUT@<2, 255, 255, 255, 0>
+\aw
+
+\\@SYSTEM@<0>
+\aw
+\\@BGM_PLAY@<0, 76, 50>
+
+\\@SYSTEM@<100>
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNec/NpcNec_10140", 100>
+\\@TEXT_ID@<10>
+Neco_Arc@Neco_Arc_Rumi
+/*-comment-
+よくやったミヤコ。
+貴様は心の壁を破壊した。木っ端微塵に。
+*/
+Well done, Miyako. You have smashed the walls
+of your mental block into tiny pieces.
+
+/*-auto-*/\\@VOICE_PLAY@<0, "13Miy/Miy_10120", 100>
+\\@TEXT_ID@<20>
+Miyako@Miyako_Hatena
+/*-comment-
+木っ端微塵に。
+*/
+Into tiny pieces...
+
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNec/NpcNec_10141", 100>
+\\@TEXT_ID@<30>
+Neco_Arc@Neco_Arc_Rumi
+/*-comment-
+あのさわやか眼鏡クンを倒した事で、
+おまえは真の意味で戦う力を手に入れた。
+*/
+By defeating the suave glasses-boy, you have 
+acquired the power of truly fighting in-game.
+
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNec/NpcNec_10142", 100>
+\\@TEXT_ID@<40>
+Neco_Arc@Neco_Arc_Rumi
+/*-comment-
+分かるかニャー。有間都古は意味もなく
+キャラセレにいたのではない。
+*/
+Do you understand? Miyako Arima wasn't an option
+on the character select screen for just no reason.
+
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNec/NpcNec_10143", 100>
+\\@TEXT_ID@<50>
+Neco_Arc@Neco_Arc_Rumi
+/*-comment-
+ここで鍛え、戦う力を手に入れたからこそ、
+バトルキャラで参戦していたのだ。
+*/
+By training here and acquiring the power of 
+fighting, it was possible for you to join the 
+playable character roster.
+
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNec/NpcNec_10144_a", 100>
+\\@TEXT_ID@<60>
+Neco_Arc@Neco_Arc_Rumi
+/*-comment-
+たーーーいむ、パラドッーーークス。
+*/
+It's a tiIIiiMe PaAAraDOOox!!
+
+
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNec/NpcNec_10145", 100>
+\\@TEXT_ID@<70>
+Neco_Arc@Neco_Arc_Rumi
+/*-comment-
+よし。言いたい事を言ったので、
+今度こそお別れです。
+*/
+There. I've said all I wanted to say.
+Now I must bid you adieu for real.
+
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNec/NpcNec_10146", 100>
+\\@TEXT_ID@<80>
+Neco_Arc@Neco_Arc_Rumi
+/*-comment-
+目覚めた時、アナタはこの夢を忘れているでしょう。
+*/
+When you wake up, you probably won't remember this dream.
+
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNec/NpcNec_10147", 100>
+\\@TEXT_ID@<90>
+Neco_Arc@Neco_Arc_Rumi
+/*-comment-
+ですが悲しまないでください。
+アタシは間違いなく忘れている。
+*/
+Do not mourn, however. 
+I will also have forgotten all about this experience.
+
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNec/NpcNec_10148", 100>
+\\@TEXT_ID@<100>
+Neco_Arc@Neco_Arc_Rumi
+/*-comment-
+でもせっかくだから
+最後にもう一つだけ言わせてほしい。
+*/
+But while I have you, allow me to set your little
+heart at ease...
+
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNec/NpcNec_10149", 100>
+\\@TEXT_ID@<110>
+Neco_Arc@Neco_Arc_Rumi
+/*-comment-
+アタシは必ず実装されて戻ってくる！
+ネコ・ストライク・バァーーーーーーック！
+*/
+I will most certainly return in game!
+“The Cat Strikes Baaaaaaack”!
+
+\\@SYSTEM@<200>
+\aw
+\\@BGM_FADE@<0, -1, 0, -2, 1>
+
+\\@FADE_OUT@<0, 0, 0, 0, 0>
+\aw
+
+\\@BGM_STOP@<0>
+\e
+

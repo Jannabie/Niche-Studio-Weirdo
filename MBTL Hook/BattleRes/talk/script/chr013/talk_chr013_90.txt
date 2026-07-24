@@ -1,0 +1,188 @@
+\\@SYSTEM@<9999>
+\\@FADE_OUT@<0,0,0,0,1>
+\\@BG_IN@<"ed_bg00", 0, 2>
+\aw
+
+\\@FADE_OUT@<1,255,255,255,0>
+\aw
+
+\\@FADE_IN@<0,0,0,0,0>
+\aw
+
+\\@SYSTEM@<1>
+\aw
+
+\\@BGM_PLAY@<0, 76, 50>
+\\@FADE_IN@<1,255,255,255,0>
+\\@SQ_CALL@<1>
+
+
+/*-auto-*/\\@VOICE_PLAY@<0, "13Miy/Miy05_0060", 100>
+\\@TEXT_ID@<10>
+Miyako
+/*-comment-
+かくして。ゆうかんな八極拳士の活躍で、
+お兄ちゃんが帰ってきたのです！
+*/
+And so it was that my brother returned home, 
+all thanks to my heroic demonstration of bajiquan!
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "03Sik/Sik06_0040", 100>
+\\@TEXT_ID@<20>
+Shiki
+/*-comment-
+ありがとう都古ちゃん。
+ひとりでよくがんばったね。
+*/
+Thanks, Miyako.
+You fought well.
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "03Sik/Sik06_0041", 100>
+\\@TEXT_ID@<30>
+Shiki
+/*-comment-
+悪い妹に捕まった時はどうなることかと思ったけど、
+都古ちゃんのおかげで戻ってこれたよ。
+*/
+I didn't know what to do after being captured by my 
+evil sister, but thanks to you I could return home.
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "03Sik/Sik06_0042", 100>
+\\@TEXT_ID@<40>
+Shiki
+/*-comment-
+やっぱり有間の家が一番いいな。
+もちろん、都古ちゃんがいてこそだけどね。
+*/
+There really is no place like the Arima family home. 
+And of course, that's because you're here, Miyako.
+\l
+
+
+/*-auto-*/\\@VOICE_PLAY@<0, "13Miy/Miy05_0061", 100>
+\\@TEXT_ID@<50>
+Miyako
+/*-comment-
+えへへ……
+えへへへへ……！
+*/
+Heehee!
+Heeheeheehee!
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "13Miy/Miy05_0062", 100>
+\\@TEXT_ID@<60>
+Miyako
+/*-comment-
+それじゃあ、お兄ちゃんはそこで見ていてね！
+わたし、新しいトーロを覚えたんだ！
+*/
+Stand right over here for a minute! 
+I want to show you a new stance that I've learned!
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "13Miy/Miy05_0063", 100>
+\\@TEXT_ID@<70>
+Miyako
+/*-comment-
+今まで見てもらえなかった分、
+ごしどうごべんたつのほど、お願いしますっ！
+*/
+I expect you'll make up for all the time you were 
+away with plenty of guidance and encouragement!
+
+/*-auto-*/\\@VOICE_PLAY@<0, "03Sik/Sik06_0043", 100>
+\\@TEXT_ID@<80>
+Shiki
+/*-comment-
+俺でよければ。
+ああ、でも水分補給はしっかりするんだぞ？
+*/
+It would be my honor.
+Oh, but remember to drink plenty of water.
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "03Sik/Sik06_0044", 100>
+\\@TEXT_ID@<90>
+Shiki
+/*-comment-
+がんばりすぎて体を壊したら元も子もないからね。
+*/
+It'll all be for nothing if you 
+don't take care of your body.
+
+/*-auto-*/\\@VOICE_PLAY@<0, "13Miy/Miy05_0064", 100>
+\\@TEXT_ID@<100>
+Miyako
+/*-comment-
+～～～～っ！
+はーい、わかってまーす！　だいじょうぶ、だいじょーぶ！
+*/
+Right! I know, silly!
+I'll be fine, just fine!
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "13Miy/Miy05_0065", 100>
+\\@TEXT_ID@<110>
+Miyako
+/*-comment-
+一日の冒険のせいか、かな？
+*/
+Perhaps it was because of my adventure-filled day...
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "13Miy/Miy05_0066", 100>
+\\@TEXT_ID@<120>
+Miyako
+/*-comment-
+いろんなひとと組み手をしたおかげで、
+お兄ちゃん限定のきんちょうぐせはかいしょーされた。
+*/
+But it would seem that fighting all those people 
+helped me get over my shyness around my brother.
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "13Miy/Miy05_0067", 100>
+\\@TEXT_ID@<130>
+Miyako
+/*-comment-
+道場もリフォームしたし、
+お兄ちゃんの貧血も治ったみたいだし、
+*/
+We restored the dojo to its former beauty,
+and it seems my brother's anemia was cured too!
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "13Miy/Miy05_0068", 100>
+\\@TEXT_ID@<140>
+Miyako
+/*-comment-
+もうこわいことはなんにもなし！
+わたしの毎日はすっっごくごきげんなのでした☆
+*/
+There was nothing more to be afraid of!
+And we lived happily ever after! ☆
+
+\\@SPEAKERCG_IN@<0,52,0,-245,120,-245,120,255,255,0,820,820,0>
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcCat/NpcCat06_0040", 100>
+\\@TEXT_ID@<150>
+Bake_Neko
+/*-comment-
+ん～～～～、グッド・キャッツ。
+エンドロール、いっとく？
+*/
+Mm... That was purrfect.
+Shall we roll the credits now?
+
+
+\\@SPEAKERCG_OUT@<0,52,0,-800,120,-800,120,255,0,0,820,820,0>
+\\@SYSTEM@<21>
+\aw
+
+
+\\@BGM_STOP@<0>
+\e
+

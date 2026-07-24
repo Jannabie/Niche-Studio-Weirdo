@@ -1,0 +1,216 @@
+\\@SYSTEM@<9999>
+\\@LOAD_BATTLE_BG@<23>
+\\@FADE_IN@<0, 0, 0, 0, 0>
+
+\\@SYSTEM@<0>
+\\@SYSTEM@<1>
+\aw
+
+\\@BGM_PLAY@<0, 66, 100>
+
+\\@NPC_LOAD_SYNC@<4, 19, -100, 0, 0>
+\\@CHARA_SET_MVNAME@<4, "FadeIn">
+\\@CHARA_SET_PATTERN@<4, 0>
+
+
+\\@NPC_LOAD_SYNC@<5, 20, 100, 0, 1>
+\\@CHARA_SET_MVNAME@<5, "FadeIn">
+\\@CHARA_SET_PATTERN@<5, 221>//むんっ！
+
+\\@CHARA_IN@< 0, 20, 203, 1, 0>
+\aw
+
+\\@CHARA_IN@< 0, 20, 215, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "20Mas/Mas08_0133", 100>
+
+Mash
+/*comment
+はい、ネコアルクさんの戦いのおかげで、
+宝具充填１００％です！
+*/
+Yes! Thanks to that battle with Neco-Arc,
+my Noble Phantasm has reached 100% charge!
+\l
+
+\\@CHARA_IN@< 0, 20, 215, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "20Mas/Mas08_0134", 100>
+
+Mash
+/*comment
+ゲート、開きます！
+*/
+Opening Gate!
+
+
+\\@SE_PLAY@<0, "talk/talk_se/Cmn_RayShift", 0, 100>
+
+
+\\@CHARA_CLEAR@<0>
+
+\\@FADE_IN@<1,255,255,255,0>
+\\@SQ_CALL@<1>
+
+/*-auto-*/\\@VOICE_PLAY@<0, "19Nec/Nec08_0330", 100>
+
+Neco_Arc
+/*comment
+はい。と言うワケで、このＭＢ界はＭＢ界に
+よく似た悪夢のネコワールドだったンだ。
+*/
+Aight, so basically, that was actually some nightmarish Neco-world.
+It was just really similar to the Melty-verse.
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "19Nec/Nec08_0331", 100>
+
+Neco_Arc
+/*comment
+だがアタシは挫けない。諦めない。回線切らない。
+ネコはいつだって夏への扉を探すものだから。
+*/
+But I shant yield, nor surrender, nor unplug my internet.
+It's in a Necos blood to keep looking
+for the door which leads to summer!
+
+/*-auto-*/\\@VOICE_PLAY@<0, "20Mas/Mas08_0090", 100>
+
+Mash
+/*comment
+ふふ。
+ネコアルクさんはロマンチストなのですね。
+*/
+Hehe.
+Neco-Arc, you sure are a dreamer.
+
+/*-auto-*/\\@VOICE_PLAY@<0, "19Nec/Nec08_0332", 100>
+
+Neco_Arc
+/*comment
+ふふ、よせやい。
+アタシは猫に優しい主人公を評価しているだけさ。
+*/
+What's with the giggling, huh?
+All I'm saying is I think highly of
+protagonists who treat cats well.
+\l
+
+
+/*-auto-*/\\@VOICE_PLAY@<0, "19Nec/Nec08_0333", 100>
+
+Neco_Arc
+/*comment
+それよりマシュ君。
+出口のほうはどう？　見えてきた？
+*/
+Anyway, Mash...
+How's it looking with the exit? Can you see it yet?
+
+
+/*-auto-*/\\@VOICE_PLAY@<0, "20Mas/Mas08_0091", 100>
+
+Mash
+/*comment
+はい。シバによるとあと４０秒でもっとも近い
+並行世界に転移するようです。
+*/
+Yes. According to SHEBA, we'll arrive at the closest
+parallel world in 40 seconds from now.
+\l
+
+
+/*-auto-*/\\@VOICE_PLAY@<0, "20Mas/Mas08_0092", 100>
+
+Mash
+/*comment
+ゲート間の移動も安定しています。
+これもネコアルクさんのおかげですね。
+*/
+Our journey between gates is stable as well.
+Thanks to you, of course, Neco-Arc.
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "20Mas/Mas08_0093", 100>
+
+Mash
+/*comment
+カルデアの技術ではこんな事はできません。
+*/
+Technology from Chaldea couldn't achieve something like this.
+
+/*-auto-*/\\@VOICE_PLAY@<0, "19Nec/Nec08_0334", 100>
+
+Neco_Arc
+/*comment
+合わせ技。合わせ技だよ、マシュ君。
+いちばん強いのは信じるふたり。繋ぎ合う手なンだ。
+*/
+And that's why it's a combo move, Mash.
+See, ain't nobody stronger than two people who believe in each-other.
+Those whose fingers are intertwined.
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "19Nec/Nec08_0335", 100>
+
+Neco_Arc
+/*comment
+アタシたちはもう仲間なンだ。
+一緒にＭＢ界を正そうじゃーないか。
+*/
+We're partners, for real.
+Gonna fix the melty-verse up good - together!
+
+
+/*-auto-*/\\@VOICE_PLAY@<0, "20Mas/Mas08_0094", 100>
+
+Mash
+/*comment
+はい！
+人理を破壊しようする方に容赦はしません！
+*/
+Of course!
+I show no mercy to those who would try to destroy Human Order!
+\l
+
+
+/*-auto-*/\\@VOICE_PLAY@<0, "20Mas/Mas08_0095", 100>
+
+Mash
+/*comment
+マシュ・キリエライト、
+どんな結末が待っていても心を鋼にする覚悟です！
+*/
+Mash Kyrielight, on duty!
+No matter what lies ahead,
+my steel-clad resolve shall never waver!
+
+
+/*-auto-*/\\@VOICE_PLAY@<0, "19Nec/Nec08_0336", 100>
+
+Neco_Arc
+/*comment
+ふふ、なんて頼もしい。
+まさに正義の女神と言わざるをえない。
+*/
+Hehe, as dependable as ever
+Practically Lady Justice herself. What else could I call it?
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "19Nec/Nec08_0337", 100>
+
+Neco_Arc
+/*comment
+皆さんも、最後の落ちまで見えてきましたね？
+あーあ、イヤな予感しかしねえニャーーーァ！
+*/
+And you people on the other side of the screen, 
+you see where this is going, right?
+Oh boy, I've got a reeeaaal bad feeling about this!
+
+
+
+\\@SYSTEM@<21>
+\aw
+
+\\@BGM_STOP@<0>
+\e
+

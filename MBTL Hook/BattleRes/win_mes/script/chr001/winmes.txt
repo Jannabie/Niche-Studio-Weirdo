@@ -1,0 +1,160 @@
+WinMesScript
+
+
+WinMes00:
+chara_type 2
+//あの、お怪我はなかったでしょうか……？
+Um, I hope you are not injured...
+\e
+
+
+WinMes01:
+chara_type 2
+//……申し訳ありません。
+//その、体に触れられるのは苦手なものですから、つい……。
+I am terribly sorry... It's just... 
+I'm not very comfortable with 
+others touching me, so I just...
+\e
+
+
+WinMes02:
+chara_type 101
+//真剣勝負との事でしたので、
+//出来るかぎり努力させていただきました。
+You seemed as if you wanted an real fight,
+so I deemed it appropriate that I give it my all.
+\e
+
+
+WinMes03:
+chara_type 100
+//わ、わたしの勝ちですか……？
+//……やった、やりました志貴さま……！
+D-Did I win...? 
+Master Shiki! Look! I did it!
+\e
+
+
+WinMes04:
+chara_type 102
+//―――ふう。
+//それではお屋敷の清掃に戻らせていただきます。
+Phew... Now, if you'll excuse me,
+I should get back to cleaning the mansion.
+\e
+
+
+WinMes05:
+chara_type 1
+//……申し訳ありません。
+//その、あまりに激しいものですから、
+//こちらも必死で抵抗してしまいました。
+I'm terribly sorry. 
+It's just... you came at me so intensely,
+I felt it necessary to defend myself.
+\e
+
+
+WinMes06:
+chara_type 101
+//……はあ、怖かった。
+//お願いですから、もうこのような真似はしないでください。
+That was frightening...
+I must ask that you don't do that again.
+\e
+
+
+//07は欠番 (07 is blank)
+
+
+WinMes08:
+chara_type 0
+//これでよろしかったのでしょうか……？
+//何分、荒事は不得手なものですから。
+Was that satisfactory...?
+I'm afraid this sort of rough-housing is not my forte.
+\e
+
+WinMes09:
+chara_type 102
+//落ち着きが足りません。
+//無作法は改めた方がご自身の為になるかと存じます。
+You're too lively.
+I believe you would do well to get 
+those manners of yours under control.
+\e
+
+// 対志貴 Versus Shiki
+WinMes10:
+chara_type 1
+//……お許しください志貴さま。
+//出過ぎた行為ですが、志貴さまをお部屋に連れ戻すには
+//こうする以外ないと思いまして……。
+Please forgive me, Master Shiki... 
+I realize I might have gone a bit over the line, 
+but it was the only way I could think of to make 
+you return to your room...
+\e
+
+// 対秋葉 Versus Akiha
+WinMes11:
+chara_type 1
+//真剣勝負との事でしたので、全力を尽くしました。
+//ご満足いただけたでしょうか、秋葉様。
+You seemed as if you wanted an real fight, so I 
+gave it my all. Was it to your liking, Lady Akiha?
+\e
+
+// 対琥珀 Versus Kohaku
+WinMes12:
+chara_type 100
+//……ごめんなさい姉さん。
+//なんかすごく厭な殺気を感じたものだから、
+//全力で迎撃してしまいました。
+I'm sorry, Kohaku... 
+There was this very unpleasant bloodlust coming off of you.
+I had no choice but to give it my all in fending you off.
+\e
+
+// 対アルクェイド Versus Arcueid
+WinMes13:
+chara_type 100
+//は、危なかったぁ―――。
+//何故でしょう、
+//アルクェイド様からとても危険な気配がしたのですが……？
+Th-That was close...
+I'm not sure why, but... 
+I sensed a dangerous aura
+emanating from Miss Arcueid just now.
+\e
+
+
+
+
+// 99まで追加可能
+
+
+// ３連勝・１０連勝専用セリフ
+
+WinMes3WinStreak00:
+chara_type 3
+//３連勝……。
+//見事な家具さばきです。
+Three wins...
+You handled that furniture splendidly.
+\e
+
+WinMes10WinStreak00:
+chara_type 100
+//１０連勝……。
+//もしや名のある執事様なのですか？
+Ten wins...
+You wouldn't happen to be a famous butler in disguise?
+\e
+
+//隠しキャラ解放test
+UnlockMes00:
+chara_type 3
+Hisui story has been unlocked.
+\e

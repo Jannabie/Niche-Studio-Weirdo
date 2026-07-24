@@ -1,0 +1,190 @@
+WinMesScript
+
+
+WinMes00:
+chara_type 1
+//退屈な人。
+/優劣は明らかですから、これ以上続ける必要はありません。
+How tedious...
+My superiority has been clearly demonstrated. 
+There's no need for this to go on any further.
+\e
+
+WinMes01:
+chara_type 1
+//楽しかったわ。
+//次があるのなら、優先的に相手をしてさしあげます。
+That was enjoyable. I would gladly serve
+as your opponent if ever there is a next time.
+\e
+
+WinMes02:
+chara_type 102
+//なんだ、私もけっこう戦えるじゃない。
+//これなら反転する必要もないみたいね。
+Would you look at that. I fight quite well, don't I? 
+It seems there is no need for me to Invert for this one.
+\e
+
+WinMes03:
+chara_type 101
+//勝敗は決しました。出口はあちらです。
+//生きているうちにお帰りください。
+The battle has been decided. 
+You will find the exit over there. 
+I suggest you use it while you're still alive.
+\e
+
+WinMes04:
+chara_type 101
+//あら、納得のいかない顔ね。
+//お望みならもう一度試してみますか？
+//結果は未来永劫変わらないでしょうけど。
+Ooh, you look dissatisfied. 
+Do you perhaps wish to try again? 
+Just know that the outcome will remain the same for all eternity, however.
+\e
+
+WinMes05:
+chara_type 0
+//こんなところね。
+//ふふ、ちょっとはしたなかったかしら？
+That will have to do.
+Hehe, perhaps that was a bit immodest of me?
+\e
+
+WinMes06:
+chara_type 104
+//戦いは力ではなく、技と機転によるものです。
+//そのあたり、骨身に染みたようですね。
+Battle isn't about power. 
+It's about having technique and a keen mind. 
+But I'm sure you've grasped that well enough by now.
+\e
+
+WinMes07:
+chara_type 1
+//……滑稽ね、私。
+//こんな優劣を決めたところで、
+//欲しいものは何一つ手に入らないのに
+God, I'm being so silly.
+Proving my superiority like this
+isn't going to give me what I want.
+\e
+
+WinMes08:
+chara_type 2
+//ありがとう、いい気分転換になりました。
+//どう、週に一度ほどお相手をして下さらない？
+Thank you. This has proven a great diversion.
+Would you perhaps consider serving as my 
+opponent once a week or so? Well?
+\e
+
+WinMes09:
+chara_type 102
+//いかがでした？
+//舞踏の稽古は始めたばかりですけど、中々のものでしょう？
+How was it? I only started practicing my dance moves
+recently, but I think I'm learning quickly.
+\e
+
+WinMes10:
+chara_type 1
+//あら、ひどい傷。すぐに看護師を手配します
+//から安心してください。あ、けどあやしい
+//薬漬けにされないよう注意なさってね？
+Oh dear, those injuries look nasty. Don't worry, 
+I'll have someone see to them right away. 
+Oh, but just a quick warning; she has a habit of over-medicating.
+\e
+
+WinMes11:
+chara_type 2
+//実に有意義な時間でした。
+//――――それでは、ごきげんよう。
+Why, quite the productive use of my time.
+Do take care.
+\e
+
+// 対志貴 Versus Shiki
+WinMes12:
+chara_type 0
+//ほら、私だってやれば出来るでしょう兄さん？
+//今度からは私にも相談してくださいね。
+See, Shiki? I am quite capable when I to put my mind to it. 
+Promise to ask me for help the next time you need it. Understood?
+\e
+
+// 対志貴 Versus Shiki
+WinMes13:
+chara_type 103
+//兄さん、また無断で屋敷を抜け出して……！
+//今度という今度は許しませんっ。
+//しばらく離島で反省なさって貰います！
+Why do you keep leaving the mansion without permission?!
+This is the last time! Until you've reflected on your actions,
+you'll just have to spend some time on this secluded island!
+\e
+
+// 対ヒスコハ Versus Maids
+WinMes14:
+chara_type 1
+//―――言うまでもないコトだけど。
+//二人とも、減給ぐらいは覚悟しているんでしょうねぇ？
+This goes without saying, but you two understand that 
+you'll be receiving a pay cut for this, right? At minimum.
+\e
+
+// 対琥珀 Versus Kohaku
+WinMes15:
+chara_type 104
+//琥珀、貴女の不埒三昧もここまでよ！
+//さあ、今すぐ監視カメラを撤去して
+//怪しげなクスリも投棄なさい！
+Kohaku, I will tolerate your outrageous behavior no longer! 
+You will take down the surveillance cameras you've installed 
+and destroy your questionable medicine immediately!
+\e
+
+// 対有間都古 Versus Miyako
+WinMes16:
+chara_type 1
+//貴女ね、仮にも有間の一人娘でしょう？
+//中学生になったら浅上に入学するんだから、
+//もっと礼儀正しく……え？
+//浅上には行かないですって？
+For what it's worth, you ARE part of the Arima family, no?
+Once you're in middle school, you'll be attending 
+Asagami Academy, so make sure you act more refine--
+What? You don't plan on attending Asagami Academy?!
+\e
+
+// 99まで追加可能
+
+
+
+// ３連勝・１０連勝専用セリフ (win streak lines)
+
+WinMes3WinStreak00:
+chara_type 102
+//３連勝とはなかなかやりますね。
+//私も良い稽古になります。
+Three wins isn't bad. 
+This is proving to be quite the useful training session.
+\e
+
+WinMes10WinStreak00:
+chara_type 2
+//すご、１０連勝……！
+//あ……いえ、失礼。
+//興味がおありならぜひ当家にいらしてください。歓迎いたします。
+Ten wins?! That's amazing! *ahem* Excuse me. 
+What I meant to say was; you would be most 
+welcome at our mansion should you be so interested.
+\e
+
+//隠しキャラ解放test
+UnlockMes00:
+unlock message
+\e

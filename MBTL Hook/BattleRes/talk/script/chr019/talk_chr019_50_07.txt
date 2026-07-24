@@ -1,0 +1,551 @@
+\\@SYSTEM@<9999>
+\\@LOAD_BATTLE_BG@<1>
+\\@FADE_IN@<0, 0, 0, 0, 0>//黒フェードイン
+
+\\@SYSTEM@<0>
+\aw
+
+\\@NPC_LOAD_SYNC@<4, 19, -100, 0, 0>
+\\@CHARA_SET_MVNAME@<4, "FadeIn">
+\\@CHARA_SET_PATTERN@<4, 0>
+
+\\@NPC_LOAD_SYNC@<5, 20, 100, 0, 1>
+\\@CHARA_SET_MVNAME@<5, "FadeIn">
+\\@CHARA_SET_PATTERN@<5, 203>//はにかみ
+
+
+
+\\@CHARA_IN@< 0, 19, 110, 1, 0>
+\\@CHARA_IN@< 2, 20, 200, 2, 0>
+\\@CHARA_MUKI@<2, 1>
+\aw
+
+\\@BGM_PLAY@<0, 73, 100>
+
+\\@SYSTEM@<101>
+\\@CHARA_IN@< 0, 19, 110, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "19Nec/Nec08_0400", 100>
+
+/*-comment-
+今更だが自己紹介をしよう。
+アタシの名はネコアルク。学名はまだない。
+*/
+Neco_Arc
+Kinda late here, but allow me to introduce myself.
+The name's Neco-Arc. Ain't got no binomial nomenclature yet.
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "19Nec/Nec08_0401", 100>
+
+/*-comment-
+ハッピーエンドを求めた人々の見る幻影とも、
+真祖の姫のもう一つの側面とも、
+*/
+Neco_Arc
+I am the phantom seen by those wishing for a Happy End;
+The other aspect of the Princess of the True Ancestors;
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "19Nec/Nec08_0402", 100>
+
+/*-comment-
+たまたま描かれたらくがきが波動関数を
+体現してたんで産まれた生命とも、
+*/
+Neco_Arc
+The lifeform born from some randomly drawn 
+sketch embodying a certain wave-length function;
+\l
+
+\\@CHARA_IN@< 0, 19, 100, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "19Nec/Nec08_0403", 100>
+
+/*-comment-
+様々な説が囁かれる神出鬼没のゴッドキャット。
+正直自分でもわかんねー。
+*/
+Neco_Arc
+The elusive GOD CAT, one of which many theories are spun.
+Though to be honest I dun really know who I am either.
+
+
+\\@SYSTEM@<102>
+
+\\@CHARA_SET_PATTERN@<5, 219>//困惑
+\\@CHARA_IN@< 2, 20, 208, 0, 1>
+\\@CHARA_MUKI@<2, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "20Mas/Mas08_0120", 100>
+
+/*-comment-
+ご自分でもおわかりになられないのですか？
+不安ではありませんか？
+*/
+Mash
+You yourself don't know who you are?
+Does that not cause you anguish?
+
+
+\\@SQ_CALL@<1>
+
+\\@SYSTEM@<101>
+
+\\@CHARA_SET_PATTERN@<4, 44>//neco
+\\@CHARA_IN@< 0, 19, 104, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "19Nec/Nec08_0404", 100>
+
+/*-comment-
+んー、クレカ作れないのは不便のような
+良かったような。古い運転免許ならある。
+*/
+Neco_Arc
+Hmmm, it's both inconvenient and pretty nice that
+I can't get a credit card... That said, I do have
+an old driver's license lyin' around.
+\l
+
+
+\\@CHARA_IN@< 0, 19, 109, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "19Nec/Nec08_0405", 100>
+
+/*-comment-
+まあ、自分が何者であるか、という謎は
+知性体すべてに共通する課題ですからね。
+*/
+Neco_Arc
+Well, this mystery of who you really are is something 
+all intelligent beings grapple with, so, y'know.
+\l
+
+\\@SQ_CALL@<2>
+
+/*-comment-
+\\@CHARA_IN@< 0, 19, 109, 0, 1>
+ネコアルク＠勝利_01
+*/
+
+/*-auto-*/\\@VOICE_PLAY@<0, "19Nec/Nec08_0406", 100>
+
+/*-comment-
+深く考えても仕方がニャい。アタクシ、
+誕生から消滅するまでそう堅く決心しております。
+P: God this sentence really is a mess.
+*/
+Neco_Arc
+No need to think so deeply about it.
+Personally, I firmly resolved at birth not to
+do so until the moment I perish. 
+
+\\@CHARA_SET_PATTERN@<4, 0>//戻る
+
+\\@SYSTEM@<102>
+
+\\@CHARA_SET_PATTERN@<5, 203>//はにかみ
+\\@CHARA_IN@< 2, 20, 207, 0, 1>
+\\@CHARA_MUKI@<2, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "20Mas/Mas08_0121", 100>
+
+/*-comment-
+ふふ。お強いのですね、ネコアルクさんは。
+ダイヤグラムは最低なのに。
+*/
+Mash
+Heheh, you sure are tough, Neco-Arc.
+Even if you're at the bottom of the tier-list.
+
+
+\\@SYSTEM@<101>
+
+\\@CHARA_IN@< 0, 19, 110, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "19Nec/Nec08_0407", 100>
+
+/*-comment-
+ふふ……純粋な尊敬、ありがとう。
+マシュ君のセリフには天然のうま味があるニャア。
+P: Need cat pun here.
+*/
+Neco_Arc
+Heh... I appreciate the genuine respect given here.
+Mash's voice-lines are all so natural and delish.
+\l
+
+
+\\@CHARA_SET_PATTERN@<4, 44>//neco
+\\@CHARA_IN@< 0, 19, 106, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "19Nec/Nec08_0408", 100>
+
+/*-comment-
+でも、きつい現実をあたたかく言うのはよくないよ？
+たき火というより焼きごてだからね？
+P: The joke here is kinda far-fetched. Ask me about it.
+*/
+Neco_Arc
+But hey, you shouldn't say things that hurt so much 
+with such genuine kindness. You should be getting me
+fired up, not raking me over it!
+
+\\@SYSTEM@<102>
+
+\\@CHARA_SET_PATTERN@<5, 202>//お辞儀
+\\@CHARA_IN@< 2, 20, 202, 0, 1>
+\\@CHARA_MUKI@<2, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "20Mas/Mas08_0122", 100>
+
+/*-comment-
+す、すみません。そうですよね、
+最低ではなくゼロ値と言うべきでした！
+*/
+Mash
+E-Excuse me. You're completely right,
+you're not at the bottom, you basically don't exist on it all.
+\l
+
+\\@CHARA_SET_PATTERN@<5, 204>//笑顔で会釈
+/*-auto-*/\\@VOICE_PLAY@<0, "20Mas/Mas08_0123", 100>
+
+/*-comment-
+ネコアルクさんは２０年近く大会出場経験が
+ないのに頑張っているのですから！
+*/
+Mash
+I mean, despite not appearing in any tournaments
+for almost over 20 years you're still trying
+your very best, aren't you Neco-Arc!
+
+
+\\@SYSTEM@<101>
+
+\\@CHARA_SET_PATTERN@<4, 18>//頭のけぞり
+\\@CHARA_IN@< 0, 19, 105, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "19Nec/Nec08_0409", 100>
+
+/*-comment-
+もうよせ、ボスの前に死にそうだ！
+この残酷な世界に飲み込まれる！
+*/
+Neco_Arc
+That's enough! 
+I feel like I'mma die before we even get to the boss!
+Swallowed alive by this cruel world!
+
+\\@CHARA_FOCUS_COLOR@<-1,1>//全てを暗く
+\aw
+
+\\@BGM_FADE@<0, 100, 0, 120, 1>
+
+\\@CHARA_SET_PATTERN@<4, 19>//頭のけぞり戻り
+
+\\@SYSTEM@<100>
+
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNak/NpcNak08_0000", 100>
+
+/*-comment-
+まったく、迷惑極まりない。
+これだから西洋の吸血鬼モドキは。
+*/
+Neco_Akiha_Hatena
+Good grief, what a bother.
+This is why I hate these western vampire wannabes.
+
+\\@CHARA_SET_PATTERN@<4, 35>//neco
+\\@CHARA_SET_PATTERN@<5, 48>//振り向き
+\\@BGM_PLAY@<0, 74, 100>
+
+\\@SYSTEM@<101>
+
+\\@CHARA_IN@< 2, 20, 214, 0, 1>
+\\@CHARA_MUKI@<2, 1>
+\\@CHARA_IN@< 0, 19, 102, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "19Nec/Nec08_0410", 100>
+
+/*-comment-
+！　この、ネコをネコとも思わぬ、
+兄を兄とも扱わぬ冷酷無比なクールボイスは―――！
+P: Line needs help
+P: the ! is voiced in the Japanese
+*/
+Neco_Arc
+Whoa! This unfathomably cruel and cool voice, belonging to a
+Neco you wouldn't think is a Neco, and who treats her brother
+unlike a brother ought be treated!!
+
+\\@CHARA_FOCUS_COLOR@<-1,1>//全てを暗く
+\aw
+
+\\@SYSTEM@<100>
+
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNak/NpcNak08_0001", 100>
+
+/*-comment-
+味方に刺されて行き倒れるのは自業自得ですが、
+できれば路地裏の隅でやってほしいものです。
+*/
+Neco_Akiha_Hatena
+Being stabbed by your ally and then left to rot is 
+something you had coming, but if possible, I wish you'd
+go do that in some back alley corner instead.
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNak/NpcNak08_0002", 100>
+
+/*-comment-
+館の持ち主の身にもなってください。
+*/
+Neco_Akiha_Hatena
+Try putting yourself in my position, the owner of this house.
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNak/NpcNak08_0003", 100>
+
+/*-comment-
+誰だって、朝起きた時にネズミの死骸が
+転がっていたらイヤでしょう？
+*/
+Neco_Akiha_Hatena
+Anyone would hate to find a dead rat by their 
+bedside when they wake up, wouldn't you say?
+\l
+
+\\@CHARA_SET_PATTERN@<4, 4>//キシャ―
+\\@SYSTEM@<101>
+\\@CHARA_IN@< 0, 19, 102, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "19Nec/Nec08_0411", 100>
+
+/*-comment-
+出たなお嬢！
+Ｒになっても基本何も変わらなかった、
+*/
+Neco_Arc
+So the mistress has shown herself!
+Even when remade, you've fundamentally-speaking
+not changed at all!
+\l
+
+
+\\@DRAW_EFFECT@<1>
+\\@BGM_FADE@<0, -1, 30, 10, 0>
+\aw
+
+\\@CHARA_IN@< 0, 19, 106, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "19Nec/Nec08_0412", 100>
+
+/*-comment-
+どこがとは言わない。
+ネコにも敵に向ける憐れはあるのである
+*/
+Neco_Arc
+Not gonna specify exactly what hasn't changed.
+Even we Necos have some measure of compassion for our enemies.
+\l
+
+/*-comment-
+ここだけ時間ストップ、スローに。モノローグ
+*/
+
+\\@DRAW_EFFECT@<0>
+\\@BGM_FADE@<0, -1, 100, 120, 0>
+\aw
+
+
+\\@CHARA_IN@< 0, 19, 102, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "19Nec/Nec08_0413", 100>
+
+/*-comment-
+完成された肉体を持つシスターよ！
+ボス度全開の登場セリフ、ありがっした！
+P: ありがっした is something I assume is a slangy arigatou, but I haven't seen it before.
+*/
+Neco_Arc
+O Sister of the Perfected Body!
+'Ppreciate the cliched boss lines you've chosen to enter on!
+\l
+
+/*-comment-
+時間戻る
+*/
+\\@CHARA_SET_PATTERN@<4, 17>//キシャ―戻り
+
+\\@CHARA_IN@< 0, 19, 100, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "19Nec/Nec08_0414", 100>
+
+/*-comment-
+それはそれとして、ロビーが散らかっていても
+掃除するのは使用人ですよね。
+*/
+Neco_Arc
+In any case, even if we'd make a mess out of your lobby,
+the one's who have to clean it are the maids.
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "19Nec/Nec08_0415", 100>
+
+/*-comment-
+お嬢は別に何もしませんよね。
+*/
+Neco_Arc
+Not like the the mistress here will
+have to lift even a single finger.
+\l
+
+\\@CHARA_SET_PATTERN@<4, 3>//neco
+\\@CHARA_IN@< 0, 19, 107, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "19Nec/Nec08_0416", 100>
+
+/*-comment-
+そんなだから眼鏡が使用人の仕事を手伝ったりして、
+気がつくと好感度に差が付いてたりするんだぞ？
+*/
+Neco_Arc
+And then what'll happen? Glasses boy's gonna have to 
+help 'em out, and before you know it, his affections 
+will for them will be a whole league above yours. 
+
+\\@CHARA_FOCUS_COLOR@<-1,1>//全てを暗く
+\aw
+
+\\@SYSTEM@<100>
+
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNak/NpcNak08_0004", 100>
+
+/*-comment-
+―――ふふ。
+不愉快すぎて踏み潰してしまいそう。
+*/
+Neco_Akiha_Hatena
+Heh...
+Oh, this is so unpleasant I'm just about to crush you underfoot.
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNak/NpcNak08_0005", 100>
+
+/*-comment-
+気軽に越境をする侵略者、
+空気を読まない自称・お姫さまにはうんざりです。
+*/
+Neco_Akiha_Hatena
+I'm up to here with this casually border-hopping invader,
+this self-professed princess, 
+who never knows when to catch a hint.
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNak/NpcNak08_0006", 100>
+
+/*-comment-
+この街の秩序を操る者として、
+よそ者には罰を下します！
+*/
+Neco_Akiha_Hatena
+As I am the one who maintains the balance in this city,
+it falls to me to pass sentence on
+any outsiders who would disturb it!
+
+\\@CHARA_SET_PATTERN@<4, 45>//neco
+
+\\@CHARA_SET_COLOR@<6,32>//スロット６に読むキャラのカラーは32（ネコアキハ）
+\\@NPC_LOAD_SYNC@<6, 19, 600, 0, 1>//ネコアキハ
+\\@CHARA_SET_MVNAME@<6, "FadeIn">
+\\@CHARA_SET_PATTERN@<6, 35>
+
+\\@CHARA_CLEAR@<2>
+\\@CHARA_IN@< 1, 57, 102, 2, 0>//ネコアキハ
+\aw
+
+\\@SYSTEM@<102>
+
+\\@CHARA_IN@< 1, 57, -1, 0, 1>//ネコアキハ
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNak/NpcNak08_0007", 100>
+
+/*-comment-
+身の程を弁える時よ。
+２頭身の分際で、この私に勝てると思って？
+P: I dunno if localizing ２頭身 as 'chibi' is really the play here, but it seemed better than "2-head tall"
+*/
+Neco_Akiha
+The time has come for you to know your place.
+Did you really think you could stand a chance
+against me with that chibi body of yours?
+
+
+\\@CHARA_SET_PATTERN@<5, 18>//困惑
+\\@SYSTEM@<101>
+\\@CHARA_IN@< 0, 20, 210, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "20Mas/Mas08_0124", 100>
+
+/*-comment-
+――――――。
+P: This line is voiced in Japanese.
+*/
+Mash
+Whoa...
+
+
+\\@CHARA_SET_PATTERN@<4, 44>//neco
+\\@CHARA_IN@< 0, 19, 104, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "19Nec/Nec08_0417", 100>
+
+/*-comment-
+やーっぱりそうきたかー。
+安易なネコ化はどうかと思うよ？
+*/
+Neco_Arc
+Aaand of course, here's another.
+I dunno about you, 
+but I'm not all sold on these sudden Necofications.
+
+
+\\@CHARA_SET_PATTERN@<6, 38>
+\\@SYSTEM@<102>
+\\@CHARA_IN@< 1, 57, 100, 0, 1>//ネコアキハ
+/*-auto-*/\\@VOICE_PLAY@<0, "NpcNak/NpcNak08_0008", 100>
+
+/*-comment-
+なんのことです？
+アナタの言った通り、パーフェクトな私ですが。
+*/
+Neco_Akiha
+What was that?
+I'm still the usual purrfect me, just like you said before.
+
+\\@SYSTEM@<101>
+\\@CHARA_IN@< 0, 19, 107, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "19Nec/Nec08_0418", 100>
+
+/*-comment-
+なるほど。究極の魅力を求めた時、この《体＜ボディ＞に
+いきつくのは食後にあんみつを頼むくらい明らか……
+*/
+Neco_Arc
+I see. In pursuit of the ultimate attractiveness, 
+one ends up in these kind of bodies as naturally
+as it is to want some bean jam after dinner.
+\l
+
+
+\\@CHARA_IN@< 0, 19, 110, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "19Nec/Nec08_0419", 100>
+
+/*-comment-
+我がことながら、
+すべてがネコになるってホラーだよニャー……
+*/
+Neco_Arc
+I probably shouldn't be the one saying this,
+but everything goin' all Neco sure is horrifying.
+\l
+
+\\@CHARA_SET_PATTERN@<4, 6>//両手ピョコピョコ万歳
+\\@CHARA_IN@< 0, 19, 101, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "19Nec/Nec08_0420", 100>
+
+/*-comment-
+まあいいや、ネコ決定戦としゃれこむぜ！
+勝負だ、同性能のお嬢！
+*/
+Neco_Arc
+Oh whatevs, let's have us a grand ol'
+battle to decide the greatest Neco then! 
+Let's go, mistress of equally paltry ability as me!
+
+
+\\@BGM_STOP@<0>
+\e
+

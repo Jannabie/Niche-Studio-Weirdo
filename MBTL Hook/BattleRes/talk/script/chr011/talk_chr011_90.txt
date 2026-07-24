@@ -1,0 +1,76 @@
+\\@SYSTEM@<9999>
+\\@FADE_OUT@<0,0,0,0,1>
+\\@BG_IN@<"ed_bg00", 0, 2>
+\aw
+
+\\@FADE_OUT@<1,255,255,255,0>
+\aw
+
+\\@FADE_IN@<0,0,0,0,0>
+\aw
+
+\\@SYSTEM@<1>
+\aw
+
+\\@BGM_PLAY@<0, 76, 50>
+\\@FADE_IN@<1,255,255,255,0>
+\\@SQ_CALL@<1>
+
+/*-auto-*/\\@VOICE_PLAY@<0, "11Cie/Cie05_0060", 100>
+\\@TEXT_ID@<10>
+Ciel
+/*-comment-
+はあ、今回もハズレでした……
+おかしいなあ、この街で間違いないんですけどねー。
+*/
+Wrong again, it would seem. 
+How odd. This is the right city, no doubt about it...
+
+/*-auto-*/\\@VOICE_PLAY@<0, "11Cie/Cie05_0061", 100>
+\\@TEXT_ID@<20>
+Ciel
+/*-comment-
+ん……？　今のはまさか、
+アルクェイド・ブリュンスタッド……！？
+*/
+Wait. Was that...
+Arcueid Brunestud!?
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "11Cie/Cie05_0062", 100>
+\\@TEXT_ID@<30>
+Ciel
+/*-comment-
+彼女が現れるという事は、
+今度こそ当たりです……！
+*/
+If she's here, then I must be in the right place!
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "11Cie/Cie05_0063", 100>
+\\@TEXT_ID@<40>
+Ciel
+/*-comment-
+と、そうと決まれば活力を補給しなくては。
+このお店のセットは絶品ですからね！
+*/
+And if that's the case, I'm going to need all 
+the energy I can get! No better place to do it
+than here, what with their awesome combo meals!
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "11Cie/Cie05_0064", 100>
+\\@TEXT_ID@<50>
+Ciel
+/*-comment-
+すみませーん！　ビーフカレーとチキンカレー、
+もう二つ追加してくださーい！
+*/
+Excuse me! Two more orders of curry, please!
+One chicken and one beef!
+
+
+
+\\@BGM_STOP@<0>
+\e
+

@@ -1,0 +1,253 @@
+WinMesScript
+
+
+WinMes00:
+chara_type 102
+//抵抗するから痛い目にあうんです。
+//これに懲りたら大人しくするんですよ？
+It's because you resist that you get hurt. How about 
+you learn from this and become a bit more obedient?
+\e
+
+WinMes01:
+chara_type 0
+//お互い死ぬのはイヤでしょう？
+//今回は見逃してあげますから、改心してくださいね。
+I doubt you wish to die any more than I do. 
+I'll let you go with a warning this time, 
+so please take the time to repent.
+\e
+
+WinMes02:
+chara_type 100
+//これが互いの実力差です。
+//埋葬機関七位の名、伊達ではないと理解できました？
+Our difference in skill is clear. 
+Maybe now you understand that I wasn't granted the 
+title of seventh in the Burial Agency for nothing.
+\e
+
+WinMes03:
+chara_type 0
+//聖なるかな、我が代行は主の御心なり。
+//――はい、代行完了。
+//おなかが減ったところでメシアンに直行です！
+Lord God Almighty, thy Will is that which I Execute.
+There, Execution Complete.
+Just as I'm getting hungry too!
+Time to head over to Messiaen!
+\e
+
+WinMes04:
+chara_type 100
+//争いはここまでです。
+//残った時間は、貴方の懺悔にあてましょう。
+This fight has gone on long enough. 
+You should use the time you have left to repent.
+\e
+
+WinMes05:
+chara_type 101
+//おや、これでおしまいですか？
+//大言のわりには諦めがいいのですね。
+Oh? Done already?
+You sure give up quickly for someone who talks so big.
+\e
+
+
+WinMes06:
+chara_type 100
+//…………ふう。
+//誉めてあげましょう。
+//貴方は、中々に強敵でした。
+Phew...
+Allow me to commend you.
+You are quite the formidable opponent.
+\e
+
+WinMes07:
+chara_type 103
+//……また法衣を破っちゃいました。
+//まいったなあ、今月はこれで七着目です。
+//ノエル先生。裁縫、お任せできますか？
+Great, I've torn my nun's habit again. 
+That makes the seventh one this month.
+Ms. Noel, could I entrust you with some needlework?
+\e
+
+WinMes08:
+chara_type 1
+//っと、ようやく諦めてくれましたか。
+//次に出会った時は、もう少し穏便にいきたいですね。
+Finally decided to accept defeat?
+Hopefully we can do things a bit 
+more peacefully the next time we meet.
+\e
+
+WinMes09:
+chara_type 103
+//法衣がやけに軽いような……
+//黒鍵の使いすぎでしょうか。
+//今月の予算、もういっぱいいっぱいでしたっけ？
+My nun's habit feels awfully light for some reason...
+Perhaps I used too many Black Keys.
+Wait, wasn't I badly over budget this month?
+\e
+
+WinMes10:
+chara_type 100
+//魔が人に付くは天の試練。
+//消えなさい脱落者。
+//貴方は、その天秤から転げ落ちた。
+Evil possessing man is but a tribulation from Heaven.
+Now begone, defector. 
+You have failed to even be judged.
+\e
+
+// 対志貴 Versus Shiki
+WinMes11:
+chara_type 1
+chara_type_sub 0
+chara_switchframe 300
+//健全で善良な一般市民が夜出歩いてはいけませんっ。
+//……では、反省したところでうちに寄っていきませんか
+//遠野くん？
+Ordinary citizens such as yourself should not be out
+wandering the streets this late. How about you come
+back to my place to reflect on your actions, Shiki?
+\e
+
+// 対アルクェイド Versus Arcueid
+WinMes12:
+chara_type 102
+//もうおしまいですか？
+//たるんでいるにも程があります。
+//誰かに甘え過ぎて、余分な肉がついたのでは？
+Finished already? Your movements have really started 
+to drag. Did you perhaps gain a few pounds of extra fat 
+from depending on a certain someone too much?
+\e
+
+// 対秋葉 Versus Akiha
+WinMes13:
+chara_type 100
+//―――まったく、驚きですね。
+//戦闘訓練もなしでわたしと渡り合えるなんて。
+//その力、放っておくと命取りになりますよ、秋葉さん。
+That was certainly unexpected.
+I would not have thought someone without any 
+combat training could stand a chance against me.
+Your skill could prove deadly if left unchecked.
+\e
+
+// 対秋葉、翡翠、琥珀、ヒスコハ　※特に琥珀用 Versus Akiha, Hisui, Kohaku, Maids *especially Kohaku
+WinMes14:
+chara_type 1
+//まだまだ未熟です。
+//急ぎすぎては大成しません。
+//とりあえず、今日の反省を二日ほど煮込んでみては
+//いかがでしょう？
+You still have much to learn. 
+Greatness is not something that can be rushed. 
+For now, how about you take a day or two to
+reflect on what happened here?
+\e
+
+// 対ロア Versus Roa
+WinMes15:
+chara_type 100
+//貴方に次の生はありません。
+//死の腕は今度こそ、その蛇身を捕らえきった。
+I will not allow you to reincarnate again.
+The hand of death has finally snaked itself 
+around your throat.
+\e
+
+// 対死徒ノエル Versus Dead Apostle Noel
+WinMes16:
+chara_type 105
+//死徒に血を吸われたにしても、
+//ここまでの急成長はしないはず……
+//……何があったのです、シスター・ノエル……
+Even if you've had your blood sucked by a Dead Apostle, 
+this sudden spurt of growth shouldn't be possible...
+What on earth happened to you, Sister Noel...?
+\e
+
+// 対青子 Versus Aoko
+WinMes17:
+chara_type 102
+chara_type_sub 101
+chara_switchframe 180
+//青春の幻影、根こそぎ断つべし……！
+//え、私怨が感じられた？
+//まっさかー。私、聖堂教会のシスターなので。
+//魔術協会の魔術師を倒すのは当然でしょう？
+Youthful delusions of grandeur must be eradicated!
+And no, that wasn't something personal. I would NEVER...
+It's simply a matter of me being a Sister of the Holy Church.
+Defeating people from the Mages Association is basically my job.
+\e
+
+// 対マーリオゥ Versus Mario
+WinMes18:
+chara_type 0
+//縦糸と横糸で人間を強化する……
+//貴方らしい戦闘方法です。
+//その歳で卓越した指揮者とは、
+//お兄さんも鼻が高いでしょう。
+Strengthening people through thread weaving...
+The way you fight suits you well.
+I'm sure your brother is quite proud of your outstanding 
+leadership abilities, considering how young you are.
+\e
+
+// シエルＢシナリオ　対アルクェイド（ストーリー専用） Ciel B story versus Arcueid (story only)
+WinMesArcade01Win00:
+chara_type 900
+//ああもう、倒しても倒しても元気なんですから！
+//こうなれば最後の手段です！
+//遠野くん、ちょっと手伝ってもらえます！？
+//ごめん先輩、ここは公平に見守ってます……。
+Oh, c'mon! I keep beating you over and over yet you're as spry as ever!
+I suppose this means I have to take to my last resort!
+Shiki, could you help me out here for a bit?!
+Sorry, Ciel. I'm trying to watch over you two impartially here.
+\\@LINE_CG@<0, 0, -128,0,112,32, 0, 128,112,32>\\@LINE_CG@<1, 3, -128,0,112,32, 0,160,112,32>
+\e
+
+// シエルＢシナリオ　対死徒ノエル（ストーリー専用） Ciel B story versus DA Noel (story only)
+WinMesArcade01Win14:
+chara_type 901
+//ものすごく早口で色々話してくれましたけど、
+//肝心なコトは何もわからなかったですね……。
+//言わないでください。頭が痛くなります……。
+You kept going on about a bunch of stuff while talking super fast,
+so in the end, I didn't understand a thing about what you wanted to get said...
+Don't say it. I'm gonna have a headache...
+\\@LINE_CG@<0, 0, -128,0,112,32, 0, 160,112,32>\\@LINE_CG@<1, 2, -128,0,112,32, 0,128,112,32>
+\e
+
+// 99まで追加可能
+
+
+
+// ３連勝・１０連勝専用セリフ
+
+WinMes3WinStreak00:
+chara_type 101
+//３連勝ですか。
+//主もお喜びになるでしょう。
+Three wins in a row?
+The Lord is surely pleased.
+\e
+
+WinMes10WinStreak00:
+chara_type 0
+//１０連勝とは素晴らしいですね！
+//今日はお祝いパーティにしましょう！
+//メニューはもちろん……
+Ten wins in a row! How splendid!
+Let's throw a party in celebration!
+I'll order my usual...
+\e

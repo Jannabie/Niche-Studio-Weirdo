@@ -1,0 +1,242 @@
+\\@SYSTEM@<9999>
+\\@LOAD_BATTLE_BG@<18>
+\\@FADE_IN@<0, 0, 0, 0, 0>//黒フェードイン
+
+\\@SYSTEM@<0>
+\aw
+
+//マシュ
+\\@NPC_LOAD_SYNC@<4, 20, -320, 0, 0>
+\\@CHARA_SET_MVNAME@<4, "FadeIn">
+\\@CHARA_SET_PATTERN@<4, 0>
+
+\\@CHARA_IN@< 0, 20, 214, 1, 0>
+\aw
+
+\\@BGM_PLAY@<0, 74, 100>
+
+\\@SYSTEM@<101>
+\\@CHARA_IN@< 0, 20, 214, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "20Mas/Mas08_0160", 100>
+
+Mash
+/*-comment-
+シバの観測機能が《停止＜ビジー＞している……？
+おそらく、ここは現実空間ではありません。
+*/
+SHEBA's observer functions have halted? 
+That probably means this place isn't part of reality.
+
+
+/*-auto-*/\\@VOICE_PLAY@<0, "20Mas/Mas08_0161", 100>
+
+Mash
+/*-comment-
+世界から隔絶された空間。
+未来も過去も曖昧な泡沫状態―――
+*/
+This space is isolated from the rest of the world.
+Both future and past is in an unclear, evanescent state.
+\l
+
+\\@CHARA_IN@< 0, 20, 216, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "20Mas/Mas08_0162", 100>
+
+Mash
+/*-comment-
+『固有結界』……
+でも、魔術が働いている反応はないのに……？
+*/
+It's a "Reality Marble"...
+And yet, I cannot detect the activity of any magecraft.
+
+\\@NPC_LOAD_SYNC@<7, 90, 260, 0, 1>//カメラ位置調整のための透明ダミー
+
+\\@NPC_LOAD_SYNC@<5, 14, 180, 0, 1>
+\\@CHARA_SET_MVNAME@<5, "FadeIn">
+\\@CHARA_SET_PATTERN@<5, 0>
+
+\\@SYSTEM@<102>
+\\@CHARA_IN@< 1, 14, 2, 4, 0>
+\aw
+
+\\@CHARA_IN@< 1, 14, -1, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "14Dno/Dno08_0060", 100>
+
+Dead_Noel
+/*-comment-
+なぁに、新しいお客さま？
+見たコトない顔だけど……
+*/
+What now... a new visitor?
+Haven't seen you before.
+\l
+
+
+/*-auto-*/\\@VOICE_PLAY@<0, "14Dno/Dno08_0061", 100>
+
+Dead_Noel
+/*-comment-
+魔術云々の話をしているなら、
+油断しちゃイケナイ相手ってコトよね？
+*/
+All that talk about magecraft or whatever has gotta mean
+you're an opponent I shouldn't underestimate too much, right?
+\l
+
+\\@CHARA_IN@< 1, 14, 10, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "14Dno/Dno08_0062", 100>
+
+Dead_Noel
+/*-comment-
+いいわ、普通の《人間＜ゆめ＞を摘まむのも
+退屈していたところよ。
+*/
+Fine by me, I was getting bored with snacking on
+the dreams of normal humans anyway.
+\l
+
+
+\\@CHARA_SET_PATTERN@<5, 14>//見下し登場
+/*-auto-*/\\@VOICE_PLAY@<0, "14Dno/Dno08_0063", 100>
+
+Dead_Noel
+/*-comment-
+ようこそ、起きたまま見る悪夢の世界へ。
+現実という悪夢から目を覚まさせてあげる。
+*/
+Welcome, to world of waking nightmares.
+Allow me to awaken you from the nightmare of reality.
+
+\\@SYSTEM@<101>
+\\@CHARA_IN@< 0, 20, 214, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "20Mas/Mas08_0163", 100>
+
+Mash
+/*-comment-
+！　貴女が街に巣くった吸血鬼、ですね。
+一見して少女の風貌ですが……
+*/
+Oh! You must be one of the vampires nesting in the city. I see.
+You appear to be just a young girl on the outside, but...
+\l
+
+
+/*-auto-*/\\@VOICE_PLAY@<0, "20Mas/Mas08_0164", 100>
+
+Mash
+/*-comment-
+魔力反応は人間を超越しています。
+魔獣、幻獣クラスの脅威と判断しました。
+*/
+Your magical energy readings transcend those 
+of a human's. I can see you are a threat on 
+par with a demonic, or phantasmal beast.
+\l
+
+\\@CHARA_IN@< 0, 20, 203, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "20Mas/Mas08_0165", 100>
+
+Mash
+/*-comment-
+人々を餌食にする災害なら容赦はしません。
+先輩の故郷に、アナタたちは不要です！
+*/
+I show no mercy toward calamities who would prey upon humanity.
+You monsters have no place here in my Master's homeland!
+
+
+\\@CHARA_SET_PATTERN@<5, 15>//見下し→立ち
+\\@SYSTEM@<102>
+\\@CHARA_IN@< 1, 14, 8, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "14Dno/Dno08_0064", 100>
+
+Dead_Noel
+/*-comment-
+は、この国に恋人でもいるのアナタ？
+そうなんだ、そうなんだー！
+*/
+Hah! Are you telling me your lover's from this country?
+But of course he is, of cooourse he is!
+\l
+
+
+\\@CHARA_SET_PATTERN@<5, 7>//たまんない
+\\@CHARA_IN@< 1, 14, 12, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "14Dno/Dno08_0065", 100>
+
+Dead_Noel
+/*-comment-
+ならソイツもちゃーんと殺してあげる！
+やっぱり恋人はセットじゃなきゃ！
+*/
+Why don't I kill him too, then?
+Lovers are a 2-in-1 deal, after all!
+\l
+
+/*-auto-*/\\@VOICE_PLAY@<0, "14Dno/Dno08_0066", 100>
+
+Dead_Noel
+/*-comment-
+だって、その方が盛り上がるもの！
+信じ合って励まし合って、最後の最後で裏切り合う！
+*/
+I mean, that's so much more exciting!
+You believe in each other, support each other,
+and yet, at the very, very end, you betray each other!
+\l
+
+\\@CHARA_IN@< 1, 14, 13, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "14Dno/Dno08_0067", 100>
+
+Dead_Noel
+/*-comment-
+ああもうたまんない……！
+どんな果物より甘い、人工のスクロース！
+*/
+God, it's sooo good!
+Sweeter than any fruit：
+A sucrose made of humans!
+\l
+
+
+/*-auto-*/\\@VOICE_PLAY@<0, "14Dno/Dno08_0068", 100>
+
+Dead_Noel
+/*-comment-
+ほーんと、美味しすぎるアナタたちが悪いのよ？
+わたし、食べ過ぎで太っちゃいそう！
+*/
+Honestly, you people brought this on yourself, 
+being so delicious and all!
+Eating this much might make me fat!
+
+\\@SYSTEM@<101>
+\\@CHARA_IN@< 0, 20, 203, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "20Mas/Mas08_0166", 100>
+
+Mash
+/*-comment-
+それは嘘ですね。
+吸血鬼には成長も、味覚もないと聞きました。
+*/
+You're lying, I see.
+I've heard vampires cannot grow,
+just as they don't have any senee of taste.
+\l
+
+
+\\@CHARA_IN@< 0, 20, 206, 0, 1>
+/*-auto-*/\\@VOICE_PLAY@<0, "20Mas/Mas08_0167", 100>
+
+Mash
+/*-comment-
+アナタは自分の罪に酔っているだけ。
+夢から覚めるのはそちらの方です！
+*/
+You're just drunk on your own sins.
+The only one who'll awaken from their dreams here is you!
+
+\\@BGM_STOP@<0>
+\e
+
