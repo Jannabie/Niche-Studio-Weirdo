@@ -27,6 +27,8 @@
 | [TYPE-MOON](engines/type-moon.md) | Melty Blood 2002 | `.p` |
 | [YOX](engines/yox.md) | Musicus! | Custom |
 | [YU-RIS](engines/yuris.md) | Maggot Baits, Erewhon, ef series | `.ypf`, `.ybn` |
+| [rUGP Engine](engines/rugp.md) | Schwarzesmarken | `.jlx` |
+| [Lasengle](engines/lasengle.md) | MELTY BLOOD: TYPE LUMINA | Hook-based |
 
 ## General Workflow
 

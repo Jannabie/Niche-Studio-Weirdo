@@ -40,6 +40,8 @@ author(s) and license. Please respect each project's own license before redistri
 | `Utility/YOX/` | **YOX Engine Arch** | Extracting & reinserting dialogue from MUSICUS (YOX engine) | Custom Python tool (bundled) |
 | `Utility/YuRISTools/` | **YuRIS Tools** | All-in-one YPF packing/unpacking for YU-RIS engine | Custom tool (bundled) |
 | `Utility/ypf-repacker/` | **ypf-repacker** | Repacking folders into YPF archives (fork of YPF Manager Tool) | Custom tool (bundled) |
+| `(Hook-based)` | **Schwarzesmarken Hook (rUGP)** | Text hooking & translation patching for Schwarzesmarken (rUGP engine) | [Yuza](https://github.com/Jannabie/Niche-Studio-Weirdo/tree/main/Schwarzesmarken%20Hook) |
+| `(Hook-based)` | **MBTL Hook (Lasengle)** | Text hooking & translation patching for MELTY BLOOD: TYPE LUMINA | [MaxAkito / MBTL Community Patch](https://github.com/MaxAkito/MBTL-Community-Patch) |
 
 ---
 
@@ -54,6 +56,8 @@ These projects and their contributors made this toolkit possible:
 - **[wetor](https://github.com/wetor)** — for `LuckSystem`, the foundation for Key/VisualArts Luca System translation.
 - **[vn-tools](https://github.com/vn-tools)** — for `fvp-tools`, the only open-source toolkit for FVP Engine archives and scripts.
 - The **Tsukihimates** team — for foundational research on Tsukihime Remake's archive format.
+- **Yuza** — for the **Schwarzesmarken Hook**, enabling rUGP engine text hooking and translation.
+- **[MaxAkito](https://github.com/MaxAkito/MBTL-Community-Patch)** — for the **MBTL Community Patch Hook**, enabling text hooking for MELTY BLOOD: TYPE LUMINA.
 
 ---
 
