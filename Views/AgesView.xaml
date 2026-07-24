@@ -68,6 +68,23 @@
                                 <TextBlock Foreground="#7A8AAA" FontSize="11" TextWrapping="Wrap" Margin="0,0,0,14"
                                            Text="Place all these files in the same folder as your Schwarzesmarken game, then run the _tl.exe."/>
 
+                                <Border Background="#161208" CornerRadius="0" Padding="12,10" BorderThickness="1" BorderBrush="#3A2D12" Margin="0,0,0,10">
+                                    <StackPanel Orientation="Horizontal">
+                                        <!-- Symbol removed as requested -->
+                                        <TextBlock Foreground="#D0A860" FontSize="11" TextWrapping="Wrap" VerticalAlignment="Center">
+                                            For <Run Foreground="#FFD080" FontWeight="Bold">UI translation hooking</Run>, please contact me privately.<LineBreak/>
+                                            I can assist anyone serious about translating this game. <Run Foreground="#FFD080" FontWeight="Bold">Discord: Obyyy#0999</Run>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Border>
+                                <Border Background="#0A141A" CornerRadius="0" Padding="12,10" BorderThickness="1" BorderBrush="#122A3A">
+                                    <StackPanel Orientation="Horizontal">
+                                        <!-- Symbol removed as requested -->
+                                        <TextBlock Foreground="#60B0F0" FontSize="11" TextWrapping="Wrap" VerticalAlignment="Center">
+                                            <Run FontWeight="Bold">Note:</Run> Hook for choice translation is currently being implemented (via hooking as well) and will be added in a future update.
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Border>
                             </StackPanel>
                         </Border>
 
@@ -156,7 +173,15 @@
                         <TextBlock Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" FontSize="11" Margin="0,0,0,16"
                                    Text="After editing the 'tl' fields in your JSON file, repack it back into trans.jlx. Place the resulting file in the game folder alongside winmm.dll and run the launcher."/>
 
-
+                        <!-- Note -->
+                        <Border Background="#140A0A" CornerRadius="0" Padding="14,10" Margin="0,0,0,16"
+                                BorderThickness="1" BorderBrush="#3A1E1E">
+                            <StackPanel>
+                                <TextBlock Foreground="#C06060" FontWeight="Bold" FontSize="12" Text="IMPORTANT"/>
+                                <TextBlock Foreground="#7A8AAA" FontSize="11" TextWrapping="Wrap" Margin="0,6,0,10"
+                                   Text="The output trans.jlx must have the exact same number of entries as orgi.jlx (16,957 lines). Do not add or remove entries — only edit the 'tl' text values."/>
+                            </StackPanel>
+                        </Border>
 
                         <TextBlock Text="TRANSLATED JSON FILE" Style="{StaticResource LabelStyle}"/>
                         <Grid Margin="0,0,0,10">
