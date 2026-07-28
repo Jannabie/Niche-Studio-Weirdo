@@ -135,7 +135,7 @@
                 <Border Background="#0A1020" CornerRadius="0" Padding="12,10" Margin="0,0,0,10"
                         BorderThickness="1" BorderBrush="#1E2A4A">
                     <StackPanel>
-                        <TextBlock Foreground="#6080C0" FontWeight="Bold" FontSize="11" Text="🖼 SUPPORTED FORMATS"/>
+                        <TextBlock Foreground="#6080C0" FontWeight="Bold" FontSize="11" Text="ℹ  SUPPORTED FORMATS"/>
                         <TextBlock Foreground="#7A8AAA" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"
                                    Text="AliceSoft → PNG: alice-tools cg convert. All formats supported (.dcf, .qnt, .ajp, .cg).&#10;PNG → AliceSoft: copy file with the selected extension (the engine reads PNG natively)."/>
                     </StackPanel>

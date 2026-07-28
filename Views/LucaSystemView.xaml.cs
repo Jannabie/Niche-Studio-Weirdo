@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Win32;
@@ -15,15 +15,14 @@ namespace NicheStudioWeirdo.Views
         private static readonly string[] GamePlugins = new[]
         {
             "LOOPERS.py",   // 0 LOOPERS
-            "LB_EN.py",     // 1 Little Busters EN  — no dedicated .py, use LOOPERS base
+            "LB_EN.py",     // 1 Little Busters EN  窶・no dedicated .py, use LOOPERS base
             "SP.py",        // 2 Summer Pockets
-            "CartagraHD.py",// 3 CartagraHD (JP)
-            "CartagraENG.py",// 4 CartagraHD (EN)
-            "KANON.py",     // 5 KANON
-            "HARMONIA.py",  // 6 HARMONIA
-            "LUNARiA.py",   // 7 LUNARiA
-            "AIR.py",       // 8 AIR
-            "PlanetarianSG.py" // 9 Planetarian SG
+            "CartagraHD.py",// 3 CartagraHD
+            "KANON.py",     // 4 KANON
+            "HARMONIA.py",  // 5 HARMONIA
+            "LUNARiA.py",   // 6 LUNARiA
+            "AIR.py",       // 7 AIR
+            "PlanetarianSG.py" // 8 Planetarian SG
         };
 
         private static readonly string[] GameOpcodes = new[]
@@ -32,7 +31,6 @@ namespace NicheStudioWeirdo.Views
             "LB_EN.txt",
             "SP.txt",
             "CartagraHD.txt",
-            "CartagraENG.txt",
             "KANON.txt",
             "HARMONIA.txt",
             "LUNARiA.txt",
