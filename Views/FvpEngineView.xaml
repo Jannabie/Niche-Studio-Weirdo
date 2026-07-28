@@ -15,6 +15,36 @@
         <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
             <StackPanel>
 
+                <!-- ═══ FVP LOADER NOTICE ═══ -->
+                <Border Background="{StaticResource BgDarkestBrush}" Padding="20" BorderThickness="1"
+                        BorderBrush="{StaticResource BorderBrush2}" Margin="0,0,0,16">
+                    <StackPanel>
+                        <TextBlock Text="FVP LOADER — RENDERING FIX" Style="{StaticResource LabelStyle}"
+                                   FontSize="12" Foreground="{StaticResource TextLightBrush}" Margin="0,0,0,12"/>
+
+                        <!-- Info banner -->
+                        <Border Background="#0A1020" CornerRadius="0" Padding="14,12" Margin="0,0,0,16"
+                                BorderThickness="1" BorderBrush="#1E2A4A">
+                            <StackPanel>
+                                <TextBlock Foreground="#6080C0" FontWeight="Bold" FontSize="12" Text="⚙  GAME RENDERING ISSUES?"/>
+                                <TextBlock Foreground="#7A8AAA" FontSize="11" TextWrapping="Wrap" Margin="0,6,0,10"
+                                           Text="If you experience rendering problems or visual glitches when running the game (e.g. black screen, missing graphics, or broken visuals after patching), use the FVP Loader. It is a custom loader that fixes known rendering compatibility issues for FVP Engine titles."/>
+                            </StackPanel>
+                        </Border>
+
+                        <!-- GitHub button -->
+                        <TextBlock Text="DOWNLOAD FVP LOADER FROM GITHUB" Style="{StaticResource LabelStyle}"/>
+                        <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="11" TextWrapping="Wrap"
+                                   Margin="0,0,0,12"
+                                   Text="Click the button below to open the FVP Loader repository and download the required files."/>
+
+                        <Button x:Name="OpenFvpLoaderBtn" Content="🔗  Open GitHub — FVP Loader"
+                                Style="{StaticResource ActionButton}"
+                                HorizontalAlignment="Left" Padding="18,10"
+                                Click="OpenFvpLoader_Click"/>
+                    </StackPanel>
+                </Border>
+
                 <!-- ═══ SECTION 1: BIN Archive ═══ -->
                 <Border Background="{StaticResource BgDarkestBrush}" Padding="20" BorderThickness="1"
                         BorderBrush="{StaticResource BorderBrush2}" Margin="0,0,0,16">

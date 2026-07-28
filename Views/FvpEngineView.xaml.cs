@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,6 +18,20 @@ namespace NicheStudioWeirdo.Views
         private MainWindow GetMain() => (MainWindow)Application.Current.MainWindow;
 
         private void Msg(string msg, string title) => MessageBox.Show(msg, title, MessageBoxButton.OK, MessageBoxImage.Error);
+
+        private const string FvpLoaderUrl = "https://github.com/Jannabie/Niche-Studio-Weirdo/tree/main/FVP%20Loader";
+
+        private void OpenFvpLoader_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(FvpLoaderUrl) { UseShellExecute = true });
+            }
+            catch (Exception ex)
+            {
+                Msg($"Cannot open browser:\n{ex.Message}", "Error");
+            }
+        }
 
         // 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
         // Browse Helpers
