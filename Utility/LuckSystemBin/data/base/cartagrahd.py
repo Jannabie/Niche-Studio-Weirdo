@@ -20,8 +20,10 @@ def GOTO():
     core.end()
 
 def ONGOTO():
-    # ONGOTO ({jump}*N) — no count prefix; reads jump targets until fewer than 2 bytes remain
-    while core.remaining_length() >= 2:
+    # read_jump() reads uint32 (4 bytes). Buffer = N*4 + 1 trailing byte.
+    # Read jump targets while at least 4 bytes remain, then consume trailing uint8.
+    n = core.read_uint8(False)
+    for _ in range(n):
         core.read_jump()
     core.end()
 
