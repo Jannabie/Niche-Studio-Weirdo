@@ -23,7 +23,7 @@ def ONGOTO():
     # ONGOTO (int, expr_str, [{int, jump}...])
     core.read_uint16(True)
     core.read_str(core.expr)
-    while core.remaining_length() >= 6:
+    while core.can_read():
         core.read_uint16(False)
         core.read_jump()
     core.end()
