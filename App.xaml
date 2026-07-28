@@ -1,4 +1,4 @@
-﻿<Application x:Class="NicheStudioWeirdo.App"
+<Application x:Class="NicheStudioWeirdo.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:NicheStudioWeirdo"
@@ -37,8 +37,8 @@
         <SolidColorBrush x:Key="TextMutedBrush" Color="{StaticResource TextMuted}"/>
         <SolidColorBrush x:Key="BorderBrush2" Color="{StaticResource Border}"/>
 
-        <FontFamily x:Key="UIFont">SF Mono</FontFamily>
-        <FontFamily x:Key="TerminalFont">SF Mono</FontFamily>
+        <FontFamily x:Key="UIFont">/Load/#SF Mono</FontFamily>
+        <FontFamily x:Key="TerminalFont">/Load/#SF Mono</FontFamily>
 
         <!-- Global TextBlock default -->
         <Style TargetType="TextBlock">

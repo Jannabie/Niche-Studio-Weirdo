@@ -27,9 +27,9 @@
                         <Border Background="#0A1020" CornerRadius="0" Padding="14,12" Margin="0,0,0,16"
                                 BorderThickness="1" BorderBrush="#1E2A4A">
                             <StackPanel>
-                                <TextBlock Foreground="#6080C0" FontWeight="Bold" FontSize="12" Text="ℹ  HOW TO TRANSLATE"/>
+                                <TextBlock Foreground="#6080C0" FontWeight="Bold" FontSize="12" Text="📖  HOW TO TRANSLATE"/>
                                 <TextBlock Foreground="#7A8AAA" FontSize="11" TextWrapping="Wrap" Margin="0,6,0,10"
-                                           Text="Clone the repository to your PC. This workflow uses a DLL hook that intercepts English text at runtime. To translate, simply open the provided .txt files in the script folder and change the dialog text. For images, just overwrite them in the images folder."/>
+                                           Text="Clone the repository to your PC. This workflow uses a DLL hook that intercepts English text at runtime. To translate, simply open the provided .txt files in the script folder and change the dialog text. For images, use the DDS ↔ PNG converter below to edit and re-import assets."/>
                             </StackPanel>
                         </Border>
 
@@ -43,6 +43,59 @@
                                 Style="{StaticResource ActionButton}"
                                 HorizontalAlignment="Left" Padding="18,10"
                                 Click="OpenGithub_Click"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- ═══ SECTION 2: DDS ↔ PNG Converter ═══ -->
+                <Border Background="{StaticResource BgDarkestBrush}" Padding="20" BorderThickness="1"
+                        BorderBrush="{StaticResource BorderBrush2}" Margin="0,0,0,16">
+                    <StackPanel>
+                        <TextBlock Text="IMAGE CONVERTER — DDS ↔ PNG" Style="{StaticResource LabelStyle}"
+                                   FontSize="12" Foreground="{StaticResource TextLightBrush}" Margin="0,0,0,12"/>
+                        <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="11" TextWrapping="Wrap"
+                                   Margin="0,0,0,16"
+                                   Text="MBTL image assets use the .dds extension but are standard PNG files internally. This tool batch-renames them so you can open them in any image editor and re-import them after editing."/>
+
+                        <!-- DDS → PNG -->
+                        <TextBlock Text="DDS → PNG  (Extract for editing)" Style="{StaticResource LabelStyle}"/>
+                        <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="11" TextWrapping="Wrap"
+                                   Margin="0,0,0,8"
+                                   Text="Select a folder containing .dds files. All .dds files will be copied and renamed to .png so you can open them in Photoshop, GIMP, etc."/>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="DdsFolderTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"
+                                     ToolTip="Folder containing .dds files"/>
+                            <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}"
+                                    Margin="8,0,0,0" Click="BrowseDdsFolder_Click"/>
+                        </Grid>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,20">
+                            <Button Content="Convert DDS → PNG" Style="{StaticResource ActionButtonGreen}"
+                                    Click="ConvertDdsToPng_Click"/>
+                        </StackPanel>
+
+                        <!-- PNG → DDS -->
+                        <TextBlock Text="PNG → DDS  (Re-import after editing)" Style="{StaticResource LabelStyle}"/>
+                        <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="11" TextWrapping="Wrap"
+                                   Margin="0,0,0,8"
+                                   Text="Select a folder containing your edited .png files. All .png files will be copied and renamed back to .dds, ready to drop into the game's image folder."/>
+                        <Grid Margin="0,0,0,10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="PngFolderTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"
+                                     ToolTip="Folder containing .png files to convert back to .dds"/>
+                            <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}"
+                                    Margin="8,0,0,0" Click="BrowsePngFolder_Click"/>
+                        </Grid>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Content="Convert PNG → DDS" Style="{StaticResource ActionButtonGreen}"
+                                    Click="ConvertPngToDds_Click"/>
+                        </StackPanel>
+
                     </StackPanel>
                 </Border>
 
