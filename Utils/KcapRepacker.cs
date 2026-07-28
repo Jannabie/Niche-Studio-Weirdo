@@ -113,7 +113,7 @@ namespace NicheStudioWeirdo.Utils
                 catch (Exception ex)
                 {
                     logCallback($"[ERROR] Failed to create PAK file: {ex.Message}");
-                    logCallback(ex.StackTrace);
+                    logCallback(ex.StackTrace ?? string.Empty);
                 }
             });
         }

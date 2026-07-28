@@ -85,7 +85,7 @@ namespace NicheStudioWeirdo
                 "Minori" => "Minori Engine Guide:\n1. Ensure you select the correct Game Index from the dropdown.\n2. To Unpack: Select the original .paz file and an empty output folder. Click Unpack.\n3. To Repack: Select the folder you modified and specify an output .paz filename. Click Repack. The index must match the game.",
                 "WagaHime" => "WagaHime (ACV1) Guide:\n1. Target .dat Archive: Browse to the original .dat file you wish to unpack.\n2. Click Unpack to extract its contents.\n3. Extracted Folder: Browse to the folder containing your modified files.\n4. Click Repack. WARNING: Repacking requires the ORIGINAL .dat file to be selected in the first field as a reference to generate the new .dat.",
                 "FSN" => "FSN Remastered Guide:\n1. Decompile: Select a .bin script file. It will be decompiled to a .json file for editing.\n2. Compile: Select your modified .json file. It will be compiled back into a .bin script.\n3. Do not modify the JSON structure, only edit the translation strings.",
-                "WA2" => "WA2 Arch Guide:\n1. Select a .pak archive.\n2. Click Unpack to extract all contents to a folder.\n3. Edit the necessary files inside the extracted folder.\n4. To Repack, select the extracted folder and click Repack.",
+
                 "AbogadoSdk" => "Abogado (DSK) Guide:\nWorkflow: Unpack DSK → Parse → Edit JSON → Inject → Repack DSK.\n1. Unpack DSK: Select scene.PFT, scene.DSK, and a Target Folder, then click Unpack.\n2. Parse SCF -> JSON: Select the extracted .SCF file, then click Parse.\n3. Edit JSON: Translate the text inside the resulting JSON file.\n4. Inject Translation: Select the translated .json and the original .SCF file, then click Inject.\n5. Repack DSK: Repack the folder containing the injected .SCF files into a new DSK archive.\n6. Verify Integrity: Confirm no files were corrupted after modification.",
                 "AbogadoKg" => "Abogado (KG) Guide:\nWorkflow: Extract via GARbro → Edit PNG → Pack KG → Patch DSK.\n1. PNG Source Folder: Browse to the folder containing .png files extracted by GARbro.\n2. PNG -> KG Convert: Converts .png files to .KG format (saved in packed_kg/). Ensure kg_metadata.json is present.\n3. Target DSK + PFT: Select the GRAPHIC.DSK and GRAPHIC.PFT archive files.\n4. Patch DSK In-place: Injects modified .KG files into the archive without a full rebuild.\n5. Rebuild Full DSK: Rebuilds the .DSK archive from scratch when adding new files.",
                 "HuneX" => "HuneX (Tsukihime) Guide:\n1. MRG Tool: Unpack .mrg archives to folders and repack them.\n2. TXT/CSV Tool: Convert script .txt files to .csv for translation, and repack .csv back to .txt.\n3. Graphics Tool: Convert .dtx / .txa images to .png. To encode back, you MUST select the original .dtx/.txa file as a reference alongside your edited .png.",
@@ -101,11 +101,13 @@ namespace NicheStudioWeirdo
                 "Ages" => "AGES Engine (rUGP) Guide:\n1. Open GitHub to download the hook toolkit (JLXH, FONTCHANGER, etc.).\n2. Extract original .s / .jlx files from the game.\n3. Parse them to JSON using the built-in parser.\n4. Repack the JSON back to the original script format.\n5. Play using the patched launcher.",
                 "Lasengle" => "Lasengle Engine (MBTL) Guide:\n1. Click the GitHub button to get the MBTL hook files.\n2. Put them in the game directory to load the translated texts automatically.",
 
+                "EntisGLS" => "EntisGLS Engine Guide:\n1. Unpack NOA: Select a .noa file to extract its contents to a folder.\n2. Parse SRCXML: Select the extracted folder containing .srcxml files and click 'Parse' to extract text to readable .txt format.\n3. Translate the .txt files (fill the ◆ lines).\n4. Inject SRCXML: Click 'Inject' to apply translations back to the .srcxml files.\n5. Pack NOA: Select the modified folder and repack it back to a .noa archive.",
                 "DieselEngine" => "Diesel Engine (NPK) Guide:\n1. Target Game / Profile: Select the game you are modding (e.g., The Song of Saya) to load the correct encryption key.\n2. Extract: Select the .npk file and an output directory to unpack it.\n3. Repack: Select the folder containing your modified files and repack it back into a new .npk archive.",
                 "N2System" => "N2System (NPA) Guide:\n1. Target Game / Encryption ID: Select the game you are modding to use the correct encryption key.\n2. Extract: Select the .npa file to extract it to a folder.\n3. Repack: Select the folder containing your files and repack it back into a new .npa archive.\nWARNING: Do NOT use the Compress Files option if you are repacking CG images, it will break the engine.",
                 "LucaSystem" => "Luca System (Prototype) Guide:\n1. Select the correct Game Profile (e.g. LOOPERS, Little Busters! EN, Summer Pockets).\n2. PAK Extract: Point to a .PAK file (SCRIPT.PAK, IMAGE.PAK, FONT.PAK, etc.) and extract its contents.\n3. Edit the extracted files (text files for scripts, PNG for images).\n4. PAK Replace: Select the original .PAK + your modified folder to build a new .PAK.\n5. Image section: Export CZ images to PNG for editing, then import back.\nSupported games: LOOPERS, Little Busters! EN, Summer Pockets (Switch), CartagraHD, KANON, HARMONIA, LUNARiA, AIR, Planetarian SG.",
                 "Yuris" => "YU-RIS Engine (RxYuris) Guide:\n1. YSTB Decrypt & Encrypt: Use Guess Key on a .ybn file, then decrypt/encrypt it using the key.\n2. Batch Text Extract & Insert: Select the folder containing your .ybn files, and use the Extract/Insert text buttons.\n3. YPF Decode: Select an encrypted .ypf file to decode it.\n4. YSTL Parse: Select yst_list.ybn to recover the original file structure.",
                 "FVP" => "FVP Engine Guide:\n1. BIN Archive: Extract .bin to a folder, or repack an edited folder back into .bin.\n2. HCB Script: Decompile .hcb into strings.txt and script.dat. Edit strings.txt, then select the folder containing it to compile back into a new .hcb.\n3. NVSG Image: Decode NVSG (.hzc) to PNG for editing, then encode your edited PNG back to NVSG.",
+                "Leaf" => "Leaf Engine Guide:\n[ARCHIVE] 1. Select a .pak archive and an empty Workspace Folder. Click Unpack to extract.\n2. After editing files, click Repack to .pak.\n\n[SCRIPT] 3. Parse: Select raw comma-separated .txt (from BNR dump). Converts to readable vertical format.\n4. Back to Format: Select your translated _parsed.txt. Injects back into flat CSV for BNR repacker.",
                 _ => "Select a tool from the top tabs to view its usage guide."
             };
         }
@@ -131,13 +133,14 @@ namespace NicheStudioWeirdo
                     "Minori"    => new MinoriView(),
                     "WagaHime"  => new WagaHimeView(),
                     "FSN"       => new FSNRemasteredView(),
-                    "WA2"       => new WA2ArchView(),
+
                     "AbogadoSdk"=> new AbogadoSdkView(),
                     "AbogadoKg" => new AbogadoKgView(),
                     "Ages"      => new AgesView(),
 
                     "HuneX"     => new HuneXView(),
                     "HuneXMahoyo" => new HuneXMahoyoView(),
+                    "Leaf"      => new LeafView(),
                     "BGI"       => new BGIView(),
                     "MeltyBlood"=> new MeltyBloodView(),
                     "Lasengle"  => new LasengleView(),
@@ -149,6 +152,7 @@ namespace NicheStudioWeirdo
 
                     "Alicesoft" => new AlicesoftView(),
                     "DieselEngine" => new DieselEngineView(),
+                    "EntisGLS"  => new EntisGLSView(),
                     "N2System"  => new N2SystemView(),
                     "LucaSystem" => new LucaSystemView(),
                     "Yuris"     => new YurisView(),

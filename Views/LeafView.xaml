@@ -1,0 +1,112 @@
+<UserControl x:Class="NicheStudioWeirdo.Views.LeafView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Leaf Engine" Style="{StaticResource HeaderStyle}"/>
+        <TextBlock Grid.Row="1" Text="Unpack and repack .pak archives, and parse/inject script .txt files for Leaf engine games."
+                   Style="{StaticResource SubheaderStyle}"/>
+
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+
+                <!-- ═══ SECTION 1: PAK Archive ═══ -->
+                <Border Background="{StaticResource BgDarkestBrush}" Padding="20" BorderThickness="1"
+                        BorderBrush="{StaticResource BorderBrush2}" Margin="0,0,0,16">
+                    <StackPanel>
+                        <TextBlock Text="PAK ARCHIVE — UNPACK &amp; REPACK" Style="{StaticResource LabelStyle}"
+                                   FontSize="12" Foreground="{StaticResource TextLightBrush}" Margin="0,0,0,4"/>
+                        <TextBlock Text="Select the target .pak file and an empty workspace folder, then unpack or repack."
+                                   Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" FontSize="11" Margin="0,0,0,16"/>
+
+                        <!-- Warning Banner -->
+                        <Border Background="#0A1A0A" CornerRadius="0" Padding="14,10" Margin="0,0,0,24" BorderThickness="1" BorderBrush="#1E3A1E">
+                            <StackPanel>
+                                <TextBlock Foreground="#60C060" FontWeight="Bold" FontSize="12" Text="⚠  IMPORTANT NOTE"/>
+                                <TextBlock Foreground="#7A9A7A" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"
+                                           Text="The workspace directory must only contain files from the .pak archive. Repacking foreign binaries (e.g. tool executables) will cause game crashes."/>
+                            </StackPanel>
+                        </Border>
+
+                        <TextBlock Text="ISOLATED WORKSPACE DIRECTORY" Style="{StaticResource LabelStyle}"/>
+                        <Grid Margin="0,0,0,16">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="WorkspaceTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                            <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseWorkspace_Click"/>
+                        </Grid>
+
+                        <TextBlock Text="TARGET .PAK FILE" Style="{StaticResource LabelStyle}"/>
+                        <Grid Margin="0,0,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="PakFileTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                            <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowsePak_Click"/>
+                        </Grid>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,0,0">
+                            <Button Content="Unpack .pak" Style="{StaticResource ActionButton}" Margin="0,0,8,0" Click="Unpack_Click"/>
+                            <Button Content="Repack to .pak" Style="{StaticResource ActionButtonGreen}" Click="Repack_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- ═══ SECTION 2: TXT Script Parser ═══ -->
+                <Border Background="{StaticResource BgDarkestBrush}" Padding="20" BorderThickness="1"
+                        BorderBrush="{StaticResource BorderBrush2}" Margin="0,0,0,16">
+                    <StackPanel>
+                        <TextBlock Text="TXT SCRIPT — PARSE &amp; INJECT" Style="{StaticResource LabelStyle}"
+                                   FontSize="12" Foreground="{StaticResource TextLightBrush}" Margin="0,0,0,4"/>
+                        <TextBlock Text="Parse converts the raw comma-separated BNR dump to a readable vertical format. Inject writes your translation back into the original CSV layout."
+                                   Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" FontSize="11" Margin="0,0,0,16"/>
+
+                        <!-- Info Banner -->
+                        <Border Background="#0A1A0A" CornerRadius="0" Padding="14,10" Margin="0,0,0,24" BorderThickness="1" BorderBrush="#1E3A1E">
+                            <StackPanel>
+                                <TextBlock Foreground="#60C060" FontWeight="Bold" FontSize="12" Text="📖  IMPORTANT NOTE"/>
+                                <TextBlock Foreground="#7A9A7A" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"
+                                           Text="You can freely use commas ',' in your translated text. The injector automatically replaces them with '~' to avoid breaking the game engine's CSV array structure."/>
+                            </StackPanel>
+                        </Border>
+
+                        <TextBlock Text="PARSE: SELECT RAW CSV .TXT FILE (FROM BNR DUMP)" Style="{StaticResource LabelStyle}"/>
+                        <Grid Margin="0,0,0,16">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="CsvFileTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                            <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseCsvFile_Click"/>
+                            <Button Grid.Column="2" Content="Parse" Style="{StaticResource ActionButton}" Margin="8,0,0,0" Click="ParseCsv_Click"/>
+                        </Grid>
+
+                        <TextBlock Text="INJECT: SELECT TRANSLATED _PARSED.TXT FILE" Style="{StaticResource LabelStyle}"/>
+                        <Grid Margin="0,0,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="TxtFileTxt" Grid.Column="0" Style="{StaticResource TextBoxStyle}"/>
+                            <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseTxtFile_Click"/>
+                        </Grid>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,0,0">
+                            <Button Content="Back to Format (Inject)" Style="{StaticResource ActionButtonGreen}" Click="InjectTxt_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
