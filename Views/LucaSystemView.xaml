@@ -22,8 +22,6 @@
                             <TextBlock Foreground="#60C060" FontWeight="Bold" FontSize="12" Text="📖  IMPORTANT NOTE"/>
                             <TextBlock Text="The game profile is ONLY needed for SCRIPT decompile/compile (advanced). For CZ image convert, you can ignore this setting." 
                                        Foreground="#7A9A7A" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"/>
-                            <TextBlock Text="Note: Cartagra HD (English translation version) is NOT supported by this tool because the English publisher altered the bytecode format." 
-                                       Foreground="#60C060" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"/>
                         </StackPanel>
                     </Border>
 
@@ -35,7 +33,7 @@
                         <ComboBoxItem Content="LOOPERS (Steam)"/>
                         <ComboBoxItem Content="LB_EN — Little Busters! English Edition (Steam)"/>
                         <ComboBoxItem Content="SP — Summer Pockets (Nintendo Switch)"/>
-                        <ComboBoxItem Content="Cartagra HD (Japanese)"/>
+                        <ComboBoxItem Content="Cartagra HD (Japanese &amp; English)"/>
                         <ComboBoxItem Content="KANON (Steam)"/>
                         <ComboBoxItem Content="HARMONIA (Steam)"/>
                         <ComboBoxItem Content="LUNARiA (Steam)"/>
