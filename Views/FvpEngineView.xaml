@@ -54,14 +54,7 @@
                         <TextBlock Text="Extract files from a .bin archive, or pack a folder back into a .bin archive."
                                    Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" FontSize="11" Margin="0,0,0,16"/>
 
-                        <!-- Important Note -->
-                        <Border Background="#1A0A0A" CornerRadius="0" Padding="14,10" Margin="0,0,0,24" BorderThickness="1" BorderBrush="#3A1E1E">
-                            <StackPanel>
-                                <TextBlock Foreground="#FF6060" FontWeight="Bold" FontSize="12" Text="📖  IMPORTANT NOTE"/>
-                                <TextBlock Text="When packing, make sure the folder DOES NOT contain any files other than those unpacked from the original archive! FVP expects a fixed number of files." 
-                                           Foreground="#CC7A7A" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"/>
-                            </StackPanel>
-                        </Border>
+
 
                         <!-- Extract -->
                         <TextBlock Text="EXTRACT: SELECT .BIN FILE" Style="{StaticResource LabelStyle}"/>
