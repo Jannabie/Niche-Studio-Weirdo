@@ -20,9 +20,8 @@ def GOTO():
     core.end()
 
 def ONGOTO():
-    # ONGOTO (N, {jump}*N)  — N branch targets
-    n = core.read_uint16(True)
-    for _ in range(n):
+    # ONGOTO ({jump}*N) — no count prefix; reads all branch targets until end of opcode
+    while core.can_read():
         core.read_jump()
     core.end()
 
