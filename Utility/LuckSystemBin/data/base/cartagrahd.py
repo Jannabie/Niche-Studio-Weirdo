@@ -20,8 +20,8 @@ def GOTO():
     core.end()
 
 def ONGOTO():
-    # ONGOTO ({jump}*N) — no count prefix; reads all branch targets until end of opcode
-    while core.can_read():
+    # ONGOTO ({jump}*N) — no count prefix; reads jump targets until fewer than 2 bytes remain
+    while core.remaining_length() >= 2:
         core.read_jump()
     core.end()
 
