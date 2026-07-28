@@ -20,10 +20,14 @@ def GOTO():
     core.end()
 
 def ONGOTO():
-    # read_jump() reads uint32 (4 bytes) but ONGOTO buffer is 21 bytes (not divisible by 4).
-    # core.read() handles any byte count including odd trailing bytes safely.
-    core.read(True)
+    # ONGOTO (int, expr_str, [{int, jump}...])
+    core.read_uint16(True)
+    core.read_str(core.expr)
+    while core.remaining_length() >= 6:
+        core.read_uint16(False)
+        core.read_jump()
     core.end()
+
 
 def JUMP():
     # JUMP (int, file_str, {jump})
