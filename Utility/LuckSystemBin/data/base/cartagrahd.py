@@ -19,6 +19,13 @@ def GOTO():
     core.read_jump()
     core.end()
 
+def ONGOTO():
+    # ONGOTO (N, {jump}*N)  — N branch targets
+    n = core.read_uint16(True)
+    for _ in range(n):
+        core.read_jump()
+    core.end()
+
 def JUMP():
     # JUMP (int, file_str, {jump})
     core.read_uint16(True)
