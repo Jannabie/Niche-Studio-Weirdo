@@ -146,17 +146,6 @@
                         </StackPanel>
                     </Grid>
 
-                    <!-- Workflow Note -->
-                    <Border Background="#080808" CornerRadius="0" Padding="16,12" Margin="0,0,0,0" BorderThickness="1" BorderBrush="#222">
-                        <StackPanel>
-                            <TextBlock Foreground="#555" FontWeight="Bold" FontSize="11" Text="FULL WORKFLOW (from PAK to translated/edited):"/>
-                            <TextBlock Foreground="#444" FontSize="11" Margin="0,6,0,0" TextWrapping="Wrap" Text="① Select the correct Game Profile for your game above!"/>
-                            <TextBlock Foreground="#444" FontSize="11" Margin="0,2,0,0" TextWrapping="Wrap" Text="② Script Decompile → point to SCRIPT.PAK and extract its scripts into editable text files"/>
-                            <TextBlock Foreground="#444" FontSize="11" Margin="0,2,0,0" TextWrapping="Wrap" Text="③ Edit the extracted text files (pay attention to FULLWIDTH / ZENKAKU character limits!)"/>
-                            <TextBlock Foreground="#444" FontSize="11" Margin="0,2,0,0" TextWrapping="Wrap" Text="④ Script Import → point to the original SCRIPT.PAK + your modified text folder → get a new SCRIPT.PAK"/>
-                            <TextBlock Foreground="#444" FontSize="11" Margin="0,2,0,0" TextWrapping="Wrap" Text="⑤ Replace the original SCRIPT.PAK in your game directory with the new one."/>
-                        </StackPanel>
-                    </Border>
 
                 </StackPanel>
             </Border>
