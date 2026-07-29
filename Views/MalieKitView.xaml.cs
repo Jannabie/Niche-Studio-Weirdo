@@ -1,4 +1,4 @@
-﻿using Microsoft.Win32;
+using Microsoft.Win32;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -48,15 +48,15 @@ namespace NicheStudioWeirdo.Views
         private async void Decrypt_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(ArchiveTxt.Text)) return;
-            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Malie");
+            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Malie", "LauncherDatSource");
             string py = SettingsManager.Config.PythonPath;
-            await ToolRunner.RunAsync(repoDir, py, $"LauncherDatSource/execution/unpack.py \"{ArchiveTxt.Text}\"", GetMain());
+            await ToolRunner.RunAsync(repoDir, py, $"execution/unpack.py \"{ArchiveTxt.Text}\"", GetMain());
         }
 
         private async void Encrypt_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(ArchiveTxt.Text)) return;
-            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Malie");
+            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Malie", "LauncherDatSource");
             string py = SettingsManager.Config.PythonPath;
 
             string baseName = System.IO.Path.GetFileNameWithoutExtension(ArchiveTxt.Text);
@@ -71,7 +71,7 @@ namespace NicheStudioWeirdo.Views
                 return;
             }
 
-            string script = "LauncherDatSource/execution/repack_plain.py";
+            string script = "execution/repack_plain.py";
             await ToolRunner.RunAsync(repoDir, py, $"\"{script}\" \"{inDir}\" \"{outDat}\" \"{metaJson}\"", GetMain());
         }
         private async void ExportNames_Click(object sender, RoutedEventArgs e)
@@ -116,9 +116,9 @@ namespace NicheStudioWeirdo.Views
         private async void MgfToPng_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(ImageFolderTxt.Text)) return;
-            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Malie");
+            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Malie", "LauncherDatSource");
             string py = SettingsManager.Config.PythonPath;
-            string script = "LauncherDatSource/execution/mgfpng_change.py";
+            string script = "execution/mgfpng_change.py";
             
             var files = System.IO.Directory.GetFiles(ImageFolderTxt.Text, "*.mgf", System.IO.SearchOption.AllDirectories);
             if (files.Length == 0)
@@ -138,9 +138,9 @@ namespace NicheStudioWeirdo.Views
         private async void PngToMgf_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(ImageFolderTxt.Text)) return;
-            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Malie");
+            string repoDir = System.IO.Path.Combine(Utils.UtilityResolver.GetToolPath(""), "Malie", "LauncherDatSource");
             string py = SettingsManager.Config.PythonPath;
-            string script = "LauncherDatSource/execution/mgfpng_change.py";
+            string script = "execution/mgfpng_change.py";
             
             var files = System.IO.Directory.GetFiles(ImageFolderTxt.Text, "*.png", System.IO.SearchOption.AllDirectories);
             if (files.Length == 0)
