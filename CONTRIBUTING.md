@@ -14,17 +14,21 @@ author(s) and license. Please respect each project's own license before redistri
 | Utility Folder | Tool Name | Used For | Author / Source |
 |---|---|---|---|
 | `(Built-in)` | **Abogado Tools** | Extracting & repacking Abogado `.dsk`, `.scf`, `.kg` | Custom C# implementation |
+| `(Built-in)` | **Leaf TXT Tool** | Parsing & injecting Leaf engine BNR CSV script dumps | Custom C# implementation |
+| `(Built-in)` | **KCAP Repacker** | Native C# repacker for Leaf engine `.pak` (KCAP) archives | Custom C# implementation |
 | `Utility/Alicesoft/` | **alice-tools** | Extracting & editing AliceSoft engine archives (ALD, AFA, ALD files) | [nunuhara](https://github.com/nunuhara/alice-tools) |
 | `Utility/Buriko/` | **BGI Translator** | Unpacking & repacking Ethornell/BGI `.arc` script archives | Custom Python tool (bundled) |
 | `Utility/CodeXR/` | **codeX RScript Extractor** | Reading & repacking `.gsc` script files (Liar-Soft's codeX engine) | Custom Python tool (bundled) |
 | `Utility/Diesel Engine/` | **MwareStuff** | Unpacking & repacking Mware/Diesel Engine `.npk` archives | [marcussacana](https://github.com/marcussacana/MwareStuff) |
 | `Utility/DieselEngineBin/` | **NPK3Tool** | Binary helper for Diesel Engine NPK3 archive format | Part of MwareStuff |
+| `Utility/EntisGLS/` | **arc_unpacker** | Unpacking EntisGLS `.noa` archives and auto-decoding `.eri` images | [vn-tools/arc_unpacker](https://github.com/vn-tools/arc_unpacker) |
+| `Utility/EntisGLS/` | **noa32c** | Repacking folders back into EntisGLS `.noa` archives | Community tool (bundled) |
 | `Utility/FVP/` | **fvp-tools** | Extracting/Repacking `.bin`, decompiling `.hcb`, converting `.hzc` | [vn-tools](https://github.com/vn-tools/fvp-tools) |
 | `Utility/Fuzz Inc/` | **Fuzz Inc. Toolkit** | Full translation pipeline for Fate/Stay Night Remastered (EPK archives) | Custom Python tool (bundled) |
 | `Utility/Hunex Mahoyo/` | **WoTH Tools** | Unpacking & rebuilding Witch on the Holy Night (Mahoyo Remastered) files | Custom tool (bundled) |
 | `Utility/Hunex Tsukire/` | **Tsukihime Remake Parser** | Parsing `.mrg` script archives from Tsukihime Remake | Custom tool (bundled) |
 | `Utility/Hunex Tsukire Translation/` | **deepLuna** | GUI translation editor for Tsukihime Remake scripts | Custom tool (bundled) |
-| `Utility/Leaf/` | **Leaf Engine Arch** | Extracting & repacking `.pak` (KCAP) archives from White Album 2 | Custom Python tool (bundled) |
+| `Utility/Leaf/` | **exkizpak_v2** | Extracting `.pak` (KCAP) archives from Leaf engine games | Custom tool (bundled) |
 | `Utility/LuckSystem/` | **LuckSystem (Yoremi Fork)** | Decompiling & compiling Key/VisualArts Luca System scripts | Fork of [wetor/LuckSystem](https://github.com/wetor/LuckSystem) |
 | `Utility/LuckSystemBin/` | **LuckSystem Binaries** | Pre-built binaries for Luca System script processing | Part of LuckSystem |
 | `Utility/Malie/` | **MalieToolKit** | Extracting, editing & repacking FreeMalie engine archives | Custom tool (bundled) |
@@ -54,7 +58,7 @@ These projects and their contributors made this toolkit possible:
 - **[arcusmaximus](https://github.com/arcusmaximus)** — for `VNTranslationTools` / `VNTextPatch`, the backbone of YU-RIS script extraction and injection.
 - **[rafael-vasconcellos](https://github.com/rafael-vasconcellos)** — for the `.NET 8` port of `VNTextPatch`, keeping the tool modern and dependency-light.
 - **[wetor](https://github.com/wetor)** — for `LuckSystem`, the foundation for Key/VisualArts Luca System translation.
-- **[vn-tools](https://github.com/vn-tools)** — for `fvp-tools`, the only open-source toolkit for FVP Engine archives and scripts.
+- **[vn-tools](https://github.com/vn-tools)** — for `fvp-tools` and `arc_unpacker`, essential for FVP and EntisGLS engine work.
 - The **Tsukihimates** team — for foundational research on Tsukihime Remake's archive format.
 - **Yuza** — for the **Schwarzesmarken Hook**, enabling rUGP engine text hooking and translation.
 - **[MaxAkito](https://github.com/MaxAkito/MBTL-Community-Patch)** — for the **MBTL Community Patch Hook**, enabling text hooking for MELTY BLOOD: TYPE LUMINA.
@@ -69,4 +73,5 @@ Want to add support for a new engine or fix a bug? Here's how:
 2. Create a branch: `git checkout -b feature/new-engine-name`
 3. Add your engine view in `Views/`, your backend logic in `Utils/`, and any tools in `Utility/`.
 4. Register your new tab in `MainWindow.xaml` and `MainWindow.xaml.cs`.
-5. Open a **Pull Request** describing what engine you added and which games it supports.
+5. Add a guide in `docs/engines/<engine-name>.md` and link it in both `README.md` and `docs/README.md`.
+6. Open a **Pull Request** describing what engine you added and which games it supports.

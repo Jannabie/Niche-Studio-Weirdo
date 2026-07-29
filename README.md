@@ -1,5 +1,4 @@
 
-
 # Niche Studio Weirdo
 A centralized WPF toolset for reverse-engineering and translating Japanese visual novels, wrapped in a macOS-inspired dark UI. Supports a wide range of VN engines.
 
@@ -9,7 +8,6 @@ A centralized WPF toolset for reverse-engineering and translating Japanese visua
 
 ---
 ## Supported Engines
-> **Update:** Diesel, NS2System, Luca System, YU-RIS, FVP Engine, **rUGP (Schwarzesmarken Hook)**, **Lasengle (MBTL Hook)**.
 
 | Tab Name | Games | Docs |
 |---|---|---|
@@ -19,6 +17,7 @@ A centralized WPF toolset for reverse-engineering and translating Japanese visua
 | Buriko | Sakura no Uta, Subarashiki Hibi, etc | [ Guide](docs/engines/buriko.md) |
 | codeX RScript | Various | [ Guide](docs/engines/codex-rscript.md) |
 | Diesel Engine | Full Metal Daemon Muramasa, etc | [ Guide](docs/engines/diesel-engine.md) |
+| EntisGLS | Bakaple, etc | [ Guide](docs/engines/entis-gls.md) |
 | Fuzz Inc. | Fate/stay night Remastered | [Guide](docs/engines/fuzz-inc.md) |
 | FVP Engine | Sakura Moyu, etc | [ Guide](docs/engines/fvp.md) |
 | HuneX (Tsukihime) | Tsukihime Remake | [ Guide](docs/engines/hunex-(tsukihime).md) |
@@ -52,7 +51,7 @@ For almost every engine, the workflow follows the same pattern:
 
 ---
 ## UI
-Emulates a macOS terminal with dark mode, tab navigation, and `SF Mono Medium` font. Install the font from the `Font/` directory for the best experience.
+Emulates a macOS terminal with dark mode, tab navigation, and `SF Mono Medium` font. The font ships inside the `Load/` folder alongside the executable — no manual installation needed.
 
 ---
 ## Build

@@ -12,11 +12,12 @@
 | [Buriko](engines/buriko.md) | Subarashiki Hibi, Sakura no Uta, etc| `.arc`, `.sc` |
 | [codeX RScript](engines/codex-rscript.md) | Various | `.gsc` |
 | [Diesel Engine](engines/diesel-engine.md) | Saya no Uta, Tokyo Necro, DRAMAtical Murder, Muramasa | `.npk`, `.nut` |
+| [EntisGLS](engines/entis-gls.md) | Bakaple, etc | `.noa`, `.srcxml` |
 | [Fuzz Inc.](engines/fuzz-inc.md) | Fate/stay night Remastered | `.epk`, `.bin` |
 | [FVP Engine](engines/fvp.md) | Sakura Moyu, etc | `.bin`, `.hcb`, `.hzc` |
 | [HuneX (Tsukihime)](engines/hunex-(tsukihime).md) | Tsukihime Remake | `.mrg` |
 | [HuneX (Witch on The Holy Night)](engines/hunex-(witch-on-the-holy-night).md) | Mahoyo Remastered | `.hfa`, `.ctd`, `.cbg`, `.mzp` |
-| [Leaf](engines/leaf.md) | White Album 2 | `.pak` (KCAP) |
+| [Leaf](engines/leaf.md) | White Album 2 | `.pak` (KCAP), `.txt` (CSV script) |
 | [Luca System](engines/luca-system.md) | LOOPERS, Little Busters, etc | `SCRIPT.PAK`, `.CZ0`–`.CZ3` |
 | [Malie](engines/malie.md) | Dies Irae, etc | `.dat`, `.lib`, `.mgf` |
 | [Malie Kajiri](engines/malie-kajiri.md) | Kajiri Kamui Kagura, etc | Custom |
@@ -45,11 +46,11 @@ For almost every engine, the translation workflow follows the same pattern:
 
 - Windows 10/11 (64-bit)
 - The game files you want to translate
-- Optional: Notepad++ for editing large text dumps
+- Optional: Notepad++ or VS Code for editing large text dumps
 
 ## Quick Start
 
 1. Download the latest release of `NicheStudioWeirdo.exe`
-2. Launch it — no installation required
+2. Launch it — no installation required, font is bundled in `Load/`
 3. Select the engine tab matching your target game
 4. Follow the specific guide for that engine (linked in the table above)
