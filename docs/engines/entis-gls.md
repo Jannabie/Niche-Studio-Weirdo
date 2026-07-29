@@ -18,7 +18,7 @@
 
 The EntisGLS engine stores game data inside `.noa` archive files. Scripts are stored as `.srcxml` files — a structured XML-like format containing dialogue and event data. Image assets use the `.eri` format, which the tool automatically converts to standard `.png` during extraction so translators can view and edit UI graphics without needing a separate converter.
 
-> **⚠ IMPORTANT — One-Way Operation:**  
+> **IMPORTANT — One-Way Operation:**  
 > Repacked `.noa` files (output from the **Repack** step) **cannot be unpacked again** using this tool. The internal format of a repacked `.noa` differs from the original game file. **Always keep a backup of the original `.noa` file before making any modifications.**
 
 ---
