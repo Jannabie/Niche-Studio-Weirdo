@@ -570,7 +570,7 @@ namespace NicheStudioWeirdo.Utils
             byte[]? alphaSrc, int alphaOff,
             byte[] dst, int bx, int by, int imgW, int imgH)
         {
-            byte b3   = etc[etcOff + 3];
+            byte b3   = etc[etcOff + 4]; // LE index 4
             bool diff = (b3 & 0x02) != 0;
             bool flip = (b3 & 0x01) != 0;
             int  cw0  = (b3 >> 5) & 0x07;
@@ -579,30 +579,28 @@ namespace NicheStudioWeirdo.Utils
             byte r0, g0, b0, r1, g1, b1;
             if (diff)
             {
-                int R1 = (etc[etcOff] >> 3) & 0x1F;
-                int dR = etc[etcOff] & 0x07; if (dR > 3) dR -= 8;
-                int G1 = (etc[etcOff+1] >> 3) & 0x1F;
-                int dG = etc[etcOff+1] & 0x07; if (dG > 3) dG -= 8;
-                int B1 = (etc[etcOff+2] >> 3) & 0x1F;
-                int dB = etc[etcOff+2] & 0x07; if (dB > 3) dB -= 8;
+                int R1 = etc[etcOff + 7] >> 3; // LE index 7
+                int dR = etc[etcOff + 7] & 0x07; if (dR > 3) dR -= 8;
+                int G1 = etc[etcOff + 6] >> 3; // LE index 6
+                int dG = etc[etcOff + 6] & 0x07; if (dG > 3) dG -= 8;
+                int B1 = etc[etcOff + 5] >> 3; // LE index 5
+                int dB = etc[etcOff + 5] & 0x07; if (dB > 3) dB -= 8;
                 r0 = Expand5Byte(R1); g0 = Expand5Byte(G1); b0 = Expand5Byte(B1);
                 r1 = Expand5Byte(R1+dR); g1 = Expand5Byte(G1+dG); b1 = Expand5Byte(B1+dB);
             }
             else
             {
-                r0 = (byte)(((etc[etcOff]   >> 4) & 0xF) * 17);
-                r1 = (byte)(( etc[etcOff]         & 0xF) * 17);
-                g0 = (byte)(((etc[etcOff+1] >> 4) & 0xF) * 17);
-                g1 = (byte)(( etc[etcOff+1]       & 0xF) * 17);
-                b0 = (byte)(((etc[etcOff+2] >> 4) & 0xF) * 17);
-                b1 = (byte)(( etc[etcOff+2]       & 0xF) * 17);
+                r0 = (byte)((etc[etcOff + 7] >> 4) * 17); // LE index 7
+                r1 = (byte)((etc[etcOff + 7] & 0xF) * 17);
+                g0 = (byte)((etc[etcOff + 6] >> 4) * 17); // LE index 6
+                g1 = (byte)((etc[etcOff + 6] & 0xF) * 17);
+                b0 = (byte)((etc[etcOff + 5] >> 4) * 17); // LE index 5
+                b1 = (byte)((etc[etcOff + 5] & 0xF) * 17);
             }
 
-            // Pixel indices: bytes 4–7
-            // MSB of each 2-bit index is in bytes 4–5 (combined as 16-bit), LSB in bytes 6–7.
-            // Pixels are ordered column-major: col*4 + row (from bit 15 downward).
-            uint msbs = (uint)((etc[etcOff+4] << 8) | etc[etcOff+5]);
-            uint lsbs = (uint)((etc[etcOff+6] << 8) | etc[etcOff+7]);
+            // Pixel indices: bytes 0–3 in LE are 3, 2, 1, 0 (BE mapping)
+            uint msbs = (uint)((etc[etcOff + 3] << 8) | etc[etcOff + 2]);
+            uint lsbs = (uint)((etc[etcOff + 1] << 8) | etc[etcOff + 0]);
 
             for (int row = 0; row < 4; row++)
             for (int col = 0; col < 4; col++)
@@ -624,7 +622,6 @@ namespace NicheStudioWeirdo.Utils
                 byte a = 255;
                 if (alphaSrc != null && alphaOff >= 0)
                 {
-                    // A4 alpha: column-major, lower nibble first
                     int pos = col * 4 + row;
                     int ab  = alphaOff + pos / 2;
                     byte nib = (pos % 2 == 0)
