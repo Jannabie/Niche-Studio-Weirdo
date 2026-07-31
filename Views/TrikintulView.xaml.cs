@@ -200,7 +200,7 @@ namespace NicheStudioWeirdo.Views
             }
         }
 
-        private void StexToPng_Click(object sender, RoutedEventArgs e)
+        private async void StexToPng_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(ImagePath.Text))
             {
@@ -208,11 +208,12 @@ namespace NicheStudioWeirdo.Views
                 return;
             }
 
+            string outPath = Path.ChangeExtension(ImagePath.Text, ".png");
+            Main.LogToConsole($"Trikintul: Converting STEX -> PNG...");
             try
             {
-                string outPath = Path.ChangeExtension(ImagePath.Text, ".png");
-                SmtTextureConverter.ConvertStexToPng(ImagePath.Text, outPath);
-                Main.LogToConsole($"Trikintul: Converted STEX to PNG -> {outPath}");
+                await SmtTextureConverter.ConvertStexToPngAsync(ImagePath.Text, outPath);
+                Main.LogToConsole($"Trikintul: [DONE] STEX -> PNG -> {outPath}");
             }
             catch (Exception ex)
             {
@@ -220,7 +221,7 @@ namespace NicheStudioWeirdo.Views
             }
         }
 
-        private void PngToStex_Click(object sender, RoutedEventArgs e)
+        private async void PngToStex_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(ImagePath.Text))
             {
@@ -229,38 +230,18 @@ namespace NicheStudioWeirdo.Views
             }
 
             OpenFileDialog refDlg = new OpenFileDialog { Title = "Select Reference STEX File", Filter = "STEX Files|*.stex|All Files|*.*" };
-            if (refDlg.ShowDialog() == true)
+            if (refDlg.ShowDialog() != true)
             {
-                try
-                {
-                    string outPath = Path.ChangeExtension(ImagePath.Text, ".stex");
-                    SmtTextureConverter.ConvertPngToStex(ImagePath.Text, outPath, refDlg.FileName);
-                    Main.LogToConsole($"Trikintul: Converted PNG to STEX -> {outPath}");
-                }
-                catch (Exception ex)
-                {
-                    Main.LogToConsole($"Trikintul Error: {ex.Message}");
-                }
-            }
-            else
-            {
-                Main.LogToConsole("Trikintul: PNG to STEX conversion cancelled. Reference STEX is required.");
-            }
-        }
-
-        private void TgaToPng_Click(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(ImagePath.Text))
-            {
-                Main.LogToConsole("Trikintul: Please select a TGA file.");
+                Main.LogToConsole("Trikintul: PNG -> STEX cancelled (reference STEX required).");
                 return;
             }
 
+            string outPath = Path.ChangeExtension(ImagePath.Text, ".stex");
+            Main.LogToConsole("Trikintul: Converting PNG -> STEX... (ETC1 originals are re-saved as RGBA8)");
             try
             {
-                string outPath = Path.ChangeExtension(ImagePath.Text, ".png");
-                SmtTextureConverter.ConvertTgaToPng(ImagePath.Text, outPath);
-                Main.LogToConsole($"Trikintul: Converted TGA to PNG -> {outPath}");
+                await SmtTextureConverter.ConvertPngToStexAsync(ImagePath.Text, outPath, refDlg.FileName);
+                Main.LogToConsole($"Trikintul: [DONE] PNG -> STEX -> {outPath}");
             }
             catch (Exception ex)
             {
@@ -268,7 +249,28 @@ namespace NicheStudioWeirdo.Views
             }
         }
 
-        private void PngToTga_Click(object sender, RoutedEventArgs e)
+        private async void TgaToPng_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(ImagePath.Text))
+            {
+                Main.LogToConsole("Trikintul: Please select a TGA file.");
+                return;
+            }
+
+            string outPath = Path.ChangeExtension(ImagePath.Text, ".png");
+            Main.LogToConsole("Trikintul: Converting TGA -> PNG...");
+            try
+            {
+                await SmtTextureConverter.ConvertTgaToPngAsync(ImagePath.Text, outPath);
+                Main.LogToConsole($"Trikintul: [DONE] TGA -> PNG -> {outPath}");
+            }
+            catch (Exception ex)
+            {
+                Main.LogToConsole($"Trikintul Error: {ex.Message}");
+            }
+        }
+
+        private async void PngToTga_Click(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(ImagePath.Text))
             {
@@ -277,22 +279,22 @@ namespace NicheStudioWeirdo.Views
             }
 
             OpenFileDialog refDlg = new OpenFileDialog { Title = "Select Reference TGA File", Filter = "TGA Files|*.tga|All Files|*.*" };
-            if (refDlg.ShowDialog() == true)
+            if (refDlg.ShowDialog() != true)
             {
-                try
-                {
-                    string outPath = Path.ChangeExtension(ImagePath.Text, ".tga");
-                    SmtTextureConverter.ConvertPngToTga(ImagePath.Text, outPath, refDlg.FileName);
-                    Main.LogToConsole($"Trikintul: Converted PNG to TGA -> {outPath}");
-                }
-                catch (Exception ex)
-                {
-                    Main.LogToConsole($"Trikintul Error: {ex.Message}");
-                }
+                Main.LogToConsole("Trikintul: PNG -> TGA cancelled (reference TGA required).");
+                return;
             }
-            else
+
+            string outPath = Path.ChangeExtension(ImagePath.Text, ".tga");
+            Main.LogToConsole("Trikintul: Converting PNG -> TGA...");
+            try
             {
-                Main.LogToConsole("Trikintul: PNG to TGA conversion cancelled. Reference TGA is required.");
+                await SmtTextureConverter.ConvertPngToTgaAsync(ImagePath.Text, outPath, refDlg.FileName);
+                Main.LogToConsole($"Trikintul: [DONE] PNG -> TGA -> {outPath}");
+            }
+            catch (Exception ex)
+            {
+                Main.LogToConsole($"Trikintul Error: {ex.Message}");
             }
         }
     }
