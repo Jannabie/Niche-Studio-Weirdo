@@ -110,10 +110,21 @@ namespace NicheStudioWeirdo.Utils
                     DecodeETC1(file, dataOffset, bgra, width, height, true);
                     break;
                 case FmtA8:
-                    DecodeA8Tiled(file, dataOffset, bgra, width, height);
+                case FmtI8:
+                    DecodeA8I8Tiled(file, dataOffset, bgra, width, height);
+                    break;
+                case FmtI4:
+                case FmtA4:
+                    DecodeI4A4Tiled(file, dataOffset, bgra, width, height);
+                    break;
+                case FmtIA8:
+                    DecodeIA8Tiled(file, dataOffset, bgra, width, height);
+                    break;
+                case FmtIA4:
+                    DecodeIA4Tiled(file, dataOffset, bgra, width, height);
                     break;
                 default:
-                    throw new Exception($"Unsupported PICA format: 0x{picaCode:X4} (enum {fmt}). Supported: RGBA8, RGBA4, RGBA5551, RGB565, ETC1, ETC1A4, A8.");
+                    throw new Exception($"Unsupported PICA format: 0x{picaCode:X4} (enum {fmt}). Supported: RGBA8, RGBA4, RGBA5551, RGB565, ETC1, ETC1A4, A8, I8, A4, I4, IA8, IA4.");
             }
 
             WritePng(bgra, width, height, outputPngPath, PixelFormats.Bgra32);
@@ -430,7 +441,7 @@ namespace NicheStudioWeirdo.Utils
             }
         }
 
-        private static void DecodeA8Tiled(byte[] src, int srcOff, byte[] dst, int w, int h)
+        private static void DecodeA8I8Tiled(byte[] src, int srcOff, byte[] dst, int w, int h)
         {
             int tilesX = (w + 7) / 8, tilesY = (h + 7) / 8;
             for (int ty = 0; ty < tilesY; ty++)
@@ -451,29 +462,106 @@ namespace NicheStudioWeirdo.Utils
             }
         }
 
+        private static void DecodeI4A4Tiled(byte[] src, int srcOff, byte[] dst, int w, int h)
+        {
+            int tilesX = (w + 7) / 8, tilesY = (h + 7) / 8;
+            for (int ty = 0; ty < tilesY; ty++)
+            for (int tx = 0; tx < tilesX; tx++)
+            {
+                int tileOff = srcOff + (ty * tilesX + tx) * 32;
+                for (int y = 0; y < 8; y++)
+                for (int x = 0; x < 8; x++)
+                {
+                    int px = tx * 8 + x, py = ty * 8 + y;
+                    if (px >= w || py >= h) continue;
+                    int idx = MortonIndex(x, y);
+                    int si = tileOff + (idx / 2);
+                    if (si >= src.Length) continue;
+                    byte b = src[si];
+                    byte v = (idx % 2 == 0) ? (byte)(b & 0xF) : (byte)(b >> 4);
+                    v = (byte)((v << 4) | v);
+                    int di = (py * w + px) * 4;
+                    dst[di] = v; dst[di+1] = v; dst[di+2] = v; dst[di+3] = v;
+                }
+            }
+        }
+
+        private static void DecodeIA8Tiled(byte[] src, int srcOff, byte[] dst, int w, int h)
+        {
+            int tilesX = (w + 7) / 8, tilesY = (h + 7) / 8;
+            for (int ty = 0; ty < tilesY; ty++)
+            for (int tx = 0; tx < tilesX; tx++)
+            {
+                int tileOff = srcOff + (ty * tilesX + tx) * 128; // 64 pixels * 2 bytes
+                for (int y = 0; y < 8; y++)
+                for (int x = 0; x < 8; x++)
+                {
+                    int px = tx * 8 + x, py = ty * 8 + y;
+                    if (px >= w || py >= h) continue;
+                    int si = tileOff + MortonIndex(x, y) * 2;
+                    if (si + 1 >= src.Length) continue;
+                    byte a = src[si];     // I
+                    byte i = src[si+1];   // A
+                    int di = (py * w + px) * 4;
+                    dst[di] = i; dst[di+1] = i; dst[di+2] = i; dst[di+3] = a;
+                }
+            }
+        }
+
+        private static void DecodeIA4Tiled(byte[] src, int srcOff, byte[] dst, int w, int h)
+        {
+            int tilesX = (w + 7) / 8, tilesY = (h + 7) / 8;
+            for (int ty = 0; ty < tilesY; ty++)
+            for (int tx = 0; tx < tilesX; tx++)
+            {
+                int tileOff = srcOff + (ty * tilesX + tx) * 64; // 64 pixels * 1 byte
+                for (int y = 0; y < 8; y++)
+                for (int x = 0; x < 8; x++)
+                {
+                    int px = tx * 8 + x, py = ty * 8 + y;
+                    if (px >= w || py >= h) continue;
+                    int si = tileOff + MortonIndex(x, y);
+                    if (si >= src.Length) continue;
+                    byte b = src[si];
+                    byte a = (byte)((b & 0xF) * 17);
+                    byte i = (byte)(((b >> 4) & 0xF) * 17);
+                    int di = (py * w + px) * 4;
+                    dst[di] = i; dst[di+1] = i; dst[di+2] = i; dst[di+3] = a;
+                }
+            }
+        }
+
         // ETC1 and ETC1A4 decoder.
         // Blocks are arranged in raster scan order (left→right, top→bottom) for compressed textures.
         // ETC1: 8 bytes per 4×4 block.
         // ETC1A4: 16 bytes per 4×4 block — first 8 bytes = A4 alpha, next 8 bytes = ETC1 color.
         private static void DecodeETC1(byte[] src, int srcOff, byte[] dst, int w, int h, bool hasAlpha)
         {
-            int blockW = (w + 3) / 4;
-            int blockH = (h + 3) / 4;
+            int tilesX = (w + 7) / 8;
+            int tilesY = (h + 7) / 8;
             int blockBytes = hasAlpha ? 16 : 8;
+            int tileBytes = 4 * blockBytes; // four 4x4 blocks in an 8x8 tile
 
-            for (int by = 0; by < blockH; by++)
-            for (int bx = 0; bx < blockW; bx++)
+            // 4 blocks in Morton order inside an 8x8 tile
+            int[] bxOffset = { 0, 4, 0, 4 };
+            int[] byOffset = { 0, 0, 4, 4 };
+
+            for (int ty = 0; ty < tilesY; ty++)
+            for (int tx = 0; tx < tilesX; tx++)
             {
-                int blockIdx = by * blockW + bx;
-                int off      = srcOff + blockIdx * blockBytes;
+                int tileOff = srcOff + (ty * tilesX + tx) * tileBytes;
 
-                int alphaOff = hasAlpha ? off : -1;
-                int etc1Off  = hasAlpha ? off + 8 : off;
+                for (int b = 0; b < 4; b++)
+                {
+                    int off = tileOff + b * blockBytes;
+                    int alphaOff = hasAlpha ? off : -1;
+                    int etc1Off  = hasAlpha ? off + 8 : off;
 
-                if (etc1Off + 8 > src.Length) continue;
+                    if (etc1Off + 8 > src.Length) continue;
 
-                DecodeETC1Block(src, etc1Off, hasAlpha ? src : null, alphaOff,
-                                dst, bx * 4, by * 4, w, h);
+                    DecodeETC1Block(src, etc1Off, hasAlpha ? src : null, alphaOff,
+                                    dst, tx * 8 + bxOffset[b], ty * 8 + byOffset[b], w, h);
+                }
             }
         }
 
