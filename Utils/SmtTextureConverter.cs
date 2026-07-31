@@ -92,16 +92,16 @@ namespace NicheStudioWeirdo.Utils
             switch (fmt)
             {
                 case FmtRGBA8:
-                    DecodeRGBA8Tiled(file, dataOffset, bgra, width, height);
+                    DecodeRGBA8(file, dataOffset, bgra, width, height);
                     break;
                 case FmtRGBA4:
-                    DecodeRGBA4Tiled(file, dataOffset, bgra, width, height);
+                    DecodeRGBA4(file, dataOffset, bgra, width, height);
                     break;
                 case FmtRGBA5551:
-                    DecodeRGBA5551Tiled(file, dataOffset, bgra, width, height);
+                    DecodeRGBA5551(file, dataOffset, bgra, width, height);
                     break;
                 case FmtRGB565:
-                    DecodeRGB565Tiled(file, dataOffset, bgra, width, height);
+                    DecodeRGB565(file, dataOffset, bgra, width, height);
                     break;
                 case FmtETC1:
                     DecodeETC1(file, dataOffset, bgra, width, height, false);
@@ -111,17 +111,17 @@ namespace NicheStudioWeirdo.Utils
                     break;
                 case FmtA8:
                 case FmtI8:
-                    DecodeA8I8Tiled(file, dataOffset, bgra, width, height);
+                    DecodeA8I8(file, dataOffset, bgra, width, height);
                     break;
                 case FmtI4:
                 case FmtA4:
-                    DecodeI4A4Tiled(file, dataOffset, bgra, width, height);
+                    DecodeI4A4(file, dataOffset, bgra, width, height);
                     break;
                 case FmtIA8:
-                    DecodeIA8Tiled(file, dataOffset, bgra, width, height);
+                    DecodeIA8(file, dataOffset, bgra, width, height);
                     break;
                 case FmtIA4:
-                    DecodeIA4Tiled(file, dataOffset, bgra, width, height);
+                    DecodeIA4(file, dataOffset, bgra, width, height);
                     break;
                 default:
                     throw new Exception($"Unsupported PICA format: 0x{picaCode:X4} (enum {fmt}). Supported: RGBA8, RGBA4, RGBA5551, RGB565, ETC1, ETC1A4, A8, I8, A4, I4, IA8, IA4.");
@@ -160,21 +160,21 @@ namespace NicheStudioWeirdo.Utils
             switch (fmt)
             {
                 case FmtRGBA8:
-                    pixelData = EncodeRGBA8Tiled(pngPixels, refWidth, refHeight);
+                    pixelData = EncodeRGBA8(pngPixels, refWidth, refHeight);
                     break;
                 case FmtRGBA4:
-                    pixelData = EncodeRGBA4Tiled(pngPixels, refWidth, refHeight);
+                    pixelData = EncodeRGBA4(pngPixels, refWidth, refHeight);
                     break;
                 case FmtRGBA5551:
-                    pixelData = EncodeRGBA5551Tiled(pngPixels, refWidth, refHeight);
+                    pixelData = EncodeRGBA5551(pngPixels, refWidth, refHeight);
                     break;
                 case FmtRGB565:
-                    pixelData = EncodeRGB565Tiled(pngPixels, refWidth, refHeight);
+                    pixelData = EncodeRGB565(pngPixels, refWidth, refHeight);
                     break;
                 case FmtETC1:
                 case FmtETC1A4:
                     // ETC1 encoding not supported: downgrade to RGBA8 uncompressed
-                    pixelData  = EncodeRGBA8Tiled(pngPixels, refWidth, refHeight);
+                    pixelData  = EncodeRGBA8(pngPixels, refWidth, refHeight);
                     outPicaCode = PicaBase + FmtRGBA8;
                     glType      = 0x1401; // GL_UNSIGNED_BYTE
                     break;
@@ -329,10 +329,10 @@ namespace NicheStudioWeirdo.Utils
         // 3DS uncompressed textures use Morton (Z-order) within 8x8 tiles.
         // Tiles are arranged in raster scan order (left→right, top→bottom).
 
-        private static int MortonIndex(int x, int y)
+        private static int MortonIndex16(int x, int y)
         {
             int r = 0;
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 16; i++)
             {
                 r |= ((x >> i) & 1) << (i * 2);
                 r |= ((y >> i) & 1) << (i * 2 + 1);
@@ -340,228 +340,168 @@ namespace NicheStudioWeirdo.Utils
             return r;
         }
 
-        private static void DecodeRGBA8Tiled(byte[] src, int srcOff, byte[] dst, int w, int h)
+        private static void DecodeRGBA8(byte[] src, int srcOff, byte[] dst, int w, int h)
         {
-            // PICA RGBA8: 4 bytes per pixel in R,G,B,A order, stored in 8x8 Morton tiles.
-            int tilesX = (w + 7) / 8, tilesY = (h + 7) / 8;
-            for (int ty = 0; ty < tilesY; ty++)
-            for (int tx = 0; tx < tilesX; tx++)
+            for (int y = 0; y < h; y++)
+            for (int x = 0; x < w; x++)
             {
-                int tileOff = srcOff + (ty * tilesX + tx) * 64 * 4;
-                for (int y = 0; y < 8; y++)
-                for (int x = 0; x < 8; x++)
-                {
-                    int px = tx * 8 + x, py = ty * 8 + y;
-                    if (px >= w || py >= h) continue;
-                    int si = tileOff + MortonIndex(x, y) * 4;
-                    if (si + 3 >= src.Length) continue;
-                    int di = (py * w + px) * 4;
-                    // Source: R,G,B,A → dest BGRA32: B,G,R,A
-                    dst[di + 0] = src[si + 2]; // B
-                    dst[di + 1] = src[si + 1]; // G
-                    dst[di + 2] = src[si + 0]; // R
-                    dst[di + 3] = src[si + 3]; // A
-                }
+                int pIdx = MortonIndex16(x, y);
+                int si = srcOff + pIdx * 4;
+                if (si + 3 >= src.Length) continue;
+                int di = (y * w + x) * 4;
+                dst[di]   = src[si + 2];
+                dst[di+1] = src[si + 1];
+                dst[di+2] = src[si];
+                dst[di+3] = src[si + 3];
             }
         }
 
-        private static void DecodeRGBA4Tiled(byte[] src, int srcOff, byte[] dst, int w, int h)
+        private static void DecodeRGBA4(byte[] src, int srcOff, byte[] dst, int w, int h)
         {
-            // RGBA4444: 2 bytes per pixel, Morton-tiled 8x8. Each uint16 = RRRRGGGGBBBBAAAA.
-            int tilesX = (w + 7) / 8, tilesY = (h + 7) / 8;
-            for (int ty = 0; ty < tilesY; ty++)
-            for (int tx = 0; tx < tilesX; tx++)
+            for (int y = 0; y < h; y++)
+            for (int x = 0; x < w; x++)
             {
-                int tileOff = srcOff + (ty * tilesX + tx) * 64 * 2;
-                for (int y = 0; y < 8; y++)
-                for (int x = 0; x < 8; x++)
-                {
-                    int px = tx * 8 + x, py = ty * 8 + y;
-                    if (px >= w || py >= h) continue;
-                    int si = tileOff + MortonIndex(x, y) * 2;
-                    if (si + 1 >= src.Length) continue;
-                    ushort v = BitConverter.ToUInt16(src, si);
-                    // 0xRGBA nibble order in 16-bit LE
-                    byte r = (byte)(((v >> 12) & 0xF) * 17);
-                    byte g = (byte)(((v >>  8) & 0xF) * 17);
-                    byte b = (byte)(((v >>  4) & 0xF) * 17);
-                    byte a = (byte)(((v >>  0) & 0xF) * 17);
-                    int di = (py * w + px) * 4;
-                    dst[di] = b; dst[di+1] = g; dst[di+2] = r; dst[di+3] = a;
-                }
+                int pIdx = MortonIndex16(x, y);
+                int si = srcOff + pIdx * 2;
+                if (si + 1 >= src.Length) continue;
+                int di = (y * w + x) * 4;
+                ushort val = (ushort)(src[si] | (src[si + 1] << 8));
+                byte r = (byte)((val >> 12) & 0xF);
+                byte g = (byte)((val >> 8) & 0xF);
+                byte b = (byte)((val >> 4) & 0xF);
+                byte a = (byte)(val & 0xF);
+                dst[di]   = (byte)((b << 4) | b);
+                dst[di+1] = (byte)((g << 4) | g);
+                dst[di+2] = (byte)((r << 4) | r);
+                dst[di+3] = (byte)((a << 4) | a);
             }
         }
 
-        private static void DecodeRGBA5551Tiled(byte[] src, int srcOff, byte[] dst, int w, int h)
+        private static void DecodeRGBA5551(byte[] src, int srcOff, byte[] dst, int w, int h)
         {
-            int tilesX = (w + 7) / 8, tilesY = (h + 7) / 8;
-            for (int ty = 0; ty < tilesY; ty++)
-            for (int tx = 0; tx < tilesX; tx++)
+            for (int y = 0; y < h; y++)
+            for (int x = 0; x < w; x++)
             {
-                int tileOff = srcOff + (ty * tilesX + tx) * 64 * 2;
-                for (int y = 0; y < 8; y++)
-                for (int x = 0; x < 8; x++)
-                {
-                    int px = tx * 8 + x, py = ty * 8 + y;
-                    if (px >= w || py >= h) continue;
-                    int si = tileOff + MortonIndex(x, y) * 2;
-                    if (si + 1 >= src.Length) continue;
-                    ushort v = BitConverter.ToUInt16(src, si);
-                    byte r = Expand5((v >> 11) & 0x1F);
-                    byte g = Expand5((v >>  6) & 0x1F);
-                    byte b = Expand5((v >>  1) & 0x1F);
-                    byte a = (byte)((v & 1) == 1 ? 255 : 0);
-                    int di = (py * w + px) * 4;
-                    dst[di] = b; dst[di+1] = g; dst[di+2] = r; dst[di+3] = a;
-                }
+                int pIdx = MortonIndex16(x, y);
+                int si = srcOff + pIdx * 2;
+                if (si + 1 >= src.Length) continue;
+                int di = (y * w + x) * 4;
+                ushort val = (ushort)(src[si] | (src[si + 1] << 8));
+                byte r = (byte)((val >> 11) & 0x1F);
+                byte g = (byte)((val >> 6) & 0x1F);
+                byte b = (byte)((val >> 1) & 0x1F);
+                byte a = (byte)(val & 1);
+                dst[di]   = (byte)((b << 3) | (b >> 2));
+                dst[di+1] = (byte)((g << 3) | (g >> 2));
+                dst[di+2] = (byte)((r << 3) | (r >> 2));
+                dst[di+3] = (byte)(a == 1 ? 255 : 0);
             }
         }
 
-        private static void DecodeRGB565Tiled(byte[] src, int srcOff, byte[] dst, int w, int h)
+        private static void DecodeRGB565(byte[] src, int srcOff, byte[] dst, int w, int h)
         {
-            int tilesX = (w + 7) / 8, tilesY = (h + 7) / 8;
-            for (int ty = 0; ty < tilesY; ty++)
-            for (int tx = 0; tx < tilesX; tx++)
+            for (int y = 0; y < h; y++)
+            for (int x = 0; x < w; x++)
             {
-                int tileOff = srcOff + (ty * tilesX + tx) * 64 * 2;
-                for (int y = 0; y < 8; y++)
-                for (int x = 0; x < 8; x++)
-                {
-                    int px = tx * 8 + x, py = ty * 8 + y;
-                    if (px >= w || py >= h) continue;
-                    int si = tileOff + MortonIndex(x, y) * 2;
-                    if (si + 1 >= src.Length) continue;
-                    ushort v = BitConverter.ToUInt16(src, si);
-                    byte r = Expand5((v >> 11) & 0x1F);
-                    byte g = (byte)(((v >> 5) & 0x3F) * 255 / 63);
-                    byte b = Expand5(v & 0x1F);
-                    int di = (py * w + px) * 4;
-                    dst[di] = b; dst[di+1] = g; dst[di+2] = r; dst[di+3] = 255;
-                }
+                int pIdx = MortonIndex16(x, y);
+                int si = srcOff + pIdx * 2;
+                if (si + 1 >= src.Length) continue;
+                int di = (y * w + x) * 4;
+                ushort val = (ushort)(src[si] | (src[si + 1] << 8));
+                byte r = (byte)((val >> 11) & 0x1F);
+                byte g = (byte)((val >> 5) & 0x3F);
+                byte b = (byte)(val & 0x1F);
+                dst[di]   = (byte)((b << 3) | (b >> 2));
+                dst[di+1] = (byte)((g << 2) | (g >> 4));
+                dst[di+2] = (byte)((r << 3) | (r >> 2));
+                dst[di+3] = 255;
             }
         }
 
-        private static void DecodeA8I8Tiled(byte[] src, int srcOff, byte[] dst, int w, int h)
+        private static void DecodeA8I8(byte[] src, int srcOff, byte[] dst, int w, int h)
         {
-            int tilesX = (w + 7) / 8, tilesY = (h + 7) / 8;
-            for (int ty = 0; ty < tilesY; ty++)
-            for (int tx = 0; tx < tilesX; tx++)
+            for (int y = 0; y < h; y++)
+            for (int x = 0; x < w; x++)
             {
-                int tileOff = srcOff + (ty * tilesX + tx) * 64;
-                for (int y = 0; y < 8; y++)
-                for (int x = 0; x < 8; x++)
-                {
-                    int px = tx * 8 + x, py = ty * 8 + y;
-                    if (px >= w || py >= h) continue;
-                    int si = tileOff + MortonIndex(x, y);
-                    if (si >= src.Length) continue;
-                    byte a = src[si];
-                    int di = (py * w + px) * 4;
-                    dst[di] = a; dst[di+1] = a; dst[di+2] = a; dst[di+3] = a;
-                }
+                int pIdx = MortonIndex16(x, y);
+                int si = srcOff + pIdx;
+                if (si >= src.Length) continue;
+                byte a = src[si];
+                int di = (y * w + x) * 4;
+                dst[di] = a; dst[di+1] = a; dst[di+2] = a; dst[di+3] = a;
             }
         }
 
-        private static void DecodeI4A4Tiled(byte[] src, int srcOff, byte[] dst, int w, int h)
+        private static void DecodeI4A4(byte[] src, int srcOff, byte[] dst, int w, int h)
         {
-            int tilesX = (w + 7) / 8, tilesY = (h + 7) / 8;
-            for (int ty = 0; ty < tilesY; ty++)
-            for (int tx = 0; tx < tilesX; tx++)
+            for (int y = 0; y < h; y++)
+            for (int x = 0; x < w; x++)
             {
-                int tileOff = srcOff + (ty * tilesX + tx) * 32;
-                for (int y = 0; y < 8; y++)
-                for (int x = 0; x < 8; x++)
-                {
-                    int px = tx * 8 + x, py = ty * 8 + y;
-                    if (px >= w || py >= h) continue;
-                    int idx = MortonIndex(x, y);
-                    int si = tileOff + (idx / 2);
-                    if (si >= src.Length) continue;
-                    byte b = src[si];
-                    byte v = (idx % 2 == 0) ? (byte)(b & 0xF) : (byte)(b >> 4);
-                    v = (byte)((v << 4) | v);
-                    int di = (py * w + px) * 4;
-                    dst[di] = v; dst[di+1] = v; dst[di+2] = v; dst[di+3] = v;
-                }
+                int pIdx = MortonIndex16(x, y);
+                int si = srcOff + (pIdx / 2);
+                if (si >= src.Length) continue;
+                byte b = src[si];
+                byte v = (pIdx % 2 == 0) ? (byte)(b & 0xF) : (byte)(b >> 4);
+                v = (byte)((v << 4) | v);
+                int di = (y * w + x) * 4;
+                dst[di] = v; dst[di+1] = v; dst[di+2] = v; dst[di+3] = v;
             }
         }
 
-        private static void DecodeIA8Tiled(byte[] src, int srcOff, byte[] dst, int w, int h)
+        private static void DecodeIA8(byte[] src, int srcOff, byte[] dst, int w, int h)
         {
-            int tilesX = (w + 7) / 8, tilesY = (h + 7) / 8;
-            for (int ty = 0; ty < tilesY; ty++)
-            for (int tx = 0; tx < tilesX; tx++)
+            for (int y = 0; y < h; y++)
+            for (int x = 0; x < w; x++)
             {
-                int tileOff = srcOff + (ty * tilesX + tx) * 128; // 64 pixels * 2 bytes
-                for (int y = 0; y < 8; y++)
-                for (int x = 0; x < 8; x++)
-                {
-                    int px = tx * 8 + x, py = ty * 8 + y;
-                    if (px >= w || py >= h) continue;
-                    int si = tileOff + MortonIndex(x, y) * 2;
-                    if (si + 1 >= src.Length) continue;
-                    byte a = src[si];     // I
-                    byte i = src[si+1];   // A
-                    int di = (py * w + px) * 4;
-                    dst[di] = i; dst[di+1] = i; dst[di+2] = i; dst[di+3] = a;
-                }
+                int pIdx = MortonIndex16(x, y);
+                int si = srcOff + pIdx * 2;
+                if (si + 1 >= src.Length) continue;
+                byte a = src[si];     // I
+                byte i = src[si+1];   // A
+                int di = (y * w + x) * 4;
+                dst[di] = i; dst[di+1] = i; dst[di+2] = i; dst[di+3] = a;
             }
         }
 
-        private static void DecodeIA4Tiled(byte[] src, int srcOff, byte[] dst, int w, int h)
+        private static void DecodeIA4(byte[] src, int srcOff, byte[] dst, int w, int h)
         {
-            int tilesX = (w + 7) / 8, tilesY = (h + 7) / 8;
-            for (int ty = 0; ty < tilesY; ty++)
-            for (int tx = 0; tx < tilesX; tx++)
+            for (int y = 0; y < h; y++)
+            for (int x = 0; x < w; x++)
             {
-                int tileOff = srcOff + (ty * tilesX + tx) * 64; // 64 pixels * 1 byte
-                for (int y = 0; y < 8; y++)
-                for (int x = 0; x < 8; x++)
-                {
-                    int px = tx * 8 + x, py = ty * 8 + y;
-                    if (px >= w || py >= h) continue;
-                    int si = tileOff + MortonIndex(x, y);
-                    if (si >= src.Length) continue;
-                    byte b = src[si];
-                    byte a = (byte)((b & 0xF) * 17);
-                    byte i = (byte)(((b >> 4) & 0xF) * 17);
-                    int di = (py * w + px) * 4;
-                    dst[di] = i; dst[di+1] = i; dst[di+2] = i; dst[di+3] = a;
-                }
+                int pIdx = MortonIndex16(x, y);
+                int si = srcOff + pIdx;
+                if (si >= src.Length) continue;
+                byte b = src[si];
+                byte a = (byte)((b & 0xF) * 17);
+                byte i = (byte)(((b >> 4) & 0xF) * 17);
+                int di = (y * w + x) * 4;
+                dst[di] = i; dst[di+1] = i; dst[di+2] = i; dst[di+3] = a;
             }
         }
 
         // ETC1 and ETC1A4 decoder.
-        // Blocks are arranged in raster scan order (left→right, top→bottom) for compressed textures.
-        // ETC1: 8 bytes per 4×4 block.
-        // ETC1A4: 16 bytes per 4×4 block — first 8 bytes = A4 alpha, next 8 bytes = ETC1 color.
+        // Blocks are arranged in Morton scan order for compressed textures.
+        // ETC1: 8 bytes per 4x4 block.
+        // ETC1A4: 8 bytes Alpha + 8 bytes ETC1 per 4x4 block.
         private static void DecodeETC1(byte[] src, int srcOff, byte[] dst, int w, int h, bool hasAlpha)
         {
-            int tilesX = (w + 7) / 8;
-            int tilesY = (h + 7) / 8;
+            int blockW = (w + 3) / 4;
+            int blockH = (h + 3) / 4;
             int blockBytes = hasAlpha ? 16 : 8;
-            int tileBytes = 4 * blockBytes; // four 4x4 blocks in an 8x8 tile
 
-            // 4 blocks in Morton order inside an 8x8 tile
-            int[] bxOffset = { 0, 4, 0, 4 };
-            int[] byOffset = { 0, 0, 4, 4 };
-
-            for (int ty = 0; ty < tilesY; ty++)
-            for (int tx = 0; tx < tilesX; tx++)
+            for (int by = 0; by < blockH; by++)
+            for (int bx = 0; bx < blockW; bx++)
             {
-                int tileOff = srcOff + (ty * tilesX + tx) * tileBytes;
+                int blockIdx = MortonIndex16(bx, by);
+                int off = srcOff + blockIdx * blockBytes;
 
-                for (int b = 0; b < 4; b++)
-                {
-                    int off = tileOff + b * blockBytes;
-                    int alphaOff = hasAlpha ? off : -1;
-                    int etc1Off  = hasAlpha ? off + 8 : off;
+                int alphaOff = hasAlpha ? off : -1;
+                int etc1Off  = hasAlpha ? off + 8 : off;
 
-                    if (etc1Off + 8 > src.Length) continue;
+                if (etc1Off + 8 > src.Length) continue;
 
-                    DecodeETC1Block(src, etc1Off, hasAlpha ? src : null, alphaOff,
-                                    dst, tx * 8 + bxOffset[b], ty * 8 + byOffset[b], w, h);
-                }
+                DecodeETC1Block(src, etc1Off, hasAlpha ? src : null, alphaOff,
+                                dst, bx * 4, by * 4, w, h);
             }
         }
 
@@ -639,114 +579,89 @@ namespace NicheStudioWeirdo.Utils
         // PIXEL FORMAT ENCODERS (PNG → STEX pixel data)
         // ──────────────────────────────────────────────────────────
 
-        private static byte[] EncodeRGBA8Tiled(byte[] bgraPixels, int w, int h)
+        private static byte[] EncodeRGBA8(byte[] bgraPixels, int w, int h)
         {
-            int tilesX = (w + 7) / 8, tilesY = (h + 7) / 8;
-            byte[] dst = new byte[tilesX * tilesY * 64 * 4];
-            for (int ty = 0; ty < tilesY; ty++)
-            for (int tx = 0; tx < tilesX; tx++)
+            byte[] dst = new byte[w * h * 4];
+            for (int py = 0; py < h; py++)
+            for (int px = 0; px < w; px++)
             {
-                int tileOff = (ty * tilesX + tx) * 64 * 4;
-                for (int y = 0; y < 8; y++)
-                for (int x = 0; x < 8; x++)
+                int pIdx = MortonIndex16(px, py);
+                int si = (py * w + px) * 4;
+                int di = pIdx * 4;
+                if (di + 3 < dst.Length && si + 3 < bgraPixels.Length)
                 {
-                    int px = tx * 8 + x, py = ty * 8 + y;
-                    int si = (py < h && px < w) ? (py * w + px) * 4 : -1;
-                    int di = tileOff + MortonIndex(x, y) * 4;
-                    if (si >= 0)
-                    {
-                        // BGRA → RGBA
-                        dst[di+0] = bgraPixels[si+2]; // R
-                        dst[di+1] = bgraPixels[si+1]; // G
-                        dst[di+2] = bgraPixels[si+0]; // B
-                        dst[di+3] = bgraPixels[si+3]; // A
-                    }
+                    dst[di+0] = bgraPixels[si+2]; // R
+                    dst[di+1] = bgraPixels[si+1]; // G
+                    dst[di+2] = bgraPixels[si+0]; // B
+                    dst[di+3] = bgraPixels[si+3]; // A
                 }
             }
             return dst;
         }
 
-        private static byte[] EncodeRGBA4Tiled(byte[] bgraPixels, int w, int h)
+        private static byte[] EncodeRGBA4(byte[] bgraPixels, int w, int h)
         {
-            int tilesX = (w + 7) / 8, tilesY = (h + 7) / 8;
-            byte[] dst = new byte[tilesX * tilesY * 64 * 2];
-            for (int ty = 0; ty < tilesY; ty++)
-            for (int tx = 0; tx < tilesX; tx++)
+            byte[] dst = new byte[w * h * 2];
+            for (int py = 0; py < h; py++)
+            for (int px = 0; px < w; px++)
             {
-                int tileOff = (ty * tilesX + tx) * 64 * 2;
-                for (int y = 0; y < 8; y++)
-                for (int x = 0; x < 8; x++)
+                int pIdx = MortonIndex16(px, py);
+                int si = (py * w + px) * 4;
+                int di = pIdx * 2;
+                if (di + 1 < dst.Length && si + 3 < bgraPixels.Length)
                 {
-                    int px = tx * 8 + x, py = ty * 8 + y;
-                    int si = (py < h && px < w) ? (py * w + px) * 4 : -1;
-                    int di = tileOff + MortonIndex(x, y) * 2;
-                    if (si >= 0)
-                    {
-                        byte r = (byte)((bgraPixels[si+2] >> 4) & 0xF);
-                        byte g = (byte)((bgraPixels[si+1] >> 4) & 0xF);
-                        byte b = (byte)((bgraPixels[si+0] >> 4) & 0xF);
-                        byte a = (byte)((bgraPixels[si+3] >> 4) & 0xF);
-                        ushort v = (ushort)((r << 12) | (g << 8) | (b << 4) | a);
-                        dst[di]   = (byte)(v & 0xFF);
-                        dst[di+1] = (byte)(v >> 8);
-                    }
+                    byte r = (byte)((bgraPixels[si+2] >> 4) & 0xF);
+                    byte g = (byte)((bgraPixels[si+1] >> 4) & 0xF);
+                    byte b = (byte)((bgraPixels[si+0] >> 4) & 0xF);
+                    byte a = (byte)((bgraPixels[si+3] >> 4) & 0xF);
+                    ushort val = (ushort)((r << 12) | (g << 8) | (b << 4) | a);
+                    dst[di] = (byte)(val & 0xFF);
+                    dst[di+1] = (byte)((val >> 8) & 0xFF);
                 }
             }
             return dst;
         }
 
-        private static byte[] EncodeRGBA5551Tiled(byte[] bgraPixels, int w, int h)
+        private static byte[] EncodeRGBA5551(byte[] bgraPixels, int w, int h)
         {
-            int tilesX = (w + 7) / 8, tilesY = (h + 7) / 8;
-            byte[] dst = new byte[tilesX * tilesY * 64 * 2];
-            for (int ty = 0; ty < tilesY; ty++)
-            for (int tx = 0; tx < tilesX; tx++)
+            byte[] dst = new byte[w * h * 2];
+            for (int py = 0; py < h; py++)
+            for (int px = 0; px < w; px++)
             {
-                int tileOff = (ty * tilesX + tx) * 64 * 2;
-                for (int y = 0; y < 8; y++)
-                for (int x = 0; x < 8; x++)
+                int pIdx = MortonIndex16(px, py);
+                int si = (py * w + px) * 4;
+                int di = pIdx * 2;
+                if (di + 1 < dst.Length && si + 3 < bgraPixels.Length)
                 {
-                    int px = tx * 8 + x, py = ty * 8 + y;
-                    int si = (py < h && px < w) ? (py * w + px) * 4 : -1;
-                    int di = tileOff + MortonIndex(x, y) * 2;
-                    if (si >= 0)
-                    {
-                        int r = bgraPixels[si+2] >> 3;
-                        int g = bgraPixels[si+1] >> 3;
-                        int b = bgraPixels[si+0] >> 3;
-                        int a = bgraPixels[si+3] >= 128 ? 1 : 0;
-                        ushort v = (ushort)((r << 11) | (g << 6) | (b << 1) | a);
-                        dst[di]   = (byte)(v & 0xFF);
-                        dst[di+1] = (byte)(v >> 8);
-                    }
+                    int r = bgraPixels[si+2] >> 3;
+                    int g = bgraPixels[si+1] >> 3;
+                    int b = bgraPixels[si+0] >> 3;
+                    int a = (bgraPixels[si+3] > 127) ? 1 : 0;
+                    ushort val = (ushort)((r << 11) | (g << 6) | (b << 1) | a);
+                    dst[di] = (byte)(val & 0xFF);
+                    dst[di+1] = (byte)((val >> 8) & 0xFF);
                 }
             }
             return dst;
         }
 
-        private static byte[] EncodeRGB565Tiled(byte[] bgraPixels, int w, int h)
+        private static byte[] EncodeRGB565(byte[] bgraPixels, int w, int h)
         {
-            int tilesX = (w + 7) / 8, tilesY = (h + 7) / 8;
-            byte[] dst = new byte[tilesX * tilesY * 64 * 2];
-            for (int ty = 0; ty < tilesY; ty++)
-            for (int tx = 0; tx < tilesX; tx++)
+            byte[] dst = new byte[w * h * 2];
+            for (int py = 0; py < h; py++)
+            for (int px = 0; px < w; px++)
             {
-                int tileOff = (ty * tilesX + tx) * 64 * 2;
-                for (int y = 0; y < 8; y++)
-                for (int x = 0; x < 8; x++)
+                int pIdx = MortonIndex16(px, py);
+                int si = (py * w + px) * 4;
+                int di = pIdx * 2;
+                if (di + 1 < dst.Length && si + 3 < bgraPixels.Length)
                 {
-                    int px = tx * 8 + x, py = ty * 8 + y;
-                    int si = (py < h && px < w) ? (py * w + px) * 4 : -1;
-                    int di = tileOff + MortonIndex(x, y) * 2;
-                    if (si >= 0)
-                    {
-                        int r = bgraPixels[si+2] >> 3;
-                        int g = bgraPixels[si+1] >> 2;
-                        int b = bgraPixels[si+0] >> 3;
-                        ushort v = (ushort)((r << 11) | (g << 5) | b);
-                        dst[di]   = (byte)(v & 0xFF);
-                        dst[di+1] = (byte)(v >> 8);
-                    }
+                    int r = bgraPixels[si+2] >> 3;
+                    int g = bgraPixels[si+1] >> 2;
+                    int b = bgraPixels[si+0] >> 3;
+                    ushort val = (ushort)((r << 11) | (g << 5) | b);
+                    dst[di] = (byte)(val & 0xFF);
+                    dst[di+1] = (byte)((val >> 8) & 0xFF);
                 }
             }
             return dst;
