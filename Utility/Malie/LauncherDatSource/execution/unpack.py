@@ -3,7 +3,7 @@
 
 import sys
 import os
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import io
 from io import BytesIO
@@ -537,7 +537,7 @@ def main(args=None):
                 logging.debug("[unpack] DatOpener berhasil")
             else:
                 logging.error("[unpack] DatOpener gagal → 아카이브 열기 gagal")
-                return
+                sys.exit(1)
 
         # — 여기서 JSON 메타데이터 적용 시작 —
         json_path = os.path.splitext(input_path)[0] + "_entries.json"

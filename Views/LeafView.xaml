@@ -25,10 +25,10 @@
                                    Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" FontSize="11" Margin="0,0,0,16"/>
 
                         <!-- Warning Banner -->
-                        <Border Background="#0A1A0A" CornerRadius="0" Padding="14,10" Margin="0,0,0,24" BorderThickness="1" BorderBrush="#1E3A1E">
+                        <Border Background="#1A0500" CornerRadius="0" Padding="14,10" Margin="0,0,0,24" BorderThickness="1" BorderBrush="#6B1010">
                             <StackPanel>
-                                <TextBlock Foreground="#60C060" FontWeight="Bold" FontSize="12" Text="⚠  IMPORTANT NOTE"/>
-                                <TextBlock Foreground="#7A9A7A" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"
+                                <TextBlock Foreground="#FF4444" FontWeight="Bold" FontSize="12" Text="📖  IMPORTANT NOTE"/>
+                                <TextBlock Foreground="#CC8888" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"
                                            Text="The workspace directory must only contain files from the .pak archive. Repacking foreign binaries (e.g. tool executables) will cause game crashes."/>
                             </StackPanel>
                         </Border>
@@ -70,10 +70,10 @@
                                    Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" FontSize="11" Margin="0,0,0,16"/>
 
                         <!-- Info Banner -->
-                        <Border Background="#0A1A0A" CornerRadius="0" Padding="14,10" Margin="0,0,0,24" BorderThickness="1" BorderBrush="#1E3A1E">
+                        <Border Background="#1A0500" CornerRadius="0" Padding="14,10" Margin="0,0,0,24" BorderThickness="1" BorderBrush="#6B1010">
                             <StackPanel>
-                                <TextBlock Foreground="#60C060" FontWeight="Bold" FontSize="12" Text="📖  IMPORTANT NOTE"/>
-                                <TextBlock Foreground="#7A9A7A" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"
+                                <TextBlock Foreground="#FF4444" FontWeight="Bold" FontSize="12" Text="📖  IMPORTANT NOTE"/>
+                                <TextBlock Foreground="#CC8888" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"
                                            Text="You can freely use commas ',' in your translated text. The injector automatically replaces them with '~' to avoid breaking the game engine's CSV array structure."/>
                             </StackPanel>
                         </Border>

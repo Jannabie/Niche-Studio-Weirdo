@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
@@ -108,6 +108,11 @@ namespace Malie_Script_Tool
                     entry.Index = reader.ReadInt32();
                     entry.field_4 = reader.ReadInt32();
                     entry.Offset = reader.ReadInt32();
+
+                    // [DX compat] _unk_dword != 0 means Dies irae DX / newer Malie format.
+                    // These titles add one extra Int32 field per Function entry.
+                    if (_unk_dword != 0)
+                        entry.field_8 = reader.ReadInt32();
 
                     _functions.Add(entry);
                 }
@@ -1037,12 +1042,26 @@ namespace Malie_Script_Tool
                 flag = true;
             }
 
-            var buffer = reader.ReadBytes(length);
+            // Guard: zero-length → truly empty, no bytes to read
+            if (length == 0)
+                return string.Empty;
+
+            var buffer = reader.ReadBytes((int)length);
 
             if (flag)
-                return Encoding.Unicode.GetString(buffer, 0, (int)length - 2);
+            {
+                // Unicode: last 2 bytes = null terminator; need at least 2 bytes
+                int charCount = (int)length - 2;
+                if (charCount <= 0) return string.Empty;
+                return Encoding.Unicode.GetString(buffer, 0, charCount);
+            }
             else
-                return _encoding.GetString(buffer, 0, (int)length - 1);
+            {
+                // CP932: last byte = null terminator; need at least 1 byte
+                int charCount = (int)length - 1;
+                if (charCount <= 0) return string.Empty;
+                return _encoding.GetString(buffer, 0, charCount);
+            }
         }
 
         static void WriteString(BinaryWriter writer, string value)
@@ -1186,6 +1205,7 @@ namespace Malie_Script_Tool
             public int Index;
             public int field_4;
             public int Offset;
+            public int field_8; // [DX format] extra field present in Dies irae DX and newer titles
         }
 
         class Label

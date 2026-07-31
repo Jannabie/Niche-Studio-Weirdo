@@ -1,6 +1,7 @@
 # repack_plain.py - untuk repack plain
 
 import sys, os, struct, logging, argparse
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from logging.handlers import RotatingFileHandler
 from malie.malierepack import DatWriterplain
 from gameres.utility import EntryMetadataApplier

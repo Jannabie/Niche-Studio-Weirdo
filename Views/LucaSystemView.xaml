@@ -17,13 +17,13 @@
                 <StackPanel>
 
                     <!-- Warning Banner -->
-                    <Border Background="#0A1A0A" CornerRadius="0" Padding="14,10" Margin="0,0,0,24" BorderThickness="1" BorderBrush="#1E3A1E">
+                    <Border Background="#1A0500" CornerRadius="0" Padding="14,10" Margin="0,0,0,24" BorderThickness="1" BorderBrush="#6B1010">
                         <StackPanel>
-                            <TextBlock Foreground="#60C060" FontWeight="Bold" FontSize="12" Text="📖  IMPORTANT NOTE"/>
+                            <TextBlock Foreground="#FF4444" FontWeight="Bold" FontSize="12" Text="📖  IMPORTANT NOTE"/>
                             <TextBlock Text="The game profile is ONLY needed for SCRIPT decompile/compile (advanced). For CZ image convert, you can ignore this setting." 
-                                       Foreground="#7A9A7A" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"/>
+                                       Foreground="#CC8888" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"/>
                             <TextBlock Text="Note: Cartagra HD (English translation version) is NOT supported by this tool because the English publisher altered the bytecode format." 
-                                       Foreground="#60C060" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"/>
+                                       Foreground="#FF4444" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"/>
                         </StackPanel>
                     </Border>
 

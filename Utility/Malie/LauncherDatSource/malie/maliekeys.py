@@ -4,6 +4,8 @@
 # Ported from C# by morkt (GARbro: https://github.com/morkt/GARbro)
 
 # MIT License (for GARbro ported structure)
+import base64
+
 # Copyright (c) morkt
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -229,4 +231,31 @@ KnownKeys = {
 
 
 
+}
+
+KnownKeysV2 = {
+    "Dies irae ~Amantes amentes~": {
+        "Key": base64.b64decode("pKemoaCjoqyvrqmoq6q0t7axsLOyvL++ubi7uqGpsbk="),
+        "RotateKey": [962934082, 1987076967, 1766147170, 1899184948]
+    },
+    "Dies irae ~Amantes amentes~ HD": {
+        "Key": base64.b64decode("pKemoaCjoqyvrqmoq6q0t7axsLOyvL++ubi7uqGpsbk="),
+        "RotateKey": [612001141, 674707762, 976643955, 842561126]
+    },
+    "Dies irae ~Amantes amentes~ 4:3 Resolution Patch": {
+        "Key": base64.b64decode("pKemoaCjoqyvrqmoq6q0t7axsLOyvL++ubi7uqGpsbk="),
+        "RotateKey": [1467496503, 1161045092, 1786406741, 1949909092]
+    },
+    "Dies irae ~Acta est Fabula~": {
+        "Key": base64.b64decode("pKemoaCjoqyvrqmoq6q0t7axsLOyvL++ubi7uqGpsbk="),
+        "RotateKey": [910374247, 1748333927, 1849778808, 1147500905]
+    },
+    "Dies irae ~Acta est Fabula~ HD": {
+        "Key": base64.b64decode("pKemoaCjoqyvrqmoq6q0t7axsLOyvL++ubi7uqGpsbk="),
+        "RotateKey": [724909678, 1648128822, 759441014, 2054056516]
+    },
+    "Dies irae Interview with Kaziklu Bey [ENG]": {
+        "Key": base64.b64decode("pKemoaCjoqyvrqmoq6q0t7axsLOyvL++ubi7uqGpsbk="),
+        "RotateKey": [0x3C787768, 0x466E2D69, 0x35726440, 0x612B6743]
+    }
 }

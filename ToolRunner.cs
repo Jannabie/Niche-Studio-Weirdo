@@ -10,7 +10,7 @@ namespace NicheStudioWeirdo
         /// <summary>
         /// Run a tool with a raw arguments string (legacy). Avoid for paths with special chars.
         /// </summary>
-        public static async Task RunAsync(string workingDirectory, string fileName, string arguments, MainWindow main)
+        public static async Task<int> RunAsync(string workingDirectory, string fileName, string arguments, MainWindow main)
         {
             try
             {
@@ -24,6 +24,7 @@ namespace NicheStudioWeirdo
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
+                    RedirectStandardInput = true,
                     CreateNoWindow = true,
                     StandardOutputEncoding = System.Text.Encoding.UTF8,
                     StandardErrorEncoding = System.Text.Encoding.UTF8
@@ -31,19 +32,16 @@ namespace NicheStudioWeirdo
                 psi.EnvironmentVariables["PYTHONIOENCODING"] = "utf-8";
                 psi.EnvironmentVariables["PYTHONUTF8"] = "1";
 
-                await StartAndWaitAsync(psi, main);
+                return await StartAndWaitAsync(psi, main);
             }
             catch (Exception ex)
             {
                 main.LogToConsole($"✘ [EXCEPTION] Failed to run tool: {ex.Message}");
+                return -1;
             }
         }
 
-        /// <summary>
-        /// Run a tool with a safe argument list. Each argument is passed separately so special
-        /// characters (spaces, em-dashes, parentheses) in paths are handled correctly.
-        /// </summary>
-        public static async Task RunAsync(string workingDirectory, string fileName, IEnumerable<string> args, MainWindow main)
+        public static async Task<int> RunAsync(string workingDirectory, string fileName, IEnumerable<string> args, MainWindow main)
         {
             try
             {
@@ -54,6 +52,7 @@ namespace NicheStudioWeirdo
                     UseShellExecute = false,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
+                    RedirectStandardInput = true,
                     CreateNoWindow = true,
                     StandardOutputEncoding = System.Text.Encoding.UTF8,
                     StandardErrorEncoding = System.Text.Encoding.UTF8
@@ -64,18 +63,18 @@ namespace NicheStudioWeirdo
                 foreach (var a in args)
                     psi.ArgumentList.Add(a);
 
-                // Log what we're actually running
                 main.LogToConsole($"▶ Executing: {fileName} {string.Join(" ", psi.ArgumentList)}");
 
-                await StartAndWaitAsync(psi, main);
+                return await StartAndWaitAsync(psi, main);
             }
             catch (Exception ex)
             {
                 main.LogToConsole($"✘ [EXCEPTION] Failed to run tool: {ex.Message}");
+                return -1;
             }
         }
 
-        private static async Task StartAndWaitAsync(ProcessStartInfo psi, MainWindow main)
+        private static async Task<int> StartAndWaitAsync(ProcessStartInfo psi, MainWindow main)
         {
             using var process = new Process { StartInfo = psi };
 
@@ -91,6 +90,14 @@ namespace NicheStudioWeirdo
             };
 
             process.Start();
+            
+            try 
+            { 
+                process.StandardInput.WriteLine();
+                process.StandardInput.Close(); 
+            } 
+            catch { }
+
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
 
@@ -100,6 +107,8 @@ namespace NicheStudioWeirdo
                 main.LogToConsole("✔ Command completed successfully.");
             else
                 main.LogToConsole($"✘ [ERROR] Command exited with code {process.ExitCode}.");
+
+            return process.ExitCode;
         }
     }
 }

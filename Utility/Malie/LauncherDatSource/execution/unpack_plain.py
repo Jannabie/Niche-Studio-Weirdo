@@ -1,7 +1,7 @@
 # unpack_plain.py - untuk mengekstrak .dat yang baru didekripsi tahap 1. 
 
 import sys, os, io
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import logging
 import time

@@ -25,11 +25,11 @@
                                    Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" FontSize="11" Margin="0,0,0,16"/>
 
                         <!-- Important Note -->
-                        <Border Background="#0A1A0A" CornerRadius="0" Padding="14,10" Margin="0,0,0,24" BorderThickness="1" BorderBrush="#1E3A1E">
+                        <Border Background="#1A0500" CornerRadius="0" Padding="14,10" Margin="0,0,0,24" BorderThickness="1" BorderBrush="#6B1010">
                             <StackPanel>
-                                <TextBlock Foreground="#60C060" FontWeight="Bold" FontSize="12" Text="📖  IMPORTANT NOTE"/>
+                                <TextBlock Foreground="#FF4444" FontWeight="Bold" FontSize="12" Text="📖  IMPORTANT NOTE"/>
                                 <TextBlock Text="Many games prioritize loading loose files. You might not need to repack — just put the extracted folder in the game directory!" 
-                                           Foreground="#7A9A7A" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"/>
+                                           Foreground="#CC8888" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"/>
                             </StackPanel>
                         </Border>
                         <!-- Extract -->
@@ -78,11 +78,11 @@
                                    Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" FontSize="11" Margin="0,0,0,16"/>
 
                         <!-- Important Note -->
-                        <Border Background="#0A1A0A" CornerRadius="0" Padding="14,10" Margin="0,0,0,24" BorderThickness="1" BorderBrush="#1E3A1E">
+                        <Border Background="#1A0500" CornerRadius="0" Padding="14,10" Margin="0,0,0,24" BorderThickness="1" BorderBrush="#6B1010">
                             <StackPanel>
-                                <TextBlock Foreground="#60C060" FontWeight="Bold" FontSize="12" Text="📖  IMPORTANT NOTE"/>
+                                <TextBlock Foreground="#FF4444" FontWeight="Bold" FontSize="12" Text="📖  IMPORTANT NOTE"/>
                                 <TextBlock Text="Not all .ybn files contain dialogue. Many are just system code/logic. If you have 300+ .ybn files but only ~150 extract to JSON, that is completely normal!" 
-                                           Foreground="#7A9A7A" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"/>
+                                           Foreground="#CC8888" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"/>
                             </StackPanel>
                         </Border>
                         <!-- Folder Selection -->

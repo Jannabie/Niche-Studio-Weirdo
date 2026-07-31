@@ -34,7 +34,8 @@ from formats.arccommon import AutoEntry
 from gameres.gameres import ArchiveFormat
 from gameres.utility import ascii_equal, get_cstring, LittleEndian
 from malie.camellia import Camellia
-from malie.maliekeys import KnownKeys
+from malie.cfi import Cfi
+from malie.maliekeys import KnownKeys, KnownKeysV2
 
 
 #.lib 언팩용 (비암호화) - ArcLIB.cs의 LibOpener에 해당.
@@ -171,6 +172,21 @@ class DatOpener(ArchiveFormat):
     # ArcLIB.cs - DatOpener의 TryOpen  
     # 암호화된 아카이브 열기. KnownKeys 전체에 대해 복호화 시도 → 성공하면 MalieArchive 리턴  
     def try_open(self, view: FileView):
+        # V2 Keys (CFI)
+        for key_name, key_data in KnownKeysV2.items():
+            decryptor = Cfi(key_data["Key"], key_data["RotateKey"])
+            reader = self.Reader(view, self)
+            archive = MalieArchive(view, self, [], decryptor, key_name)
+            reader.set_archive(archive)
+
+            if reader.read_index(decryptor, key_name):
+                archive.base_offset = reader.base_offset
+                archive.dir = reader.dir
+                archive.entries = reader.dir
+                logging.debug(f"[DatOpener] ✅ berhasil (key={key_name}, entri={len(reader.dir)})")
+                return archive
+                
+        # V1 Keys (Camellia)
         for key_name, key_data in KnownKeys.items():
             decryptor = Camellia(key_data)
             reader = self.Reader(view, self)

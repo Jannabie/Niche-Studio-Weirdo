@@ -108,6 +108,7 @@ namespace NicheStudioWeirdo
                 "Yuris" => "YU-RIS Engine (RxYuris) Guide:\n1. YSTB Decrypt & Encrypt: Use Guess Key on a .ybn file, then decrypt/encrypt it using the key.\n2. Batch Text Extract & Insert: Select the folder containing your .ybn files, and use the Extract/Insert text buttons.\n3. YPF Decode: Select an encrypted .ypf file to decode it.\n4. YSTL Parse: Select yst_list.ybn to recover the original file structure.",
                 "FVP" => "FVP Engine Guide:\n1. BIN Archive: Extract .bin to a folder, or repack an edited folder back into .bin.\n2. HCB Script: Decompile .hcb into strings.txt and script.dat. Edit strings.txt, then select the folder containing it to compile back into a new .hcb.\n3. NVSG Image: Decode NVSG (.hzc) to PNG for editing, then encode your edited PNG back to NVSG.",
                 "Leaf" => "Leaf Engine Guide:\n[ARCHIVE] 1. Select a .pak archive and an empty Workspace Folder. Click Unpack to extract.\n2. After editing files, click Repack to .pak.\n\n[SCRIPT] 3. Parse: Select raw comma-separated .txt (from BNR dump). Converts to readable vertical format.\n4. Back to Format: Select your translated _parsed.txt. Injects back into flat CSV for BNR repacker.",
+                "Trikintul" => "Trikintul (3DS Modding) Guide:\n1. ARCHIVE: Select a .3ds/.cia file and extract it (using ctrtool).\n2. ROMFS: Extract DecryptedRomFS.bin or rebuild an extracted folder into a new .bin.\n3. MOONBEAM: Convert .mbm script files to XML for translation, and compile XML back to .mbm. Supports single files or mass folder mode.",
                 _ => "Select a tool from the top tabs to view its usage guide."
             };
         }
@@ -157,6 +158,7 @@ namespace NicheStudioWeirdo
                     "LucaSystem" => new LucaSystemView(),
                     "Yuris"     => new YurisView(),
                     "FVP"       => new FvpEngineView(),
+                    "Trikintul" => new TrikintulView(),
                     _           => new MinoriView()
                 };
                 LoadView(view, btn.Content?.ToString() ?? btn.Tag?.ToString() ?? "");

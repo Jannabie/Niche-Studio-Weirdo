@@ -85,6 +85,7 @@
                         <Button Content="Lasengle (MBTL)" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="Lasengle"/>
                         <Button Content="YOX" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="Musicus"/>
                         <Button Content="YU-RIS" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="Yuris"/>
+                        <Button Content="Lithium (3DS)" Style="{StaticResource TabButton}" Click="Nav_Click" Tag="Trikintul"/>
                     </StackPanel>
                     </ScrollViewer>
                     

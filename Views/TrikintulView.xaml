@@ -1,0 +1,166 @@
+<UserControl x:Class="NicheStudioWeirdo.Views.TrikintulView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Lithium (3DS ATLUS Hacking Tools)" Style="{StaticResource HeaderStyle}"/>
+        <TextBlock Grid.Row="1" Text="Extract 3DS/CIA archives, rebuild RomFS, and translate Moonbeam MBM scripts."
+                   Style="{StaticResource SubheaderStyle}"/>
+
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+            <Border Background="{StaticResource BgDarkestBrush}" CornerRadius="0" Padding="20" BorderThickness="1" BorderBrush="{StaticResource BorderBrush2}">
+                <StackPanel>
+
+                    <!-- ═══════════════════════════════════════════════════════ -->
+                    <!-- ARCHIVE DECRYPTION                                      -->
+                    <!-- ═══════════════════════════════════════════════════════ -->
+                    <TextBlock Text="Archive Decryption (.3ds / .cia)" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
+
+                    <Border Background="#0A1020" CornerRadius="0" Padding="14,10" Margin="0,0,0,10" BorderThickness="1" BorderBrush="#1E2A4A">
+                        <StackPanel>
+                            <TextBlock Foreground="#6080C0" FontWeight="Bold" FontSize="11" Text="💡  RECOMMENDATION"/>
+                            <TextBlock Foreground="#7A8AAA" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"
+                                       Text="It is highly recommended to use .cia files instead of .3ds files. Decrypting and modifying .cia files ensures better compatibility for repackaging."/>
+                        </StackPanel>
+                    </Border>
+                    
+                    <Border Background="#1A0500" CornerRadius="0" Padding="14,10" Margin="0,0,0,24" BorderThickness="1" BorderBrush="#6B1010">
+                        <StackPanel>
+                            <TextBlock Foreground="#FF4444" FontWeight="Bold" FontSize="11" Text="📖  IMPORTANT NOTE"/>
+                            <TextBlock Foreground="#CC8888" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"
+                                       Text="If your game is already decrypted, you can SKIP this Decrypt step and go straight to Archive Extraction!"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Grid Margin="0,0,0,24">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="InputDecrypt" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select encrypted .3ds or .cia file..." ToolTip="Output will be saved as '-decrypted' next to original file."/>
+                        <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseDecrypt_Click"/>
+                        <Button Grid.Column="2" Content="Decrypt Archive" Style="{StaticResource ActionButtonGreen}" Margin="8,0,0,0" Click="DecryptArchive_Click"/>
+                    </Grid>
+
+                    <!-- Divider -->
+                    <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,20"/>
+
+                    <!-- ═══════════════════════════════════════════════════════ -->
+                    <!-- ARCHIVE EXTRACTION                                      -->
+                    <!-- ═══════════════════════════════════════════════════════ -->
+                    <TextBlock Text="Archive Extraction (.3ds / .cia)" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
+
+                    <Grid Margin="0,0,0,24">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="InputArchive" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select decrypted .3ds or .cia file..." ToolTip="Creates a '_Unpacked' folder with the game's contents."/>
+                        <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseArchive_Click"/>
+                        <Button Grid.Column="2" Content="Extract Archive" Style="{StaticResource ActionButtonGreen}" Margin="8,0,0,0" Click="ExtractArchive_Click"/>
+                    </Grid>
+
+                    <!-- Divider -->
+                    <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,20"/>
+
+                    <!-- ═══════════════════════════════════════════════════════ -->
+                    <!-- ARCHIVE REPACK                                          -->
+                    <!-- ═══════════════════════════════════════════════════════ -->
+                    <TextBlock Text="Archive Repack (_Unpacked Folder)" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
+
+                    <Grid Margin="0,0,0,24">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="RepackSource" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select _Unpacked folder..." ToolTip="Creates an '_Edited' archive."/>
+                        <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseRepackSource_Click"/>
+                        <Button Grid.Column="2" Content="Repack CIA" Style="{StaticResource ActionButtonGreen}" Margin="8,0,0,0" Click="RepackCIA_Click"/>
+                        <Button Grid.Column="3" Content="Repack 3DS" Style="{StaticResource ActionButton}" Margin="8,0,0,0" Click="Repack3DS_Click"/>
+                    </Grid>
+
+                    <!-- Divider -->
+                    <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,20"/>
+
+                    <!-- ═══════════════════════════════════════════════════════ -->
+                    <!-- ROMFS EXTRACT & REBUILD                                 -->
+                    <!-- ═══════════════════════════════════════════════════════ -->
+                    <TextBlock Text="RomFS Tools" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
+
+                    <Border Background="#0A1020" CornerRadius="0" Padding="14,10" Margin="0,0,0,10" BorderThickness="1" BorderBrush="#1E2A4A">
+                        <StackPanel>
+                            <TextBlock Foreground="#6080C0" FontWeight="Bold" FontSize="11" Text="💡  RECOMMENDATION"/>
+                            <TextBlock Foreground="#7A8AAA" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"
+                                       Text="If you already got the ExtractedRomFS folder from the Archive Extraction step, you can SKIP this RomFS Extract step!"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Grid Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="RomFsPath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select RomFS .bin to extract or folder to rebuild..."/>
+                        <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseRomFs_Click"/>
+                    </Grid>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,24">
+                        <Button Content="Extract RomFS" Style="{StaticResource ActionButton}" Margin="0,0,8,0" Click="ExtractRomFs_Click"/>
+                        <Button Content="Build RomFS" Style="{StaticResource ActionButtonGreen}" Click="BuildRomFs_Click"/>
+                    </StackPanel>
+
+                    <!-- Divider -->
+                    <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,20"/>
+
+                    <!-- ═══════════════════════════════════════════════════════ -->
+                    <!-- MOONBEAM SCRIPT TRANSLATOR                              -->
+                    <!-- ═══════════════════════════════════════════════════════ -->
+                    <TextBlock Text="Moonbeam Script Tools (.mbm)" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
+
+                    <Grid Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="MoonbeamPath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select target file or folder (.mbm / .xml)..."/>
+                        <Button Grid.Column="1" Content="File" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseMoonbeamFile_Click"/>
+                        <Button Grid.Column="2" Content="Folder" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseMoonbeamFolder_Click"/>
+                    </Grid>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,24">
+                        <CheckBox x:Name="IsMassMode" Content="Mass Folder Mode (Recursive)" VerticalAlignment="Center" VerticalContentAlignment="Center" Foreground="{StaticResource TextMutedBrush}" Margin="0,0,12,0"/>
+                        <Button Content="Export to XML" Style="{StaticResource ActionButton}" Margin="0,0,8,0" Click="ExportMbm_Click"/>
+                        <Button Content="Import to MBM" Style="{StaticResource ActionButtonGreen}" Click="ImportMbm_Click"/>
+                    </StackPanel>
+
+                    <!-- Divider -->
+                    <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,20"/>
+
+                    <!-- ═══════════════════════════════════════════════════════ -->
+                    <!-- IMAGE TOOLS                                             -->
+                    <!-- ═══════════════════════════════════════════════════════ -->
+                    <TextBlock Text="Image Tools" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
+
+                    <Border Background="#0A1A0A" CornerRadius="0" Padding="12,10" Margin="0,0,0,10" BorderThickness="1" BorderBrush="#1E3A1E">
+                        <StackPanel>
+                            <TextBlock Foreground="#60C060" FontWeight="Bold" FontSize="11" Text="COMING IN NEXT UPDATE"/>
+                            <TextBlock Foreground="#7A9A7A" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"
+                                       Text="Image conversion tools for 3DS formats (BFLIM, BIMG, etc.) are currently in development and will be available in the next update."/>
+                        </StackPanel>
+                    </Border>
+
+                </StackPanel>
+            </Border>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
