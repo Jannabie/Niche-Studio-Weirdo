@@ -44,6 +44,7 @@ author(s) and license. Please respect each project's own license before redistri
 | `Utility/YOX/` | **YOX Engine Arch** | Extracting & reinserting dialogue from MUSICUS (YOX engine) | Custom Python tool (bundled) |
 | `Utility/YuRISTools/` | **YuRIS Tools** | All-in-one YPF packing/unpacking for YU-RIS engine | Custom tool (bundled) |
 | `Utility/ypf-repacker/` | **ypf-repacker** | Repacking folders into YPF archives (fork of YPF Manager Tool) | Custom tool (bundled) |
+| `Utility/Trikintul/` | **3DS Hacking Tools** | Extracting & building `.cia`, `.romfs`, parsing ATLUS scripts | Open-source tools (`ctrtool`, `makerom`, `3dstool`) & Custom tool `Moonbeam` |
 | `(Hook-based)` | **Schwarzesmarken Hook (rUGP)** | Text hooking & translation patching for Schwarzesmarken (rUGP engine) | [Yuza](https://github.com/Jannabie/Niche-Studio-Weirdo/tree/main/Schwarzesmarken%20Hook) |
 | `(Hook-based)` | **MBTL Hook (Lasengle)** | Text hooking & translation patching for MELTY BLOOD: TYPE LUMINA | [MaxAkito / MBTL Community Patch](https://github.com/MaxAkito/MBTL-Community-Patch) |
 

@@ -35,6 +35,7 @@ A centralized WPF toolset for reverse-engineering and translating Japanese visua
 | YU-RIS | Maggot Baits, Erewhon, etc | [ Guide](docs/engines/yuris.md) |
 | rUGP Engine | Schwarzesmarken | [ Guide](docs/engines/rugp.md) |
 | Lasengle | MELTY BLOOD: TYPE LUMINA | [ Guide](docs/engines/lasengle.md) |
+| Lithium (3DS) | Shin Megami Tensei IV, etc | [ Guide](docs/engines/lithium-(3ds).md) |
 ---
  **[Full Documentation Index ](docs/README.md)**  —
  **[Rance's String Name Guide ](https://github.com/Jannabie/Niche-Studio-Weirdo/blob/main/Rance%20Guide/Rance%20Name%20Guide.md)** — **[Rance X Scripting Guide ](https://github.com/Jannabie/Niche-Studio-Weirdo/blob/main/Rance%20Guide/Rance%20Script%20Guide.md)**

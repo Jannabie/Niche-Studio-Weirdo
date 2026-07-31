@@ -30,6 +30,7 @@
 | [YU-RIS](engines/yuris.md) | Maggot Baits, Erewhon, ef series | `.ypf`, `.ybn` |
 | [rUGP Engine](engines/rugp.md) | Schwarzesmarken | `.jlx` |
 | [Lasengle](engines/lasengle.md) | MELTY BLOOD: TYPE LUMINA | Hook-based |
+| [Lithium (3DS)](engines/lithium-(3ds).md) | Shin Megami Tensei IV, etc | `.cia`, `.cxi`, `.romfs`, `.bflim` |
 
 ## General Workflow
 
