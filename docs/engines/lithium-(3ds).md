@@ -2,11 +2,11 @@
 
 > A unified toolset for modifying Nintendo 3DS ROMs (`.cia`), specifically tailored for ATLUS games (like Shin Megami Tensei IV) and their proprietary formats.
 
-## 🛠️ Requirements
+##  Requirements
 - 3DS Decrypted or Encrypted `.cia` files
 - If using encrypted `.cia`, `seeddb.bin` must be present in the tool's directory (bundled automatically).
 
-## 🗃️ 1. Archive Extraction & Building
+##  1. Archive Extraction & Building
 This tool handles the standard 3DS ROM workflow.
 
 ### EXTRACT (.CIA -> ROMFS)
@@ -22,7 +22,7 @@ This tool handles the standard 3DS ROM workflow.
 
 ---
 
-## 📝 2. Script Translation (Moonbeam)
+##  2. Script Translation (Moonbeam)
 For ATLUS games like SMT IV, text is handled via proprietary formats which are parsed by the integrated `Moonbeam` script translator.
 
 ### MASS FOLDER MODE
@@ -35,5 +35,5 @@ For ATLUS games like SMT IV, text is handled via proprietary formats which are p
 
 ---
 
-## 🖼️ 3. Graphics (.BFLIM)
+## 3. Graphics (.BFLIM)
 *(Image conversion tools for BFLIM, BIMG, etc., are currently a work in progress and not yet fully implemented.)*
