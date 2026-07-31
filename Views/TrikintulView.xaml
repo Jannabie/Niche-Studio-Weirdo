@@ -151,13 +151,24 @@
                     <!-- ═══════════════════════════════════════════════════════ -->
                     <TextBlock Text="Image Tools" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
 
-                    <Border Background="#0A1A0A" CornerRadius="0" Padding="12,10" Margin="0,0,0,10" BorderThickness="1" BorderBrush="#1E3A1E">
-                        <StackPanel>
-                            <TextBlock Foreground="#60C060" FontWeight="Bold" FontSize="11" Text="COMING IN NEXT UPDATE"/>
-                            <TextBlock Foreground="#7A9A7A" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"
-                                       Text="Image conversion tools for 3DS formats (BFLIM, BIMG, etc.) are currently in development and will be available in the next update."/>
-                        </StackPanel>
-                    </Border>
+                    <Grid Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="ImagePath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select STEX, TGA, or PNG file..."/>
+                        <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseImageFile_Click"/>
+                    </Grid>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,10">
+                        <Button Content="STEX -> PNG" Style="{StaticResource ActionButton}" Margin="0,0,8,0" Click="StexToPng_Click"/>
+                        <Button Content="PNG -> STEX" Style="{StaticResource ActionButtonGreen}" Margin="0,0,8,0" Click="PngToStex_Click"/>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,24">
+                        <Button Content="TGA -> PNG" Style="{StaticResource ActionButton}" Margin="0,0,8,0" Click="TgaToPng_Click"/>
+                        <Button Content="PNG -> TGA" Style="{StaticResource ActionButtonGreen}" Click="PngToTga_Click"/>
+                    </StackPanel>
 
                 </StackPanel>
             </Border>

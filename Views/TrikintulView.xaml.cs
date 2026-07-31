@@ -5,6 +5,8 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using NicheStudioWeirdo.Utils;
+using System;
 
 namespace NicheStudioWeirdo.Views
 {
@@ -188,6 +190,110 @@ namespace NicheStudioWeirdo.Views
             string args = $"{modeArg} \"{MoonbeamPath.Text}\"";
             Main.LogToConsole($"Trikintul: {logMessage}");
             await ToolRunner.RunAsync(Path.GetDirectoryName(toolPath) ?? "", toolPath, args, Main);
+        }
+        private void BrowseImageFile_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog { Filter = "Image Files|*.stex;*.tga;*.png|STEX Files|*.stex|TGA Files|*.tga|PNG Files|*.png|All Files|*.*" };
+            if (dlg.ShowDialog() == true)
+            {
+                ImagePath.Text = dlg.FileName;
+            }
+        }
+
+        private void StexToPng_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(ImagePath.Text))
+            {
+                Main.LogToConsole("Trikintul: Please select a STEX file.");
+                return;
+            }
+
+            try
+            {
+                string outPath = Path.ChangeExtension(ImagePath.Text, ".png");
+                SmtTextureConverter.ConvertStexToPng(ImagePath.Text, outPath);
+                Main.LogToConsole($"Trikintul: Converted STEX to PNG -> {outPath}");
+            }
+            catch (Exception ex)
+            {
+                Main.LogToConsole($"Trikintul Error: {ex.Message}");
+            }
+        }
+
+        private void PngToStex_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(ImagePath.Text))
+            {
+                Main.LogToConsole("Trikintul: Please select a PNG file.");
+                return;
+            }
+
+            OpenFileDialog refDlg = new OpenFileDialog { Title = "Select Reference STEX File", Filter = "STEX Files|*.stex|All Files|*.*" };
+            if (refDlg.ShowDialog() == true)
+            {
+                try
+                {
+                    string outPath = Path.ChangeExtension(ImagePath.Text, ".stex");
+                    SmtTextureConverter.ConvertPngToStex(ImagePath.Text, outPath, refDlg.FileName);
+                    Main.LogToConsole($"Trikintul: Converted PNG to STEX -> {outPath}");
+                }
+                catch (Exception ex)
+                {
+                    Main.LogToConsole($"Trikintul Error: {ex.Message}");
+                }
+            }
+            else
+            {
+                Main.LogToConsole("Trikintul: PNG to STEX conversion cancelled. Reference STEX is required.");
+            }
+        }
+
+        private void TgaToPng_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(ImagePath.Text))
+            {
+                Main.LogToConsole("Trikintul: Please select a TGA file.");
+                return;
+            }
+
+            try
+            {
+                string outPath = Path.ChangeExtension(ImagePath.Text, ".png");
+                SmtTextureConverter.ConvertTgaToPng(ImagePath.Text, outPath);
+                Main.LogToConsole($"Trikintul: Converted TGA to PNG -> {outPath}");
+            }
+            catch (Exception ex)
+            {
+                Main.LogToConsole($"Trikintul Error: {ex.Message}");
+            }
+        }
+
+        private void PngToTga_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(ImagePath.Text))
+            {
+                Main.LogToConsole("Trikintul: Please select a PNG file.");
+                return;
+            }
+
+            OpenFileDialog refDlg = new OpenFileDialog { Title = "Select Reference TGA File", Filter = "TGA Files|*.tga|All Files|*.*" };
+            if (refDlg.ShowDialog() == true)
+            {
+                try
+                {
+                    string outPath = Path.ChangeExtension(ImagePath.Text, ".tga");
+                    SmtTextureConverter.ConvertPngToTga(ImagePath.Text, outPath, refDlg.FileName);
+                    Main.LogToConsole($"Trikintul: Converted PNG to TGA -> {outPath}");
+                }
+                catch (Exception ex)
+                {
+                    Main.LogToConsole($"Trikintul Error: {ex.Message}");
+                }
+            }
+            else
+            {
+                Main.LogToConsole("Trikintul: PNG to TGA conversion cancelled. Reference TGA is required.");
+            }
         }
     }
 }
