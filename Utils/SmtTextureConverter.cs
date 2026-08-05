@@ -519,10 +519,14 @@ namespace NicheStudioWeirdo.Utils
 
         // ─────────────────────────────────────────────────────────
         // ETC1 / ETC1A4 DECODER
+        // Based on Kuriimu2's reference implementation for 3DS
         // ─────────────────────────────────────────────────────────
 
         private static readonly int[] SubTileX = { 0, 4, 0, 4 };
         private static readonly int[] SubTileY = { 0, 0, 4, 4 };
+
+        // 3DS Z-order for 4x4 blocks: maps output raster index → ETC1 pixel index
+        private static readonly int[] Etc1ZOrder = { 0, 4, 1, 5, 8, 12, 9, 13, 2, 6, 3, 7, 10, 14, 11, 15 };
 
         private static void DecodeETC1(byte[] src, int srcOff, byte[] dst, int w, int h, bool hasAlpha)
         {
@@ -537,122 +541,121 @@ namespace NicheStudioWeirdo.Utils
                     if (hasAlpha)
                     {
                         if (pos + 8 > src.Length) return;
-                        alphaBlock = BitConverter.ToUInt64(src, pos);
+                        alphaBlock = BitConverter.ToUInt64(src, pos); // LE
                         pos += 8;
                     }
 
                     if (pos + 8 > src.Length) return;
 
-                    uint blockLow  = (uint)((src[pos + 0] << 24) | (src[pos + 1] << 16) | (src[pos + 2] << 8) | src[pos + 3]);
-                    uint blockHigh = (uint)((src[pos + 4] << 24) | (src[pos + 5] << 16) | (src[pos + 6] << 8) | src[pos + 7]);
+                    // Read 8 bytes as LE uint64, matching Kuriimu2's approach
+                    ulong colors = BitConverter.ToUInt64(src, pos);
                     pos += 8;
 
-                    bool flip = (blockHigh & 0x1000000) != 0;
-                    bool diff = (blockHigh & 0x2000000) != 0;
+                    // Split into fields (Kuriimu2 Block layout):
+                    // bits 0-15:  LSB (per-pixel selector low bits)
+                    // bits 16-31: MSB (per-pixel selector high bits)
+                    // bits 32-39: Flags (flip, diff, tables)
+                    // bits 40-47: B color byte
+                    // bits 48-55: G color byte
+                    // bits 56-63: R color byte
+                    ushort pixLsb  = (ushort)(colors & 0xFFFF);
+                    ushort pixMsb  = (ushort)((colors >> 16) & 0xFFFF);
+                    byte   flags   = (byte)((colors >> 32) & 0xFF);
+                    byte   colorB  = (byte)((colors >> 40) & 0xFF);
+                    byte   colorG  = (byte)((colors >> 48) & 0xFF);
+                    byte   colorR  = (byte)((colors >> 56) & 0xFF);
 
-                    // 3DS ETC1: blockHigh byte layout is [flags][B][G][R] (not [flags][R][G][B])
-                    // bits 23-16 = B, bits 15-8 = G, bits 7-0 = R
-                    uint r1, g1, b1, r2, g2, b2;
+                    bool flip = (flags & 1) == 1;
+                    bool diff = (flags & 2) == 2;
+
+                    int table0 = (flags >> 5) & 7;
+                    int table1 = (flags >> 2) & 7;
+
+                    // Decode base colors
+                    uint r0, g0, b0, r1, g1, b1;
 
                     if (diff)
                     {
-                        r1 = blockHigh & 0xF8;
-                        g1 = (blockHigh & 0x00f800) >> 8;
-                        b1 = (blockHigh & 0xf80000) >> 16;
+                        // 5-bit base + 3-bit delta
+                        int rBase = colorR >> 3;
+                        int gBase = colorG >> 3;
+                        int bBase = colorB >> 3;
 
-                        int dr = (int)(blockHigh & 0x07); if (dr > 3) dr -= 8;
-                        int dg = (int)((blockHigh >> 8) & 0x07); if (dg > 3) dg -= 8;
-                        int db = (int)((blockHigh >> 16) & 0x07); if (db > 3) db -= 8;
+                        int rDelta = (colorR & 7); if (rDelta > 3) rDelta -= 8;
+                        int gDelta = (colorG & 7); if (gDelta > 3) gDelta -= 8;
+                        int bDelta = (colorB & 7); if (bDelta > 3) bDelta -= 8;
 
-                        r2 = (uint)(((int)(r1 >> 3) + dr) & 0x1F);
-                        g2 = (uint)(((int)(g1 >> 3) + dg) & 0x1F);
-                        b2 = (uint)(((int)(b1 >> 3) + db) & 0x1F);
+                        r0 = (uint)((rBase << 3) | (rBase >> 2));
+                        g0 = (uint)((gBase << 3) | (gBase >> 2));
+                        b0 = (uint)((bBase << 3) | (bBase >> 2));
 
-                        r1 |= r1 >> 5;
-                        g1 |= g1 >> 5;
-                        b1 |= b1 >> 5;
+                        int r1v = (rBase + rDelta) & 0x1F;
+                        int g1v = (gBase + gDelta) & 0x1F;
+                        int b1v = (bBase + bDelta) & 0x1F;
 
-                        r2 = (r2 << 3) | (r2 >> 2);
-                        g2 = (g2 << 3) | (g2 >> 2);
-                        b2 = (b2 << 3) | (b2 >> 2);
+                        r1 = (uint)((r1v << 3) | (r1v >> 2));
+                        g1 = (uint)((g1v << 3) | (g1v >> 2));
+                        b1 = (uint)((b1v << 3) | (b1v >> 2));
                     }
                     else
                     {
-                        r1 = blockHigh & 0xF0; r1 |= r1 >> 4;
-                        g1 = (blockHigh >> 8) & 0xF0; g1 |= g1 >> 4;
-                        b1 = (blockHigh >> 16) & 0xF0; b1 |= b1 >> 4;
+                        // Two independent 4-bit colors
+                        r0 = (uint)(colorR >> 4); r0 = r0 * 17;
+                        g0 = (uint)(colorG >> 4); g0 = g0 * 17;
+                        b0 = (uint)(colorB >> 4); b0 = b0 * 17;
 
-                        r2 = (blockHigh & 0x0F) << 4; r2 |= r2 >> 4;
-                        g2 = ((blockHigh >> 8) & 0x0F) << 4; g2 |= g2 >> 4;
-                        b2 = ((blockHigh >> 16) & 0x0F) << 4; b2 |= b2 >> 4;
+                        r1 = (uint)(colorR & 0xF); r1 = r1 * 17;
+                        g1 = (uint)(colorG & 0xF); g1 = g1 * 17;
+                        b1 = (uint)(colorB & 0xF); b1 = b1 * 17;
                     }
-
-                    uint table1 = (blockHigh >> 29) & 7;
-                    uint table2 = (blockHigh >> 26) & 7;
 
                     int subBaseX = tileX + SubTileX[sub];
                     int subBaseY = tileY + SubTileY[sub];
 
-                    if (!flip)
+                    // flip=false → sub-block split by columns (left 2 vs right 2) → flipbitmask=8
+                    // flip=true  → sub-block split by rows (top 2 vs bottom 2) → flipbitmask=2
+                    int flipbitmask = flip ? 2 : 8;
+
+                    // Iterate 16 pixels in Z-order (matching Kuriimu2)
+                    for (int j = 0; j < 16; j++)
                     {
-                        for (int py = 0; py < 4; py++)
-                        for (int px = 0; px < 4; px++)
+                        int i = Etc1ZOrder[j]; // ETC1 pixel index
+
+                        int px = j & 3;       // x within 4x4 block
+                        int py = j >> 2;      // y within 4x4 block
+
+                        int outX = subBaseX + px;
+                        int outY = subBaseY + py;
+                        if (outX >= w || outY >= h) continue;
+
+                        // Sub-block selection uses ETC1 index, not physical position
+                        bool isSB1 = (i & flipbitmask) == 0;
+                        uint cr = isSB1 ? r0 : r1;
+                        uint cg = isSB1 ? g0 : g1;
+                        uint cb = isSB1 ? b0 : b1;
+                        int tbl = isSB1 ? table0 : table1;
+
+                        // Get 2-bit modifier selector from MSB/LSB at position i
+                        int sel = ((pixMsb >> i) & 1) * 2 + ((pixLsb >> i) & 1);
+                        int modifier = EtcModTable[(uint)tbl, sel];
+
+                        int dstIdx = (outY * w + outX) * 4;
+                        dst[dstIdx + 2] = Clamp((int)cr + modifier); // R
+                        dst[dstIdx + 1] = Clamp((int)cg + modifier); // G
+                        dst[dstIdx + 0] = Clamp((int)cb + modifier); // B
+
+                        // Alpha
+                        if (hasAlpha)
                         {
-                            uint tr = px < 2 ? r1 : r2, tg = px < 2 ? g1 : g2, tb = px < 2 ? b1 : b2;
-                            uint tt = px < 2 ? table1 : table2;
-                            WriteEtcPixel(dst, w, h, subBaseX + px, subBaseY + py, tr, tg, tb, px, py, blockLow, tt, alphaBlock, hasAlpha);
+                            byte a4 = (byte)((alphaBlock >> (i * 4)) & 0xF);
+                            dst[dstIdx + 3] = (byte)((a4 << 4) | a4);
                         }
-                    }
-                    else
-                    {
-                        for (int py = 0; py < 4; py++)
-                        for (int px = 0; px < 4; px++)
+                        else
                         {
-                            uint tr = py < 2 ? r1 : r2, tg = py < 2 ? g1 : g2, tb = py < 2 ? b1 : b2;
-                            uint tt = py < 2 ? table1 : table2;
-                            WriteEtcPixel(dst, w, h, subBaseX + px, subBaseY + py, tr, tg, tb, px, py, blockLow, tt, alphaBlock, hasAlpha);
+                            dst[dstIdx + 3] = 255;
                         }
                     }
                 }
-            }
-        }
-
-        private static void WriteEtcPixel(byte[] dst, int w, int h, int outX, int outY,
-            uint r, uint g, uint b, int px, int py, uint blockLow, uint table,
-            ulong alphaBlock, bool hasAlpha)
-        {
-            if (outX >= w || outY >= h) return;
-
-            // 3DS ETC1 uses Morton Z-order within the 4x4 block!
-            int index = ((px & 1) << 2) | ((py & 1) << 3) | ((px & 2) >> 1) | (py & 2);
-
-            int lsb, msb;
-            if (index < 8)
-            {
-                lsb = (int)((blockLow >> (index + 24)) & 1);
-                msb = (int)((blockLow >> (index + 8)) & 1);
-            }
-            else
-            {
-                lsb = (int)((blockLow >> (index + 8)) & 1);
-                msb = (int)((blockLow >> (index - 8)) & 1);
-            }
-            int modifier = EtcModTable[table, lsb + msb * 2];
-
-            int dstIdx = (outY * w + outX) * 4;
-            dst[dstIdx + 2] = Clamp((int)r + modifier); // R
-            dst[dstIdx + 1] = Clamp((int)g + modifier); // G
-            dst[dstIdx + 0] = Clamp((int)b + modifier); // B
-
-            if (hasAlpha)
-            {
-                int alphaShift = index * 4;
-                byte a4 = (byte)((alphaBlock >> alphaShift) & 0xF);
-                dst[dstIdx + 3] = (byte)((a4 << 4) | a4);
-            }
-            else
-            {
-                dst[dstIdx + 3] = 255;
             }
         }
 
