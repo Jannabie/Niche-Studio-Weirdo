@@ -6,39 +6,32 @@ using System.Windows.Media.Imaging;
 
 namespace NicheStudioWeirdo.Utils
 {
-    /// <summary>
-    /// Converter for SMT IV / ATLUS 3DS texture formats.
-    /// STEX header layout:
-    ///   [0-3]   Magic "STEX"
-    ///   [4]     Flags (0=normal, 1=variant)
-    ///   [8-11]  Version (0x0DE1)
-    ///   [12-15] Width (uint32 LE)
-    ///   [16-19] Height (uint32 LE)
-    ///   [20-23] GL Data Type (0x1401=UNSIGNED_BYTE, 0x8034=UNSIGNED_SHORT_4_4_4_4_REV)
-    ///   [24-27] PICA Format  (0x674E+GPU_TEXFORMAT enum index)
-    ///   [28-31] Pixel data size in bytes (uint32 LE)
-    ///   [32-35] Pixel data start offset (uint32 LE) — typically 0x80 = 128
-    /// </summary>
     public static class SmtTextureConverter
     {
-        // PICA format codes = 0x674E + GPU_TEXFORMAT index
-        private const int PicaBase = 0x674E;
-        private const int FmtRGBA8    = 0;   // 0x674E: 32bpp raw, tiled 8x8, RGBA order
-        private const int FmtRGB8     = 1;   // 0x674F: 24bpp raw, tiled 8x8
-        private const int FmtRGBA5551 = 2;   // 0x6750: 16bpp, tiled 8x8
-        private const int FmtRGB565   = 3;   // 0x6751: 16bpp, tiled 8x8
-        private const int FmtRGBA4    = 4;   // 0x6752: 16bpp RGBA4444, tiled 8x8
-        private const int FmtIA8      = 5;
-        private const int FmtRG8      = 6;
-        private const int FmtI8       = 7;
-        private const int FmtA8       = 8;
-        private const int FmtIA4      = 9;
-        private const int FmtI4       = 10;
-        private const int FmtA4       = 11;
-        private const int FmtETC1     = 12;  // 0x675A: ETC1 compressed, 4bpp
-        private const int FmtETC1A4   = 13;  // 0x675B: ETC1+A4, 8bpp
+        // ─────────────────────────────────────────────────────────
+        // STEX HEADER LAYOUT (offset → field)
+        //   0: Magic "STEX"
+        //  12: Width  (int32)
+        //  16: Height (int32)
+        //  20: GL Type (uint32) — OpenGL pixel type constant
+        //  24: PICA Code (uint32) — GPU texture format code
+        //  28: Data Size (int32) — raw pixel data byte count
+        //  32: Data Offset (int32) — byte offset where pixel data begins (usually 0x80)
+        // ─────────────────────────────────────────────────────────
 
-        // ETC1 modifier tables (8 codewords × 4 values)
+        // PICA texture format codes (at offset 24 in STEX header)
+        private const uint PicaETC1   = 0x675A;
+        private const uint PicaETC1A4 = 0x675B;
+
+        // GL type constants (at offset 20 in STEX header)
+        private const uint GL_UNSIGNED_BYTE           = 0x1401;
+        private const uint GL_UNSIGNED_SHORT_4_4_4_4  = 0x8033;
+        private const uint GL_UNSIGNED_SHORT_5_5_5_1  = 0x8034;
+        private const uint GL_UNSIGNED_SHORT_5_6_5    = 0x8363;
+        private const uint GL_LA4                     = 0x6760;
+        private const uint GL_L4_A4                   = 0x6761;
+
+        // ETC1 modifier table
         private static readonly int[,] EtcModTable = {
             {  2,  8,  -2,  -8 },
             {  5, 17,  -5, -17 },
@@ -50,9 +43,24 @@ namespace NicheStudioWeirdo.Utils
             { 47, 183, -47, -183 }
         };
 
-        // ──────────────────────────────────────────────────────────
+        // SPICA 8×8 tile swizzle LUT (Morton Z-order within an 8×8 tile)
+        private static readonly int[] SwizzleLUT = {
+             0,  1,  8,  9,  2,  3, 10, 11,
+            16, 17, 24, 25, 18, 19, 26, 27,
+             4,  5, 12, 13,  6,  7, 14, 15,
+            20, 21, 28, 29, 22, 23, 30, 31,
+            32, 33, 40, 41, 34, 35, 42, 43,
+            48, 49, 56, 57, 50, 51, 58, 59,
+            36, 37, 44, 45, 38, 39, 46, 47,
+            52, 53, 60, 61, 54, 55, 62, 63
+        };
+
+        // Internal format enum for cleaner switch statements
+        private enum TexFmt { RGBA8, RGB8, RGBA4, RGBA5551, RGB565, LA8, LA4, L8, A8, L4, A4, ETC1, ETC1A4 }
+
+        // ─────────────────────────────────────────────────────────
         // PUBLIC API
-        // ──────────────────────────────────────────────────────────
+        // ─────────────────────────────────────────────────────────
 
         public static Task ConvertStexToPngAsync(string stexPath, string outputPngPath)
             => Task.Run(() => ConvertStexToPng(stexPath, outputPngPath));
@@ -66,9 +74,9 @@ namespace NicheStudioWeirdo.Utils
         public static Task ConvertPngToTgaAsync(string pngPath, string outputTgaPath, string referenceTgaPath)
             => Task.Run(() => ConvertPngToTga(pngPath, outputTgaPath, referenceTgaPath));
 
-        // ──────────────────────────────────────────────────────────
+        // ─────────────────────────────────────────────────────────
         // STEX → PNG
-        // ──────────────────────────────────────────────────────────
+        // ─────────────────────────────────────────────────────────
 
         private static void ConvertStexToPng(string stexPath, string outputPngPath)
         {
@@ -78,51 +86,35 @@ namespace NicheStudioWeirdo.Utils
 
             int width      = BitConverter.ToInt32(file, 12);
             int height     = BitConverter.ToInt32(file, 16);
-            int picaCode   = BitConverter.ToInt32(file, 24);
-            int dataOffset = BitConverter.ToInt32(file, 32); // usually 0x80 = 128
-            int fmt        = picaCode - PicaBase;
+            uint glType    = BitConverter.ToUInt32(file, 20);
+            uint picaCode  = BitConverter.ToUInt32(file, 24);
+            int dataSize   = BitConverter.ToInt32(file, 28);
+            int dataOffset = BitConverter.ToInt32(file, 32);
 
             if (width <= 0 || height <= 0)
                 throw new Exception($"Invalid STEX dimensions: {width}×{height}");
             if (dataOffset < 32 || dataOffset >= file.Length)
                 throw new Exception($"Invalid STEX data offset: 0x{dataOffset:X}");
 
-            byte[] bgra = new byte[width * height * 4]; // BGRA32 output buffer
+            TexFmt fmt = DetermineFormat(glType, picaCode, width, height, dataSize);
 
-            switch (fmt)
+            byte[] bgra = new byte[width * height * 4];
+
+            if (fmt == TexFmt.ETC1 || fmt == TexFmt.ETC1A4)
             {
-                case FmtRGBA8:
-                    DecodeRGBA8Tiled(file, dataOffset, bgra, width, height);
-                    break;
-                case FmtRGBA4:
-                    DecodeRGBA4Tiled(file, dataOffset, bgra, width, height);
-                    break;
-                case FmtRGBA5551:
-                    DecodeRGBA5551Tiled(file, dataOffset, bgra, width, height);
-                    break;
-                case FmtRGB565:
-                    DecodeRGB565Tiled(file, dataOffset, bgra, width, height);
-                    break;
-                case FmtETC1:
-                    DecodeETC1(file, dataOffset, bgra, width, height, false);
-                    break;
-                case FmtETC1A4:
-                    DecodeETC1(file, dataOffset, bgra, width, height, true);
-                    break;
-                case FmtA8:
-                    DecodeA8Tiled(file, dataOffset, bgra, width, height);
-                    break;
-                default:
-                    throw new Exception($"Unsupported PICA format: 0x{picaCode:X4} (enum {fmt}). Supported: RGBA8, RGBA4, RGBA5551, RGB565, ETC1, ETC1A4, A8.");
+                DecodeETC1(file, dataOffset, bgra, width, height, fmt == TexFmt.ETC1A4);
+            }
+            else
+            {
+                DecodeSwizzled(file, dataOffset, bgra, width, height, fmt);
             }
 
             WritePng(bgra, width, height, outputPngPath, PixelFormats.Bgra32);
         }
 
-        // ──────────────────────────────────────────────────────────
-        // PNG → STEX  (re-encodes as the same pixel format)
-        // For ETC1/ETC1A4 the output is converted to RGBA8 (format updated in header).
-        // ──────────────────────────────────────────────────────────
+        // ─────────────────────────────────────────────────────────
+        // PNG → STEX
+        // ─────────────────────────────────────────────────────────
 
         private static void ConvertPngToStex(string pngPath, string outputStexPath, string referenceStexPath)
         {
@@ -130,552 +122,657 @@ namespace NicheStudioWeirdo.Utils
             if (refFile.Length < 36 || refFile[0] != 'S' || refFile[1] != 'T' || refFile[2] != 'E' || refFile[3] != 'X')
                 throw new Exception("Invalid reference STEX file.");
 
-            int refWidth  = BitConverter.ToInt32(refFile, 12);
-            int refHeight = BitConverter.ToInt32(refFile, 16);
-            int picaCode  = BitConverter.ToInt32(refFile, 24);
-            int dataOff   = BitConverter.ToInt32(refFile, 32);
-            int fmt       = picaCode - PicaBase;
+            int refWidth   = BitConverter.ToInt32(refFile, 12);
+            int refHeight  = BitConverter.ToInt32(refFile, 16);
+            uint glType    = BitConverter.ToUInt32(refFile, 20);
+            uint picaCode  = BitConverter.ToUInt32(refFile, 24);
+            int dataSize   = BitConverter.ToInt32(refFile, 28);
+            int dataOff    = BitConverter.ToInt32(refFile, 32);
 
-            // Load PNG on STA thread (WPF requirement)
+            TexFmt fmt = DetermineFormat(glType, picaCode, refWidth, refHeight, dataSize);
+
             byte[] pngPixels = ReadPngBgra32(pngPath, out int pngW, out int pngH);
-
             if (pngW != refWidth || pngH != refHeight)
                 throw new Exception($"PNG size ({pngW}×{pngH}) doesn't match reference STEX ({refWidth}×{refHeight}).");
 
             byte[] pixelData;
-            int outPicaCode = picaCode;
-            int glType = BitConverter.ToInt32(refFile, 20);
+            uint outGlType = glType;
+            uint outPicaCode = picaCode;
 
-            switch (fmt)
+            if (fmt == TexFmt.ETC1 || fmt == TexFmt.ETC1A4)
             {
-                case FmtRGBA8:
-                    pixelData = EncodeRGBA8Tiled(pngPixels, refWidth, refHeight);
-                    break;
-                case FmtRGBA4:
-                    pixelData = EncodeRGBA4Tiled(pngPixels, refWidth, refHeight);
-                    break;
-                case FmtRGBA5551:
-                    pixelData = EncodeRGBA5551Tiled(pngPixels, refWidth, refHeight);
-                    break;
-                case FmtRGB565:
-                    pixelData = EncodeRGB565Tiled(pngPixels, refWidth, refHeight);
-                    break;
-                case FmtETC1:
-                case FmtETC1A4:
-                    // ETC1 encoding not supported: downgrade to RGBA8 uncompressed
-                    pixelData  = EncodeRGBA8Tiled(pngPixels, refWidth, refHeight);
-                    outPicaCode = PicaBase + FmtRGBA8;
-                    glType      = 0x1401; // GL_UNSIGNED_BYTE
-                    break;
-                default:
-                    throw new Exception($"Cannot encode back to PICA format 0x{picaCode:X4}.");
+                // Cannot re-encode ETC1 — convert to RGBA8 instead
+                pixelData = EncodeSwizzled(pngPixels, refWidth, refHeight, TexFmt.RGBA8);
+                outGlType = GL_UNSIGNED_BYTE;
+                // Keep same PICA code — the game should still accept RGBA8 data
+                // Update data size header field
+            }
+            else
+            {
+                pixelData = EncodeSwizzled(pngPixels, refWidth, refHeight, fmt);
             }
 
-            // Build output file: copy original header, patch format+size+data
-            int newDataOffset = dataOff; // keep same offset
-            byte[] outFile = new byte[newDataOffset + pixelData.Length];
-
-            // Copy header from reference up to dataOff
+            byte[] outFile = new byte[dataOff + pixelData.Length];
             Array.Copy(refFile, 0, outFile, 0, Math.Min(dataOff, refFile.Length));
-
-            // Patch header fields
-            WriteInt32(outFile, 20, glType);
-            WriteInt32(outFile, 24, outPicaCode);
+            WriteInt32(outFile, 20, (int)outGlType);
+            WriteInt32(outFile, 24, (int)outPicaCode);
             WriteInt32(outFile, 28, pixelData.Length);
-
-            // Write pixel data
-            Array.Copy(pixelData, 0, outFile, newDataOffset, pixelData.Length);
-
+            Array.Copy(pixelData, 0, outFile, dataOff, pixelData.Length);
             File.WriteAllBytes(outputStexPath, outFile);
         }
 
-        // ──────────────────────────────────────────────────────────
-        // TGA → PNG
-        // ──────────────────────────────────────────────────────────
+        // ─────────────────────────────────────────────────────────
+        // FORMAT DETECTION
+        // Uses GL type (offset 20) + computed BPP to determine format.
+        // For ETC1/ETC1A4, uses PICA code (offset 24) as differentiator.
+        // ─────────────────────────────────────────────────────────
 
-        private static void ConvertTgaToPng(string tgaPath, string outputPngPath)
+        private static TexFmt DetermineFormat(uint glType, uint picaCode, int w, int h, int dataSize)
         {
-            byte[] file = File.ReadAllBytes(tgaPath);
-            if (file.Length < 18) throw new Exception("TGA file too short.");
-
-            byte idLen     = file[0];
-            byte cmType    = file[1];
-            byte imgType   = file[2];
-            int  width     = BitConverter.ToUInt16(file, 12);
-            int  height    = BitConverter.ToUInt16(file, 14);
-            byte bpp       = file[16];
-            byte imgDesc   = file[17];
-
-            if (cmType != 0) throw new Exception("Color-mapped TGA not supported.");
-            if (imgType != 2 && imgType != 10)
-                throw new Exception($"Unsupported TGA type {imgType}. Only 2 (raw) and 10 (RLE) supported.");
-            if (bpp != 32 && bpp != 24)
-                throw new Exception($"Unsupported TGA bpp {bpp}. Only 24/32 supported.");
-
-            bool bottomToTop = (imgDesc & (1 << 5)) == 0; // bit 5 = 0 means bottom-to-top
-            int  bpp4        = bpp / 8;
-            int  dataStart   = 18 + idLen;
-
-            byte[] bgra = new byte[width * height * 4];
-
-            if (imgType == 2)
+            // GL type directly specifies some formats
+            switch (glType)
             {
-                // Uncompressed
-                int off = dataStart;
-                for (int i = 0; i < width * height && off + bpp4 <= file.Length; i++, off += bpp4)
+                case GL_UNSIGNED_SHORT_4_4_4_4: return TexFmt.RGBA4;
+                case GL_UNSIGNED_SHORT_5_5_5_1: return TexFmt.RGBA5551;
+                case GL_UNSIGNED_SHORT_5_6_5:   return TexFmt.RGB565;
+                case GL_LA4:                    return TexFmt.LA4;
+                case GL_L4_A4:                  return TexFmt.L4;
+            }
+
+            // For GL_UNSIGNED_BYTE (0x1401), use BPP + PICA code
+            int pixels = w * h;
+            if (pixels <= 0) throw new Exception("Invalid texture dimensions for format detection.");
+
+            int bpp = (dataSize * 8) / pixels;
+
+            // Check for ETC1/ETC1A4 by PICA code first
+            if (picaCode == PicaETC1)  return TexFmt.ETC1;
+            if (picaCode == PicaETC1A4) return TexFmt.ETC1A4;
+
+            // Fall back to BPP-based detection
+            switch (bpp)
+            {
+                case 32: return TexFmt.RGBA8;
+                case 24: return TexFmt.RGB8;
+                case 16: return TexFmt.LA8;
+                case 8:  return TexFmt.L8;
+                case 4:  return TexFmt.L4;
+                default:
+                    throw new Exception($"Cannot determine STEX format: GL=0x{glType:X4}, PICA=0x{picaCode:X4}, {w}×{h}, dataSize={dataSize}, bpp={bpp}");
+            }
+        }
+
+        // ─────────────────────────────────────────────────────────
+        // GENERIC SWIZZLED DECODER (all non-ETC formats)
+        // Uses SPICA's SwizzleLUT for 8×8 Morton tiling.
+        // ─────────────────────────────────────────────────────────
+
+        private static void DecodeSwizzled(byte[] src, int srcOff, byte[] dst, int w, int h, TexFmt fmt)
+        {
+            int iOffs = srcOff;
+
+            for (int tileY = 0; tileY < h; tileY += 8)
+            for (int tileX = 0; tileX < w; tileX += 8)
+            for (int px = 0; px < 64; px++)
+            {
+                int lx = SwizzleLUT[px] & 7;
+                int ly = (SwizzleLUT[px] - lx) >> 3;
+
+                int outX = tileX + lx;
+                int outY = tileY + ly;
+
+                if (outX >= w || outY < 0 || outY >= h)
                 {
-                    bgra[i * 4 + 0] = file[off + 0]; // B
-                    bgra[i * 4 + 1] = file[off + 1]; // G
-                    bgra[i * 4 + 2] = file[off + 2]; // R
-                    bgra[i * 4 + 3] = bpp4 == 4 ? file[off + 3] : (byte)255;
+                    iOffs += GetBytesPerPixel(fmt, iOffs);
+                    continue;
+                }
+
+                int di = (outY * w + outX) * 4;
+
+                switch (fmt)
+                {
+                    case TexFmt.RGBA8:
+                        if (iOffs + 3 >= src.Length) return;
+                        dst[di + 0] = src[iOffs + 3]; // B
+                        dst[di + 1] = src[iOffs + 2]; // G
+                        dst[di + 2] = src[iOffs + 1]; // R
+                        dst[di + 3] = src[iOffs + 0]; // A
+                        iOffs += 4;
+                        break;
+
+                    case TexFmt.RGB8:
+                        if (iOffs + 2 >= src.Length) return;
+                        dst[di + 0] = src[iOffs + 2]; // B
+                        dst[di + 1] = src[iOffs + 1]; // G
+                        dst[di + 2] = src[iOffs + 0]; // R
+                        dst[di + 3] = 255;
+                        iOffs += 3;
+                        break;
+
+                    case TexFmt.RGBA4:
+                        if (iOffs + 1 >= src.Length) return;
+                        {
+                            ushort v = (ushort)(src[iOffs] | (src[iOffs + 1] << 8));
+                            dst[di + 2] = (byte)(((v >> 12) & 0xF) * 17); // R
+                            dst[di + 1] = (byte)(((v >> 8) & 0xF) * 17);  // G
+                            dst[di + 0] = (byte)(((v >> 4) & 0xF) * 17);  // B
+                            dst[di + 3] = (byte)((v & 0xF) * 17);         // A
+                        }
+                        iOffs += 2;
+                        break;
+
+                    case TexFmt.RGBA5551:
+                        if (iOffs + 1 >= src.Length) return;
+                        {
+                            ushort v = (ushort)(src[iOffs] | (src[iOffs + 1] << 8));
+                            dst[di + 2] = Expand5((v >> 11) & 0x1F); // R
+                            dst[di + 1] = Expand5((v >> 6) & 0x1F);  // G
+                            dst[di + 0] = Expand5((v >> 1) & 0x1F);  // B
+                            dst[di + 3] = (byte)((v & 1) == 1 ? 255 : 0);
+                        }
+                        iOffs += 2;
+                        break;
+
+                    case TexFmt.RGB565:
+                        if (iOffs + 1 >= src.Length) return;
+                        {
+                            ushort v = (ushort)(src[iOffs] | (src[iOffs + 1] << 8));
+                            dst[di + 2] = Expand5((v >> 11) & 0x1F);            // R
+                            dst[di + 1] = (byte)(((v >> 5) & 0x3F) * 255 / 63); // G
+                            dst[di + 0] = Expand5(v & 0x1F);                    // B
+                            dst[di + 3] = 255;
+                        }
+                        iOffs += 2;
+                        break;
+
+                    case TexFmt.LA8:
+                        if (iOffs + 1 >= src.Length) return;
+                        {
+                            byte a = src[iOffs];
+                            byte l = src[iOffs + 1];
+                            dst[di + 0] = l; // B
+                            dst[di + 1] = l; // G
+                            dst[di + 2] = l; // R
+                            dst[di + 3] = a;
+                        }
+                        iOffs += 2;
+                        break;
+
+                    case TexFmt.LA4:
+                        if (iOffs >= src.Length) return;
+                        {
+                            byte val = src[iOffs];
+                            byte l = (byte)(((val >> 4) & 0xF) * 17);
+                            byte a = (byte)((val & 0xF) * 17);
+                            dst[di + 0] = l;
+                            dst[di + 1] = l;
+                            dst[di + 2] = l;
+                            dst[di + 3] = a;
+                        }
+                        iOffs++;
+                        break;
+
+                    case TexFmt.L8:
+                        if (iOffs >= src.Length) return;
+                        dst[di + 0] = src[iOffs];
+                        dst[di + 1] = src[iOffs];
+                        dst[di + 2] = src[iOffs];
+                        dst[di + 3] = 255;
+                        iOffs++;
+                        break;
+
+                    case TexFmt.A8:
+                        if (iOffs >= src.Length) return;
+                        dst[di + 0] = 255;
+                        dst[di + 1] = 255;
+                        dst[di + 2] = 255;
+                        dst[di + 3] = src[iOffs];
+                        iOffs++;
+                        break;
+
+                    case TexFmt.L4:
+                        {
+                            int byteIdx = iOffs >> 1;
+                            if (byteIdx >= src.Length) return;
+                            int shift = (iOffs & 1) << 2;
+                            byte l = (byte)(((src[byteIdx] >> shift) & 0xF) * 17);
+                            dst[di + 0] = l;
+                            dst[di + 1] = l;
+                            dst[di + 2] = l;
+                            dst[di + 3] = 255;
+                        }
+                        iOffs++;
+                        break;
+
+                    case TexFmt.A4:
+                        {
+                            int byteIdx = iOffs >> 1;
+                            if (byteIdx >= src.Length) return;
+                            int shift = (iOffs & 1) << 2;
+                            byte a = (byte)(((src[byteIdx] >> shift) & 0xF) * 17);
+                            dst[di + 0] = 255;
+                            dst[di + 1] = 255;
+                            dst[di + 2] = 255;
+                            dst[di + 3] = a;
+                        }
+                        iOffs++;
+                        break;
                 }
             }
-            else // imgType == 10
+        }
+
+        private static int GetBytesPerPixel(TexFmt fmt, int iOffs)
+        {
+            switch (fmt)
             {
-                // RLE compressed
-                int off = dataStart, px = 0;
-                while (px < width * height && off < file.Length)
+                case TexFmt.RGBA8: return 4;
+                case TexFmt.RGB8:  return 3;
+                case TexFmt.RGBA4: case TexFmt.RGBA5551: case TexFmt.RGB565: case TexFmt.LA8: return 2;
+                case TexFmt.LA4: case TexFmt.L8: case TexFmt.A8: return 1;
+                case TexFmt.L4: case TexFmt.A4: return 1; // for iOffs tracking (nibble count)
+                default: return 1;
+            }
+        }
+
+        // ─────────────────────────────────────────────────────────
+        // GENERIC SWIZZLED ENCODER (all non-ETC formats)
+        // ─────────────────────────────────────────────────────────
+
+        private static byte[] EncodeSwizzled(byte[] bgra, int w, int h, TexFmt fmt)
+        {
+            int tilesX = (w + 7) / 8, tilesY = (h + 7) / 8;
+            int totalPixels = tilesX * tilesY * 64;
+            int bytesNeeded;
+
+            switch (fmt)
+            {
+                case TexFmt.RGBA8: bytesNeeded = totalPixels * 4; break;
+                case TexFmt.RGB8:  bytesNeeded = totalPixels * 3; break;
+                case TexFmt.RGBA4: case TexFmt.RGBA5551: case TexFmt.RGB565: case TexFmt.LA8:
+                    bytesNeeded = totalPixels * 2; break;
+                case TexFmt.LA4: case TexFmt.L8: case TexFmt.A8:
+                    bytesNeeded = totalPixels; break;
+                case TexFmt.L4: case TexFmt.A4:
+                    bytesNeeded = totalPixels / 2; break;
+                default: bytesNeeded = totalPixels * 4; break;
+            }
+
+            byte[] dst = new byte[bytesNeeded];
+            int oOffs = 0;
+
+            for (int tileY = 0; tileY < h; tileY += 8)
+            for (int tileX = 0; tileX < w; tileX += 8)
+            for (int px = 0; px < 64; px++)
+            {
+                int lx = SwizzleLUT[px] & 7;
+                int ly = (SwizzleLUT[px] - lx) >> 3;
+
+                int srcX = tileX + lx;
+                int srcY = tileY + ly;
+
+                byte b = 0, g = 0, r = 0, a = 255;
+                if (srcX < w && srcY >= 0 && srcY < h)
                 {
-                    byte hdr   = file[off++];
-                    int  count = (hdr & 0x7F) + 1;
-                    if ((hdr & 0x80) != 0)
+                    int si = (srcY * w + srcX) * 4;
+                    b = bgra[si + 0];
+                    g = bgra[si + 1];
+                    r = bgra[si + 2];
+                    a = bgra[si + 3];
+                }
+
+                switch (fmt)
+                {
+                    case TexFmt.RGBA8:
+                        dst[oOffs + 0] = a;
+                        dst[oOffs + 1] = b;
+                        dst[oOffs + 2] = g;
+                        dst[oOffs + 3] = r;
+                        oOffs += 4;
+                        break;
+
+                    case TexFmt.RGB8:
+                        dst[oOffs + 0] = b;
+                        dst[oOffs + 1] = g;
+                        dst[oOffs + 2] = r;
+                        oOffs += 3;
+                        break;
+
+                    case TexFmt.RGBA4:
+                        {
+                            ushort v = (ushort)(((r >> 4) << 12) | ((g >> 4) << 8) | ((b >> 4) << 4) | (a >> 4));
+                            dst[oOffs] = (byte)(v & 0xFF);
+                            dst[oOffs + 1] = (byte)(v >> 8);
+                        }
+                        oOffs += 2;
+                        break;
+
+                    case TexFmt.RGBA5551:
+                        {
+                            ushort v = (ushort)(((r >> 3) << 11) | ((g >> 3) << 6) | ((b >> 3) << 1) | (a >= 128 ? 1 : 0));
+                            dst[oOffs] = (byte)(v & 0xFF);
+                            dst[oOffs + 1] = (byte)(v >> 8);
+                        }
+                        oOffs += 2;
+                        break;
+
+                    case TexFmt.RGB565:
+                        {
+                            ushort v = (ushort)(((r >> 3) << 11) | ((g >> 2) << 5) | (b >> 3));
+                            dst[oOffs] = (byte)(v & 0xFF);
+                            dst[oOffs + 1] = (byte)(v >> 8);
+                        }
+                        oOffs += 2;
+                        break;
+
+                    case TexFmt.LA8:
+                        {
+                            byte l = (byte)((r * 299 + g * 587 + b * 114) / 1000);
+                            dst[oOffs] = a;
+                            dst[oOffs + 1] = l;
+                        }
+                        oOffs += 2;
+                        break;
+
+                    case TexFmt.LA4:
+                        {
+                            byte l = (byte)(((r * 299 + g * 587 + b * 114) / 1000) >> 4);
+                            dst[oOffs] = (byte)((l << 4) | (a >> 4));
+                        }
+                        oOffs++;
+                        break;
+
+                    case TexFmt.L8:
+                        dst[oOffs] = (byte)((r * 299 + g * 587 + b * 114) / 1000);
+                        oOffs++;
+                        break;
+
+                    case TexFmt.A8:
+                        dst[oOffs] = a;
+                        oOffs++;
+                        break;
+
+                    case TexFmt.L4:
+                        {
+                            byte l = (byte)(((r * 299 + g * 587 + b * 114) / 1000) >> 4);
+                            int byteIdx = oOffs >> 1;
+                            int shift = (oOffs & 1) << 2;
+                            dst[byteIdx] = (byte)((dst[byteIdx] & ~(0xF << shift)) | (l << shift));
+                        }
+                        oOffs++;
+                        break;
+
+                    case TexFmt.A4:
+                        {
+                            byte a4 = (byte)(a >> 4);
+                            int byteIdx = oOffs >> 1;
+                            int shift = (oOffs & 1) << 2;
+                            dst[byteIdx] = (byte)((dst[byteIdx] & ~(0xF << shift)) | (a4 << shift));
+                        }
+                        oOffs++;
+                        break;
+                }
+            }
+
+            return dst;
+        }
+
+        // ─────────────────────────────────────────────────────────
+        // ETC1 / ETC1A4 DECODER
+        // ─────────────────────────────────────────────────────────
+
+        private static readonly int[] SubTileX = { 0, 4, 0, 4 };
+        private static readonly int[] SubTileY = { 0, 0, 4, 4 };
+
+        private static void DecodeETC1(byte[] src, int srcOff, byte[] dst, int w, int h, bool hasAlpha)
+        {
+            int pos = srcOff;
+
+            for (int tileY = 0; tileY < h; tileY += 8)
+            for (int tileX = 0; tileX < w; tileX += 8)
+            {
+                for (int sub = 0; sub < 4; sub++)
+                {
+                    ulong alphaBlock = 0xFFFFFFFFFFFFFFFFUL;
+                    if (hasAlpha)
                     {
-                        // RLE: one pixel repeated
-                        byte b = file[off++], g = file[off++], r = file[off++];
-                        byte a = bpp4 == 4 ? file[off++] : (byte)255;
-                        for (int i = 0; i < count && px < width * height; i++, px++)
-                        { bgra[px*4]=b; bgra[px*4+1]=g; bgra[px*4+2]=r; bgra[px*4+3]=a; }
+                        if (pos + 8 > src.Length) return;
+                        alphaBlock = BitConverter.ToUInt64(src, pos);
+                        pos += 8;
+                    }
+
+                    if (pos + 8 > src.Length) return;
+
+                    uint blockLow  = (uint)((src[pos + 0] << 24) | (src[pos + 1] << 16) | (src[pos + 2] << 8) | src[pos + 3]);
+                    uint blockHigh = (uint)((src[pos + 4] << 24) | (src[pos + 5] << 16) | (src[pos + 6] << 8) | src[pos + 7]);
+                    pos += 8;
+
+                    bool flip = (blockHigh & 0x1000000) != 0;
+                    bool diff = (blockHigh & 0x2000000) != 0;
+
+                    // 3DS ETC1: blockHigh byte layout is [flags][B][G][R] (not [flags][R][G][B])
+                    // bits 23-16 = B, bits 15-8 = G, bits 7-0 = R
+                    uint r1, g1, b1, r2, g2, b2;
+
+                    if (diff)
+                    {
+                        r1 = blockHigh & 0xF8;
+                        g1 = (blockHigh & 0x00f800) >> 8;
+                        b1 = (blockHigh & 0xf80000) >> 16;
+
+                        int dr = (int)(blockHigh & 0x07); if (dr > 3) dr -= 8;
+                        int dg = (int)((blockHigh >> 8) & 0x07); if (dg > 3) dg -= 8;
+                        int db = (int)((blockHigh >> 16) & 0x07); if (db > 3) db -= 8;
+
+                        r2 = (uint)(((int)(r1 >> 3) + dr) & 0x1F);
+                        g2 = (uint)(((int)(g1 >> 3) + dg) & 0x1F);
+                        b2 = (uint)(((int)(b1 >> 3) + db) & 0x1F);
+
+                        r1 |= r1 >> 5;
+                        g1 |= g1 >> 5;
+                        b1 |= b1 >> 5;
+
+                        r2 = (r2 << 3) | (r2 >> 2);
+                        g2 = (g2 << 3) | (g2 >> 2);
+                        b2 = (b2 << 3) | (b2 >> 2);
                     }
                     else
                     {
-                        // Raw: sequential pixels
-                        for (int i = 0; i < count && px < width * height && off + bpp4 <= file.Length; i++, px++, off += bpp4)
-                        { bgra[px*4]=file[off]; bgra[px*4+1]=file[off+1]; bgra[px*4+2]=file[off+2]; bgra[px*4+3]=bpp4==4?file[off+3]:(byte)255; }
+                        r1 = blockHigh & 0xF0; r1 |= r1 >> 4;
+                        g1 = (blockHigh >> 8) & 0xF0; g1 |= g1 >> 4;
+                        b1 = (blockHigh >> 16) & 0xF0; b1 |= b1 >> 4;
+
+                        r2 = (blockHigh & 0x0F) << 4; r2 |= r2 >> 4;
+                        g2 = ((blockHigh >> 8) & 0x0F) << 4; g2 |= g2 >> 4;
+                        b2 = ((blockHigh >> 16) & 0x0F) << 4; b2 |= b2 >> 4;
+                    }
+
+                    uint table1 = (blockHigh >> 29) & 7;
+                    uint table2 = (blockHigh >> 26) & 7;
+
+                    int subBaseX = tileX + SubTileX[sub];
+                    int subBaseY = tileY + SubTileY[sub];
+
+                    if (!flip)
+                    {
+                        for (int py = 0; py < 4; py++)
+                        for (int px = 0; px < 4; px++)
+                        {
+                            uint tr = px < 2 ? r1 : r2, tg = px < 2 ? g1 : g2, tb = px < 2 ? b1 : b2;
+                            uint tt = px < 2 ? table1 : table2;
+                            WriteEtcPixel(dst, w, h, subBaseX + px, subBaseY + py, tr, tg, tb, px, py, blockLow, tt, alphaBlock, hasAlpha);
+                        }
+                    }
+                    else
+                    {
+                        for (int py = 0; py < 4; py++)
+                        for (int px = 0; px < 4; px++)
+                        {
+                            uint tr = py < 2 ? r1 : r2, tg = py < 2 ? g1 : g2, tb = py < 2 ? b1 : b2;
+                            uint tt = py < 2 ? table1 : table2;
+                            WriteEtcPixel(dst, w, h, subBaseX + px, subBaseY + py, tr, tg, tb, px, py, blockLow, tt, alphaBlock, hasAlpha);
+                        }
+                    }
+                }
+            }
+        }
+
+        private static void WriteEtcPixel(byte[] dst, int w, int h, int outX, int outY,
+            uint r, uint g, uint b, int px, int py, uint blockLow, uint table,
+            ulong alphaBlock, bool hasAlpha)
+        {
+            if (outX >= w || outY >= h) return;
+
+            int index = px * 4 + py;
+            int lsb, msb;
+            if (index < 8)
+            {
+                lsb = (int)((blockLow >> (index + 24)) & 1);
+                msb = (int)((blockLow >> (index + 8)) & 1);
+            }
+            else
+            {
+                lsb = (int)((blockLow >> (index + 8)) & 1);
+                msb = (int)((blockLow >> (index - 8)) & 1);
+            }
+            int modifier = EtcModTable[table, lsb + msb * 2];
+
+            int dstIdx = (outY * w + outX) * 4;
+            dst[dstIdx + 2] = Clamp((int)r + modifier); // R
+            dst[dstIdx + 1] = Clamp((int)g + modifier); // G
+            dst[dstIdx + 0] = Clamp((int)b + modifier); // B
+
+            if (hasAlpha)
+            {
+                int alphaShift = ((py & 3) * 4 + (px & 3)) * 4;
+                byte a4 = (byte)((alphaBlock >> alphaShift) & 0xF);
+                dst[dstIdx + 3] = (byte)((a4 << 4) | a4);
+            }
+            else
+            {
+                dst[dstIdx + 3] = 255;
+            }
+        }
+
+        // ─────────────────────────────────────────────────────────
+        // TGA ↔ PNG CONVERTERS
+        // ─────────────────────────────────────────────────────────
+
+        public static void ConvertTgaToPng(string tgaPath, string outputPngPath)
+        {
+            byte[] fileBytes = File.ReadAllBytes(tgaPath);
+            if (fileBytes.Length < 18) throw new Exception("TGA file too short.");
+
+            byte idLength = fileBytes[0];
+            byte colorMapType = fileBytes[1];
+            byte imageType = fileBytes[2];
+            int width = BitConverter.ToUInt16(fileBytes, 12);
+            int height = BitConverter.ToUInt16(fileBytes, 14);
+            byte bpp = fileBytes[16];
+            byte imgDesc = fileBytes[17];
+
+            if (colorMapType != 0) throw new Exception("Color map TGA not supported.");
+            if (imageType != 2 && imageType != 10) throw new Exception($"Unsupported TGA image type {imageType}.");
+            if (bpp != 32 && bpp != 24) throw new Exception($"Unsupported TGA bpp {bpp}. Only 24/32 supported.");
+
+            bool bottomToTop = (imgDesc & (1 << 5)) == 0;
+            int bytesPerPixel = bpp / 8;
+            byte[] bgraPixels = new byte[width * height * 4];
+            int offset = 18 + idLength;
+
+            if (imageType == 2)
+            {
+                for (int i = 0; i < width * height; i++)
+                {
+                    if (offset + bytesPerPixel > fileBytes.Length) break;
+                    bgraPixels[i * 4 + 0] = fileBytes[offset++];
+                    bgraPixels[i * 4 + 1] = fileBytes[offset++];
+                    bgraPixels[i * 4 + 2] = fileBytes[offset++];
+                    bgraPixels[i * 4 + 3] = bytesPerPixel == 4 ? fileBytes[offset++] : (byte)255;
+                }
+            }
+            else // imageType == 10 (RLE)
+            {
+                int pixelCount = 0;
+                while (pixelCount < width * height && offset < fileBytes.Length)
+                {
+                    byte packetHeader = fileBytes[offset++];
+                    int count = (packetHeader & 0x7F) + 1;
+                    if ((packetHeader & 0x80) != 0)
+                    {
+                        byte cb = fileBytes[offset++];
+                        byte cg = fileBytes[offset++];
+                        byte cr = fileBytes[offset++];
+                        byte ca = bytesPerPixel == 4 ? fileBytes[offset++] : (byte)255;
+                        for (int i = 0; i < count && pixelCount < width * height; i++, pixelCount++)
+                        {
+                            bgraPixels[pixelCount * 4 + 0] = cb;
+                            bgraPixels[pixelCount * 4 + 1] = cg;
+                            bgraPixels[pixelCount * 4 + 2] = cr;
+                            bgraPixels[pixelCount * 4 + 3] = ca;
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < count && pixelCount < width * height; i++, pixelCount++)
+                        {
+                            bgraPixels[pixelCount * 4 + 0] = fileBytes[offset++];
+                            bgraPixels[pixelCount * 4 + 1] = fileBytes[offset++];
+                            bgraPixels[pixelCount * 4 + 2] = fileBytes[offset++];
+                            bgraPixels[pixelCount * 4 + 3] = bytesPerPixel == 4 ? fileBytes[offset++] : (byte)255;
+                        }
                     }
                 }
             }
 
             if (bottomToTop)
             {
-                byte[] flipped = new byte[bgra.Length];
+                byte[] flipped = new byte[width * height * 4];
                 int stride = width * 4;
                 for (int y = 0; y < height; y++)
-                    Array.Copy(bgra, (height - 1 - y) * stride, flipped, y * stride, stride);
-                bgra = flipped;
+                    Array.Copy(bgraPixels, (height - 1 - y) * stride, flipped, y * stride, stride);
+                bgraPixels = flipped;
             }
 
-            WritePng(bgra, width, height, outputPngPath, PixelFormats.Bgra32);
+            WritePng(bgraPixels, width, height, outputPngPath, PixelFormats.Bgra32);
         }
 
-        // ──────────────────────────────────────────────────────────
-        // PNG → TGA (writes bottom-to-top, uncompressed, matching original format)
-        // ──────────────────────────────────────────────────────────
-
-        private static void ConvertPngToTga(string pngPath, string outputTgaPath, string referenceTgaPath)
+        public static void ConvertPngToTga(string pngPath, string outputTgaPath, string referenceTgaPath)
         {
-            byte[] refFile = File.ReadAllBytes(referenceTgaPath);
-            if (refFile.Length < 18) throw new Exception("Reference TGA too short.");
+            byte[] refBytes = File.ReadAllBytes(referenceTgaPath);
+            if (refBytes.Length < 18) throw new Exception("Reference TGA too short.");
 
-            int refW   = BitConverter.ToUInt16(refFile, 12);
-            int refH   = BitConverter.ToUInt16(refFile, 14);
-            byte refBpp  = refFile[16];
+            int refWidth = BitConverter.ToUInt16(refBytes, 12);
+            int refHeight = BitConverter.ToUInt16(refBytes, 14);
 
             byte[] pngPixels = ReadPngBgra32(pngPath, out int pngW, out int pngH);
-            if (pngW != refW || pngH != refH)
-                throw new Exception($"PNG size ({pngW}×{pngH}) doesn't match reference TGA ({refW}×{refH}).");
+            if (pngW != refWidth || pngH != refHeight)
+                throw new Exception($"PNG dimensions ({pngW}×{pngH}) don't match reference TGA ({refWidth}×{refHeight}).");
 
-            // Flip vertically (PNG is top-to-bottom, TGA output = bottom-to-top to match game originals)
-            byte[] flipped = new byte[pngPixels.Length];
-            int stride = pngW * 4;
-            for (int y = 0; y < pngH; y++)
-                Array.Copy(pngPixels, (pngH - 1 - y) * stride, flipped, y * stride, stride);
-
-            using var fs = new FileStream(outputTgaPath, FileMode.Create);
-            using var bw = new BinaryWriter(fs);
-
-            // TGA header (18 bytes exactly)
-            bw.Write((byte)0);           // id length
-            bw.Write((byte)0);           // color map type
-            bw.Write((byte)2);           // image type: uncompressed true-color
-            bw.Write((short)0);          // color map start
-            bw.Write((short)0);          // color map length
-            bw.Write((byte)0);           // color map depth
-            bw.Write((short)0);          // x origin
-            bw.Write((short)0);          // y origin
-            bw.Write((short)refW);       // width
-            bw.Write((short)refH);       // height
-            bw.Write((byte)32);          // bpp
-            bw.Write((byte)0x08);        // image descriptor: bottom-to-top (bit5=0), 8 alpha bits
-
-            // Write pixel data: BGRA (TGA convention) — pixels are already BGRA from ReadPngBgra32
-            bw.Write(flipped);
-        }
-
-        // ──────────────────────────────────────────────────────────
-        // PIXEL FORMAT DECODERS
-        // ──────────────────────────────────────────────────────────
-
-        // 3DS uncompressed textures use Morton (Z-order) within 8x8 tiles.
-        // Tiles are arranged in raster scan order (left→right, top→bottom).
-
-        private static int MortonIndex(int x, int y)
-        {
-            int r = 0;
-            for (int i = 0; i < 4; i++)
+            using (FileStream fs = new FileStream(outputTgaPath, FileMode.Create))
+            using (BinaryWriter bw = new BinaryWriter(fs))
             {
-                r |= ((x >> i) & 1) << (i * 2);
-                r |= ((y >> i) & 1) << (i * 2 + 1);
-            }
-            return r;
-        }
-
-        private static void DecodeRGBA8Tiled(byte[] src, int srcOff, byte[] dst, int w, int h)
-        {
-            // PICA RGBA8: 4 bytes per pixel in R,G,B,A order, stored in 8x8 Morton tiles.
-            int tilesX = (w + 7) / 8, tilesY = (h + 7) / 8;
-            for (int ty = 0; ty < tilesY; ty++)
-            for (int tx = 0; tx < tilesX; tx++)
-            {
-                int tileOff = srcOff + (ty * tilesX + tx) * 64 * 4;
-                for (int y = 0; y < 8; y++)
-                for (int x = 0; x < 8; x++)
-                {
-                    int px = tx * 8 + x, py = ty * 8 + y;
-                    if (px >= w || py >= h) continue;
-                    int si = tileOff + MortonIndex(x, y) * 4;
-                    if (si + 3 >= src.Length) continue;
-                    int di = (py * w + px) * 4;
-                    // Source: R,G,B,A → dest BGRA32: B,G,R,A
-                    dst[di + 0] = src[si + 2]; // B
-                    dst[di + 1] = src[si + 1]; // G
-                    dst[di + 2] = src[si + 0]; // R
-                    dst[di + 3] = src[si + 3]; // A
-                }
+                bw.Write((byte)0);      // id length
+                bw.Write((byte)0);      // color map type
+                bw.Write((byte)2);      // image type (uncompressed)
+                bw.Write((short)0);     // color map start
+                bw.Write((short)0);     // color map length
+                bw.Write((byte)0);      // color map depth
+                bw.Write((short)0);     // x offset
+                bw.Write((short)0);     // y offset
+                bw.Write((short)pngW);  // width
+                bw.Write((short)pngH);  // height
+                bw.Write((byte)32);     // bpp
+                bw.Write((byte)0x28);   // image descriptor (top-to-bottom, 8-bit alpha)
+                bw.Write(pngPixels);
             }
         }
 
-        private static void DecodeRGBA4Tiled(byte[] src, int srcOff, byte[] dst, int w, int h)
-        {
-            // RGBA4444: 2 bytes per pixel, Morton-tiled 8x8. Each uint16 = RRRRGGGGBBBBAAAA.
-            int tilesX = (w + 7) / 8, tilesY = (h + 7) / 8;
-            for (int ty = 0; ty < tilesY; ty++)
-            for (int tx = 0; tx < tilesX; tx++)
-            {
-                int tileOff = srcOff + (ty * tilesX + tx) * 64 * 2;
-                for (int y = 0; y < 8; y++)
-                for (int x = 0; x < 8; x++)
-                {
-                    int px = tx * 8 + x, py = ty * 8 + y;
-                    if (px >= w || py >= h) continue;
-                    int si = tileOff + MortonIndex(x, y) * 2;
-                    if (si + 1 >= src.Length) continue;
-                    ushort v = BitConverter.ToUInt16(src, si);
-                    // 0xRGBA nibble order in 16-bit LE
-                    byte r = (byte)(((v >> 12) & 0xF) * 17);
-                    byte g = (byte)(((v >>  8) & 0xF) * 17);
-                    byte b = (byte)(((v >>  4) & 0xF) * 17);
-                    byte a = (byte)(((v >>  0) & 0xF) * 17);
-                    int di = (py * w + px) * 4;
-                    dst[di] = b; dst[di+1] = g; dst[di+2] = r; dst[di+3] = a;
-                }
-            }
-        }
-
-        private static void DecodeRGBA5551Tiled(byte[] src, int srcOff, byte[] dst, int w, int h)
-        {
-            int tilesX = (w + 7) / 8, tilesY = (h + 7) / 8;
-            for (int ty = 0; ty < tilesY; ty++)
-            for (int tx = 0; tx < tilesX; tx++)
-            {
-                int tileOff = srcOff + (ty * tilesX + tx) * 64 * 2;
-                for (int y = 0; y < 8; y++)
-                for (int x = 0; x < 8; x++)
-                {
-                    int px = tx * 8 + x, py = ty * 8 + y;
-                    if (px >= w || py >= h) continue;
-                    int si = tileOff + MortonIndex(x, y) * 2;
-                    if (si + 1 >= src.Length) continue;
-                    ushort v = BitConverter.ToUInt16(src, si);
-                    byte r = Expand5((v >> 11) & 0x1F);
-                    byte g = Expand5((v >>  6) & 0x1F);
-                    byte b = Expand5((v >>  1) & 0x1F);
-                    byte a = (byte)((v & 1) == 1 ? 255 : 0);
-                    int di = (py * w + px) * 4;
-                    dst[di] = b; dst[di+1] = g; dst[di+2] = r; dst[di+3] = a;
-                }
-            }
-        }
-
-        private static void DecodeRGB565Tiled(byte[] src, int srcOff, byte[] dst, int w, int h)
-        {
-            int tilesX = (w + 7) / 8, tilesY = (h + 7) / 8;
-            for (int ty = 0; ty < tilesY; ty++)
-            for (int tx = 0; tx < tilesX; tx++)
-            {
-                int tileOff = srcOff + (ty * tilesX + tx) * 64 * 2;
-                for (int y = 0; y < 8; y++)
-                for (int x = 0; x < 8; x++)
-                {
-                    int px = tx * 8 + x, py = ty * 8 + y;
-                    if (px >= w || py >= h) continue;
-                    int si = tileOff + MortonIndex(x, y) * 2;
-                    if (si + 1 >= src.Length) continue;
-                    ushort v = BitConverter.ToUInt16(src, si);
-                    byte r = Expand5((v >> 11) & 0x1F);
-                    byte g = (byte)(((v >> 5) & 0x3F) * 255 / 63);
-                    byte b = Expand5(v & 0x1F);
-                    int di = (py * w + px) * 4;
-                    dst[di] = b; dst[di+1] = g; dst[di+2] = r; dst[di+3] = 255;
-                }
-            }
-        }
-
-        private static void DecodeA8Tiled(byte[] src, int srcOff, byte[] dst, int w, int h)
-        {
-            int tilesX = (w + 7) / 8, tilesY = (h + 7) / 8;
-            for (int ty = 0; ty < tilesY; ty++)
-            for (int tx = 0; tx < tilesX; tx++)
-            {
-                int tileOff = srcOff + (ty * tilesX + tx) * 64;
-                for (int y = 0; y < 8; y++)
-                for (int x = 0; x < 8; x++)
-                {
-                    int px = tx * 8 + x, py = ty * 8 + y;
-                    if (px >= w || py >= h) continue;
-                    int si = tileOff + MortonIndex(x, y);
-                    if (si >= src.Length) continue;
-                    byte a = src[si];
-                    int di = (py * w + px) * 4;
-                    dst[di] = a; dst[di+1] = a; dst[di+2] = a; dst[di+3] = a;
-                }
-            }
-        }
-
-        // ETC1 and ETC1A4 decoder.
-        // Blocks are arranged in raster scan order (left→right, top→bottom) for compressed textures.
-        // ETC1: 8 bytes per 4×4 block.
-        // ETC1A4: 16 bytes per 4×4 block — first 8 bytes = A4 alpha, next 8 bytes = ETC1 color.
-        private static void DecodeETC1(byte[] src, int srcOff, byte[] dst, int w, int h, bool hasAlpha)
-        {
-            int blockW = (w + 3) / 4;
-            int blockH = (h + 3) / 4;
-            int blockBytes = hasAlpha ? 16 : 8;
-
-            for (int by = 0; by < blockH; by++)
-            for (int bx = 0; bx < blockW; bx++)
-            {
-                int blockIdx = by * blockW + bx;
-                int off      = srcOff + blockIdx * blockBytes;
-
-                int alphaOff = hasAlpha ? off : -1;
-                int etc1Off  = hasAlpha ? off + 8 : off;
-
-                if (etc1Off + 8 > src.Length) continue;
-
-                DecodeETC1Block(src, etc1Off, hasAlpha ? src : null, alphaOff,
-                                dst, bx * 4, by * 4, w, h);
-            }
-        }
-
-        private static void DecodeETC1Block(
-            byte[] etc, int etcOff,
-            byte[]? alphaSrc, int alphaOff,
-            byte[] dst, int bx, int by, int imgW, int imgH)
-        {
-            byte b3   = etc[etcOff + 3];
-            bool diff = (b3 & 0x02) != 0;
-            bool flip = (b3 & 0x01) != 0;
-            int  cw0  = (b3 >> 5) & 0x07;
-            int  cw1  = (b3 >> 2) & 0x07;
-
-            byte r0, g0, b0, r1, g1, b1;
-            if (diff)
-            {
-                int R1 = (etc[etcOff] >> 3) & 0x1F;
-                int dR = etc[etcOff] & 0x07; if (dR > 3) dR -= 8;
-                int G1 = (etc[etcOff+1] >> 3) & 0x1F;
-                int dG = etc[etcOff+1] & 0x07; if (dG > 3) dG -= 8;
-                int B1 = (etc[etcOff+2] >> 3) & 0x1F;
-                int dB = etc[etcOff+2] & 0x07; if (dB > 3) dB -= 8;
-                r0 = Expand5Byte(R1); g0 = Expand5Byte(G1); b0 = Expand5Byte(B1);
-                r1 = Expand5Byte(R1+dR); g1 = Expand5Byte(G1+dG); b1 = Expand5Byte(B1+dB);
-            }
-            else
-            {
-                r0 = (byte)(((etc[etcOff]   >> 4) & 0xF) * 17);
-                r1 = (byte)(( etc[etcOff]         & 0xF) * 17);
-                g0 = (byte)(((etc[etcOff+1] >> 4) & 0xF) * 17);
-                g1 = (byte)(( etc[etcOff+1]       & 0xF) * 17);
-                b0 = (byte)(((etc[etcOff+2] >> 4) & 0xF) * 17);
-                b1 = (byte)(( etc[etcOff+2]       & 0xF) * 17);
-            }
-
-            // Pixel indices: bytes 4–7
-            // MSB of each 2-bit index is in bytes 4–5 (combined as 16-bit), LSB in bytes 6–7.
-            // Pixels are ordered column-major: col*4 + row (from bit 15 downward).
-            uint msbs = (uint)((etc[etcOff+4] << 8) | etc[etcOff+5]);
-            uint lsbs = (uint)((etc[etcOff+6] << 8) | etc[etcOff+7]);
-
-            for (int row = 0; row < 4; row++)
-            for (int col = 0; col < 4; col++)
-            {
-                int px = bx + col, py = by + row;
-                if (px >= imgW || py >= imgH) continue;
-
-                bool sub1 = flip ? (row >= 2) : (col >= 2);
-                byte cr = sub1 ? r1 : r0, cg = sub1 ? g1 : g0, cb = sub1 ? b1 : b0;
-                int  tw = sub1 ? cw1 : cw0;
-
-                int bitPos = 15 - (col * 4 + row);
-                int msb = (int)((msbs >> bitPos) & 1);
-                int lsb = (int)((lsbs >> bitPos) & 1);
-                int mod = EtcModTable[tw, (msb << 1) | lsb];
-
-                byte fr = Clamp(cr + mod), fg = Clamp(cg + mod), fb = Clamp(cb + mod);
-
-                byte a = 255;
-                if (alphaSrc != null && alphaOff >= 0)
-                {
-                    // A4 alpha: column-major, lower nibble first
-                    int pos = col * 4 + row;
-                    int ab  = alphaOff + pos / 2;
-                    byte nib = (pos % 2 == 0)
-                        ? (byte)(alphaSrc[ab] & 0x0F)
-                        : (byte)((alphaSrc[ab] >> 4) & 0x0F);
-                    a = (byte)((nib << 4) | nib);
-                }
-
-                int di = (py * imgW + px) * 4;
-                dst[di+0] = fb; dst[di+1] = fg; dst[di+2] = fr; dst[di+3] = a;
-            }
-        }
-
-        // ──────────────────────────────────────────────────────────
-        // PIXEL FORMAT ENCODERS (PNG → STEX pixel data)
-        // ──────────────────────────────────────────────────────────
-
-        private static byte[] EncodeRGBA8Tiled(byte[] bgraPixels, int w, int h)
-        {
-            int tilesX = (w + 7) / 8, tilesY = (h + 7) / 8;
-            byte[] dst = new byte[tilesX * tilesY * 64 * 4];
-            for (int ty = 0; ty < tilesY; ty++)
-            for (int tx = 0; tx < tilesX; tx++)
-            {
-                int tileOff = (ty * tilesX + tx) * 64 * 4;
-                for (int y = 0; y < 8; y++)
-                for (int x = 0; x < 8; x++)
-                {
-                    int px = tx * 8 + x, py = ty * 8 + y;
-                    int si = (py < h && px < w) ? (py * w + px) * 4 : -1;
-                    int di = tileOff + MortonIndex(x, y) * 4;
-                    if (si >= 0)
-                    {
-                        // BGRA → RGBA
-                        dst[di+0] = bgraPixels[si+2]; // R
-                        dst[di+1] = bgraPixels[si+1]; // G
-                        dst[di+2] = bgraPixels[si+0]; // B
-                        dst[di+3] = bgraPixels[si+3]; // A
-                    }
-                }
-            }
-            return dst;
-        }
-
-        private static byte[] EncodeRGBA4Tiled(byte[] bgraPixels, int w, int h)
-        {
-            int tilesX = (w + 7) / 8, tilesY = (h + 7) / 8;
-            byte[] dst = new byte[tilesX * tilesY * 64 * 2];
-            for (int ty = 0; ty < tilesY; ty++)
-            for (int tx = 0; tx < tilesX; tx++)
-            {
-                int tileOff = (ty * tilesX + tx) * 64 * 2;
-                for (int y = 0; y < 8; y++)
-                for (int x = 0; x < 8; x++)
-                {
-                    int px = tx * 8 + x, py = ty * 8 + y;
-                    int si = (py < h && px < w) ? (py * w + px) * 4 : -1;
-                    int di = tileOff + MortonIndex(x, y) * 2;
-                    if (si >= 0)
-                    {
-                        byte r = (byte)((bgraPixels[si+2] >> 4) & 0xF);
-                        byte g = (byte)((bgraPixels[si+1] >> 4) & 0xF);
-                        byte b = (byte)((bgraPixels[si+0] >> 4) & 0xF);
-                        byte a = (byte)((bgraPixels[si+3] >> 4) & 0xF);
-                        ushort v = (ushort)((r << 12) | (g << 8) | (b << 4) | a);
-                        dst[di]   = (byte)(v & 0xFF);
-                        dst[di+1] = (byte)(v >> 8);
-                    }
-                }
-            }
-            return dst;
-        }
-
-        private static byte[] EncodeRGBA5551Tiled(byte[] bgraPixels, int w, int h)
-        {
-            int tilesX = (w + 7) / 8, tilesY = (h + 7) / 8;
-            byte[] dst = new byte[tilesX * tilesY * 64 * 2];
-            for (int ty = 0; ty < tilesY; ty++)
-            for (int tx = 0; tx < tilesX; tx++)
-            {
-                int tileOff = (ty * tilesX + tx) * 64 * 2;
-                for (int y = 0; y < 8; y++)
-                for (int x = 0; x < 8; x++)
-                {
-                    int px = tx * 8 + x, py = ty * 8 + y;
-                    int si = (py < h && px < w) ? (py * w + px) * 4 : -1;
-                    int di = tileOff + MortonIndex(x, y) * 2;
-                    if (si >= 0)
-                    {
-                        int r = bgraPixels[si+2] >> 3;
-                        int g = bgraPixels[si+1] >> 3;
-                        int b = bgraPixels[si+0] >> 3;
-                        int a = bgraPixels[si+3] >= 128 ? 1 : 0;
-                        ushort v = (ushort)((r << 11) | (g << 6) | (b << 1) | a);
-                        dst[di]   = (byte)(v & 0xFF);
-                        dst[di+1] = (byte)(v >> 8);
-                    }
-                }
-            }
-            return dst;
-        }
-
-        private static byte[] EncodeRGB565Tiled(byte[] bgraPixels, int w, int h)
-        {
-            int tilesX = (w + 7) / 8, tilesY = (h + 7) / 8;
-            byte[] dst = new byte[tilesX * tilesY * 64 * 2];
-            for (int ty = 0; ty < tilesY; ty++)
-            for (int tx = 0; tx < tilesX; tx++)
-            {
-                int tileOff = (ty * tilesX + tx) * 64 * 2;
-                for (int y = 0; y < 8; y++)
-                for (int x = 0; x < 8; x++)
-                {
-                    int px = tx * 8 + x, py = ty * 8 + y;
-                    int si = (py < h && px < w) ? (py * w + px) * 4 : -1;
-                    int di = tileOff + MortonIndex(x, y) * 2;
-                    if (si >= 0)
-                    {
-                        int r = bgraPixels[si+2] >> 3;
-                        int g = bgraPixels[si+1] >> 2;
-                        int b = bgraPixels[si+0] >> 3;
-                        ushort v = (ushort)((r << 11) | (g << 5) | b);
-                        dst[di]   = (byte)(v & 0xFF);
-                        dst[di+1] = (byte)(v >> 8);
-                    }
-                }
-            }
-            return dst;
-        }
-
-        // ──────────────────────────────────────────────────────────
-        // HELPERS
-        // ──────────────────────────────────────────────────────────
+        // ─────────────────────────────────────────────────────────
+        // UTILITY METHODS
+        // ─────────────────────────────────────────────────────────
 
         private static byte[] ReadPngBgra32(string pngPath, out int width, out int height)
         {
-            // Must be called on a thread that can use WPF types (or UI thread).
-            // Task.Run is fine since BitmapImage/FormatConvertedBitmap work off-thread
-            // as long as we don't touch the visual tree.
             var bmp = new BitmapImage(new Uri(Path.GetFullPath(pngPath), UriKind.Absolute));
             bmp.Freeze();
             var conv = new FormatConvertedBitmap(bmp, PixelFormats.Bgra32, null, 0);
@@ -704,7 +801,6 @@ namespace NicheStudioWeirdo.Utils
         }
 
         private static byte Clamp(int v) => v < 0 ? (byte)0 : v > 255 ? (byte)255 : (byte)v;
-        private static byte Expand5Byte(int v) => (byte)((v << 3) | (v >> 2));
         private static byte Expand5(int v) => (byte)((v << 3) | (v >> 2));
     }
 }

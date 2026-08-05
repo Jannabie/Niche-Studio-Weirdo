@@ -156,18 +156,13 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBox x:Name="ImagePath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select STEX, TGA, or PNG file..."/>
+                        <TextBox x:Name="ImagePath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select STEX or PNG file..."/>
                         <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseImageFile_Click"/>
                     </Grid>
 
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,10">
-                        <Button Content="STEX -> PNG" Style="{StaticResource ActionButton}" Margin="0,0,8,0" Click="StexToPng_Click"/>
-                        <Button Content="PNG -> STEX" Style="{StaticResource ActionButtonGreen}" Margin="0,0,8,0" Click="PngToStex_Click"/>
-                    </StackPanel>
-                    
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,24">
-                        <Button Content="TGA -> PNG" Style="{StaticResource ActionButton}" Margin="0,0,8,0" Click="TgaToPng_Click"/>
-                        <Button Content="PNG -> TGA" Style="{StaticResource ActionButtonGreen}" Click="PngToTga_Click"/>
+                        <Button Content="STEX -> PNG" Style="{StaticResource ActionButton}" Margin="0,0,8,0" Click="StexToPng_Click"/>
+                        <Button Content="PNG -> STEX" Style="{StaticResource ActionButtonGreen}" Click="PngToStex_Click"/>
                     </StackPanel>
 
                 </StackPanel>

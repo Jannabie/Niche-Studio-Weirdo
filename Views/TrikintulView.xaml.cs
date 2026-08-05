@@ -193,7 +193,7 @@ namespace NicheStudioWeirdo.Views
         }
         private void BrowseImageFile_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog { Filter = "Image Files|*.stex;*.tga;*.png|STEX Files|*.stex|TGA Files|*.tga|PNG Files|*.png|All Files|*.*" };
+            OpenFileDialog dlg = new OpenFileDialog { Filter = "Image Files|*.stex;*.png|STEX Files|*.stex|PNG Files|*.png|All Files|*.*" };
             if (dlg.ShowDialog() == true)
             {
                 ImagePath.Text = dlg.FileName;
@@ -249,53 +249,6 @@ namespace NicheStudioWeirdo.Views
             }
         }
 
-        private async void TgaToPng_Click(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(ImagePath.Text))
-            {
-                Main.LogToConsole("Trikintul: Please select a TGA file.");
-                return;
-            }
 
-            string outPath = Path.ChangeExtension(ImagePath.Text, ".png");
-            Main.LogToConsole("Trikintul: Converting TGA -> PNG...");
-            try
-            {
-                await SmtTextureConverter.ConvertTgaToPngAsync(ImagePath.Text, outPath);
-                Main.LogToConsole($"Trikintul: [DONE] TGA -> PNG -> {outPath}");
-            }
-            catch (Exception ex)
-            {
-                Main.LogToConsole($"Trikintul Error: {ex.Message}");
-            }
-        }
-
-        private async void PngToTga_Click(object sender, RoutedEventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(ImagePath.Text))
-            {
-                Main.LogToConsole("Trikintul: Please select a PNG file.");
-                return;
-            }
-
-            OpenFileDialog refDlg = new OpenFileDialog { Title = "Select Reference TGA File", Filter = "TGA Files|*.tga|All Files|*.*" };
-            if (refDlg.ShowDialog() != true)
-            {
-                Main.LogToConsole("Trikintul: PNG -> TGA cancelled (reference TGA required).");
-                return;
-            }
-
-            string outPath = Path.ChangeExtension(ImagePath.Text, ".tga");
-            Main.LogToConsole("Trikintul: Converting PNG -> TGA...");
-            try
-            {
-                await SmtTextureConverter.ConvertPngToTgaAsync(ImagePath.Text, outPath, refDlg.FileName);
-                Main.LogToConsole($"Trikintul: [DONE] PNG -> TGA -> {outPath}");
-            }
-            catch (Exception ex)
-            {
-                Main.LogToConsole($"Trikintul Error: {ex.Message}");
-            }
-        }
     }
 }
