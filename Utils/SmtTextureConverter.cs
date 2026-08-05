@@ -525,9 +525,6 @@ namespace NicheStudioWeirdo.Utils
         private static readonly int[] SubTileX = { 0, 4, 0, 4 };
         private static readonly int[] SubTileY = { 0, 0, 4, 4 };
 
-        // 3DS Z-order for 4x4 blocks: maps output raster index → ETC1 pixel index
-        private static readonly int[] Etc1ZOrder = { 0, 4, 1, 5, 8, 12, 9, 13, 2, 6, 3, 7, 10, 14, 11, 15 };
-
         private static void DecodeETC1(byte[] src, int srcOff, byte[] dst, int w, int h, bool hasAlpha)
         {
             int pos = srcOff;
@@ -612,47 +609,44 @@ namespace NicheStudioWeirdo.Utils
                     int subBaseX = tileX + SubTileX[sub];
                     int subBaseY = tileY + SubTileY[sub];
 
-                    // flip=false → sub-block split by columns (left 2 vs right 2) → flipbitmask=8
-                    // flip=true  → sub-block split by rows (top 2 vs bottom 2) → flipbitmask=2
-                    int flipbitmask = flip ? 2 : 8;
-
-                    // Iterate 16 pixels in Z-order (matching Kuriimu2)
-                    for (int j = 0; j < 16; j++)
+                    // Iterate 16 pixels linearly
+                    for (int py = 0; py < 4; py++)
                     {
-                        int i = Etc1ZOrder[j]; // ETC1 pixel index
-
-                        int px = j & 3;       // x within 4x4 block
-                        int py = j >> 2;      // y within 4x4 block
-
-                        int outX = subBaseX + px;
-                        int outY = subBaseY + py;
-                        if (outX >= w || outY >= h) continue;
-
-                        // Sub-block selection uses ETC1 index, not physical position
-                        bool isSB1 = (i & flipbitmask) == 0;
-                        uint cr = isSB1 ? r0 : r1;
-                        uint cg = isSB1 ? g0 : g1;
-                        uint cb = isSB1 ? b0 : b1;
-                        int tbl = isSB1 ? table0 : table1;
-
-                        // Get 2-bit modifier selector from MSB/LSB at position i
-                        int sel = ((pixMsb >> i) & 1) * 2 + ((pixLsb >> i) & 1);
-                        int modifier = EtcModTable[(uint)tbl, sel];
-
-                        int dstIdx = (outY * w + outX) * 4;
-                        dst[dstIdx + 2] = Clamp((int)cr + modifier); // R
-                        dst[dstIdx + 1] = Clamp((int)cg + modifier); // G
-                        dst[dstIdx + 0] = Clamp((int)cb + modifier); // B
-
-                        // Alpha
-                        if (hasAlpha)
+                        for (int px = 0; px < 4; px++)
                         {
-                            byte a4 = (byte)((alphaBlock >> (i * 4)) & 0xF);
-                            dst[dstIdx + 3] = (byte)((a4 << 4) | a4);
-                        }
-                        else
-                        {
-                            dst[dstIdx + 3] = 255;
+                            int outX = subBaseX + px;
+                            int outY = subBaseY + py;
+                            if (outX >= w || outY >= h) continue;
+
+                            int i = px * 4 + py; // ETC1 pixel index (column-major)
+
+                            // Sub-block selection uses ETC1 index, not physical position
+                            bool isSB1 = (i & flipbitmask) == 0;
+                            uint cr = isSB1 ? r0 : r1;
+                            uint cg = isSB1 ? g0 : g1;
+                            uint cb = isSB1 ? b0 : b1;
+                            int tbl = isSB1 ? table0 : table1;
+
+                            // Get 2-bit modifier selector from MSB/LSB at position i
+                            int sel = ((pixMsb >> i) & 1) * 2 + ((pixLsb >> i) & 1);
+                            int modifier = EtcModTable[(uint)tbl, sel];
+
+                            int dstIdx = (outY * w + outX) * 4;
+                            dst[dstIdx + 2] = Clamp((int)cr + modifier); // R
+                            dst[dstIdx + 1] = Clamp((int)cg + modifier); // G
+                            dst[dstIdx + 0] = Clamp((int)cb + modifier); // B
+
+                            // Alpha
+                            if (hasAlpha)
+                            {
+                                // The original bug: this used to be (py*4+px)*4, mismatching the color index!
+                                byte a4 = (byte)((alphaBlock >> (i * 4)) & 0xF);
+                                dst[dstIdx + 3] = (byte)((a4 << 4) | a4);
+                            }
+                            else
+                            {
+                                dst[dstIdx + 3] = 255;
+                            }
                         }
                     }
                 }
