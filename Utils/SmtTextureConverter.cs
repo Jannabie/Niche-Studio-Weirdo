@@ -623,7 +623,9 @@ namespace NicheStudioWeirdo.Utils
         {
             if (outX >= w || outY >= h) return;
 
-            int index = px * 4 + py;
+            // 3DS ETC1 uses Morton Z-order within the 4x4 block!
+            int index = ((px & 1) << 2) | ((py & 1) << 3) | ((px & 2) >> 1) | (py & 2);
+
             int lsb, msb;
             if (index < 8)
             {
@@ -644,7 +646,7 @@ namespace NicheStudioWeirdo.Utils
 
             if (hasAlpha)
             {
-                int alphaShift = ((py & 3) * 4 + (px & 3)) * 4;
+                int alphaShift = index * 4;
                 byte a4 = (byte)((alphaBlock >> alphaShift) & 0xF);
                 dst[dstIdx + 3] = (byte)((a4 << 4) | a4);
             }
