@@ -151,17 +151,39 @@
                     <!-- ═══════════════════════════════════════════════════════ -->
                     <TextBlock Text="Image Tools" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
 
-                    <Grid Margin="0,0,0,10">
+                    <!-- STEX to PNG -->
+                    <TextBlock Text="Convert STEX to PNG" Foreground="{StaticResource TextMutedBrush}" Margin="0,0,0,4"/>
+                    <Grid Margin="0,0,0,8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBox x:Name="ImagePath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select STEX or PNG file..."/>
-                        <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseImageFile_Click"/>
+                        <TextBox x:Name="StexInputPath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select STEX file..."/>
+                        <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseStexInput_Click"/>
                     </Grid>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,16">
+                        <Button Content="STEX -> PNG" Style="{StaticResource ActionButton}" Click="StexToPng_Click"/>
+                    </StackPanel>
 
+                    <!-- PNG to STEX -->
+                    <TextBlock Text="Convert PNG to STEX" Foreground="{StaticResource TextMutedBrush}" Margin="0,0,0,4"/>
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="PngInputPath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select PNG file..."/>
+                        <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowsePngInput_Click"/>
+                    </Grid>
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="RefStexPath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select Reference STEX file..."/>
+                        <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseRefStex_Click"/>
+                    </Grid>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,24">
-                        <Button Content="STEX -> PNG" Style="{StaticResource ActionButton}" Margin="0,0,8,0" Click="StexToPng_Click"/>
                         <Button Content="PNG -> STEX" Style="{StaticResource ActionButtonGreen}" Click="PngToStex_Click"/>
                     </StackPanel>
 

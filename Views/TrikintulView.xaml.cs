@@ -191,28 +191,46 @@ namespace NicheStudioWeirdo.Views
             Main.LogToConsole($"Trikintul: {logMessage}");
             await ToolRunner.RunAsync(Path.GetDirectoryName(toolPath) ?? "", toolPath, args, Main);
         }
-        private void BrowseImageFile_Click(object sender, RoutedEventArgs e)
+        private void BrowseStexInput_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog { Filter = "Image Files|*.stex;*.png|STEX Files|*.stex|PNG Files|*.png|All Files|*.*" };
+            OpenFileDialog dlg = new OpenFileDialog { Filter = "STEX Files|*.stex|All Files|*.*" };
             if (dlg.ShowDialog() == true)
             {
-                ImagePath.Text = dlg.FileName;
+                StexInputPath.Text = dlg.FileName;
+            }
+        }
+
+        private void BrowsePngInput_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog { Filter = "PNG Files|*.png|All Files|*.*" };
+            if (dlg.ShowDialog() == true)
+            {
+                PngInputPath.Text = dlg.FileName;
+            }
+        }
+
+        private void BrowseRefStex_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog { Title = "Select Reference STEX File", Filter = "STEX Files|*.stex|All Files|*.*" };
+            if (dlg.ShowDialog() == true)
+            {
+                RefStexPath.Text = dlg.FileName;
             }
         }
 
         private async void StexToPng_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(ImagePath.Text))
+            if (string.IsNullOrWhiteSpace(StexInputPath.Text) || StexInputPath.Text.Contains("Select"))
             {
                 Main.LogToConsole("Trikintul: Please select a STEX file.");
                 return;
             }
 
-            string outPath = Path.ChangeExtension(ImagePath.Text, ".png");
+            string outPath = Path.ChangeExtension(StexInputPath.Text, ".png");
             Main.LogToConsole($"Trikintul: Converting STEX -> PNG...");
             try
             {
-                await SmtTextureConverter.ConvertStexToPngAsync(ImagePath.Text, outPath);
+                await SmtTextureConverter.ConvertStexToPngAsync(StexInputPath.Text, outPath);
                 Main.LogToConsole($"Trikintul: [DONE] STEX -> PNG -> {outPath}");
             }
             catch (Exception ex)
@@ -223,24 +241,23 @@ namespace NicheStudioWeirdo.Views
 
         private async void PngToStex_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(ImagePath.Text))
+            if (string.IsNullOrWhiteSpace(PngInputPath.Text) || PngInputPath.Text.Contains("Select"))
             {
                 Main.LogToConsole("Trikintul: Please select a PNG file.");
                 return;
             }
 
-            OpenFileDialog refDlg = new OpenFileDialog { Title = "Select Reference STEX File", Filter = "STEX Files|*.stex|All Files|*.*" };
-            if (refDlg.ShowDialog() != true)
+            if (string.IsNullOrWhiteSpace(RefStexPath.Text) || RefStexPath.Text.Contains("Select"))
             {
-                Main.LogToConsole("Trikintul: PNG -> STEX cancelled (reference STEX required).");
+                Main.LogToConsole("Trikintul: Please select a Reference STEX file.");
                 return;
             }
 
-            string outPath = Path.ChangeExtension(ImagePath.Text, ".stex");
+            string outPath = Path.ChangeExtension(PngInputPath.Text, ".stex");
             Main.LogToConsole("Trikintul: Converting PNG -> STEX... (ETC1 originals are re-saved as RGBA8)");
             try
             {
-                await SmtTextureConverter.ConvertPngToStexAsync(ImagePath.Text, outPath, refDlg.FileName);
+                await SmtTextureConverter.ConvertPngToStexAsync(PngInputPath.Text, outPath, RefStexPath.Text);
                 Main.LogToConsole($"Trikintul: [DONE] PNG -> STEX -> {outPath}");
             }
             catch (Exception ex)
