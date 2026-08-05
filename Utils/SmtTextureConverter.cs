@@ -609,6 +609,10 @@ namespace NicheStudioWeirdo.Utils
                     int subBaseX = tileX + SubTileX[sub];
                     int subBaseY = tileY + SubTileY[sub];
 
+                    // flip=false → sub-block split by columns (left 2 vs right 2) → flipbitmask=8
+                    // flip=true  → sub-block split by rows (top 2 vs bottom 2) → flipbitmask=2
+                    int flipbitmask = flip ? 2 : 8;
+
                     // Iterate 16 pixels linearly
                     for (int py = 0; py < 4; py++)
                     {
