@@ -777,7 +777,11 @@ namespace NicheStudioWeirdo.Utils
 
         private static byte[] ReadPngBgra32(string pngPath, out int width, out int height)
         {
-            var bmp = new BitmapImage(new Uri(Path.GetFullPath(pngPath), UriKind.Absolute));
+            var bmp = new BitmapImage();
+            bmp.BeginInit();
+            bmp.UriSource = new Uri(Path.GetFullPath(pngPath), UriKind.Absolute);
+            bmp.CacheOption = BitmapCacheOption.OnLoad;
+            bmp.EndInit();
             bmp.Freeze();
             var conv = new FormatConvertedBitmap(bmp, PixelFormats.Bgra32, null, 0);
             conv.Freeze();
