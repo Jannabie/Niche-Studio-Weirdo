@@ -5,6 +5,8 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Navigation;
+using System.Diagnostics;
 using NicheStudioWeirdo.Utils;
 using System;
 
@@ -266,6 +268,10 @@ namespace NicheStudioWeirdo.Views
             }
         }
 
-
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
+            e.Handled = true;
+        }
     }
 }

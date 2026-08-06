@@ -187,6 +187,16 @@
                         <Button Content="PNG -> STEX" Style="{StaticResource ActionButtonGreen}" Click="PngToStex_Click"/>
                     </StackPanel>
 
+                    <!-- Recommendation -->
+                    <Border Background="#1c1c1c" BorderBrush="{StaticResource BorderBrush2}" BorderThickness="1" CornerRadius="4" Padding="12" Margin="0,0,0,24">
+                        <TextBlock Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" FontSize="12">
+                            <Run Text="For a more complete architecture recommendation or for games other than SMT IV or Atlus 3DS, you can use this tool: "/>
+                            <Hyperlink NavigateUri="https://github.com/FanTranslatorsInternational/Kuriimu2" RequestNavigate="Hyperlink_RequestNavigate" Foreground="{StaticResource PrimaryBrush}">
+                                https://github.com/FanTranslatorsInternational/Kuriimu2
+                            </Hyperlink>
+                        </TextBlock>
+                    </Border>
+
                 </StackPanel>
             </Border>
         </ScrollViewer>
