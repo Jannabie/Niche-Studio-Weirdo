@@ -129,38 +129,48 @@ namespace NicheStudioWeirdo
                 btn.Foreground = (SolidColorBrush)Application.Current.Resources["AccentBlueBrush"];
                 activeTab = btn;
 
-                UserControl view = btn.Tag.ToString() switch
+                UserControl view = null;
+                try
                 {
-                    "Minori"    => new MinoriView(),
-                    "WagaHime"  => new WagaHimeView(),
-                    "FSN"       => new FSNRemasteredView(),
+                    view = btn.Tag.ToString() switch
+                    {
+                        "Minori"    => new MinoriView(),
+                        "WagaHime"  => new WagaHimeView(),
+                        "FSN"       => new FSNRemasteredView(),
 
-                    "AbogadoSdk"=> new AbogadoSdkView(),
-                    "AbogadoKg" => new AbogadoKgView(),
-                    "Ages"      => new AgesView(),
+                        "AbogadoSdk"=> new AbogadoSdkView(),
+                        "AbogadoKg" => new AbogadoKgView(),
+                        "Ages"      => new AgesView(),
 
-                    "HuneX"     => new HuneXView(),
-                    "HuneXMahoyo" => new HuneXMahoyoView(),
-                    "Leaf"      => new LeafView(),
-                    "BGI"       => new BGIView(),
-                    "MeltyBlood"=> new MeltyBloodView(),
-                    "Lasengle"  => new LasengleView(),
-                    "CodeXR"    => new CodeXRView(),
-                    "Majikoai"  => new MajikaiView(),
-                    "Musicus"   => new MusicusView(),
-                    "MalieKit"  => new MalieKitView(),
-                    "KKK"       => new KKKView(),
+                        "HuneX"     => new HuneXView(),
+                        "HuneXMahoyo" => new HuneXMahoyoView(),
+                        "Leaf"      => new LeafView(),
+                        "BGI"       => new BGIView(),
+                        "MeltyBlood"=> new MeltyBloodView(),
+                        "Lasengle"  => new LasengleView(),
+                        "CodeXR"    => new CodeXRView(),
+                        "Majikoai"  => new MajikaiView(),
+                        "Musicus"   => new MusicusView(),
+                        "MalieKit"  => new MalieKitView(),
+                        "KKK"       => new KKKView(),
 
-                    "Alicesoft" => new AlicesoftView(),
-                    "DieselEngine" => new DieselEngineView(),
-                    "EntisGLS"  => new EntisGLSView(),
-                    "N2System"  => new N2SystemView(),
-                    "LucaSystem" => new LucaSystemView(),
-                    "Yuris"     => new YurisView(),
-                    "FVP"       => new FvpEngineView(),
-                    "Trikintul" => new TrikintulView(),
-                    _           => new MinoriView()
-                };
+                        "Alicesoft" => new AlicesoftView(),
+                        "DieselEngine" => new DieselEngineView(),
+                        "EntisGLS"  => new EntisGLSView(),
+                        "N2System"  => new N2SystemView(),
+                        "LucaSystem" => new LucaSystemView(),
+                        "Yuris"     => new YurisView(),
+                        "FVP"       => new FvpEngineView(),
+                        "Trikintul" => new TrikintulView(),
+                        _           => new MinoriView()
+                    };
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Crash initializing view: " + ex.Message + "\n" + (ex.InnerException?.Message ?? ""));
+                    return;
+                }
+
                 LoadView(view, btn.Content?.ToString() ?? btn.Tag?.ToString() ?? "");
                 GuideText.Text = GetGuideText(btn.Tag?.ToString() ?? "");
             }
