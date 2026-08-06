@@ -96,7 +96,8 @@ namespace NicheStudioWeirdo.Utils
             if (dataOffset < 32 || dataOffset >= file.Length)
                 throw new Exception($"Invalid STEX data offset: 0x{dataOffset:X}");
 
-            TexFmt fmt = DetermineFormat(glType, picaCode, width, height, dataSize);
+            int actualDataSize = file.Length - dataOffset;
+            TexFmt fmt = DetermineFormat(glType, picaCode, width, height, actualDataSize);
 
             byte[] bgra = new byte[width * height * 4];
 
@@ -129,7 +130,8 @@ namespace NicheStudioWeirdo.Utils
             int dataSize   = BitConverter.ToInt32(refFile, 28);
             int dataOff    = BitConverter.ToInt32(refFile, 32);
 
-            TexFmt fmt = DetermineFormat(glType, picaCode, refWidth, refHeight, dataSize);
+            int actualDataSize = refFile.Length - dataOff;
+            TexFmt fmt = DetermineFormat(glType, picaCode, refWidth, refHeight, actualDataSize);
 
             byte[] pngPixels = ReadPngBgra32(pngPath, out int pngW, out int pngH);
             if (pngW != refWidth || pngH != refHeight)
@@ -167,7 +169,7 @@ namespace NicheStudioWeirdo.Utils
         // For ETC1/ETC1A4, uses PICA code (offset 24) as differentiator.
         // ─────────────────────────────────────────────────────────
 
-        private static TexFmt DetermineFormat(uint glType, uint picaCode, int w, int h, int dataSize)
+        private static TexFmt DetermineFormat(uint glType, uint picaCode, int w, int h, int actualDataSize)
         {
             // GL type directly specifies some formats
             switch (glType)
@@ -183,7 +185,7 @@ namespace NicheStudioWeirdo.Utils
             int pixels = w * h;
             if (pixels <= 0) throw new Exception("Invalid texture dimensions for format detection.");
 
-            int bpp = (dataSize * 8) / pixels;
+            int bpp = (actualDataSize * 8) / pixels;
 
             // Check for ETC1/ETC1A4 by PICA code, BUT verify BPP so we don't misidentify 
             // textures we re-encoded as RGBA8 (which keep the ETC1 PICA code for the game)
@@ -199,7 +201,7 @@ namespace NicheStudioWeirdo.Utils
                 case 8:  return TexFmt.L8;
                 case 4:  return TexFmt.L4;
                 default:
-                    throw new Exception($"Cannot determine STEX format: GL=0x{glType:X4}, PICA=0x{picaCode:X4}, {w}×{h}, dataSize={dataSize}, bpp={bpp}");
+                    throw new Exception($"Cannot determine STEX format: GL=0x{glType:X4}, PICA=0x{picaCode:X4}, {w}×{h}, actualDataSize={actualDataSize}, bpp={bpp}");
             }
         }
 
