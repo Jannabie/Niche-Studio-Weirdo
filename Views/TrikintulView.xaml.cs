@@ -268,10 +268,12 @@ namespace NicheStudioWeirdo.Views
             }
         }
 
-        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
-            e.Handled = true;
+            if (sender is System.Windows.Documents.Hyperlink link && link.NavigateUri != null)
+            {
+                Process.Start(new ProcessStartInfo(link.NavigateUri.AbsoluteUri) { UseShellExecute = true });
+            }
         }
     }
 }
