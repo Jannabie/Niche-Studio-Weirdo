@@ -270,9 +270,20 @@ namespace NicheStudioWeirdo.Views
 
         private void Hyperlink_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is System.Windows.Documents.Hyperlink link && link.NavigateUri != null)
+            if (sender is System.Windows.Documents.Hyperlink link)
             {
-                Process.Start(new ProcessStartInfo(link.NavigateUri.AbsoluteUri) { UseShellExecute = true });
+                try
+                {
+                    string url = link.NavigateUri?.ToString();
+                    if (!string.IsNullOrWhiteSpace(url))
+                    {
+                        Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Main.LogToConsole($"Trikintul Error opening link: {ex.Message}");
+                }
             }
         }
     }
