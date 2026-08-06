@@ -187,15 +187,19 @@
                         <Button Content="PNG -> STEX" Style="{StaticResource ActionButtonGreen}" Click="PngToStex_Click"/>
                     </StackPanel>
 
-                    <!-- Recommendation -->
-                    <Border Background="#1c1c1c" BorderBrush="{StaticResource BorderBrush2}" BorderThickness="1" CornerRadius="4" Padding="12" Margin="0,0,0,24">
-                        <TextBlock Foreground="{StaticResource TextMutedBrush}" TextWrapping="Wrap" FontSize="12">
-                            <Run Text="For a more complete architecture recommendation or for games other than SMT IV or Atlus 3DS, you can use this tool: "/>
-                            <Hyperlink NavigateUri="https://github.com/FanTranslatorsInternational/Kuriimu2" Click="Hyperlink_Click" Foreground="{StaticResource AccentBlueBrush}">
-                                https://github.com/FanTranslatorsInternational/Kuriimu2
-                            </Hyperlink>
-                        </TextBlock>
-                    </Border>
+                    <!-- Divider -->
+                    <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,20"/>
+
+                    <!-- Kuriimu2 GitHub download button -->
+                    <TextBlock Text="KURIIMU2 ARCHITECTURE TOOLKIT" Style="{StaticResource LabelStyle}"/>
+                    <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="11" TextWrapping="Wrap"
+                               Margin="0,0,0,12"
+                               Text="For a more complete architecture recommendation or for games other than SMT IV or Atlus 3DS, you can use Kuriimu2."/>
+
+                    <Button x:Name="OpenKuriimuGithubBtn" Content="🔗  Open GitHub — Kuriimu2"
+                            Style="{StaticResource ActionButton}"
+                            HorizontalAlignment="Left" Padding="18,10" Margin="0,0,0,24"
+                            Click="OpenKuriimuGithub_Click"/>
 
                 </StackPanel>
             </Border>

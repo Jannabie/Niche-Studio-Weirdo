@@ -268,22 +268,16 @@ namespace NicheStudioWeirdo.Views
             }
         }
 
-        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        private void OpenKuriimuGithub_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is System.Windows.Documents.Hyperlink link)
+            try
             {
-                try
-                {
-                    string url = link.NavigateUri?.ToString();
-                    if (!string.IsNullOrWhiteSpace(url))
-                    {
-                        Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Main.LogToConsole($"Trikintul Error opening link: {ex.Message}");
-                }
+                string url = "https://github.com/FanTranslatorsInternational/Kuriimu2";
+                Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+            }
+            catch (Exception ex)
+            {
+                Main.LogToConsole($"Trikintul Error opening link: {ex.Message}");
             }
         }
     }
