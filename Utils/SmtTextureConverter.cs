@@ -187,10 +187,10 @@ namespace NicheStudioWeirdo.Utils
 
             int bpp = (actualDataSize * 8) / pixels;
 
-            // Check for ETC1/ETC1A4 by PICA code, BUT verify BPP so we don't misidentify 
-            // textures we re-encoded as RGBA8 (which keep the ETC1 PICA code for the game)
-            if (picaCode == PicaETC1 && bpp == 4)  return TexFmt.ETC1;
-            if (picaCode == PicaETC1A4 && bpp == 8) return TexFmt.ETC1A4;
+            // Check for ETC1/ETC1A4 by PICA code, BUT verify BPP < 32 so we don't misidentify 
+            // textures we re-encoded as RGBA8 (which keep the ETC1 PICA code for the game but have bpp=32)
+            if (picaCode == PicaETC1 && bpp < 32)   return TexFmt.ETC1;
+            if (picaCode == PicaETC1A4 && bpp < 32) return TexFmt.ETC1A4;
 
             // Fall back to BPP-based detection
             switch (bpp)
