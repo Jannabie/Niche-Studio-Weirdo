@@ -268,17 +268,107 @@ namespace NicheStudioWeirdo.Views
             }
         }
 
-        private void OpenMobiusGithub_Click(object sender, RoutedEventArgs e)
+        private void BrowseMoflexInput_Click(object sender, RoutedEventArgs e)
         {
-            try
+            var dialog = new Microsoft.Win32.OpenFileDialog { Filter = "Moflex Video|*.moflex;*.mods|All Files|*.*" };
+            if (dialog.ShowDialog() == true) MoflexInputPath.Text = dialog.FileName;
+        }
+
+        private void BrowseFfmpeg_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new Microsoft.Win32.OpenFileDialog { Filter = "ffmpeg Executable|ffmpeg.exe|All Files|*.*" };
+            if (dialog.ShowDialog() == true) FfmpegPath.Text = dialog.FileName;
+        }
+
+        private async void ExtractToMp4_Click(object sender, RoutedEventArgs e)
+        {
+            string input = MoflexInputPath.Text;
+            string ffmpeg = FfmpegPath.Text;
+            
+            if (string.IsNullOrWhiteSpace(input) || !System.IO.File.Exists(input))
             {
-                string url = "https://github.com/AdibSurani/Mobius";
-                Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+                Main.LogToConsole("Trikintul Error: Please select a valid .moflex file.");
+                return;
             }
-            catch (Exception ex)
+            if (string.IsNullOrWhiteSpace(ffmpeg) || !System.IO.File.Exists(ffmpeg))
             {
-                Main.LogToConsole($"Trikintul Error opening link: {ex.Message}");
+                Main.LogToConsole("Trikintul Error: Please select the ffmpeg.exe executable.");
+                return;
             }
+
+            string output = input + ".mp4";
+            Main.LogToConsole($"Extracting Moflex to MP4: {output}...");
+
+            await System.Threading.Tasks.Task.Run(() =>
+            {
+                try
+                {
+                    NicheStudioWeirdo.Utils.Mobius.MobiusTranscoder.Transcode(input, output, ffmpeg, msg => 
+                    {
+                        Dispatcher.Invoke(() => Main.LogToConsole($"[Mobius] {msg}"));
+                    });
+                    Dispatcher.Invoke(() => Main.LogToConsole("Moflex extraction completed successfully."));
+                }
+                catch (Exception ex)
+                {
+                    Dispatcher.Invoke(() => Main.LogToConsole($"Trikintul Error extracting Moflex: {ex.Message}"));
+                }
+            });
+        }
+
+        private void BrowseMp4Input_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new Microsoft.Win32.OpenFileDialog { Filter = "MP4 Video|*.mp4;*.avi|All Files|*.*" };
+            if (dialog.ShowDialog() == true) Mp4InputPath.Text = dialog.FileName;
+        }
+
+        private void BrowseWavInput_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new Microsoft.Win32.OpenFileDialog { Filter = "WAV Audio|*.wav|All Files|*.*" };
+            if (dialog.ShowDialog() == true) WavInputPath.Text = dialog.FileName;
+        }
+
+        private void BrowseMoflexExe_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new Microsoft.Win32.OpenFileDialog { Filter = "Moflex Encoder|moflex.exe|All Files|*.*" };
+            if (dialog.ShowDialog() == true) MoflexExePath.Text = dialog.FileName;
+        }
+
+        private async void EncodeToMoflex_Click(object sender, RoutedEventArgs e)
+        {
+            string video = Mp4InputPath.Text;
+            string audio = WavInputPath.Text;
+            string encoder = MoflexExePath.Text;
+            
+            if (string.IsNullOrWhiteSpace(video) || !System.IO.File.Exists(video))
+            {
+                Main.LogToConsole("Trikintul Error: Please select a valid input video file.");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(encoder) || !System.IO.File.Exists(encoder))
+            {
+                Main.LogToConsole("Trikintul Error: Please select the moflex.exe executable from the SDK.");
+                return;
+            }
+
+            string output = video + ".moflex";
+            Main.LogToConsole($"Encoding MP4 to Moflex: {output}...");
+
+            await System.Threading.Tasks.Task.Run(() =>
+            {
+                try
+                {
+                    NicheStudioWeirdo.Utils.MoflexEncoderWrapper.Encode(video, audio, encoder, output, msg => 
+                    {
+                        Dispatcher.Invoke(() => Main.LogToConsole($"[Moflex Encoder] {msg}"));
+                    });
+                    Dispatcher.Invoke(() => Main.LogToConsole("Moflex encoding completed successfully."));
+                }
+                catch (Exception ex)
+                {
+                    Dispatcher.Invoke(() => Main.LogToConsole($"Trikintul Error encoding Moflex: {ex.Message}"));
+                }
+            });
         }
 
         private void OpenKuriimuGithub_Click(object sender, RoutedEventArgs e)
@@ -286,7 +376,7 @@ namespace NicheStudioWeirdo.Views
             try
             {
                 string url = "https://github.com/FanTranslatorsInternational/Kuriimu2";
-                Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo(url) { UseShellExecute = true });
             }
             catch (Exception ex)
             {

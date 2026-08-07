@@ -195,15 +195,65 @@
                     <!-- ═══════════════════════════════════════════════════════ -->
                     <TextBlock Text="Video Tools (.moflex)" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
 
-                    <TextBlock Text="MOBIUS VIDEO TRANSCODER" Style="{StaticResource LabelStyle}"/>
-                    <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="11" TextWrapping="Wrap"
-                               Margin="0,0,0,12"
-                               Text="Mobiclip video transcoder (moflex/mods to mp4) by AdibSurani. Use this tool to extract 3DS video files into MP4 for translation and hardsubbing."/>
+                    <Border Background="#1A0500" CornerRadius="0" Padding="14,10" Margin="0,0,0,16" BorderThickness="1" BorderBrush="#6B1010">
+                        <StackPanel>
+                            <TextBlock Foreground="#FF4444" FontWeight="Bold" FontSize="11" Text="⚠️  REQUIREMENTS"/>
+                            <TextBlock Foreground="#CC8888" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"
+                                       Text="To extract MP4, you MUST have 'ffmpeg.exe'. To encode Moflex, you MUST have the official 'moflex.exe' from the Nintendo SDK."/>
+                        </StackPanel>
+                    </Border>
 
-                    <Button x:Name="OpenMobiusGithubBtn" Content="🔗  Open GitHub — Mobius"
-                            Style="{StaticResource ActionButton}"
-                            HorizontalAlignment="Left" Padding="18,10" Margin="0,0,0,24"
-                            Click="OpenMobiusGithub_Click"/>
+                    <!-- Extract to MP4 -->
+                    <TextBlock Text="Extract Moflex to MP4" Foreground="{StaticResource TextMutedBrush}" Margin="0,0,0,4"/>
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="MoflexInputPath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select .moflex file to extract..."/>
+                        <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseMoflexInput_Click"/>
+                    </Grid>
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="FfmpegPath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select ffmpeg.exe (Required)..."/>
+                        <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseFfmpeg_Click"/>
+                    </Grid>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,16">
+                        <Button Content="Extract to MP4" Style="{StaticResource ActionButton}" Click="ExtractToMp4_Click"/>
+                    </StackPanel>
+
+                    <!-- Encode to Moflex -->
+                    <TextBlock Text="Encode MP4 to Moflex (Requires SDK Tool)" Foreground="{StaticResource TextMutedBrush}" Margin="0,0,0,4"/>
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="Mp4InputPath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select .mp4 video file..."/>
+                        <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseMp4Input_Click"/>
+                    </Grid>
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="WavInputPath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select .wav audio file (Optional)..."/>
+                        <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseWavInput_Click"/>
+                    </Grid>
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="MoflexExePath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select moflex.exe (Nintendo SDK)..."/>
+                        <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseMoflexExe_Click"/>
+                    </Grid>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,24">
+                        <Button Content="Encode to Moflex" Style="{StaticResource ActionButtonGreen}" Click="EncodeToMoflex_Click"/>
+                    </StackPanel>
 
                     <!-- Divider -->
                     <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,20"/>
