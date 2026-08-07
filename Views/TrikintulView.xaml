@@ -190,6 +190,24 @@
                     <!-- Divider -->
                     <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,20"/>
 
+                    <!-- ═══════════════════════════════════════════════════════ -->
+                    <!-- VIDEO TOOLS                                             -->
+                    <!-- ═══════════════════════════════════════════════════════ -->
+                    <TextBlock Text="Video Tools (.moflex)" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
+
+                    <TextBlock Text="MOBIUS VIDEO TRANSCODER" Style="{StaticResource LabelStyle}"/>
+                    <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="11" TextWrapping="Wrap"
+                               Margin="0,0,0,12"
+                               Text="Mobiclip video transcoder (moflex/mods to mp4) by AdibSurani. Use this tool to extract 3DS video files into MP4 for translation and hardsubbing."/>
+
+                    <Button x:Name="OpenMobiusGithubBtn" Content="🔗  Open GitHub — Mobius"
+                            Style="{StaticResource ActionButton}"
+                            HorizontalAlignment="Left" Padding="18,10" Margin="0,0,0,24"
+                            Click="OpenMobiusGithub_Click"/>
+
+                    <!-- Divider -->
+                    <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,20"/>
+
                     <!-- Kuriimu2 GitHub download button -->
                     <TextBlock Text="KURIIMU2 ARCHITECTURE TOOLKIT" Style="{StaticResource LabelStyle}"/>
                     <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="11" TextWrapping="Wrap"

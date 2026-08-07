@@ -268,6 +268,19 @@ namespace NicheStudioWeirdo.Views
             }
         }
 
+        private void OpenMobiusGithub_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string url = "https://github.com/AdibSurani/Mobius";
+                Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+            }
+            catch (Exception ex)
+            {
+                Main.LogToConsole($"Trikintul Error opening link: {ex.Message}");
+            }
+        }
+
         private void OpenKuriimuGithub_Click(object sender, RoutedEventArgs e)
         {
             try
