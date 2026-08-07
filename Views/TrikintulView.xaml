@@ -197,9 +197,10 @@
 
                     <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="11" TextWrapping="Wrap"
                                Margin="0,0,0,12"
-                               Text="Mobiclip video transcoder (moflex/mods to mp4). Extract 3DS video files into MP4 for translation and hardsubbing. FFmpeg is bundled in the Tools folder."/>
+                               Text="Mobiclip video tools for 3DS fan-translation. FFmpeg is bundled. To encode back to Moflex, place 'moflex.exe' (from Nintendo SDK) in the Tools folder."/>
 
                     <!-- Extract to MP4 -->
+                    <TextBlock Text="EXTRACT — Moflex → MP4" Style="{StaticResource LabelStyle}"/>
                     <Grid Margin="0,0,0,8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
@@ -210,6 +211,20 @@
                     </Grid>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,16">
                         <Button Content="Extract to MP4" Style="{StaticResource ActionButton}" Click="ExtractToMp4_Click"/>
+                    </StackPanel>
+
+                    <!-- Encode to Moflex -->
+                    <TextBlock Text="ENCODE — MP4 → Moflex" Style="{StaticResource LabelStyle}"/>
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="Mp4InputPath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select translated .mp4 video..."/>
+                        <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseMp4Input_Click"/>
+                    </Grid>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,16">
+                        <Button Content="Encode to Moflex" Style="{StaticResource ActionButtonGreen}" Click="EncodeToMoflex_Click"/>
                     </StackPanel>
 
                     <!-- Divider -->

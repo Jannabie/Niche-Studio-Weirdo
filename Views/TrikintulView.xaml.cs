@@ -314,6 +314,55 @@ namespace NicheStudioWeirdo.Views
             });
         }
 
+        private void BrowseMp4Input_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new Microsoft.Win32.OpenFileDialog { Filter = "MP4 Video|*.mp4;*.avi|All Files|*.*" };
+            if (dialog.ShowDialog() == true) Mp4InputPath.Text = dialog.FileName;
+        }
+
+        private async void EncodeToMoflex_Click(object sender, RoutedEventArgs e)
+        {
+            string video = Mp4InputPath.Text;
+            
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            string encoder = System.IO.Path.Combine(baseDir, "moflex.exe");
+            if (!System.IO.File.Exists(encoder)) encoder = System.IO.Path.Combine(baseDir, "Tools", "moflex.exe");
+            
+            string audio = System.IO.Path.ChangeExtension(video, ".wav");
+            if (!System.IO.File.Exists(audio)) audio = "";
+            
+            if (string.IsNullOrWhiteSpace(video) || !System.IO.File.Exists(video))
+            {
+                Main.LogToConsole("Trikintul Error: Please select a valid .mp4 video file.");
+                return;
+            }
+            if (!System.IO.File.Exists(encoder))
+            {
+                Main.LogToConsole("Trikintul Error: 'moflex.exe' not found in Tools folder. Get it from the Nintendo 3DS SDK and place it in the Tools folder next to NicheStudioWeirdo.exe.");
+                return;
+            }
+
+            string output = System.IO.Path.ChangeExtension(video, ".moflex");
+            Main.LogToConsole($"Encoding to Moflex: {output}...");
+            if (!string.IsNullOrEmpty(audio)) Main.LogToConsole($"Auto-detected audio: {audio}");
+
+            await System.Threading.Tasks.Task.Run(() =>
+            {
+                try
+                {
+                    NicheStudioWeirdo.Utils.MoflexEncoderWrapper.Encode(video, audio, encoder, output, msg =>
+                    {
+                        Dispatcher.Invoke(() => Main.LogToConsole($"[Moflex Encoder] {msg}"));
+                    });
+                    Dispatcher.Invoke(() => Main.LogToConsole("Moflex encoding completed successfully."));
+                }
+                catch (Exception ex)
+                {
+                    Dispatcher.Invoke(() => Main.LogToConsole($"Trikintul Error encoding Moflex: {ex.Message}"));
+                }
+            });
+        }
+
         private void OpenKuriimuGithub_Click(object sender, RoutedEventArgs e)
         {
             try
