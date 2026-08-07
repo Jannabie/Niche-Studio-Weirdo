@@ -274,25 +274,23 @@ namespace NicheStudioWeirdo.Views
             if (dialog.ShowDialog() == true) MoflexInputPath.Text = dialog.FileName;
         }
 
-        private void BrowseFfmpeg_Click(object sender, RoutedEventArgs e)
-        {
-            var dialog = new Microsoft.Win32.OpenFileDialog { Filter = "ffmpeg Executable|ffmpeg.exe|All Files|*.*" };
-            if (dialog.ShowDialog() == true) FfmpegPath.Text = dialog.FileName;
-        }
-
         private async void ExtractToMp4_Click(object sender, RoutedEventArgs e)
         {
             string input = MoflexInputPath.Text;
-            string ffmpeg = FfmpegPath.Text;
+            
+            // Auto-detect ffmpeg.exe in the app directory or 'Tools' subdirectory
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            string ffmpeg = System.IO.Path.Combine(baseDir, "ffmpeg.exe");
+            if (!System.IO.File.Exists(ffmpeg)) ffmpeg = System.IO.Path.Combine(baseDir, "Tools", "ffmpeg.exe");
             
             if (string.IsNullOrWhiteSpace(input) || !System.IO.File.Exists(input))
             {
                 Main.LogToConsole("Trikintul Error: Please select a valid .moflex file.");
                 return;
             }
-            if (string.IsNullOrWhiteSpace(ffmpeg) || !System.IO.File.Exists(ffmpeg))
+            if (!System.IO.File.Exists(ffmpeg))
             {
-                Main.LogToConsole("Trikintul Error: Please select the ffmpeg.exe executable.");
+                Main.LogToConsole("Trikintul Error: 'ffmpeg.exe' not found! Please place ffmpeg.exe in the same folder as NicheStudioWeirdo.exe or in a 'Tools' subfolder.");
                 return;
             }
 
@@ -322,37 +320,33 @@ namespace NicheStudioWeirdo.Views
             if (dialog.ShowDialog() == true) Mp4InputPath.Text = dialog.FileName;
         }
 
-        private void BrowseWavInput_Click(object sender, RoutedEventArgs e)
-        {
-            var dialog = new Microsoft.Win32.OpenFileDialog { Filter = "WAV Audio|*.wav|All Files|*.*" };
-            if (dialog.ShowDialog() == true) WavInputPath.Text = dialog.FileName;
-        }
-
-        private void BrowseMoflexExe_Click(object sender, RoutedEventArgs e)
-        {
-            var dialog = new Microsoft.Win32.OpenFileDialog { Filter = "Moflex Encoder|moflex.exe|All Files|*.*" };
-            if (dialog.ShowDialog() == true) MoflexExePath.Text = dialog.FileName;
-        }
-
         private async void EncodeToMoflex_Click(object sender, RoutedEventArgs e)
         {
             string video = Mp4InputPath.Text;
-            string audio = WavInputPath.Text;
-            string encoder = MoflexExePath.Text;
+            
+            // Auto-detect moflex.exe in the app directory or 'Tools' subdirectory
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            string encoder = System.IO.Path.Combine(baseDir, "moflex.exe");
+            if (!System.IO.File.Exists(encoder)) encoder = System.IO.Path.Combine(baseDir, "Tools", "moflex.exe");
+            
+            // Auto-detect matching .wav file
+            string audio = System.IO.Path.ChangeExtension(video, ".wav");
+            if (!System.IO.File.Exists(audio)) audio = ""; // Pass empty if no audio found
             
             if (string.IsNullOrWhiteSpace(video) || !System.IO.File.Exists(video))
             {
                 Main.LogToConsole("Trikintul Error: Please select a valid input video file.");
                 return;
             }
-            if (string.IsNullOrWhiteSpace(encoder) || !System.IO.File.Exists(encoder))
+            if (!System.IO.File.Exists(encoder))
             {
-                Main.LogToConsole("Trikintul Error: Please select the moflex.exe executable from the SDK.");
+                Main.LogToConsole("Trikintul Error: 'moflex.exe' not found! Please place the official moflex.exe in the same folder as NicheStudioWeirdo.exe or in a 'Tools' subfolder.");
                 return;
             }
 
             string output = video + ".moflex";
             Main.LogToConsole($"Encoding MP4 to Moflex: {output}...");
+            if (!string.IsNullOrEmpty(audio)) Main.LogToConsole($"Found matching audio file: {audio}");
 
             await System.Threading.Tasks.Task.Run(() =>
             {

@@ -213,14 +213,6 @@
                         <TextBox x:Name="MoflexInputPath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select .moflex file to extract..."/>
                         <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseMoflexInput_Click"/>
                     </Grid>
-                    <Grid Margin="0,0,0,8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBox x:Name="FfmpegPath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select ffmpeg.exe (Required)..."/>
-                        <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseFfmpeg_Click"/>
-                    </Grid>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,16">
                         <Button Content="Extract to MP4" Style="{StaticResource ActionButton}" Click="ExtractToMp4_Click"/>
                     </StackPanel>
@@ -232,24 +224,8 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBox x:Name="Mp4InputPath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select .mp4 video file..."/>
+                        <TextBox x:Name="Mp4InputPath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select .mp4 video file (Make sure .wav with same name exists)..."/>
                         <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseMp4Input_Click"/>
-                    </Grid>
-                    <Grid Margin="0,0,0,8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBox x:Name="WavInputPath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select .wav audio file (Optional)..."/>
-                        <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseWavInput_Click"/>
-                    </Grid>
-                    <Grid Margin="0,0,0,8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBox x:Name="MoflexExePath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select moflex.exe (Nintendo SDK)..."/>
-                        <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseMoflexExe_Click"/>
                     </Grid>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,24">
                         <Button Content="Encode to Moflex" Style="{StaticResource ActionButtonGreen}" Click="EncodeToMoflex_Click"/>
