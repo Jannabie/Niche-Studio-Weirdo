@@ -316,7 +316,7 @@ namespace NicheStudioWeirdo.Views
 
         private void BrowseMp4Input_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new Microsoft.Win32.OpenFileDialog { Filter = "MP4 Video|*.mp4;*.avi|All Files|*.*" };
+            var dialog = new Microsoft.Win32.OpenFileDialog { Filter = "Video Files|*.mkv;*.mp4;*.avi|All Files|*.*" };
             if (dialog.ShowDialog() == true) Mp4InputPath.Text = dialog.FileName;
         }
 

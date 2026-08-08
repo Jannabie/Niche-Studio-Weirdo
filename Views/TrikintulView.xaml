@@ -199,28 +199,28 @@
                                Margin="0,0,0,12"
                                Text="Mobiclip video tools for 3DS fan-translation. Extract = lossless MKV (zero quality loss). Then edit subtitle/video, then Encode back to Moflex using Mobipeg (open-source, bundled)."/>
 
-                    <!-- Extract to MP4 -->
-                    <TextBlock Text="EXTRACT — Moflex → MP4" Style="{StaticResource LabelStyle}"/>
+                    <!-- Extract to MKV (Lossless) -->
+                    <TextBlock Text="EXTRACT — Moflex → MKV (Lossless)" Style="{StaticResource LabelStyle}"/>
                     <Grid Margin="0,0,0,8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBox x:Name="MoflexInputPath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select .moflex file to extract..."/>
+                        <TextBox x:Name="MoflexInputPath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select .moflex or .mods file..."/>
                         <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseMoflexInput_Click"/>
                     </Grid>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,16">
-                        <Button Content="Extract to MP4" Style="{StaticResource ActionButton}" Click="ExtractToMp4_Click"/>
+                        <Button Content="Extract to MKV (Lossless)" Style="{StaticResource ActionButton}" Click="ExtractToMp4_Click"/>
                     </StackPanel>
 
                     <!-- Encode to Moflex -->
-                    <TextBlock Text="ENCODE — MP4 → Moflex" Style="{StaticResource LabelStyle}"/>
+                    <TextBlock Text="ENCODE — MKV/MP4 → Moflex" Style="{StaticResource LabelStyle}"/>
                     <Grid Margin="0,0,0,8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBox x:Name="Mp4InputPath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select translated .mp4 video..."/>
+                        <TextBox x:Name="Mp4InputPath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select .mkv (from Extract) or .mp4 video..."/>
                         <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseMp4Input_Click"/>
                     </Grid>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,16">
