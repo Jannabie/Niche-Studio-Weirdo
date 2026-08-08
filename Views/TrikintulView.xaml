@@ -216,7 +216,7 @@
                     <!-- Encode to Moflex (Official Encoder Bypass) -->
                     <TextBlock Text="ENCODE — MP4 → Moflex" Style="{StaticResource LabelStyle}"/>
                     <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="11" TextWrapping="Wrap" Margin="0,0,0,8"
-                               Text="Membuka Mobiclip Multicore Encoder resmi (via RunAsDate bypass)."/>
+                               Text="Opens the official Mobiclip Multicore Encoder (via RunAsDate date bypass)."/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,16">
                         <Button Content="Open Official Mobiclip Encoder" Style="{StaticResource ActionButtonGreen}" Click="EncodeToMoflex_Click"/>
                     </StackPanel>
