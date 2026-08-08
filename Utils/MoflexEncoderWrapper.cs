@@ -19,17 +19,18 @@ namespace NicheStudioWeirdo.Utils
                 throw new FileNotFoundException($"Input video not found at {videoPath}");
 
             // Mobipeg is a patched FFmpeg. Encoding command:
-            // Use CRF 16 (transparent quality) and preset slower for best compression and no pixelation
+            // Use CRF 16 (transparent quality) and preset slower for best compression and no pixelation.
+            // CRITICAL: Must use -mobiclip 1 -moflex 1 to use Nintendo's custom quantization tables!
             string args = $"-y -i \"{videoPath}\"";
 
             if (!string.IsNullOrWhiteSpace(audioPath) && File.Exists(audioPath))
             {
                 args += $" -i \"{audioPath}\"";
-                args += $" -c:v mobiclip -crf 16 -preset slower -c:a adpcm_ima_mobiclip \"{outputPath}\"";
+                args += $" -c:v mobiclip -mobiclip 1 -moflex 1 -crf 16 -preset slower -c:a adpcm_ima_mobiclip \"{outputPath}\"";
             }
             else
             {
-                args += $" -c:v mobiclip -crf 16 -preset slower \"{outputPath}\"";
+                args += $" -c:v mobiclip -mobiclip 1 -moflex 1 -crf 16 -preset slower \"{outputPath}\"";
             }
 
             logCallback($"[Mobipeg] Running: mobipeg.exe {args}");
