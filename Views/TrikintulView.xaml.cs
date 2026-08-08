@@ -325,8 +325,8 @@ namespace NicheStudioWeirdo.Views
             string video = Mp4InputPath.Text;
             
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            string encoder = System.IO.Path.Combine(baseDir, "moflex.exe");
-            if (!System.IO.File.Exists(encoder)) encoder = System.IO.Path.Combine(baseDir, "Tools", "moflex.exe");
+            string encoder = System.IO.Path.Combine(baseDir, "mobipeg.exe");
+            if (!System.IO.File.Exists(encoder)) encoder = System.IO.Path.Combine(baseDir, "Tools", "mobipeg.exe");
             
             string audio = System.IO.Path.ChangeExtension(video, ".wav");
             if (!System.IO.File.Exists(audio)) audio = "";
@@ -338,7 +338,7 @@ namespace NicheStudioWeirdo.Views
             }
             if (!System.IO.File.Exists(encoder))
             {
-                Main.LogToConsole("Trikintul Error: 'moflex.exe' not found in Tools folder. Get it from the Nintendo 3DS SDK and place it in the Tools folder next to NicheStudioWeirdo.exe.");
+                Main.LogToConsole("Trikintul Error: 'mobipeg.exe' not found in Tools folder. It should be bundled — try re-downloading the software.");
                 return;
             }
 

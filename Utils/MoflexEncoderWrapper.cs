@@ -4,31 +4,39 @@ using System.IO;
 
 namespace NicheStudioWeirdo.Utils
 {
+    /// <summary>
+    /// Uses Mobipeg (open-source patched FFmpeg) to encode MP4 → Moflex.
+    /// No Nintendo SDK required. mobipeg.exe must be in the Tools folder.
+    /// Project: https://github.com/quatric/mobipeg
+    /// </summary>
     public static class MoflexEncoderWrapper
     {
-        public static void Encode(string videoPath, string audioPath, string moflexExePath, string outputPath, Action<string> logCallback)
+        public static void Encode(string videoPath, string audioPath, string mobipegPath, string outputPath, Action<string> logCallback)
         {
-            if (!File.Exists(moflexExePath))
-                throw new FileNotFoundException($"Moflex Encoder not found at {moflexExePath}");
+            if (!File.Exists(mobipegPath))
+                throw new FileNotFoundException($"mobipeg.exe not found at {mobipegPath}");
             if (!File.Exists(videoPath))
                 throw new FileNotFoundException($"Input video not found at {videoPath}");
 
-            // Basic arguments for standard Moflex SDK Encoder
-            // This might vary depending on the exact version of the SDK leak
-            string args = $"-i \"{videoPath}\"";
-            
+            // Mobipeg is a patched FFmpeg. Encoding command:
+            // ffmpeg -i video.mp4 [-i audio.wav] -c:v mobiclip [-c:a adpcm_ima_mobiclip] -y output.moflex
+            string args = $"-y -i \"{videoPath}\"";
+
             if (!string.IsNullOrWhiteSpace(audioPath) && File.Exists(audioPath))
             {
-                args += $" -snd \"{audioPath}\""; // Some versions use -snd or -audio
+                args += $" -i \"{audioPath}\"";
+                args += $" -c:v mobiclip -c:a adpcm_ima_mobiclip \"{outputPath}\"";
+            }
+            else
+            {
+                args += $" -c:v mobiclip \"{outputPath}\"";
             }
 
-            args += $" -o \"{outputPath}\"";
-
-            logCallback($"Running Moflex Encoder with arguments: {args}");
+            logCallback($"[Mobipeg] Running: mobipeg.exe {args}");
 
             var startInfo = new ProcessStartInfo
             {
-                FileName = moflexExePath,
+                FileName = mobipegPath,
                 Arguments = args,
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
@@ -39,7 +47,7 @@ namespace NicheStudioWeirdo.Utils
             using (var process = new Process { StartInfo = startInfo })
             {
                 process.OutputDataReceived += (s, e) => { if (!string.IsNullOrEmpty(e.Data)) logCallback(e.Data); };
-                process.ErrorDataReceived += (s, e) => { if (!string.IsNullOrEmpty(e.Data)) logCallback("ERROR: " + e.Data); };
+                process.ErrorDataReceived += (s, e) => { if (!string.IsNullOrEmpty(e.Data)) logCallback(e.Data); };
 
                 process.Start();
                 process.BeginOutputReadLine();
@@ -47,10 +55,9 @@ namespace NicheStudioWeirdo.Utils
                 process.WaitForExit();
 
                 if (process.ExitCode != 0)
-                {
-                    logCallback($"Moflex Encoder exited with code {process.ExitCode}");
-                }
+                    logCallback($"[Mobipeg] Process exited with code {process.ExitCode}");
             }
         }
     }
 }
+
