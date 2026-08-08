@@ -294,8 +294,8 @@ namespace NicheStudioWeirdo.Views
                 return;
             }
 
-            string output = System.IO.Path.ChangeExtension(input, ".mkv");
-            Main.LogToConsole($"Extracting Moflex to lossless MKV (no quality loss): {output}...");
+            string output = System.IO.Path.ChangeExtension(input, ".mp4");
+            Main.LogToConsole($"Extracting Moflex to MP4 (High Quality): {output}...");
 
             await System.Threading.Tasks.Task.Run(() =>
             {
@@ -314,57 +314,40 @@ namespace NicheStudioWeirdo.Views
             });
         }
 
-        private void BrowseMp4Input_Click(object sender, RoutedEventArgs e)
-        {
-            var dialog = new Microsoft.Win32.OpenFileDialog { Filter = "Video Files|*.mkv;*.mp4;*.avi|All Files|*.*" };
-            if (dialog.ShowDialog() == true)
-            {
-                Mp4InputPath.Text = dialog.FileName;
-                Is3DVideo.IsChecked = dialog.FileName.ToLower().Contains("3d") || dialog.FileName.ToLower().Contains("(3d)") || dialog.FileName.ToLower().Contains("_3d");
-            }
-        }
-
         private async void EncodeToMoflex_Click(object sender, RoutedEventArgs e)
         {
-            string video = Mp4InputPath.Text;
-            
-            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
-            string encoder = System.IO.Path.Combine(baseDir, "mobipeg.exe");
-            if (!System.IO.File.Exists(encoder)) encoder = System.IO.Path.Combine(baseDir, "Tools", "mobipeg.exe");
-            
-            string audio = System.IO.Path.ChangeExtension(video, ".wav");
-            if (!System.IO.File.Exists(audio)) audio = "";
-            
-            if (string.IsNullOrWhiteSpace(video) || !System.IO.File.Exists(video))
+            string baseDir = "C:\\Users\\user\\Downloads\\Moflex Conversion";
+            string runAsDate = Path.Combine(baseDir, "Run As Date", "RunAsDate.exe");
+            string encoder = Path.Combine(baseDir, "Mobiclip Multicore Encoder", "MobiclipMulticoreEncoder.exe");
+
+            if (!File.Exists(runAsDate))
             {
-                Main.LogToConsole("Trikintul Error: Please select a valid .mp4 video file.");
+                Main.LogToConsole("Trikintul Error: RunAsDate.exe not found in " + runAsDate);
                 return;
             }
-            if (!System.IO.File.Exists(encoder))
+            if (!File.Exists(encoder))
             {
-                Main.LogToConsole("Trikintul Error: 'mobipeg.exe' not found in Tools folder. It should be bundled — try re-downloading the software.");
+                Main.LogToConsole("Trikintul Error: MobiclipMulticoreEncoder.exe not found in " + encoder);
                 return;
             }
 
-            string output = System.IO.Path.ChangeExtension(video, ".moflex");
-            Main.LogToConsole($"Encoding to Moflex: {output}...");
-            if (!string.IsNullOrEmpty(audio)) Main.LogToConsole($"Auto-detected audio: {audio}");
-
-            bool is3D = Is3DVideo.IsChecked == true;
+            Main.LogToConsole("Launching Official Mobiclip Encoder (Date Bypassed to 10/09/2023)...");
 
             await System.Threading.Tasks.Task.Run(() =>
             {
                 try
                 {
-                    NicheStudioWeirdo.Utils.MoflexEncoderWrapper.Encode(video, audio, encoder, output, is3D, msg =>
+                    var startInfo = new System.Diagnostics.ProcessStartInfo
                     {
-                        Dispatcher.Invoke(() => Main.LogToConsole($"[Moflex Encoder] {msg}"));
-                    });
-                    Dispatcher.Invoke(() => Main.LogToConsole("Moflex encoding completed successfully."));
+                        FileName = runAsDate,
+                        Arguments = $"10\\09\\2023 12:00:00 \"{encoder}\"",
+                        UseShellExecute = false
+                    };
+                    System.Diagnostics.Process.Start(startInfo);
                 }
                 catch (Exception ex)
                 {
-                    Dispatcher.Invoke(() => Main.LogToConsole($"Trikintul Error encoding Moflex: {ex.Message}"));
+                    Dispatcher.Invoke(() => Main.LogToConsole($"Trikintul Error launching encoder: {ex.Message}"));
                 }
             });
         }

@@ -18,9 +18,8 @@ namespace NicheStudioWeirdo.Utils.Mobius
                 throw new FileNotFoundException($"Input file not found at {inputPath}");
 
             int maxQueueSize = 256;
-            // Use lossless FFV1 codec in MKV to avoid generation loss when re-encoding back to Moflex.
-            // The output will be a .mkv file with perfect quality, usable by Mobipeg for encoding.
-            string options = "-c:v ffv1 -level 3 -threads 0 -slicecrc 1 -c:a pcm_s16le";
+            // Extract to MP4 using high-quality H.264 (CRF 12) for standard video editors
+            string options = "-c:v libx264 -crf 12 -preset veryfast -c:a aac -b:a 192k";
             string stereoTarget = "sbs2l";
 
             var headers = MobiContainer.GetHeaders(inputPath);
