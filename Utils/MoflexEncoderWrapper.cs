@@ -18,21 +18,30 @@ namespace NicheStudioWeirdo.Utils
             if (!File.Exists(videoPath))
                 throw new FileNotFoundException($"Input video not found at {videoPath}");
 
-            // Mobipeg is a patched FFmpeg. Encoding command:
-            // Use QP 12 (highest quality, absolute max the 3DS supports) and preset veryslow for best compression and no pixelation.
-            // CRITICAL: Must use -mobiclip 1 -moflex 1 to use Nintendo's custom quantization tables!
-            // If the video is 3D (Side-by-Side), we MUST specify -mo_layout 4, otherwise the 3DS squashes it to 2D.
+            // Mobipeg Mobiclip encoder — ABSOLUTE MAXIMUM QUALITY settings.
+            //
+            // FACT: Mobiclip is a LOSSY codec. QP 12 is the encoder's hard minimum (QP < 12 = error).
+            //       There is NO lossless mode for Mobiclip. Some generation loss is unavoidable.
+            //       The settings below minimize that loss as much as physically possible.
+            //
+            // -mobiclip 1 -moflex 1  = Use Nintendo's custom quantization tables (REQUIRED)
+            // -qp 12                 = Absolute minimum QP (highest quality). Lower values cause encoder error.
+            // -mobi_qyx 0            = QY Extension Tier 0: preserves maximum chroma/luma detail
+            // -motion-est tesa       = Exhaustive motion search (slowest but most accurate)
+            // -preset veryslow       = Maximum compression effort
+            // -mo_layout 4/6         = 3D SBS (4) or 2D (6) layout for 3DS playback
             string layoutArg = is3D ? "-mo_layout 4" : "-mo_layout 6";
+            string qualityArgs = "-qp 12 -mobi_qyx 0 -motion-est tesa -preset veryslow";
             string args = $"-y -i \"{videoPath}\"";
 
             if (!string.IsNullOrWhiteSpace(audioPath) && File.Exists(audioPath))
             {
                 args += $" -i \"{audioPath}\"";
-                args += $" -c:v mobiclip -mobiclip 1 -moflex 1 {layoutArg} -qp 12 -preset veryslow -c:a adpcm_ima_mobiclip \"{outputPath}\"";
+                args += $" -c:v mobiclip -mobiclip 1 -moflex 1 {layoutArg} {qualityArgs} -c:a adpcm_ima_mobiclip \"{outputPath}\"";
             }
             else
             {
-                args += $" -c:v mobiclip -mobiclip 1 -moflex 1 {layoutArg} -qp 12 -preset veryslow \"{outputPath}\"";
+                args += $" -c:v mobiclip -mobiclip 1 -moflex 1 {layoutArg} {qualityArgs} \"{outputPath}\"";
             }
 
             logCallback($"[Mobipeg] Running: mobipeg.exe {args}");
