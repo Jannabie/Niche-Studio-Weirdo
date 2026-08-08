@@ -19,7 +19,7 @@ namespace NicheStudioWeirdo.Utils.Mobius
 
             int maxQueueSize = 256;
             // Extract to MP4 using high-quality H.264 (CRF 12) for standard video editors
-            string options = "-c:v libx264 -crf 12 -preset veryfast -c:a aac -b:a 192k";
+            string options = "-c:v libx264 -crf 12 -preset veryfast -c:a aac -ac 2 -b:a 192k";
             string stereoTarget = "sbs2l";
 
             var headers = MobiContainer.GetHeaders(inputPath);
