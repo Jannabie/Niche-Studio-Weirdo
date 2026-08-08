@@ -305,7 +305,7 @@ namespace NicheStudioWeirdo.Views
                     {
                         Dispatcher.Invoke(() => Main.LogToConsole($"[Mobius] {msg}"));
                     });
-                    Dispatcher.Invoke(() => Main.LogToConsole("Extraction complete. Output: " + output + "\nUse this .mkv as input for Encode to Moflex."));
+                    Dispatcher.Invoke(() => Main.LogToConsole("Extraction complete. Output: " + output + "\nUse this .mp4 as input for the Official Mobiclip Encoder."));
                 }
                 catch (Exception ex)
                 {
