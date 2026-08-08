@@ -317,7 +317,11 @@ namespace NicheStudioWeirdo.Views
         private void BrowseMp4Input_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new Microsoft.Win32.OpenFileDialog { Filter = "Video Files|*.mkv;*.mp4;*.avi|All Files|*.*" };
-            if (dialog.ShowDialog() == true) Mp4InputPath.Text = dialog.FileName;
+            if (dialog.ShowDialog() == true)
+            {
+                Mp4InputPath.Text = dialog.FileName;
+                Is3DVideo.IsChecked = dialog.FileName.ToLower().Contains("3d") || dialog.FileName.ToLower().Contains("(3d)") || dialog.FileName.ToLower().Contains("_3d");
+            }
         }
 
         private async void EncodeToMoflex_Click(object sender, RoutedEventArgs e)
@@ -346,11 +350,13 @@ namespace NicheStudioWeirdo.Views
             Main.LogToConsole($"Encoding to Moflex: {output}...");
             if (!string.IsNullOrEmpty(audio)) Main.LogToConsole($"Auto-detected audio: {audio}");
 
+            bool is3D = Is3DVideo.IsChecked == true;
+
             await System.Threading.Tasks.Task.Run(() =>
             {
                 try
                 {
-                    NicheStudioWeirdo.Utils.MoflexEncoderWrapper.Encode(video, audio, encoder, output, msg =>
+                    NicheStudioWeirdo.Utils.MoflexEncoderWrapper.Encode(video, audio, encoder, output, is3D, msg =>
                     {
                         Dispatcher.Invoke(() => Main.LogToConsole($"[Moflex Encoder] {msg}"));
                     });
