@@ -19,17 +19,17 @@ namespace NicheStudioWeirdo.Utils
                 throw new FileNotFoundException($"Input video not found at {videoPath}");
 
             // Mobipeg is a patched FFmpeg. Encoding command:
-            // Use high bitrate (-b:v 8M) to minimize Mobiclip lossy artifacts.
+            // Use CRF 16 (transparent quality) and preset slower for best compression and no pixelation
             string args = $"-y -i \"{videoPath}\"";
 
             if (!string.IsNullOrWhiteSpace(audioPath) && File.Exists(audioPath))
             {
                 args += $" -i \"{audioPath}\"";
-                args += $" -c:v mobiclip -b:v 8M -c:a adpcm_ima_mobiclip \"{outputPath}\"";
+                args += $" -c:v mobiclip -crf 16 -preset slower -c:a adpcm_ima_mobiclip \"{outputPath}\"";
             }
             else
             {
-                args += $" -c:v mobiclip -b:v 8M \"{outputPath}\"";
+                args += $" -c:v mobiclip -crf 16 -preset slower \"{outputPath}\"";
             }
 
             logCallback($"[Mobipeg] Running: mobipeg.exe {args}");
