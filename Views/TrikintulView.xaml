@@ -197,7 +197,7 @@
 
                     <TextBlock Foreground="{StaticResource TextMutedBrush}" FontSize="11" TextWrapping="Wrap"
                                Margin="0,0,0,12"
-                               Text="Mobiclip video tools for 3DS fan-translation. FFmpeg is bundled. To encode back to Moflex, place 'moflex.exe' (from Nintendo SDK) in the Tools folder."/>
+                               Text="Mobiclip video tools for 3DS fan-translation. Extract = lossless MKV (zero quality loss). Then edit subtitle/video, then Encode back to Moflex using Mobipeg (open-source, bundled)."/>
 
                     <!-- Extract to MP4 -->
                     <TextBlock Text="EXTRACT — Moflex → MP4" Style="{StaticResource LabelStyle}"/>

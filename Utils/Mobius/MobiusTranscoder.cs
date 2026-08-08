@@ -18,7 +18,9 @@ namespace NicheStudioWeirdo.Utils.Mobius
                 throw new FileNotFoundException($"Input file not found at {inputPath}");
 
             int maxQueueSize = 256;
-            string options = "-preset ultrafast -crf 0";
+            // Use lossless FFV1 codec in MKV to avoid generation loss when re-encoding back to Moflex.
+            // The output will be a .mkv file with perfect quality, usable by Mobipeg for encoding.
+            string options = "-c:v ffv1 -level 3 -threads 0 -slicecrc 1 -c:a pcm_s16le";
             string stereoTarget = "sbs2l";
 
             var headers = MobiContainer.GetHeaders(inputPath);
@@ -35,7 +37,8 @@ namespace NicheStudioWeirdo.Utils.Mobius
             var inputArgsA = headerA is null ? "" :
                 $@"-thread_queue_size {maxQueueSize} -guess_layout_max 0 -f s16le -ar {headerA.Frequency} -ac {headerA.Channels} -i \\.\pipe\{pipeName}";
             var inputArgsV = $@"-thread_queue_size {maxQueueSize} -f rawvideo -pix_fmt yuv420p -r {headerV.Fps} -s {headerV.Width}x{headerV.Height} -i -";
-            var inputArgsO = $@"-y -hide_banner {stereoFilter} {options} -ac {headerA?.Channels ?? 0} ""{outputPath}""";
+            // Strip -ac from options since FFV1 handles audio via pcm_s16le above
+            var inputArgsO = $@"-y -hide_banner {stereoFilter} {options} ""{outputPath}""";
 
             var startInfo = new ProcessStartInfo
             {

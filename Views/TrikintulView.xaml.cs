@@ -294,8 +294,8 @@ namespace NicheStudioWeirdo.Views
                 return;
             }
 
-            string output = input + ".mp4";
-            Main.LogToConsole($"Extracting Moflex to MP4: {output}...");
+            string output = System.IO.Path.ChangeExtension(input, ".mkv");
+            Main.LogToConsole($"Extracting Moflex to lossless MKV (no quality loss): {output}...");
 
             await System.Threading.Tasks.Task.Run(() =>
             {
@@ -305,7 +305,7 @@ namespace NicheStudioWeirdo.Views
                     {
                         Dispatcher.Invoke(() => Main.LogToConsole($"[Mobius] {msg}"));
                     });
-                    Dispatcher.Invoke(() => Main.LogToConsole("Moflex extraction completed successfully."));
+                    Dispatcher.Invoke(() => Main.LogToConsole("Extraction complete. Output: " + output + "\nUse this .mkv as input for Encode to Moflex."));
                 }
                 catch (Exception ex)
                 {
