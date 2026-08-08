@@ -223,7 +223,7 @@
                         <TextBox x:Name="Mp4InputPath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select .mkv (from Extract) or .mp4 video..."/>
                         <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseMp4Input_Click"/>
                     </Grid>
-                    <CheckBox x:Name="Is3DVideo" Content="3D Video (Side-by-Side)" Foreground="{StaticResource TextNormalBrush}" Margin="0,0,0,8" ToolTip="Centang ini jika videonya 3D (misalnya: file asli 800x240 SBS)."/>
+                    <CheckBox x:Name="Is3DVideo" Content="3D Video (Side-by-Side)" Foreground="{StaticResource TextMutedBrush}" Margin="0,0,0,8" ToolTip="Centang ini jika videonya 3D (misalnya: file asli 800x240 SBS)."/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,16">
                         <Button Content="Encode to Moflex" Style="{StaticResource ActionButtonGreen}" Click="EncodeToMoflex_Click"/>
                     </StackPanel>
