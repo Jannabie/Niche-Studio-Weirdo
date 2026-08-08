@@ -316,9 +316,9 @@ namespace NicheStudioWeirdo.Views
 
         private async void EncodeToMoflex_Click(object sender, RoutedEventArgs e)
         {
-            string baseDir = "C:\\Users\\user\\Downloads\\Moflex Conversion";
-            string runAsDate = Path.Combine(baseDir, "Run As Date", "RunAsDate.exe");
-            string encoder = Path.Combine(baseDir, "Mobiclip Multicore Encoder", "MobiclipMulticoreEncoder.exe");
+            string baseDir = AppDomain.CurrentDomain.BaseDirectory;
+            string runAsDate = Path.Combine(baseDir, "Tools", "RunAsDate", "RunAsDate.exe");
+            string encoder = Path.Combine(baseDir, "Tools", "MobiclipEncoder", "MobiclipMulticoreEncoder.exe");
 
             if (!File.Exists(runAsDate))
             {
