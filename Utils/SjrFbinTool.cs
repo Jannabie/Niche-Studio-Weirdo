@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Linq;
 
 namespace NicheStudioWeirdo.Utils
 {
@@ -14,32 +15,50 @@ namespace NicheStudioWeirdo.Utils
             using (var ms = new MemoryStream(data))
             using (var br = new BinaryReader(ms))
             {
-                if (data.Length < 96) throw new Exception("File is too small to be FBIN.");
+                if (data.Length < 32) throw new Exception("File is too small.");
                 
                 string magic = Encoding.ASCII.GetString(br.ReadBytes(4));
-                if (magic != "FBIN") throw new Exception("Not a valid FBIN file. Magic mismatch.");
+                int fileStart = 0;
                 
-                br.BaseStream.Position = 8;
-                int headerSize = br.ReadInt32(); // 64
-                if (headerSize != 64) logCallback("Warning: FBIN header size is not 64.");
+                if (magic == "FBIN")
+                {
+                    br.BaseStream.Position = 8;
+                    int headerSize = br.ReadInt32(); // 64
+                    if (headerSize != 64) logCallback("Warning: FBIN header size is not 64.");
+                    
+                    br.BaseStream.Position = headerSize;
+                    string innerMagic = Encoding.ASCII.GetString(br.ReadBytes(4));
+                    if (innerMagic != "TBB1") throw new Exception("No TBB1 signature found inside FBIN.");
+                    
+                    br.BaseStream.Position = headerSize + 8;
+                    int fileCount = br.ReadInt32();
+                    if (fileCount != 1) throw new Exception($"Unsupported file count in TBB1. Expected 1, found {fileCount}");
+                    
+                    br.BaseStream.Position = headerSize + 0x10;
+                    int offset = br.ReadInt32(); // 32
+                    
+                    fileStart = headerSize + offset;
+                }
+                else if (magic == "TBB1")
+                {
+                    br.BaseStream.Position = 8;
+                    int fileCount = br.ReadInt32();
+                    if (fileCount != 1) throw new Exception($"Unsupported file count in TBB1. Expected 1, found {fileCount}");
+                    
+                    br.BaseStream.Position = 0x10;
+                    int offset = br.ReadInt32(); // 32
+                    fileStart = offset;
+                }
+                else
+                {
+                    throw new Exception("Not a valid FBIN or TBB1 file. Magic mismatch.");
+                }
                 
-                br.BaseStream.Position = headerSize;
-                string innerMagic = Encoding.ASCII.GetString(br.ReadBytes(4));
-                if (innerMagic != "TBB1") throw new Exception("No TBB1 signature found inside FBIN.");
-                
-                br.BaseStream.Position = headerSize + 8;
-                int fileCount = br.ReadInt32();
-                if (fileCount != 1) throw new Exception($"Unsupported file count in TBB1. Expected 1, found {fileCount}");
-                
-                br.BaseStream.Position = headerSize + 0x10;
-                int offset = br.ReadInt32(); // 32
-                
-                int fileStart = headerSize + offset;
-                if (fileStart >= data.Length) throw new Exception("Invalid TBB1 offset.");
+                if (fileStart >= data.Length) throw new Exception("Invalid offset.");
                 
                 int fileSize = data.Length - fileStart;
                 
-                // Extract Header
+                // Extract Header (Blueprint)
                 byte[] headerBytes = new byte[fileStart];
                 Array.Copy(data, 0, headerBytes, 0, fileStart);
                 
@@ -51,7 +70,7 @@ namespace NicheStudioWeirdo.Utils
                 string baseName = Path.GetFileNameWithoutExtension(binPath);
                 
                 string headerPath = Path.Combine(baseDir, baseName + ".header");
-                string mbmPath = Path.Combine(baseDir, baseName + ".mbm");
+                string mbmPath = Path.Combine(baseDir, baseName + "_extracted.mbm");
                 
                 File.WriteAllBytes(headerPath, headerBytes);
                 File.WriteAllBytes(mbmPath, mbmBytes);
@@ -94,10 +113,10 @@ namespace NicheStudioWeirdo.Utils
         
         public static void ProcessDirectoryExtract(string dirPath, Action<string> logCallback)
         {
-            var files = Directory.GetFiles(dirPath, "*.bin");
+            var files = Directory.GetFiles(dirPath, "*.*").Where(f => f.EndsWith(".bin", StringComparison.OrdinalIgnoreCase) || f.EndsWith(".mbm", StringComparison.OrdinalIgnoreCase)).ToArray();
             int count = 0;
             foreach(var file in files) {
-                if (file.EndsWith("_repack.bin", StringComparison.OrdinalIgnoreCase)) continue;
+                if (file.EndsWith("_repack.bin", StringComparison.OrdinalIgnoreCase) || file.EndsWith("_extracted.mbm", StringComparison.OrdinalIgnoreCase)) continue;
                 try {
                     ExtractFbin(file, (msg) => { });
                     count++;
