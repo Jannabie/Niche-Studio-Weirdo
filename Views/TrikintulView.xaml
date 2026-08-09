@@ -126,20 +126,33 @@
                     <!-- ═══════════════════════════════════════════════════════ -->
                     <TextBlock Text="Moonbeam Script Tools (.mbm)" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
 
-                    <Grid Margin="0,0,0,10">
+                    <Grid Margin="0,0,0,8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBox x:Name="MoonbeamPath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select target file or folder (.mbm / .xml)..."/>
-                        <Button Grid.Column="1" Content="File" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseMoonbeamFile_Click"/>
-                        <Button Grid.Column="2" Content="Folder" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseMoonbeamFolder_Click"/>
+                        <TextBox x:Name="MoonbeamExportPath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select .mbm file or folder to export..."/>
+                        <Button Grid.Column="1" Content="File" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseMoonbeamExportFile_Click"/>
+                        <Button Grid.Column="2" Content="Folder" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseMoonbeamExportFolder_Click"/>
                     </Grid>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,16">
+                        <Button Content="Export to XML" Style="{StaticResource ActionButton}" Click="ExportMbm_Click"/>
+                    </StackPanel>
 
+                    <!-- Import to MBM -->
+                    <TextBlock Text="Import XML to MBM" Foreground="{StaticResource TextMutedBrush}" Margin="0,0,0,4"/>
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="MoonbeamImportPath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select .xml file or folder to import..."/>
+                        <Button Grid.Column="1" Content="File" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseMoonbeamImportFile_Click"/>
+                        <Button Grid.Column="2" Content="Folder" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseMoonbeamImportFolder_Click"/>
+                    </Grid>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,24">
-                        <CheckBox x:Name="IsMassMode" Content="Mass Folder Mode (Recursive)" VerticalAlignment="Center" VerticalContentAlignment="Center" Foreground="{StaticResource TextMutedBrush}" Margin="0,0,12,0"/>
-                        <Button Content="Export to XML" Style="{StaticResource ActionButton}" Margin="0,0,8,0" Click="ExportMbm_Click"/>
                         <Button Content="Import to MBM" Style="{StaticResource ActionButtonGreen}" Click="ImportMbm_Click"/>
                     </StackPanel>
 

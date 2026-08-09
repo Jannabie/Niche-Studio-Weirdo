@@ -142,41 +142,45 @@ namespace NicheStudioWeirdo.Views
             await ToolRunner.RunAsync(Path.GetDirectoryName(toolPath) ?? "", toolPath, args, Main);
         }
 
-        private void BrowseMoonbeamFile_Click(object sender, RoutedEventArgs e)
+        private void BrowseMoonbeamExportFile_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog { Filter = "MBM/XML Files|*.mbm;*.xml|All Files|*.*" };
-            if (dlg.ShowDialog() == true)
-            {
-                MoonbeamPath.Text = dlg.FileName;
-                IsMassMode.IsChecked = false;
-            }
+            OpenFileDialog dlg = new OpenFileDialog { Filter = "MBM Files|*.mbm|All Files|*.*" };
+            if (dlg.ShowDialog() == true) MoonbeamExportPath.Text = dlg.FileName;
         }
 
-        private void BrowseMoonbeamFolder_Click(object sender, RoutedEventArgs e)
+        private void BrowseMoonbeamExportFolder_Click(object sender, RoutedEventArgs e)
         {
-            var dlg = new OpenFolderDialog { Title = "Select Folder for Mass Mode" };
-            if (dlg.ShowDialog() == true)
-            {
-                MoonbeamPath.Text = dlg.FolderName;
-                IsMassMode.IsChecked = true;
-            }
+            var dlg = new OpenFolderDialog { Title = "Select Folder containing MBM files" };
+            if (dlg.ShowDialog() == true) MoonbeamExportPath.Text = dlg.FolderName;
+        }
+
+        private void BrowseMoonbeamImportFile_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog { Filter = "XML Files|*.xml|All Files|*.*" };
+            if (dlg.ShowDialog() == true) MoonbeamImportPath.Text = dlg.FileName;
+        }
+
+        private void BrowseMoonbeamImportFolder_Click(object sender, RoutedEventArgs e)
+        {
+            var dlg = new OpenFolderDialog { Title = "Select Folder containing XML files" };
+            if (dlg.ShowDialog() == true) MoonbeamImportPath.Text = dlg.FolderName;
         }
 
         private async void ExportMbm_Click(object sender, RoutedEventArgs e)
         {
-            await RunMoonbeam("-e", "Exporting MBM to XML...");
+            await RunMoonbeam("-e", MoonbeamExportPath.Text, "Exporting MBM to XML...");
         }
 
         private async void ImportMbm_Click(object sender, RoutedEventArgs e)
         {
-            await RunMoonbeam("-i", "Importing XML to MBM...");
+            await RunMoonbeam("-i", MoonbeamImportPath.Text, "Importing XML to MBM...");
         }
 
-        private async Task RunMoonbeam(string modeArg, string logMessage)
+        private async Task RunMoonbeam(string modeArg, string targetPath, string logMessage)
         {
-            if (string.IsNullOrWhiteSpace(MoonbeamPath.Text))
+            if (string.IsNullOrWhiteSpace(targetPath) || targetPath.StartsWith("Select"))
             {
-                Main.LogToConsole("Trikintul: Please select a file or folder for Moonbeam.");
+                Main.LogToConsole("Trikintul: Please select a valid file or folder for Moonbeam.");
                 return;
             }
 
@@ -187,9 +191,7 @@ namespace NicheStudioWeirdo.Views
                 return;
             }
 
-            // If path is directory but checkbox is false, force mass mode. Or if checkbox is true and path is dir.
-            // Moonbeam natively supports recursive mode if we just pass the directory path.
-            string args = $"{modeArg} \"{MoonbeamPath.Text}\"";
+            string args = $"{modeArg} \"{targetPath}\"";
             Main.LogToConsole($"Trikintul: {logMessage}");
             await ToolRunner.RunAsync(Path.GetDirectoryName(toolPath) ?? "", toolPath, args, Main);
         }
