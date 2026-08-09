@@ -163,6 +163,9 @@
                     <!-- STRANGE JOURNEY REDUX FBIN TOOLS                      -->
                     <!-- ═══════════════════════════════════════════════════════ -->
                     <TextBlock Text="Strange Journey Redux Tools (.bin)" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
+                    <TextBlock Foreground="Red" FontSize="11" TextWrapping="Wrap" Margin="0,0,0,8">
+                        Note: After extracting FBIN or MBM into a readable parser (.mbm), use the Moonbeam tools above to convert MBM to XML (Export) and vice versa (Import).
+                    </TextBlock>
 
                     <!-- Extract FBIN to MBM -->
                     <Grid Margin="0,0,0,8">
@@ -176,7 +179,7 @@
                         <Button Grid.Column="2" Content="Folder" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseSjrExtractFolder_Click"/>
                     </Grid>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,16">
-                        <Button Content="Extract FBIN to MBM" Style="{StaticResource ActionButton}" Click="ExtractFbin_Click"/>
+                        <Button Content="Extract FBIN / MBM to MBM Readable" Style="{StaticResource ActionButton}" Click="ExtractFbin_Click"/>
                     </StackPanel>
 
                     <!-- Repack MBM to FBIN -->
