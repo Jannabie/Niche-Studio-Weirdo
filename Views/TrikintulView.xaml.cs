@@ -241,7 +241,7 @@ namespace NicheStudioWeirdo.Views
                 }
                 else if (File.Exists(path))
                 {
-                    SjrFbinTool.ExtractFbin(path, msg => Main.LogToConsole($"Trikintul: {msg}"));
+                    SjrFbinTool.ExtractArchive(path, msg => Main.LogToConsole($"Trikintul: {msg}"));
                 }
                 else
                 {
@@ -271,7 +271,7 @@ namespace NicheStudioWeirdo.Views
                 }
                 else if (File.Exists(path))
                 {
-                    SjrFbinTool.RepackFbin(path, msg => Main.LogToConsole($"Trikintul: {msg}"));
+                    Main.LogToConsole("Trikintul: ERROR - You must select a FOLDER (ending in _unpacked) to repack, not a file.");
                 }
                 else
                 {
