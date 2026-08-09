@@ -200,36 +200,40 @@ namespace NicheStudioWeirdo.Views
         // STRANGE JOURNEY REDUX FBIN TOOLS
         // ═══════════════════════════════════════════════════════
 
-        private void BrowseSjrExtractFile_Click(object sender, RoutedEventArgs e)
+        private void BrowseSjrFbinFile_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog { Filter = "BIN/MBM/TBB1 Files|*.bin;*.mbm;*.tbb1|All Files|*.*" };
-            if (dlg.ShowDialog() == true) SjrExtractPath.Text = dlg.FileName;
+            OpenFileDialog dlg = new OpenFileDialog { Filter = "FBIN Files|*.bin|All Files|*.*" };
+            if (dlg.ShowDialog() == true) SjrFbinPath.Text = dlg.FileName;
         }
 
-        private void BrowseSjrExtractFolder_Click(object sender, RoutedEventArgs e)
+        private void BrowseSjrFbinFolder_Click(object sender, RoutedEventArgs e)
         {
-            var dlg = new OpenFolderDialog { Title = "Select folder containing EventMessage .bin files" };
-            if (dlg.ShowDialog() == true) SjrExtractPath.Text = dlg.FolderName;
+            var dlg = new OpenFolderDialog { Title = "Select _unpacked folder containing .tbb1 files" };
+            if (dlg.ShowDialog() == true) SjrFbinPath.Text = dlg.FolderName;
         }
 
-        private void BrowseSjrRepackFile_Click(object sender, RoutedEventArgs e)
+        private void BrowseSjrTbb1File_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog { Filter = "MBM Files|*.mbm|All Files|*.*" };
-            if (dlg.ShowDialog() == true) SjrRepackPath.Text = dlg.FileName;
+            OpenFileDialog dlg = new OpenFileDialog { Filter = "TBB1/MBM Files|*.tbb1;*.mbm|All Files|*.*" };
+            if (dlg.ShowDialog() == true) SjrTbb1Path.Text = dlg.FileName;
         }
 
-        private void BrowseSjrRepackFolder_Click(object sender, RoutedEventArgs e)
+        private void BrowseSjrTbb1Folder_Click(object sender, RoutedEventArgs e)
         {
-            var dlg = new OpenFolderDialog { Title = "Select folder containing .mbm files to repack" };
-            if (dlg.ShowDialog() == true) SjrRepackPath.Text = dlg.FolderName;
+            var dlg = new OpenFolderDialog { Title = "Select _unpacked folder containing .mbm files" };
+            if (dlg.ShowDialog() == true) SjrTbb1Path.Text = dlg.FolderName;
         }
 
-        private void ExtractFbin_Click(object sender, RoutedEventArgs e)
+        private void ExtractFbin_Click(object sender, RoutedEventArgs e) => ProcessSjrAction(SjrFbinPath.Text, true);
+        private void RepackFbin_Click(object sender, RoutedEventArgs e) => ProcessSjrAction(SjrFbinPath.Text, false);
+        private void ExtractTbb1_Click(object sender, RoutedEventArgs e) => ProcessSjrAction(SjrTbb1Path.Text, true);
+        private void RepackTbb1_Click(object sender, RoutedEventArgs e) => ProcessSjrAction(SjrTbb1Path.Text, false);
+
+        private void ProcessSjrAction(string path, bool isExtract)
         {
-            string path = SjrExtractPath.Text;
             if (string.IsNullOrWhiteSpace(path) || path.StartsWith("Select"))
             {
-                Main.LogToConsole("Trikintul: Please select a valid FBIN file or folder.");
+                Main.LogToConsole("Trikintul: Please select a valid file or folder.");
                 return;
             }
 
@@ -237,41 +241,13 @@ namespace NicheStudioWeirdo.Views
             {
                 if (Directory.Exists(path))
                 {
-                    SjrFbinTool.ProcessDirectoryExtract(path, msg => Main.LogToConsole($"Trikintul: {msg}"));
+                    if (isExtract) SjrFbinTool.ProcessDirectoryExtract(path, msg => Main.LogToConsole($"Trikintul: {msg}"));
+                    else SjrFbinTool.ProcessDirectoryRepack(path, msg => Main.LogToConsole($"Trikintul: {msg}"));
                 }
                 else if (File.Exists(path))
                 {
-                    SjrFbinTool.ExtractArchive(path, msg => Main.LogToConsole($"Trikintul: {msg}"));
-                }
-                else
-                {
-                    Main.LogToConsole("Trikintul: Path does not exist.");
-                }
-            }
-            catch (Exception ex)
-            {
-                Main.LogToConsole($"Trikintul: ERROR - {ex.Message}");
-            }
-        }
-
-        private void RepackFbin_Click(object sender, RoutedEventArgs e)
-        {
-            string path = SjrRepackPath.Text;
-            if (string.IsNullOrWhiteSpace(path) || path.StartsWith("Select"))
-            {
-                Main.LogToConsole("Trikintul: Please select a valid .mbm file or folder to repack.");
-                return;
-            }
-
-            try
-            {
-                if (Directory.Exists(path))
-                {
-                    SjrFbinTool.ProcessDirectoryRepack(path, msg => Main.LogToConsole($"Trikintul: {msg}"));
-                }
-                else if (File.Exists(path))
-                {
-                    Main.LogToConsole("Trikintul: ERROR - You must select a FOLDER (ending in _unpacked) to repack, not a file.");
+                    if (isExtract) SjrFbinTool.ExtractArchive(path, msg => Main.LogToConsole($"Trikintul: {msg}"));
+                    else Main.LogToConsole("Trikintul: ERROR - You must select a FOLDER (ending in _unpacked) to repack, not a file.");
                 }
                 else
                 {

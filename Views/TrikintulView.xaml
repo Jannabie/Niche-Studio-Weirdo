@@ -166,40 +166,42 @@
                         <StackPanel>
                             <TextBlock Foreground="#FF4444" FontWeight="Bold" FontSize="11" Text="📖  IMPORTANT NOTE"/>
                             <TextBlock Foreground="#CC8888" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"
-                                       Text="After extracting FBIN or MBM into a readable parser (.mbm), use the Moonbeam tools above to convert MBM to XML (Export) and vice versa (Import)."/>
+                                       Text="SJR Archive Extraction is a 2-step process!&#x0a;Step 1: Extract FBIN (.bin) into a folder containing TBB1 files.&#x0a;Step 2: Extract the TBB1 files into readable MBM files.&#x0a;&#x0a;After extracting to a readable parser (.mbm), use the Moonbeam tools above to convert MBM to XML (Export) and vice versa (Import)."/>
                         </StackPanel>
                     </Border>
-                    <TextBlock Text="Strange Journey Redux Tools (.bin)" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
 
-                    <!-- Extract FBIN to MBM -->
+                    <TextBlock Text="Step 1: FBIN Archive Tools (.bin)" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
+
                     <Grid Margin="0,0,0,8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBox x:Name="SjrExtractPath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select EventMessage .bin file or folder..."/>
-                        <Button Grid.Column="1" Content="File" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseSjrExtractFile_Click"/>
-                        <Button Grid.Column="2" Content="Folder" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseSjrExtractFolder_Click"/>
+                        <TextBox x:Name="SjrFbinPath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select .bin file or _unpacked folder..."/>
+                        <Button Grid.Column="1" Content="File" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseSjrFbinFile_Click"/>
+                        <Button Grid.Column="2" Content="Folder" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseSjrFbinFolder_Click"/>
                     </Grid>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,16">
-                        <Button Content="Extract FBIN / MBM to MBM Readable" Style="{StaticResource ActionButton}" Click="ExtractFbin_Click"/>
+                        <Button Content="Extract FBIN to TBB1" Style="{StaticResource ActionButton}" Click="ExtractFbin_Click" Margin="0,0,8,0"/>
+                        <Button Content="Repack TBB1 to FBIN" Style="{StaticResource ActionButtonGreen}" Click="RepackFbin_Click"/>
                     </StackPanel>
 
-                    <!-- Repack MBM to FBIN -->
-                    <TextBlock Text="Repack MBM to FBIN" Foreground="{StaticResource TextMutedBrush}" Margin="0,0,0,4"/>
+                    <TextBlock Text="Step 2: TBB1 / MBM Archive Tools" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
+
                     <Grid Margin="0,0,0,8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBox x:Name="SjrRepackPath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select .mbm file or folder to repack..."/>
-                        <Button Grid.Column="1" Content="File" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseSjrRepackFile_Click"/>
-                        <Button Grid.Column="2" Content="Folder" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseSjrRepackFolder_Click"/>
+                        <TextBox x:Name="SjrTbb1Path" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select .tbb1/.mbm file or _unpacked folder..."/>
+                        <Button Grid.Column="1" Content="File" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseSjrTbb1File_Click"/>
+                        <Button Grid.Column="2" Content="Folder" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseSjrTbb1Folder_Click"/>
                     </Grid>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,24">
-                        <Button Content="Repack to FBIN / MBM" Style="{StaticResource ActionButtonGreen}" Click="RepackFbin_Click"/>
+                        <Button Content="Extract TBB1 to MBM Readable" Style="{StaticResource ActionButton}" Click="ExtractTbb1_Click" Margin="0,0,8,0"/>
+                        <Button Content="Repack MBM to TBB1" Style="{StaticResource ActionButtonGreen}" Click="RepackTbb1_Click"/>
                     </StackPanel>
 
                     <!-- Divider -->
