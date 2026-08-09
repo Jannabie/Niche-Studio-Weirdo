@@ -202,7 +202,7 @@ namespace NicheStudioWeirdo.Views
 
         private void BrowseSjrExtractFile_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog { Filter = "BIN/MBM Files|*.bin;*.mbm|All Files|*.*" };
+            OpenFileDialog dlg = new OpenFileDialog { Filter = "BIN/MBM/TBB1 Files|*.bin;*.mbm;*.tbb1|All Files|*.*" };
             if (dlg.ShowDialog() == true) SjrExtractPath.Text = dlg.FileName;
         }
 
