@@ -51,10 +51,11 @@ namespace NicheStudioWeirdo.Utils
                         currentOffset += fileSize;
                         
                         string ext = ".bin";
-                        if (fileSize >= 4) {
-                            string innerMagic = Encoding.ASCII.GetString(fileData, 0, 4);
-                            if (innerMagic == "TBB1") ext = ".tbb1";
-                            else if (innerMagic == "MSG2") ext = ".mbm";
+                        if (fileSize >= 8) {
+                            string magic0 = Encoding.ASCII.GetString(fileData, 0, 4);
+                            string magic4 = Encoding.ASCII.GetString(fileData, 4, 4);
+                            if (magic0 == "TBB1" || magic4 == "TBB1") ext = ".tbb1";
+                            else if (magic0 == "MSG2" || magic4 == "MSG2") ext = ".mbm";
                         }
                         
                         string fileName = $"{i:D3}{ext}";
@@ -85,10 +86,11 @@ namespace NicheStudioWeirdo.Utils
                         Array.Copy(data, fileStart, fileData, 0, fileSize);
                         
                         string ext = ".bin";
-                        if (fileSize >= 4) {
-                            string innerMagic = Encoding.ASCII.GetString(fileData, 0, 4);
-                            if (innerMagic == "MSG2") ext = ".mbm";
-                            else if (innerMagic == "TBB1") ext = ".tbb1";
+                        if (fileSize >= 8) {
+                            string magic0 = Encoding.ASCII.GetString(fileData, 0, 4);
+                            string magic4 = Encoding.ASCII.GetString(fileData, 4, 4);
+                            if (magic0 == "TBB1" || magic4 == "TBB1") ext = ".tbb1";
+                            else if (magic0 == "MSG2" || magic4 == "MSG2") ext = ".mbm";
                         }
                         
                         string fileName = $"{i:D3}{ext}";
