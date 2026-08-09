@@ -195,6 +195,95 @@ namespace NicheStudioWeirdo.Views
             Main.LogToConsole($"Trikintul: {logMessage}");
             await ToolRunner.RunAsync(Path.GetDirectoryName(toolPath) ?? "", toolPath, args, Main);
         }
+
+        // ═══════════════════════════════════════════════════════
+        // STRANGE JOURNEY REDUX FBIN TOOLS
+        // ═══════════════════════════════════════════════════════
+
+        private void BrowseSjrExtractFile_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog { Filter = "BIN Files|*.bin|All Files|*.*" };
+            if (dlg.ShowDialog() == true) SjrExtractPath.Text = dlg.FileName;
+        }
+
+        private void BrowseSjrExtractFolder_Click(object sender, RoutedEventArgs e)
+        {
+            var dlg = new OpenFolderDialog { Title = "Select folder containing EventMessage .bin files" };
+            if (dlg.ShowDialog() == true) SjrExtractPath.Text = dlg.FolderName;
+        }
+
+        private void BrowseSjrRepackFile_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog { Filter = "MBM Files|*.mbm|All Files|*.*" };
+            if (dlg.ShowDialog() == true) SjrRepackPath.Text = dlg.FileName;
+        }
+
+        private void BrowseSjrRepackFolder_Click(object sender, RoutedEventArgs e)
+        {
+            var dlg = new OpenFolderDialog { Title = "Select folder containing .mbm files to repack" };
+            if (dlg.ShowDialog() == true) SjrRepackPath.Text = dlg.FolderName;
+        }
+
+        private void ExtractFbin_Click(object sender, RoutedEventArgs e)
+        {
+            string path = SjrExtractPath.Text;
+            if (string.IsNullOrWhiteSpace(path) || path.StartsWith("Select"))
+            {
+                Main.LogToConsole("Trikintul: Please select a valid FBIN file or folder.");
+                return;
+            }
+
+            try
+            {
+                if (Directory.Exists(path))
+                {
+                    SjrFbinTool.ProcessDirectoryExtract(path, msg => Main.LogToConsole($"Trikintul: {msg}"));
+                }
+                else if (File.Exists(path))
+                {
+                    SjrFbinTool.ExtractFbin(path, msg => Main.LogToConsole($"Trikintul: {msg}"));
+                }
+                else
+                {
+                    Main.LogToConsole("Trikintul: Path does not exist.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Main.LogToConsole($"Trikintul: ERROR - {ex.Message}");
+            }
+        }
+
+        private void RepackFbin_Click(object sender, RoutedEventArgs e)
+        {
+            string path = SjrRepackPath.Text;
+            if (string.IsNullOrWhiteSpace(path) || path.StartsWith("Select"))
+            {
+                Main.LogToConsole("Trikintul: Please select a valid .mbm file or folder to repack.");
+                return;
+            }
+
+            try
+            {
+                if (Directory.Exists(path))
+                {
+                    SjrFbinTool.ProcessDirectoryRepack(path, msg => Main.LogToConsole($"Trikintul: {msg}"));
+                }
+                else if (File.Exists(path))
+                {
+                    SjrFbinTool.RepackFbin(path, msg => Main.LogToConsole($"Trikintul: {msg}"));
+                }
+                else
+                {
+                    Main.LogToConsole("Trikintul: Path does not exist.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Main.LogToConsole($"Trikintul: ERROR - {ex.Message}");
+            }
+        }
+
         private void BrowseStexInput_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog { Filter = "STEX Files|*.stex|All Files|*.*" };

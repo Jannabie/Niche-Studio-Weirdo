@@ -9,6 +9,8 @@
     <UseWPF>true</UseWPF>
     <ApplicationIcon>icon\NSW.ico</ApplicationIcon>
     <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,6 +22,7 @@
     <Compile Remove="Utility\**\*.cs" />
     <Compile Remove="publish_final\**\*.cs" />
     <Compile Remove="NicheStudio\**\*.cs" />
+    <Compile Remove="MoonbeamRepo\**\*.cs" />
     <None Include="Utility\**\*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>

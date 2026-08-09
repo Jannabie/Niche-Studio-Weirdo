@@ -160,6 +160,45 @@
                     <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,20"/>
 
                     <!-- ═══════════════════════════════════════════════════════ -->
+                    <!-- STRANGE JOURNEY REDUX FBIN TOOLS                      -->
+                    <!-- ═══════════════════════════════════════════════════════ -->
+                    <TextBlock Text="Strange Journey Redux Tools (.bin)" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
+
+                    <!-- Extract FBIN to MBM -->
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="SjrExtractPath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select EventMessage .bin file or folder..."/>
+                        <Button Grid.Column="1" Content="File" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseSjrExtractFile_Click"/>
+                        <Button Grid.Column="2" Content="Folder" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseSjrExtractFolder_Click"/>
+                    </Grid>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,16">
+                        <Button Content="Extract FBIN to MBM" Style="{StaticResource ActionButton}" Click="ExtractFbin_Click"/>
+                    </StackPanel>
+
+                    <!-- Repack MBM to FBIN -->
+                    <TextBlock Text="Repack MBM to FBIN" Foreground="{StaticResource TextMutedBrush}" Margin="0,0,0,4"/>
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="SjrRepackPath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select .mbm file or folder to repack..."/>
+                        <Button Grid.Column="1" Content="File" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseSjrRepackFile_Click"/>
+                        <Button Grid.Column="2" Content="Folder" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseSjrRepackFolder_Click"/>
+                    </Grid>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,24">
+                        <Button Content="Repack to FBIN" Style="{StaticResource ActionButtonGreen}" Click="RepackFbin_Click"/>
+                    </StackPanel>
+
+                    <!-- Divider -->
+                    <Border Height="1" Background="{StaticResource BorderBrush2}" Margin="0,0,0,20"/>
+
+                    <!-- ═══════════════════════════════════════════════════════ -->
                     <!-- IMAGE TOOLS                                             -->
                     <!-- ═══════════════════════════════════════════════════════ -->
                     <TextBlock Text="Image Tools" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
