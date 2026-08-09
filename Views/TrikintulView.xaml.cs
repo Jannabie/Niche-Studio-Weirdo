@@ -247,7 +247,22 @@ namespace NicheStudioWeirdo.Views
                 else if (File.Exists(path))
                 {
                     if (isExtract) SjrFbinTool.ExtractArchive(path, msg => Main.LogToConsole($"Trikintul: {msg}"));
-                    else Main.LogToConsole("Trikintul: ERROR - You must select a FOLDER (ending in _unpacked) to repack, not a file.");
+                    else
+                    {
+                        // Auto-detect _unpacked folder from the file path
+                        string dir = Path.GetDirectoryName(path) ?? "";
+                        string baseName = Path.GetFileNameWithoutExtension(path);
+                        string unpackedDir = Path.Combine(dir, baseName + "_unpacked");
+                        if (Directory.Exists(unpackedDir))
+                        {
+                            Main.LogToConsole($"Trikintul: Auto-detected unpacked folder: {Path.GetFileName(unpackedDir)}");
+                            SjrFbinTool.RepackArchive(unpackedDir, msg => Main.LogToConsole($"Trikintul: {msg}"));
+                        }
+                        else
+                        {
+                            Main.LogToConsole($"Trikintul: ERROR - Could not find folder '{baseName}_unpacked' next to the selected file. Extract the file first!");
+                        }
+                    }
                 }
                 else
                 {
