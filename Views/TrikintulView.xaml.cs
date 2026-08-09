@@ -208,8 +208,8 @@ namespace NicheStudioWeirdo.Views
 
         private void BrowseSjrRepackFile_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog dlg = new OpenFileDialog { Filter = "SJR Archive Files|*.bin;*.mbm;*.tbb1|All Files|*.*" };
-            if (dlg.ShowDialog() == true) SjrRepackPath.Text = dlg.FileName;
+            var dlg = new OpenFolderDialog { Title = "Select _unpacked folder to repack" };
+            if (dlg.ShowDialog() == true) SjrRepackPath.Text = dlg.FolderName;
         }
 
         private void DeepExtract_Click(object sender, RoutedEventArgs e)

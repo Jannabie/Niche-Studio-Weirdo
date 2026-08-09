@@ -233,59 +233,47 @@ namespace NicheStudioWeirdo.Utils
             }
         }
 
-        public static void DeepRepack(string filePath, Action<string> logCallback)
+        public static void DeepRepack(string folderPath, Action<string> logCallback)
         {
-            // From the original file, find its _unpacked folder
-            string baseDir = Path.GetDirectoryName(filePath) ?? "";
-            string baseName = Path.GetFileNameWithoutExtension(filePath);
-            string unpackedDir = Path.Combine(baseDir, baseName + "_unpacked");
-            
-            if (!Directory.Exists(unpackedDir))
-                throw new Exception($"Could not find folder '{baseName}_unpacked'. Extract the file first!");
-            
+            if (folderPath.EndsWith("\\") || folderPath.EndsWith("/")) folderPath = folderPath.TrimEnd('\\', '/');
+            if (!folderPath.EndsWith("_unpacked", StringComparison.OrdinalIgnoreCase))
+                throw new Exception("Please select a valid folder ending in '_unpacked'.");
+
+            if (!Directory.Exists(folderPath))
+                throw new Exception($"Directory does not exist: {folderPath}");
+
             // First, recursively repack any child _unpacked folders inside
-            foreach (var childDir in Directory.GetDirectories(unpackedDir, "*_unpacked"))
+            foreach (var childDir in Directory.GetDirectories(folderPath, "*_unpacked"))
             {
-                // The child archive file name is the folder name minus "_unpacked"
-                string childDirName = new DirectoryInfo(childDir).Name;
-                string childBaseName = childDirName.Substring(0, childDirName.Length - 9);
-                
-                // Find the original child file to figure out its extension
-                string childFile = Directory.GetFiles(unpackedDir)
-                    .FirstOrDefault(f => Path.GetFileNameWithoutExtension(f) == childBaseName) ?? "";
-                
-                if (!string.IsNullOrEmpty(childFile))
-                {
-                    // Recursively repack inner layers first
-                    DeepRepack(childFile, logCallback);
-                }
-                
-                // Now repack this child folder
-                RepackArchive(childDir, logCallback);
-                
-                // Replace the original child file with the repacked version
-                string repackedFile = Directory.GetFiles(unpackedDir)
-                    .FirstOrDefault(f => Path.GetFileName(f).StartsWith(childBaseName + "_repack")) ?? "";
-                if (!string.IsNullOrEmpty(repackedFile) && !string.IsNullOrEmpty(childFile))
-                {
-                    File.Copy(repackedFile, childFile, true);
-                    File.Delete(repackedFile);
-                    logCallback($"Updated {Path.GetFileName(childFile)} with repacked data");
-                }
+                DeepRepack(childDir, logCallback);
             }
             
-            // Now repack the top-level folder
-            RepackArchive(unpackedDir, logCallback);
+            // Now repack this top-level folder
+            RepackArchive(folderPath, logCallback);
+
+            string baseDir = Directory.GetParent(folderPath)?.FullName ?? "";
+            string dirName = new DirectoryInfo(folderPath).Name;
+            string baseName = dirName.Substring(0, dirName.Length - 9);
+
+            // Find the newly repacked file
+            string repackedFile = Directory.GetFiles(baseDir)
+                .FirstOrDefault(f => Path.GetFileNameWithoutExtension(f).EndsWith("_repack") && f.Contains(baseName)) ?? "";
             
-            // Replace the original file with the repacked version
-            string ext2 = Path.GetExtension(filePath);
-            string repackExt = ext2.ToLowerInvariant() == ".bin" ? "_repack.bin" : "_repack" + ext2;
-            string finalRepack = Path.Combine(baseDir, baseName + repackExt);
-            if (File.Exists(finalRepack))
+            if (string.IsNullOrEmpty(repackedFile)) return;
+
+            // Find the original file it should replace
+            string originalFile = Directory.GetFiles(baseDir)
+                .FirstOrDefault(f => Path.GetFileNameWithoutExtension(f) == baseName) ?? "";
+            
+            if (!string.IsNullOrEmpty(originalFile))
             {
-                File.Copy(finalRepack, filePath, true);
-                File.Delete(finalRepack);
-                logCallback($"✔ Deep Repack complete! Original file updated: {Path.GetFileName(filePath)}");
+                File.Copy(repackedFile, originalFile, true);
+                File.Delete(repackedFile);
+                logCallback($"✔ Updated original file: {Path.GetFileName(originalFile)}");
+            }
+            else 
+            {
+                logCallback($"✔ Repacked to: {Path.GetFileName(repackedFile)} (Could not find original file to overwrite)");
             }
         }
     }
