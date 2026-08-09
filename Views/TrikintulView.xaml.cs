@@ -241,12 +241,12 @@ namespace NicheStudioWeirdo.Views
             string path = SjrRepackPath.Text;
             if (string.IsNullOrWhiteSpace(path) || path.StartsWith("Select"))
             {
-                Main.LogToConsole("Trikintul: Please select a valid file.");
+                Main.LogToConsole("Trikintul: Please select a valid folder.");
                 return;
             }
-            if (!File.Exists(path))
+            if (!Directory.Exists(path))
             {
-                Main.LogToConsole("Trikintul: File does not exist.");
+                Main.LogToConsole("Trikintul: Folder does not exist.");
                 return;
             }
             try
