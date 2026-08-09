@@ -166,22 +166,35 @@
                         <StackPanel>
                             <TextBlock Foreground="#FF4444" FontWeight="Bold" FontSize="11" Text="📖  IMPORTANT NOTE"/>
                             <TextBlock Foreground="#CC8888" FontSize="11" TextWrapping="Wrap" Margin="0,4,0,0"
-                                       Text="Select the original .bin or .mbm file. 'Deep Extract' will automatically unpack ALL layers (FBIN → TBB1 → MBM) in one click. After translating the .mbm XML files using Moonbeam above, click 'Deep Repack' to re-bundle everything back into the original file."/>
+                                       Text="Select the original .bin or .mbm file for 'Deep Extract' to automatically unpack ALL layers (FBIN → TBB1 → MBM) in one click. After translating, select the original file again and use 'Deep Repack' to automatically re-bundle everything."/>
                         </StackPanel>
                     </Border>
 
-                    <TextBlock Text="Strange Journey Redux Archive Tools" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
+                    <TextBlock Text="Strange Journey Redux - Deep Extract" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
 
                     <Grid Margin="0,0,0,8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBox x:Name="SjrDeepPath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select .bin or .mbm file..."/>
-                        <Button Grid.Column="1" Content="Browse" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseSjrDeepFile_Click"/>
+                        <TextBox x:Name="SjrExtractPath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select original .bin or .mbm file..."/>
+                        <Button Grid.Column="1" Content="Browse File" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseSjrExtractFile_Click"/>
+                    </Grid>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,16">
+                        <Button Content="Deep Extract (All Layers)" Style="{StaticResource ActionButton}" Click="DeepExtract_Click"/>
+                    </StackPanel>
+
+                    <TextBlock Text="Strange Journey Redux - Deep Repack" Foreground="{StaticResource TextMutedBrush}" FontSize="12" FontWeight="Bold" Margin="0,0,0,8"/>
+
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="SjrRepackPath" Grid.Column="0" Style="{StaticResource TextBoxStyle}" Text="Select the file to repack (auto-detects _unpacked folder)..."/>
+                        <Button Grid.Column="1" Content="Browse File" Style="{StaticResource BrowseButton}" Margin="8,0,0,0" Click="BrowseSjrRepackFile_Click"/>
                     </Grid>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,24">
-                        <Button Content="Deep Extract (All Layers)" Style="{StaticResource ActionButton}" Click="DeepExtract_Click" Margin="0,0,8,0"/>
                         <Button Content="Deep Repack (All Layers)" Style="{StaticResource ActionButtonGreen}" Click="DeepRepack_Click"/>
                     </StackPanel>
 

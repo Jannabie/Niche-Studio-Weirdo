@@ -200,15 +200,21 @@ namespace NicheStudioWeirdo.Views
         // STRANGE JOURNEY REDUX FBIN TOOLS
         // ═══════════════════════════════════════════════════════
 
-        private void BrowseSjrDeepFile_Click(object sender, RoutedEventArgs e)
+        private void BrowseSjrExtractFile_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog { Filter = "SJR Archive Files|*.bin;*.mbm;*.tbb1|All Files|*.*" };
-            if (dlg.ShowDialog() == true) SjrDeepPath.Text = dlg.FileName;
+            if (dlg.ShowDialog() == true) SjrExtractPath.Text = dlg.FileName;
+        }
+
+        private void BrowseSjrRepackFile_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog { Filter = "SJR Archive Files|*.bin;*.mbm;*.tbb1|All Files|*.*" };
+            if (dlg.ShowDialog() == true) SjrRepackPath.Text = dlg.FileName;
         }
 
         private void DeepExtract_Click(object sender, RoutedEventArgs e)
         {
-            string path = SjrDeepPath.Text;
+            string path = SjrExtractPath.Text;
             if (string.IsNullOrWhiteSpace(path) || path.StartsWith("Select"))
             {
                 Main.LogToConsole("Trikintul: Please select a valid file.");
@@ -232,7 +238,7 @@ namespace NicheStudioWeirdo.Views
 
         private void DeepRepack_Click(object sender, RoutedEventArgs e)
         {
-            string path = SjrDeepPath.Text;
+            string path = SjrRepackPath.Text;
             if (string.IsNullOrWhiteSpace(path) || path.StartsWith("Select"))
             {
                 Main.LogToConsole("Trikintul: Please select a valid file.");

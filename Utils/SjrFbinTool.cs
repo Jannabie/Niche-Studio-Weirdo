@@ -170,6 +170,10 @@ namespace NicheStudioWeirdo.Utils
                     var offsets = new List<int>();
                     foreach (var file in blueprint.Files)
                     {
+                        // Add padding to align each file to a 16-byte boundary
+                        long paddingInner = (ms.Position % 16 == 0) ? 0 : 16 - (ms.Position % 16);
+                        for (int i = 0; i < paddingInner; i++) bw.Write((byte)0);
+
                         offsets.Add((int)ms.Position);
                         byte[] fData = File.ReadAllBytes(Path.Combine(folderPath, file));
                         bw.Write(fData);
