@@ -178,6 +178,9 @@ namespace NicheStudioWeirdo.Utils
                         byte[] fData = File.ReadAllBytes(Path.Combine(folderPath, file));
                         bw.Write(fData);
                     }
+                    int rawSize = (int)ms.Position;
+                    long paddingEnd = (rawSize % 16 == 0) ? 0 : 16 - (rawSize % 16);
+                    for (int i = 0; i < paddingEnd; i++) bw.Write((byte)0);
                     int totalSize = (int)ms.Position;
                     
                     ms.Position = offsetsTablePos;
